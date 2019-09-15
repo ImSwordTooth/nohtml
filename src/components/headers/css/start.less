@@ -1,0 +1,64 @@
+.start{
+  display: flex;
+  align-items: center;
+  &>div{
+    display: inline-flex;
+    align-items: center;
+  }
+  //设备选择
+  .device{
+    display: flex;
+    align-items: center;
+    & i{
+      margin-right: 5px;
+      &:nth-last-of-type(1){
+        margin-left: 5px;
+      }
+      &.active{
+        color: #1890ff;
+      }
+    }
+  }
+
+  //字体及字体大小
+  .fontsize{
+    margin-left: 5px;
+  }
+
+  .icongroup{
+    i{
+      border: solid 1px transparent;
+      margin: 0 2px;
+      border-radius: 5px;
+      padding: 2px;
+      box-sizing: border-box;
+      //&:last-of-type(1){
+      //  margin: 0;
+      //}
+      &:hover{
+        background-color: rgba(181, 227, 253, 0.3);
+        transition: background-color .3s;
+      }
+      &.active{
+        border: solid 1px #76abe2;
+        background-color: rgba(219, 245, 255, 0.52);
+        box-shadow: 1px 1px 3px 0 rgba(111, 172, 224, 0.38);
+      }
+    }
+  }
+
+  .color{
+    .colorpicker{
+      background-color: transparent!important;
+      & i{
+        margin:0 2px;
+        cursor: pointer;
+      }
+    }
+
+  }
+
+
+
+
+}
