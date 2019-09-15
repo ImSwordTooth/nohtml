@@ -38,8 +38,6 @@ class color extends React.Component{
                     </div>
                 </ColorPicker>
             </div>
-
-
         )
     }
 }
