@@ -1,23 +1,13 @@
 import React from 'react'
 
-import { Select , InputNumber } from 'antd';
+import { Select , InputNumber,Divider } from 'antd';
 const { Option } = Select;
 
 function onChange(value) {
     console.log(`selected ${value}`);
 }
 
-function onBlur() {
-    console.log('blur');
-}
 
-function onFocus() {
-    console.log('focus');
-}
-
-function onSearch(val) {
-    console.log('search:', val);
-}
 
 //字体及字体大小
 class font extends React.Component{
@@ -30,10 +20,15 @@ class font extends React.Component{
                     style={{ width: 120 }}
                     placeholder="选择字体"
                     optionFilterProp="children"
-                    onChange={onChange}
-                    onFocus={onFocus}
-                    onBlur={onBlur}
-                    onSearch={onSearch}
+                    dropdownRender={menu => (
+                        <div>
+                            {menu}
+                            <Divider style={{ margin: '4px 0' }} />
+                            <div style={{ padding: '8px', cursor: 'pointer' }}>
+                                Add item
+                            </div>
+                        </div>
+                    )}
                     filterOption={(input, option) =>
                         option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                     }

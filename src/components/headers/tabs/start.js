@@ -16,9 +16,9 @@ class start extends React.Component{
                 <Device/>
                 <Divider type={'vertical'}/>
                 <MyFont/>
-                <Divider type={'vitical'}/>
+                <Divider type={'vertical'}/>
                 <FontStyle/>
-                <Divider type={'vitical'}/>
+                <Divider type={'vertical'}/>
                 <Color/>
             </div>
         )

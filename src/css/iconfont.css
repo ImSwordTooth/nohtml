@@ -1,11 +1,11 @@
 @font-face {
     font-family: 'iconfont';  /* project id 1380631 */
-    src: url('//at.alicdn.com/t/font_1380631_ecb6od9gzw.eot');
-    src: url('//at.alicdn.com/t/font_1380631_ecb6od9gzw.eot?#iefix') format('embedded-opentype'),
-    url('//at.alicdn.com/t/font_1380631_ecb6od9gzw.woff2') format('woff2'),
-    url('//at.alicdn.com/t/font_1380631_ecb6od9gzw.woff') format('woff'),
-    url('//at.alicdn.com/t/font_1380631_ecb6od9gzw.ttf') format('truetype'),
-    url('//at.alicdn.com/t/font_1380631_ecb6od9gzw.svg#iconfont') format('svg');
+    src: url('//at.alicdn.com/t/font_1380631_8e3r63jbxl3.eot');
+    src: url('//at.alicdn.com/t/font_1380631_8e3r63jbxl3.eot?#iefix') format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_1380631_8e3r63jbxl3.woff2') format('woff2'),
+    url('//at.alicdn.com/t/font_1380631_8e3r63jbxl3.woff') format('woff'),
+    url('//at.alicdn.com/t/font_1380631_8e3r63jbxl3.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_1380631_8e3r63jbxl3.svg#iconfont') format('svg');
 }
 .iconfont{
     font-family:"iconfont" !important;
@@ -16,16 +16,51 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+/*电脑/手机端*/
 .iconpc:before{content: '\e641'}
 .iconphone:before{content: '\e614'}
 
-.icondiv:before{content:'\e86f'}
-
+/*字形*/
 .iconbold:before{content:'\e617'}
 .iconlighter:before{content:'\e606'}
 .iconitalic:before{content:'\e73d'}
 .iconunderline:before{content:'\e605'}
 .iconsub:before{content:'\e642'}
 .iconsup:before{content:'\e63f'}
+
+/*颜色*/
 .iconcolor:before{content: '\e64c'}
 .iconbackgroundcolor:before{content:'\e640'}
+
+/*标签*/
+.icondiv:before{content:'\e72a'}
+.iconimg:before{content:'\e60d'}
+.icontext:before{content:'\e883'}
+.iconlist:before{content:'\e659'}
+.icontable:before{content:'\e607'}
+.iconcanvas:before{content: '\e668'}
+.iconfavorite:before{content:'\e647'}
+.iconp:before{content:'\e64e'}
+.iconpre:before{content:'\e61f'}
+.icona:before{content:'\e6d1'}
+.iconcode:before{content: '\e6df'}
+.iconspan:before{content: '\e601'}
+
+.icondownarrow:before{content:'\e6b4'}
+.iconrightarrow:before{content:'\e602'}
+
+.iconzip:before{content: '\e6de'}
+.iconnetworkimg:before{content: '\e65d'}
+.iconuploadimg:before{content:'\e753'}
+
+/*右键菜单*/
+.iconnew:before{content:'\e615'}
+.iconinsert:before{content:'\e65a'}
+.iconcopy:before{content:'\e6b1'}
+.iconpaste:before{content:'\e69c'}
+.iconcut:before{content:'\e65e'}
+.iconaddfavorite:before{content:'\e669'}
+.iconrename:before{content: '\e666'}
+
+.iconcurrent:before{content: '\e621'}
+
