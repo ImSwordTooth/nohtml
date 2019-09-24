@@ -5,7 +5,7 @@ import defaultState from './state'
 
 function tagList(state = defaultState.tagList,action) {
     switch (action.type) {
-        case 'ADD_TAG':
+        case 'add_tag':
             let arr = Object.assign([],state);
            arr.push(action.dom)
             return arr;
@@ -14,14 +14,14 @@ function tagList(state = defaultState.tagList,action) {
 
 }
 
-function pageTitle(state = defaultState.pageTitle,action) {
+function selectedTag(state = defaultState.selectedTag,action) {
     switch (action.type) {
-        case 'SET_PAGETITLE':return action.data;
+        case 'change_currenttag':return action.id;
         default:return state
     }
 }
 
 export default combineReducers({
     tagList,
-    pageTitle
+    selectedTag
 });

@@ -1,7 +1,10 @@
 import store from './index'
 
+//添加元素
 export function addTag(dom) {
-    store.dispatch({type:'ADD_TAG',dom})
+
+    let length = store.getState().tagList.length;
+    store.dispatch({type:'add_tag',dom,})
     console.log(store.getState())
 }
 
@@ -10,6 +13,11 @@ export function updateTag(dom) {
         type:'updateTag',
         dom
     }
+}
+
+//更新当前选中元素
+export function changeCurrentTagId(id) {
+    store.dispatch({type:'change_currenttag',id});
 }
 
 export function setPageTitle(data) {

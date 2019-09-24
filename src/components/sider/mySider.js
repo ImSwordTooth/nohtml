@@ -2,14 +2,9 @@ import React from 'react'
 import store from '../../store'
 import { Tree,Menu } from 'antd';
 import './mySider.less'
-import {addTag} from "../../store/action";
+import {addTag,changeCurrentTagId} from "../../store/action";
 
 const { TreeNode } = Tree;
-
-
-
-
-
 
 class mySider extends React.Component{
 
@@ -24,14 +19,13 @@ class mySider extends React.Component{
                 categoryName: '',
             },
         });
-        console.log(this.state)
         store.subscribe(this.listener)
     }
 
     listener = () => {
         let newState = store.getState();
         this.setState(newState);
-    }
+    };
 
     formatTag = (name,pid,type)=>{
         return {
@@ -45,11 +39,11 @@ class mySider extends React.Component{
                 }]
             }
         }
-    }
+    };
 
     // tree列表上右键事件
     treeNodeonRightClick = e => {
-        console.log(e)
+        changeCurrentTagId(e.node.props.eventKey);
         this.setState({
             display: 'block',
             rightClickNodeTreeItem: {
@@ -59,7 +53,6 @@ class mySider extends React.Component{
                 categoryName: 'aaa',
             },
         });
-        // console.log("id::",e.node.props["title"])
     };
 
     // 点击取消隐藏
@@ -67,15 +60,19 @@ class mySider extends React.Component{
         this.setState({
             display: 'none',
         });
-        console.log(this.state);
+    };
+
+    createNodes = (val) => {
+        let son = null;
+        if (val.children){
+            son = [...val.children.map(val => this.createNodes(val))];
+        }
+        return <TreeNode icon={<i className={`iconfont icon${val.type}`}/>} title={val.dataName} key={val.key}>{son}</TreeNode>
     };
 
     // 自定义右键菜单内容
     getNodeTreeRightClickMenu = () => {
-        // alert(33)
-        const { pageX, pageY, id } = { ...this.state.rightClickNodeTreeItem };
-        // console.log("右键菜单id:",id);
-
+        const { pageX, pageY } = { ...this.state.rightClickNodeTreeItem };
         const wp_style = {
             display: this.state.display
         };
@@ -92,7 +89,7 @@ class mySider extends React.Component{
                         <p>新建</p>
                         <i className={'iconfont iconrightarrow'}/>
                         <ul className={'contextMenu next'}>
-                            <li onClick={()=>{addTag(this.formatTag('新建div','0','div'))}}>
+                            <li onClick={()=>{addTag(this.formatTag('新建div',this.state.selectedTag,'div'))}}>
                                 <i className={'iconfont icondiv'}/>
                                 <p>div</p>
                             </li>
@@ -193,17 +190,11 @@ class mySider extends React.Component{
     };
 
     render() {
-
-        const treeList = this.state.tagList.map((item,index)=>{
-            return <TreeNode icon={<i className={`iconfont icon${item.type}`}/>} title={item.props.dataName} key={index} />
-        });
-
         return(
             <div style={{position:'relative'}}>
-                <Tree showIcon defaultExpandAll onSelect={this.onSelect} onRightClick={(e)=>this.treeNodeonRightClick(e)}>
-
+                <Tree showIcon defaultExpandAll onSelect={(e)=>changeCurrentTagId(''+e)} onRightClick={(e)=>this.treeNodeonRightClick(e)}>
                     <TreeNode icon={<i className={'iconfont icondiv'}/>} title='总容器' key="0">
-                        {treeList}
+                        {this.state.tagList.children.map(val=>this.createNodes(val))}
                     </TreeNode>
                 </Tree>
                 {this.getNodeTreeRightClickMenu()}

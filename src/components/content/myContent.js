@@ -26,7 +26,7 @@ class myContent extends React.Component{
 
     handleJson = (val, pid) => {
         if (val.pid === pid) {
-            const children = this.state.tagList.map(val2 => this.handleJson(val2, val.id)).filter(x => x)
+            const children = this.state.tagList.children.map(val2 => this.handleJson(val2, val.id)).filter(x => x)
             if (children.length) val.children = children
             return val
         }
@@ -42,7 +42,7 @@ class myContent extends React.Component{
 
     render() {
 
-        const content = this.state.tagList.map(val => this.handleJson(val, 0)).filter(x => x)
+        const content = this.state.tagList.children.map(val => this.handleJson(val, 0)).filter(x => x)
         return (
             <div className={'container_wp'}>
                 <div className={'container'}>
