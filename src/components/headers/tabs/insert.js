@@ -1,10 +1,11 @@
 import React from 'react'
 
 import {addTag} from "../../../store/action";
-import { Menu, Dropdown,Modal } from 'antd';
+import { Menu, Dropdown,Modal,Input,Button,message,Divider } from 'antd';
 import store from '../../../store/index'
 
 import '../css/insert.less'
+const {TextArea} = Input;
 
 
 
@@ -16,7 +17,10 @@ class insert extends React.Component{
         super(props);
         // this.state = store.getState();
         this.state = Object.assign({},store.getState(),{
-            showTableModal:false
+            showTableModal:false,
+            showImageModal:false,
+            imageModalTitle:'',
+            tableThs:['表头1','表头2','表头3']
         })
 
     }
@@ -35,14 +39,127 @@ class insert extends React.Component{
                 }]
             }
         }
-    }
+    };
 
     modals = (modal,status)=>{
         this.setState({
             [modal]:status
         })
+    };
+
+    //修改表头内容
+    changeTableThsValue = (e)=>{
+        let index = parseInt(e.target.id.split('-')[1]);
+        let arr = this.state.tableThs;
+        arr[index] = e.target.value;
+        this.setState({
+            tableThs:arr
+        })
+    };
+
+    //添加表头
+    addTableThs = ()=>{
+        let size = this.state.tableThs.length;
+        if (size>=10){
+            message.warn('最多10个表头')
+        }else {
+            this.setState({
+                tableThs:this.state.tableThs.concat(`表头${size+1}`)
+            })
+        }
+    };
+
+    //删除表头
+    deleteTableThs = (index)=>{
+        let arr = [...this.state.tableThs];
+        arr.splice(index,1);
+        this.setState({
+            tableThs:arr
+        })
+    };
+
+    //获取表头，复用到下面的预设中
+    getTableThs = ()=>{
+        return this.state.tableThs.map((item,key)=>{
+            return (
+                <div className={'input_wp'} key={key}>
+                    <Input value={item} id={`th-${key}`} onChange={this.changeTableThsValue}/>
+                    <span onClick={()=>this.deleteTableThs(key)}><i className={'iconfont icondelete'}/></span>
+                </div>
+            )
+        })
+    };
+
+    //创建一个个列表，用于预设样式中的展示
+    getTablePreviews = (border)=>{
+        return (
+            <table border={border}>
+                <tbody>
+                    <tr>
+                        {this.state.tableThs.map((item,index)=><th key={index}>{item}</th>)}
+                    </tr>
+                    <tr>
+                        {this.state.tableThs.map((item,index)=><td key={index}>{`数据${index+1}`}</td>)}
+                    </tr>
+                    <tr>
+                        {this.state.tableThs.map((item,index)=><td key={index}>{`数据${index+this.state.tableThs.length+1}`}</td>)}
+                    </tr>
+                </tbody>
+            </table>
+        )
+    };
+
+    clickUpload = ()=>{
+        document.getElementById('uploadLocalImg').click();
+    };
+
+    handleUploadImage = ()=>{
+        let file = document.getElementById('uploadLocalImg').files[0];
+        if (!file || !window.FileReader) { // 看支持不支持FileReader
+            message.warn('您的浏览器不支持FileReader本地上传');
+            return
+        }
+        if (/^image/.test(file.type)) {
+            let reader = new FileReader(); // 创建一个reader
+            reader.readAsDataURL(file); // 将图片将转成 base64 格式
+            reader.onloadend = function () { // 读取成功后的回调
+                message.success('上传成功');
+                console.log(this.result)
+            }
+        }
+    };
+
+    openImageModal = (title)=>{
+        this.setState({
+            showImageModal:true,
+            imageModalTitle:title,
+        })
     }
 
+    getImageModal = (type)=>{
+        if (type === '网络图片') {
+            return (
+                <div className={'modal_item'}>
+                    <span>图片地址</span>
+                    <div>
+                        <Input style={{width:500}}/>
+                    </div>
+                </div>
+            )
+
+        }else if (type === 'base64编码') {
+            return (
+                <div className={'modal_item'}>
+                    <span>base64编码</span>
+                    <div>
+                        <TextArea autosize={{ minRows: 5}} style={{width:500}}/>
+                    </div>
+                </div>
+            )
+        }
+
+
+    }
 
     render() {
 
@@ -69,16 +186,17 @@ class insert extends React.Component{
 
         const imgMenu = (
             <div className={'tag_wp popover'}>
-                <div className={'tag'}>
+                <div className={'tag'} onClick={()=>this.openImageModal('网络图片')}>
                     <i className={'iconfont iconnetworkimg'}/>
                     <p className={'tagName'}>网图</p>
                 </div>
-                <div className={'tag'}>
+                <div className={'tag'} onClick={()=>this.openImageModal('base64编码')}>
                     <i className={'iconfont iconzip'}/>
                     <p className={'tagName'}>base64</p>
                 </div>
             </div>
-        )
+        );
+
 
 
         return (
@@ -88,6 +206,12 @@ class insert extends React.Component{
                 <div className={'tag'} onClick={()=>{addTag(this.formatTag('新建div',0,'div'))}}>
                     <i className={'iconfont icondiv'}/>
                     <p className={'tagName'}>div</p>
+                </div>
+                <div className={'tag'}>
+                    <div onClick={()=>{addTag(this.formatTag('新建button',0,'button'))}}>
+                        <i className={'iconfont iconbutton'}/>
+                        <p className={'tagName'}>按钮</p>
+                    </div>
                 </div>
                 <div className={'tag'}>
                     <div onClick={()=>{addTag(this.formatTag('新建span',0,'span'))}}>
@@ -101,10 +225,11 @@ class insert extends React.Component{
                     </Dropdown>
                 </div>
                 <div className={'tag'}>
-                    <div onClick={()=>{addTag(this.formatTag('新建img',0,'img'))}}>
+                    <div onClick={()=>this.clickUpload()}>
                         <i className={'iconfont iconimg'}/>
                         <p className={'tagName'}>图片</p>
                     </div>
+                    <input type="file" hidden onChange={()=>this.handleUploadImage()} id={'uploadLocalImg'} accept="image/*"/>
                     <Dropdown overlay={imgMenu} placement="bottomLeft" trigger={['click']}>
                         <div className={'arrow'}>
                             <i className={'iconfont icondownarrow'}/>
@@ -114,9 +239,6 @@ class insert extends React.Component{
                 <div className={'tag'} onClick={()=>this.modals('showTableModal',true)}>
                     <i className={'iconfont icontable'}/>
                     <p className={'tagName'}>表格</p>
-                    {/*<div className={'arrow'}>*/}
-                        {/*<i className={'iconfont icondownarrow'}/>*/}
-                    {/*</div>*/}
                 </div>
                 <div className={'tag'}>
                     <i className={'iconfont iconlist'}/>
@@ -132,7 +254,7 @@ class insert extends React.Component{
                         <i className={'iconfont icondownarrow'}/>
                     </div>
                 </div>
-                <div className={'tag'}>
+                <div className={'tag line'}>
                     <i className={'iconfont iconfavorite'}/>
                     <p className={'tagName'}>收藏</p>
                     <div className={'arrow'}>
@@ -140,26 +262,51 @@ class insert extends React.Component{
                     </div>
                 </div>
 
+                <div className={'tag'}>
+                    <i className={'iconfont iconcanvas'}/>
+                    <p className={'tagName'}>画布</p>
+                    <div className={'arrow'}>
+                        <i className={'iconfont icondownarrow'}/>
+                    </div>
+                </div>
+
+                <Divider type={'vertical'}/>
+
             </div>
-                <Modal  title='插入表格' width={1000}
+                <Modal title='插入表格' width={1000}
+                       className={'tableModal modals'}
                         visible={this.state.showTableModal}
                         onOk={this.handleOk}
                         onCancel={()=>this.modals('showTableModal',false)}>
                         <div>
-                            <div>
+                            <div className={'modal_item'}>
                                 <span>表头</span>
-                                <div>
-
+                                <div className={'ths'}>
+                                    {this.getTableThs()}
+                                    <Button type="primary" ghost onClick={()=>this.addTableThs()}>添加</Button>
                                 </div>
                             </div>
-                            <div>
+                            <div className={'modal_item'}>
                                 <span>预设样式</span>
                                 <div>
-
+                                    <ul className={'previewList'}>
+                                        <li className={'standard'}>{this.getTablePreviews()}</li>
+                                        <li className={'business'}>{this.getTablePreviews()}</li>
+                                        <li className={'line'}>{this.getTablePreviews('1')}</li>
+                                    </ul>
                                 </div>
                             </div>
-
                         </div>
+                </Modal>
+                <Modal title={this.state.imageModalTitle} width={800}
+                       className={'imageModal modals'}
+                       visible={this.state.showImageModal}
+                       onOk={this.handleOk}
+                       onCancel={()=>this.modals('showImageModal',false)}>
+                    <div>
+                        {this.getImageModal(this.state.imageModalTitle)}
+
+                    </div>
                 </Modal>
             </div>
         )

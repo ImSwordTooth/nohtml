@@ -1,6 +1,5 @@
 import React from 'react'
 
-import Device from '../../common/device'
 import MyFont from '../../common/font'
 import FontStyle from '../../common/fontStyle'
 import Color from '../../common/color'
@@ -13,8 +12,6 @@ class start extends React.Component{
     render() {
         return (
             <div className='start'>
-                <Device/>
-                <Divider type={'vertical'}/>
                 <MyFont/>
                 <Divider type={'vertical'}/>
                 <FontStyle/>

@@ -16,7 +16,7 @@ function tagList(state = defaultState.tagList,action) {
 
 function selectedTag(state = defaultState.selectedTag,action) {
     switch (action.type) {
-        case 'change_currenttag':return action.id;
+        case 'change_currenttag':return action.key;
         default:return state
     }
 }

@@ -3,6 +3,7 @@ import React from 'react'
 import Start from './tabs/start'
 import Insert from './tabs/insert'
 import Layout from './tabs/layout'
+import Viewport from './tabs/viewport'
 
 import { Tabs ,Button } from 'antd'
 const { TabPane } = Tabs;
@@ -23,10 +24,13 @@ class myHeader extends React.Component{
                     <TabPane tab="布局" key="3">
                         <Layout/>
                     </TabPane>
-                    <TabPane tab="表单" key="4">
-                        Content of Tab Pane 4
+                    <TabPane tab="动画" key="4">
+
                     </TabPane>
-                    <TabPane tab="设计" key="5">
+                    <TabPane tab="视图" key="5">
+                        <Viewport/>
+                    </TabPane>
+                    <TabPane tab="设计" key="6">
                         Content of Tab Pane 5
                     </TabPane>
                 </Tabs>

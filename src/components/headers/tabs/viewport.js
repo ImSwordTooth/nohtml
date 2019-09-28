@@ -1,8 +1,8 @@
 import React from 'react'
-import { Switch, Icon } from 'antd';
+import {Icon, Switch} from "antd";
 
-//设备选择
-class device extends React.Component{
+import '../css/viewport.less'
+class Viewport extends React.Component{
 
     constructor(props){
         super(props);
@@ -28,7 +28,7 @@ class device extends React.Component{
             <div className='device'>
                 <i className={`iconfont iconpc ${this.state.isChecked ? 'active':''}`}/>
                 <Switch  checkedChildren={<Icon type="check" />}
-                         unCheckedChildren={<Icon type="close" />}
+                         unCheckedChildren={<Icon type="check" />}
                          defaultChecked
                          onChange={this.changeDevice}
                 />
@@ -36,7 +36,6 @@ class device extends React.Component{
             </div>
         )
     }
-
 }
 
-export default device
+export default Viewport

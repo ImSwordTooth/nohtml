@@ -16,8 +16,9 @@ export function updateTag(dom) {
 }
 
 //更新当前选中元素
-export function changeCurrentTagId(id) {
-    store.dispatch({type:'change_currenttag',id});
+export function changeCurrentTagId(key) {
+    console.log(key)
+    store.dispatch({type:'change_currenttag',key});
 }
 
 export function setPageTitle(data) {

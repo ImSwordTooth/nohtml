@@ -1,0 +1,23 @@
+//设备选择
+.device{
+  display: flex;
+  align-items: center;
+  & .ant-switch{
+    background-color: #3abd3a;
+  }
+  & .ant-switch.ant-switch-checked{
+    background-color: #1890ff;
+  }
+  & i{
+    margin-right: 5px;
+    &:nth-last-of-type(1){
+      margin-left: 5px;
+    }
+    &.active{
+      color: #1890ff;
+    }
+    &:nth-last-of-type(1).active{
+      color: #3abd3a;
+    }
+  }
+}

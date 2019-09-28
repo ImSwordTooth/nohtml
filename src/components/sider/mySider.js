@@ -69,7 +69,6 @@ class mySider extends React.Component{
         }
         return <TreeNode icon={<i className={`iconfont icon${val.type}`}/>} title={val.dataName} key={val.key}>{son}</TreeNode>
     };
-
     // 自定义右键菜单内容
     getNodeTreeRightClickMenu = () => {
         const { pageX, pageY } = { ...this.state.rightClickNodeTreeItem };
