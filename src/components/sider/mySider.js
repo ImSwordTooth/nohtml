@@ -1,6 +1,6 @@
 import React from 'react'
 import store from '../../store'
-import { Tree,Menu } from 'antd';
+import { Tree,Menu,Popover } from 'antd';
 import './mySider.less'
 import {addTag,changeCurrentTagId} from "../../store/action";
 
@@ -19,7 +19,7 @@ class mySider extends React.Component{
                 categoryName: '',
             },
         });
-        store.subscribe(this.listener)
+        store.subscribe(this.listener);
     }
 
     listener = () => {
@@ -27,17 +27,19 @@ class mySider extends React.Component{
         this.setState(newState);
     };
 
-    formatTag = (name,pid,type)=>{
+    formatTag = (type,name)=>{
+        let selectTag = this.state.selectedTag;
+
         return {
             type:type,
-            pid:pid,
+            pid:selectTag.key,
+            key:selectTag.willCreateKey,
+            dataName:name,
             props:{
-                dataName:name,
-                children:[{
-                    type:'p',
-                    props:'静态文本'
-                }]
-            }
+
+            },
+
+            children:[]
         }
     };
 
@@ -69,6 +71,14 @@ class mySider extends React.Component{
         }
         return <TreeNode icon={<i className={`iconfont icon${val.type}`}/>} title={val.dataName} key={val.key}>{son}</TreeNode>
     };
+     content = ()=>{
+         return (
+             <div>
+                 <p>Content</p>
+                 <p>Content</p>
+             </div>
+         );
+     }
     // 自定义右键菜单内容
     getNodeTreeRightClickMenu = () => {
         const { pageX, pageY } = { ...this.state.rightClickNodeTreeItem };
@@ -88,7 +98,7 @@ class mySider extends React.Component{
                         <p>新建</p>
                         <i className={'iconfont iconrightarrow'}/>
                         <ul className={'contextMenu next'}>
-                            <li onClick={()=>{addTag(this.formatTag('新建div',this.state.selectedTag,'div'))}}>
+                            <li onClick={()=>{addTag(this.formatTag('div','新建div'))}}>
                                 <i className={'iconfont icondiv'}/>
                                 <p>div</p>
                             </li>
@@ -97,23 +107,23 @@ class mySider extends React.Component{
                                 <p>文本</p>
                                 <i className={'iconfont iconrightarrow'}/>
                                 <ul className={'contextMenu next'}>
-                                    <li>
+                                    <li onClick={()=>{addTag(this.formatTag('span','新建span'))}}>
                                         <i className={'iconfont iconspan'}/>
                                         <p>span</p>
                                     </li>
-                                    <li>
+                                    <li onClick={()=>{addTag(this.formatTag('p','新建p'))}}>
                                         <i className={'iconfont iconp'}/>
                                         <p>p</p>
                                     </li>
-                                    <li>
+                                    <li onClick={()=>{addTag(this.formatTag('a','新建a'))}}>
                                         <i className={'iconfont icona'}/>
                                         <p>a</p>
                                     </li>
-                                    <li>
+                                    <li onClick={()=>{addTag(this.formatTag('pre','新建pre'))}}>
                                         <i className={'iconfont iconpre'}/>
                                         <p>pre</p>
                                     </li>
-                                    <li>
+                                    <li onClick={()=>{addTag(this.formatTag('code','新建code'))}}>
                                         <i className={'iconfont iconcode'}/>
                                         <p>code</p>
                                     </li>
@@ -179,8 +189,11 @@ class mySider extends React.Component{
                         <p>收藏</p>
                     </li>
                     <li>
-                        <i className={'iconfont iconrename'}/>
-                        <p>重命名</p>
+                        <Popover content={this.content} title="Title">
+                            <i className={'iconfont iconrename'}/>
+                            <p>重命名</p>
+                        </Popover>,
+
                     </li>
                 </ul>
             </div>
@@ -197,6 +210,7 @@ class mySider extends React.Component{
                     </TreeNode>
                 </Tree>
                 {this.getNodeTreeRightClickMenu()}
+
             </div>
         )
     }

@@ -8,41 +8,25 @@ class myContent extends React.Component{
     constructor(props){
         super(props);
         this.state = store.getState();
-
         store.subscribe(this.listener)
     }
 
     listener = () => {
         let newState = store.getState();
         this.setState(newState);
-    }
-
-    // const
-    //
-    // content = ()=>{
-    //
-    //     this.state.tagList;
-    // }
-
-    handleJson = (val, pid) => {
-        if (val.pid === pid) {
-            const children = this.state.tagList.children.map(val2 => this.handleJson(val2, val.id)).filter(x => x)
-            if (children.length) val.children = children
-            return val
-        }
-    }
+    };
 
     createNodes = ({id, pid, children, type}) => {
         return React.createElement(
             type || 'div',
             {key: id},
-            children ? ['zzz',...children.map(val => this.createNodes(val))] : 'sss'
+            children ? ['内容',...children.map(val => this.createNodes(val))] : '内容'
         )
-    }
+    };
 
     render() {
 
-        const content = this.state.tagList.children.map(val => this.handleJson(val, 0)).filter(x => x)
+        const content = this.state.tagList.children;
         return (
             <div className={'container_wp'}>
                 <div className={'container'}>

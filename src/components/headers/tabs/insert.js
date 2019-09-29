@@ -197,6 +197,19 @@ class insert extends React.Component{
             </div>
         );
 
+        const inputMenu = (
+            <Menu>
+                <Menu.Item className={'menuItem'}>
+                    <i className={'iconfont iconpassword'}/>
+                    <span>密码文本框</span>
+                </Menu.Item>
+                <Menu.Item className={'menuItem'}>
+                    <i className={'iconfont iconnumber'}/>
+                    <span>数字文本框</span>
+                </Menu.Item>
+            </Menu>
+        );
+
 
 
         return (
@@ -263,11 +276,21 @@ class insert extends React.Component{
                 </div>
 
                 <div className={'tag'}>
-                    <i className={'iconfont iconcanvas'}/>
-                    <p className={'tagName'}>画布</p>
-                    <div className={'arrow'}>
-                        <i className={'iconfont icondownarrow'}/>
-                    </div>
+                    <i className={'iconfont iconinput'}/>
+                    <p className={'tagName'}>文本框</p>
+                    <Dropdown overlay={inputMenu} placement="bottomLeft" trigger={['click']}>
+                        <div className={'arrow'}>
+                            <i className={'iconfont icondownarrow'}/>
+                        </div>
+                    </Dropdown>
+                </div>
+                <div className={'tag'}>
+                    <i className={'iconfont iconcheckbox'}/>
+                    <p className={'tagName'}>复选框</p>
+                </div>
+                <div className={'tag'}>
+                    <i className={'iconfont iconradio'}/>
+                    <p className={'tagName'}>单选框</p>
                 </div>
 
                 <Divider type={'vertical'}/>

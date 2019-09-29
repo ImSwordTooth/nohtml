@@ -4,7 +4,6 @@ export default {
         type:'div',
         pid:null,
         key:'0',
-        nextKey:undefined,
         dataName:'总',
         props:{
 
@@ -12,11 +11,10 @@ export default {
 
         children:[
             {
-                type:'img',
+                type:'div',
                 pid:'0',
                 key:'0-0',
-                nextKey:'0-2',
-                dataName:'新建图片1',
+                dataName:'新建div',
                 props:{
 
                 },
@@ -25,20 +23,20 @@ export default {
                         type:'p',
                         pid:'0-0',
                         key:'0-0-0',
-                        nextKey:undefined,
-                        dataName:'新建段落1',
+                        dataName:'新建p',
+
                         props:{
 
-                        }
+                        },
+                        children:[]
                     }
                 ]
             },
             {
-                type:'img',
+                type:'div',
                 pid:'0',
                 key:'0-2',
-                nextKey:'0-1',
-                dataName:'新建图片3',
+                dataName:'新建div',
                 props:{
 
                 },
@@ -47,7 +45,6 @@ export default {
                         type:'p',
                         pid:'0-2',
                         key:'0-2-0',
-                        nextKey:undefined,
                         dataName:'新建段落2',
                         props:{
 
@@ -56,14 +53,14 @@ export default {
                 ]
             },
             {
-                type:'img',
+                type:'div',
                 pid:'0',
                 key:'0-1',
-                nextKey:undefined,
-                dataName:'新建图片2',
+                dataName:'新建div',
                 props:{
 
-                }
+                },
+                children:[]
             }
         ]
     },
