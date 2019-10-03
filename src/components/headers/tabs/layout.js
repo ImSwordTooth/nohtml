@@ -4,17 +4,13 @@ import '../css/layout.less'
 import { Select,Checkbox,Divider,Tag,Popover,Slider,InputNumber  } from 'antd';
 const { Option } = Select;
 
-
-
-
-
 class myLayout extends React.Component{
 
     constructor(props){
         super(props);
         this.state = ({
-            currentDirection:'',
-            top:{
+            currentDirection:'',        //当前正在编辑的方向：top、bottom、left、right
+            top:{                       //三个值分别为百分比、px值、单位，下同      //TODO 后续考虑加入更多单位
                 percent:0,
                 px:0,
                 unit:'%'
@@ -37,11 +33,14 @@ class myLayout extends React.Component{
         })
     }
 
+    //修改当前正在编辑的方向
     changeCurrentDirection = (direction)=>{
         this.setState({
             currentDirection:direction
         })
-    }
+    };
+
+    //修改单位
     changeUnit = (e)=>{
         let direction = this.state.currentDirection;
         let data = Object.assign({}, this.state[direction], {unit: e});
@@ -49,6 +48,8 @@ class myLayout extends React.Component{
             [direction]:data
         })
     };
+
+    //修改百分比
     changePercent = (e)=>{
         let direction = this.state.currentDirection;
         let data = Object.assign({}, this.state[direction], {percent: e});
@@ -58,6 +59,7 @@ class myLayout extends React.Component{
 
     };
 
+    //修改px值
     changePx = (e)=>{
         let direction = this.state.currentDirection;
         let data = Object.assign({}, this.state[direction], {px: e});
@@ -66,11 +68,12 @@ class myLayout extends React.Component{
         })
     };
 
+    //判断当前单位，一样，就在前面加个对勾
     isCurrent = (direction,unit)=>{
         return this.state[direction].unit === unit ? <i className={'iconfont iconcurrent'}/> : null;
-
     };
 
+    //弹出框的头部，用来选择单位
     titleSetting = (direction)=>{
         return (
             <div>
@@ -83,6 +86,7 @@ class myLayout extends React.Component{
         )
     };
 
+    //百分比和px的设置
     setting = (direction)=>(
         <div className={'postionValue_wp'}>
             <div>

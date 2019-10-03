@@ -1,8 +1,8 @@
 import React from 'react'
 import store from '../../store'
-import { Tree,Menu,Popover } from 'antd';
+import { Tree,Popover,Input } from 'antd';
 import './mySider.less'
-import {addTag,changeCurrentTagId} from "../../store/action";
+import {addTag,changeCurrentTag,updateTag} from "../../store/action";
 
 const { TreeNode } = Tree;
 
@@ -11,13 +11,12 @@ class mySider extends React.Component{
     constructor(props){
         super(props);
         this.state = Object.assign({},store.getState(),{
-            display:'none',
-            rightClickNodeTreeItem: {
+            display:'none',         //右键菜单的display属性，none隐藏，block显示
+            rightClickNodeTreeItem: {         //右键菜单位置
                 pageX: '',
-                pageY: '',
-                id: '',
-                categoryName: '',
+                pageY: ''
             },
+            reNameVisible:false,        //重命名气泡菜单
         });
         store.subscribe(this.listener);
     }
@@ -27,9 +26,15 @@ class mySider extends React.Component{
         this.setState(newState);
     };
 
+    //禁止冒泡和默认事件
+    stopDefault = (e)=>{
+        e.cancelBubble=true;
+        e.stopPropagation();
+    };
+
+    // 新建标签格式化
     formatTag = (type,name)=>{
         let selectTag = this.state.selectedTag;
-
         return {
             type:type,
             pid:selectTag.key,
@@ -38,21 +43,18 @@ class mySider extends React.Component{
             props:{
 
             },
-
             children:[]
         }
     };
 
     // tree列表上右键事件
     treeNodeonRightClick = e => {
-        changeCurrentTagId(e.node.props.eventKey);
+        changeCurrentTag(e.node.props.eventKey);
         this.setState({
             display: 'block',
             rightClickNodeTreeItem: {
                 pageX: e.event.pageX,
-                pageY: e.event.pageY,
-                id: 's',
-                categoryName: 'aaa',
+                pageY: e.event.pageY
             },
         });
     };
@@ -64,6 +66,7 @@ class mySider extends React.Component{
         });
     };
 
+    //根据json字符串动态生成树节点
     createNodes = (val) => {
         let son = null;
         if (val.children){
@@ -71,14 +74,40 @@ class mySider extends React.Component{
         }
         return <TreeNode icon={<i className={`iconfont icon${val.type}`}/>} title={val.dataName} key={val.key}>{son}</TreeNode>
     };
-     content = ()=>{
+
+
+    handleVisibleChange = reNameVisible => {
+        this.setState({ reNameVisible });
+    };
+
+    //重命名
+    reName = (e)=>{
+        updateTag({
+            prop:'dataName',
+            value:e.target.value
+        })
+    };
+
+    reNameTitle = ()=>{
+        let selectTag = this.state.selectedTag.dataName;
+        return (
+            <div className={'reNameTitle'}>
+                <span className={'title'}>{selectTag}</span>
+                <span className={'cancel'} onClick={()=>{this.setState({reNameVisible:false})}}>取消</span>
+            </div>
+        )
+    };
+
+    //重命名弹出框内容
+     reNameContent = ()=>{
+         let selectTag = this.state.selectedTag;
          return (
              <div>
-                 <p>Content</p>
-                 <p>Content</p>
+                 <Input value={selectTag.dataName} onChange={this.reName} onClick={(e)=>this.stopDefault(e)}/>
              </div>
          );
-     }
+     };
+
     // 自定义右键菜单内容
     getNodeTreeRightClickMenu = () => {
         const { pageX, pageY } = { ...this.state.rightClickNodeTreeItem };
@@ -140,7 +169,7 @@ class mySider extends React.Component{
                                     </li>
                                     <li>
                                         <i className={'iconfont iconnetworkimg'}/>
-                                        <p>网图</p>
+                                        <p>网络图片</p>
                                     </li>
                                     <li>
                                         <i className={'iconfont iconzip'}/>
@@ -188,10 +217,17 @@ class mySider extends React.Component{
                         <i className={'iconfont iconaddfavorite'}/>
                         <p>收藏</p>
                     </li>
-                    <li>
-                        <Popover content={this.content} title="Title">
-                            <i className={'iconfont iconrename'}/>
-                            <p>重命名</p>
+                    <li onClick={(e)=>this.stopDefault(e)}>
+                        <Popover title={this.reNameTitle()} content={this.reNameContent()}
+                                 visible={this.state.reNameVisible}
+                                 trigger={'click'}
+                                 placement="rightTop"
+                                 onVisibleChange={this.handleVisibleChange}
+                                 onClick={(e)=>this.stopDefault(e)}>
+                            <div className={'reName_wp'}>
+                                <i className={'iconfont iconrename'}/>
+                                <p>重命名</p>
+                            </div>
                         </Popover>,
 
                     </li>
@@ -204,13 +240,12 @@ class mySider extends React.Component{
     render() {
         return(
             <div style={{position:'relative'}}>
-                <Tree showIcon defaultExpandAll onSelect={(e)=>changeCurrentTagId(''+e)} onRightClick={(e)=>this.treeNodeonRightClick(e)}>
+                <Tree showIcon defaultExpandAll onSelect={(e)=>changeCurrentTag(''+e)} onRightClick={(e)=>this.treeNodeonRightClick(e)}>
                     <TreeNode icon={<i className={'iconfont icondiv'}/>} title='总容器' key="0">
                         {this.state.tagList.children.map(val=>this.createNodes(val))}
                     </TreeNode>
                 </Tree>
                 {this.getNodeTreeRightClickMenu()}
-
             </div>
         )
     }

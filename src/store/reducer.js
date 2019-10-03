@@ -1,28 +1,46 @@
 
 import {combineReducers} from "redux";
+import {xxx} from "./action"
 import defaultState from './state'
 
 
 function tagList(state = defaultState.tagList,action) {
+
+
     switch (action.type) {
         case 'add_tag':
-            let arr = Object.assign([],state);
+            let addTagArr = Object.assign([],state);
             //对每一层递归，根据key值找到目标对象
-            const fn = function (obj) {
+            const getTargetObj = function (obj) {
                 if (obj.key === action.dom.pid){
                     return obj;
                 } else {
                     for (let i=0;i<obj.children.length;i++){
                         if (action.dom.pid.indexOf(obj.children[i].key)===0){
-                            return fn(obj.children[i]);
+                            return getTargetObj(obj.children[i]);
                         }
                     }
                 }
 
             };
-            let targetObj = fn(arr);
+            let targetObj = getTargetObj(addTagArr);
             targetObj.children.push(action.dom);
-            return arr;
+            return addTagArr;
+        case 'update_tag':
+            let updateTagArr = Object.assign([],state);
+            const fn = function (obj) {
+                if (obj.key === action.key){
+                    obj[action.prop] = action.value;
+                } else {
+                    for (let i=0;i<obj.children.length;i++){
+                        if (action.key.indexOf(obj.children[i].key)===0){
+                            return fn(obj.children[i]);
+                        }
+                    }
+                }
+            };
+            fn(updateTagArr);
+            return updateTagArr;
         default:return state;
     }
 
@@ -42,10 +60,9 @@ function selectedTag(state = defaultState.selectedTag,action) {
                         }
                     }
                 }
-
             };
-            let targetObj = fn(defaultState.tagList);           //这个就是目标对象
 
+            let targetObj = fn(defaultState.tagList);           //这个就是目标对象
             let willCreateKey = '';                 //即将新建的元素的key值
             if (targetObj.children){
                 let arr = [];
@@ -59,6 +76,11 @@ function selectedTag(state = defaultState.selectedTag,action) {
             }
             targetObj.willCreateKey = willCreateKey;
             return targetObj;
+        }
+        case 'change_currentTagProp':{
+            let currentTag = Object.assign({},state);
+            currentTag.dataName = action.update.value;
+            return currentTag;
         }
         default:return state
     }

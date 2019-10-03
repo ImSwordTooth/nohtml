@@ -5,6 +5,8 @@ import Insert from './tabs/insert'
 import Layout from './tabs/layout'
 import Viewport from './tabs/viewport'
 
+import './css/myHeader.less'
+
 import { Tabs ,Button } from 'antd'
 const { TabPane } = Tabs;
 const operations = <Button>代码</Button>;

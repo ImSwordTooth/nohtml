@@ -3,14 +3,20 @@ import React from 'react'
 import { Select , InputNumber,Divider } from 'antd';
 const { Option } = Select;
 
-function onChange(value) {
-    console.log(`selected ${value}`);
-}
+
 
 
 
 //字体及字体大小
 class font extends React.Component{
+
+    constructor(props){
+        super(props);
+    }
+
+    onChange = value=> {
+        console.log(`selected ${value}`);
+    };
 
     render() {
         return (
@@ -40,7 +46,7 @@ class font extends React.Component{
                 <InputNumber className={'fontsize'}
                              formatter={value => `${value}px`}
                              parser={value => value.replace('px', '')}
-                             min={12} max={50} defaultValue={14} onChange={onChange} />
+                             min={12} max={50} defaultValue={14} onChange={this.onChange} />
             </div>
         );
     }

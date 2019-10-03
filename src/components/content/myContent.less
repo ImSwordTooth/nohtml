@@ -1,13 +1,23 @@
 .container_wp{
+  position: relative;
   padding: 15px;
   display: flex;
-  justify-content: center;
+  //justify-content: center;
+
+
   .container{
-    width: 80%;
-    height: 600px;
+    width: 1152px;
+    height: 648px;
     box-shadow: 0 0 3px rgba(179, 179, 179, 0.34);
-
-
+    //border: solid 1px rgba(214, 214, 214, 0.7);;
+    margin: 0 auto;
+    transition: margin .5s;
+    &.operation_open{
+      margin: 0;
+    }
+  }
+  .operation_wp{
+    border: solid 1px #eee;
   }
 
 }
