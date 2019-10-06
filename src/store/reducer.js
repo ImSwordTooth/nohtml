@@ -1,12 +1,9 @@
 
 import {combineReducers} from "redux";
-import {xxx} from "./action"
 import defaultState from './state'
 
 
 function tagList(state = defaultState.tagList,action) {
-
-
     switch (action.type) {
         case 'add_tag':
             let addTagArr = Object.assign([],state);
@@ -30,7 +27,21 @@ function tagList(state = defaultState.tagList,action) {
             let updateTagArr = Object.assign([],state);
             const fn = function (obj) {
                 if (obj.key === action.key){
-                    obj[action.prop] = action.value;
+
+                    if (action.prop !== 'style'){
+                        obj[action.prop] = action.value;
+                    } else {
+                        obj.style[action.styleProp] = action.value;
+                        // if (action.innerProp !== 'style'){
+                        //     obj[action.prop][action.innerProp] = action.value;
+                        // } else {
+                        //     obj.props.style = Object.assign({},obj.props.style,{
+                        //         [action.styleProp]:action.value
+                        //     });
+                        // }
+
+                    }
+
                 } else {
                     for (let i=0;i<obj.children.length;i++){
                         if (action.key.indexOf(obj.children[i].key)===0){
@@ -62,31 +73,39 @@ function selectedTag(state = defaultState.selectedTag,action) {
                 }
             };
 
-            let targetObj = fn(defaultState.tagList);           //这个就是目标对象
-            let willCreateKey = '';                 //即将新建的元素的key值
-            if (targetObj.children){
-                let arr = [];
-                for (let j=0;j<targetObj.children.length;j++){
-                    let x = targetObj.children[j].key.split('-');
-                    arr.push(x[x.length-1])
-                }
-                willCreateKey = `${targetObj.key}-${Math.max(...arr)+1}`;
+            if (action.key === state.key){
+                return state;
             } else {
-                willCreateKey = `${targetObj.key}-0`
+                let targetObj = fn(defaultState.tagList);           //这个就是目标对象
+                let willCreateKey = '';                 //即将新建的元素的key值
+                if (targetObj.children){
+                    let arr = [];
+                    for (let j=0;j<targetObj.children.length;j++){
+                        let x = targetObj.children[j].key.split('-');
+                        arr.push(x[x.length-1])
+                    }
+                    willCreateKey = `${targetObj.key}-${Math.max(...arr)+1}`;
+                } else {
+                    willCreateKey = `${targetObj.key}-0`
+                }
+                targetObj.willCreateKey = willCreateKey;
+                return targetObj;
             }
-            targetObj.willCreateKey = willCreateKey;
-            return targetObj;
-        }
-        case 'change_currentTagProp':{
-            let currentTag = Object.assign({},state);
-            currentTag.dataName = action.update.value;
-            return currentTag;
         }
         default:return state
     }
 }
 
+function showDrawer(state = defaultState.showDrawer,action) {
+    switch (action.type) {
+        case 'change_drawer':return action.status;
+        default:return state;
+
+    }
+}
+
 export default combineReducers({
     tagList,
-    selectedTag
+    selectedTag,
+    showDrawer
 });

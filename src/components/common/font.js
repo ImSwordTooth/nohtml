@@ -1,6 +1,9 @@
 import React from 'react'
 
 import { Select , InputNumber,Divider } from 'antd';
+import {updateTag} from "../../store/action";
+import store from "../../store";
+
 const { Option } = Select;
 
 
@@ -12,11 +15,33 @@ class font extends React.Component{
 
     constructor(props){
         super(props);
+        this.state = Object.assign({},store.getState(),{
+
+        });
+        store.subscribe(this.listener)
     }
 
+    listener = () => {
+        let newState = store.getState();
+        this.setState(newState);
+    };
+
     onChange = value=> {
+        updateTag({
+            prop:'style',
+            styleProp:'fontSize',
+            value:value
+        })
         console.log(`selected ${value}`);
     };
+
+    getDefaultFontsize = ()=>{
+        if (JSON.stringify(this.state.selectedTag)!=='{}'){
+            return this.state.selectedTag.style.fontSize||14;
+        } else {
+            return 14;
+        }
+    }
 
     render() {
         return (
@@ -46,7 +71,7 @@ class font extends React.Component{
                 <InputNumber className={'fontsize'}
                              formatter={value => `${value}px`}
                              parser={value => value.replace('px', '')}
-                             min={12} max={50} defaultValue={14} onChange={this.onChange} />
+                             min={12} max={50} value={this.getDefaultFontsize()} onChange={this.onChange} />
             </div>
         );
     }

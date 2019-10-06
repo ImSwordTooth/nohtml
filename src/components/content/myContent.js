@@ -1,15 +1,18 @@
 import React from 'react'
-import {Drawer} from 'antd'
+import {Drawer,Input} from 'antd'
 
 import './myContent.less'
 import store from '../../store'
+import {changeDrawer, updateTag} from "../../store/action";
+
+const {TextArea} = Input
 
 class myContent extends React.Component{
 
     constructor(props){
         super(props);
         this.state = Object.assign({},store.getState(),{
-          showDrawer:true
+
         });
         store.subscribe(this.listener)
     }
@@ -20,22 +23,40 @@ class myContent extends React.Component{
     };
 
     closeDrawer = ()=>{
-        this.setState({
-            showDrawer:false
-        })
+        changeDrawer(false)
     };
 
-    openDrawer = ()=>{
-        this.setState({
-            showDrawer:true
+    changeContent = (e)=>{
+        updateTag({
+            prop:'content',
+            value:e.target.value
         })
+    }
+
+    drawerTitle = ()=>{
+        let selectedTag = this.state.selectedTag;
+        return (
+            <div className={'drawerTitle'}>
+                <i className={`iconfont icon${selectedTag.type}`} />
+                <span className={'title'}>{selectedTag.dataName}</span>
+            </div>
+        )
     };
 
-    createNodes = ({id, pid, children, type}) => {
+    drawerContent = ()=>{
+        return (
+            <div>
+                <TextArea value={this.state.selectedTag.content} onChange={(e)=>this.changeContent(e)}/>
+            </div>
+        )
+    }
+
+    createNodes = ({id, pid, children, type,style,content}) => {
+        // console.log(style)
         return React.createElement(
             type || 'div',
-            {key: id},
-            children ? ['内容',...children.map(val => this.createNodes(val))] : '内容'
+            {style:{...style}},
+            [(content || ''),...children.map(val => this.createNodes(val))]
         )
     };
 
@@ -46,25 +67,21 @@ class myContent extends React.Component{
         return (
             <div className={'container_wp'}>
                 <div className={`container ${this.state.showDrawer?'operation_open':''}`}>
-                    <button onClick={this.openDrawer}>
-                        打开抽屉
-                    </button>
                     {content.map(val => this.createNodes(val))}
                 </div>
                 <Drawer
                     className={'operation_wp'}
-                    title="Basic Drawer"
+                    title={this.drawerTitle()}
                     placement="right"
                     closable={true}
                     onClose={this.closeDrawer}
                     visible={this.state.showDrawer}
-
                     mask={false}
                     getContainer={false}
                     style={{ position: 'absolute'}}
                     width={400}
                 >
-                    <p>Some contents...</p>
+                    {this.drawerContent()}
                 </Drawer>
             </div>
         )

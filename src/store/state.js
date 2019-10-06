@@ -1,68 +1,56 @@
 export default {
-    pageTitle:'首页',
+    showDrawer:false,
     tagList:{
         type:'div',
         pid:null,
         key:'0',
         dataName:'总容器',
-        props:{
-
-        },
-
+        style:{},
         children:[
-            // {
-            //     type:'div',
-            //     pid:'0',
-            //     key:'0-0',
-            //     dataName:'新建div',
-            //     props:{
-            //
-            //     },
-            //     children:[
-            //         {
-            //             type:'p',
-            //             pid:'0-0',
-            //             key:'0-0-0',
-            //             dataName:'新建p',
-            //
-            //             props:{
-            //
-            //             },
-            //             children:[]
-            //         }
-            //     ]
-            // },
-            // {
-            //     type:'div',
-            //     pid:'0',
-            //     key:'0-2',
-            //     dataName:'新建div',
-            //     props:{
-            //
-            //     },
-            //     children:[
-            //         {
-            //             type:'p',
-            //             pid:'0-2',
-            //             key:'0-2-0',
-            //             dataName:'新建段落2',
-            //             props:{
-            //
-            //             },
-            //             children:[]
-            //         }
-            //     ]
-            // },
-            // {
-            //     type:'div',
-            //     pid:'0',
-            //     key:'0-1',
-            //     dataName:'新建div',
-            //     props:{
-            //
-            //     },
-            //     children:[]
-            // }
+            {
+                type:'div',
+                pid:'0',
+                key:'0-0',
+                dataName:'新建div',
+                content:'我是新建div的内容',
+                style:{backgroundColor:'#265910',color:'white'},
+                children:[
+                    {
+                        type:'p',
+                        pid:'0-0',
+                        key:'0-0-0',
+                        dataName:'新建p',
+                        style:{},
+                        children:[]
+                    }
+                ]
+            },
+            {
+                type:'div',
+                pid:'0',
+                key:'0-2',
+                dataName:'新建div',
+                style:{},
+                children:[
+                    {
+                        type:'p',
+                        pid:'0-2',
+                        key:'0-2-0',
+                        dataName:'新建段落2',
+                        content:'我是新建段落2的内容',
+                        style:{color:'red',fontSize:'28px'},
+                        children:[]
+                    }
+                ]
+            },
+            {
+                type:'div',
+                pid:'0',
+                key:'0-1',
+                dataName:'新建div',
+                style:{},
+                children:[]
+            }
         ]
     },
     selectedTag:{}

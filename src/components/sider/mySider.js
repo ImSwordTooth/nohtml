@@ -2,7 +2,7 @@ import React from 'react'
 import store from '../../store'
 import { Tree,Popover,Input } from 'antd';
 import './mySider.less'
-import {addTag,changeCurrentTag,updateTag} from "../../store/action";
+import {addTag,changeCurrentTag,updateTag,changeDrawer} from "../../store/action";
 
 const { TreeNode } = Tree;
 
@@ -40,15 +40,24 @@ class mySider extends React.Component{
             pid:selectTag.key,
             key:selectTag.willCreateKey,
             dataName:name,
-            props:{
-
-            },
+            style:{},
             children:[]
+        }
+    };
+
+    //tree列表上单击事件
+    treeNodeonClick = e =>{
+        if(e.toString()){
+            changeCurrentTag(e.toString());
+        }
+        if (!this.state.showDrawer){
+            changeDrawer(true)
         }
     };
 
     // tree列表上右键事件
     treeNodeonRightClick = e => {
+        e.node.onSelect(e.event);       //右击时也触发单击的事件
         changeCurrentTag(e.node.props.eventKey);
         this.setState({
             display: 'block',
@@ -72,7 +81,7 @@ class mySider extends React.Component{
         if (val.children){
             son = [...val.children.map(val => this.createNodes(val))];
         }
-        return <TreeNode icon={<i className={`iconfont icon${val.type}`}/>} title={val.dataName} key={val.key}>{son}</TreeNode>
+        return <TreeNode className={`${this.state.selectedTag.key===val.key}?'ant-tree-node-selected':''`} icon={<i className={`iconfont icon${val.type}`} onClick={(e)=>this.treeNodeonClick(e)}/>} title={val.dataName} key={val.key}>{son}</TreeNode>
     };
 
 
@@ -240,7 +249,7 @@ class mySider extends React.Component{
     render() {
         return(
             <div style={{position:'relative'}}>
-                <Tree showIcon defaultExpandAll onSelect={(e)=>changeCurrentTag(''+e)} onRightClick={(e)=>this.treeNodeonRightClick(e)}>
+                <Tree showIcon defaultExpandAll onSelect={(e)=>this.treeNodeonClick(e)} onRightClick={(e)=>this.treeNodeonRightClick(e)}>
                     <TreeNode icon={<i className={'iconfont icondiv'}/>} title='总容器' key="0">
                         {this.state.tagList.children.map(val=>this.createNodes(val))}
                     </TreeNode>
