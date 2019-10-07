@@ -1,8 +1,10 @@
 import React from 'react'
 import store from '../../store'
-import { Tree,Popover,Input } from 'antd';
+import {Tree, Popover, Input, message} from 'antd';
 import './mySider.less'
-import {addTag,changeCurrentTag,updateTag,changeDrawer} from "../../store/action";
+import {addTag,changeCurrentTag,updateTag,changeDrawer,changeHoveredTag} from "../../store/action";
+import {TableModal} from "../common/modals/tableModal";
+import {ImageModal} from "../common/modals/imageModal";
 
 const { TreeNode } = Tree;
 
@@ -17,6 +19,9 @@ class mySider extends React.Component{
                 pageY: ''
             },
             reNameVisible:false,        //重命名气泡菜单
+            showTableModal:false,
+            showImageModal:false,       //图片插入模态框
+            imageModalTitle:'',         //图片插入模态框标题
         });
         store.subscribe(this.listener);
     }
@@ -40,7 +45,9 @@ class mySider extends React.Component{
             pid:selectTag.key,
             key:selectTag.willCreateKey,
             dataName:name,
+            content:`新建${type}`,
             style:{},
+            props:{},
             children:[]
         }
     };
@@ -89,6 +96,42 @@ class mySider extends React.Component{
         this.setState({ reNameVisible });
     };
 
+    //js点击上传input
+    clickUpload = ()=>{
+        document.getElementById('uploadLocalImg_Sider').click();
+    };
+
+    //上传图片
+    handleUploadImage = ()=>{
+        let that = this;
+        let file = document.getElementById('uploadLocalImg_Sider').files[0];
+        if (!file || !window.FileReader) { // 看支持不支持FileReader
+            message.warn('您的浏览器不支持FileReader本地上传');
+            return
+        }
+        if (/^image/.test(file.type)) {
+            let reader = new FileReader(); // 创建一个reader
+            reader.readAsDataURL(file); // 将图片将转成 base64 格式
+            reader.onloadend = function () { // 读取成功后的回调
+                message.success('上传成功');
+                console.log(this.result)
+                let selectTag = that.state.selectedTag;
+                addTag({
+                    type:'img',
+                    pid:selectTag.key,
+                    key:selectTag.willCreateKey,
+                    dataName:'新建img',
+                    content:'',
+                    style:{},
+                    props:{
+                      src:this.result
+                    },
+                    // children:[]
+                })
+            }
+        }
+    };
+
     //重命名
     reName = (e)=>{
         updateTag({
@@ -131,7 +174,7 @@ class mySider extends React.Component{
         const menu = (
             <div className={'contextMenu_wp'} style={wp_style} onClick={()=>this.hideRight()}>
                 <ul className={'contextMenu'} style={menu_Style}>
-                    <li>
+                    <li className={`${this.state.selectedTag.children?'':'disable'}`}>
                         <i className={'iconfont iconnew'}/>
                         <p>新建</p>
                         <i className={'iconfont iconrightarrow'}/>
@@ -139,6 +182,10 @@ class mySider extends React.Component{
                             <li onClick={()=>{addTag(this.formatTag('div','新建div'))}}>
                                 <i className={'iconfont icondiv'}/>
                                 <p>div</p>
+                            </li>
+                            <li onClick={()=>{addTag(this.formatTag('button','新建button'))}}>
+                                <i className={'iconfont iconbutton'}/>
+                                <p>按钮</p>
                             </li>
                             <li>
                                 <i className={'iconfont icontext'}/>
@@ -172,21 +219,22 @@ class mySider extends React.Component{
                                 <p>图片</p>
                                 <i className={'iconfont iconrightarrow'}/>
                                 <ul className={'contextMenu next'}>
-                                    <li>
+                                    <li onClick={()=>this.clickUpload()}>
                                         <i className={'iconfont iconuploadimg'}/>
                                         <p>本地</p>
+                                        <input type="file" hidden onChange={()=>this.handleUploadImage()} id={'uploadLocalImg_Sider'} accept="image/*"/>
                                     </li>
-                                    <li>
+                                    <li onClick={()=>this.setState({showImageModal:true,imageModalTitle:'网络图片'})}>
                                         <i className={'iconfont iconnetworkimg'}/>
                                         <p>网络图片</p>
                                     </li>
-                                    <li>
+                                    <li onClick={()=>this.setState({showImageModal:true,imageModalTitle:'base64编码'})}>
                                         <i className={'iconfont iconzip'}/>
                                         <p>base64</p>
                                     </li>
                                 </ul>
                             </li>
-                            <li>
+                            <li onClick={()=>this.setState({showTableModal:true})}>
                                 <i className={'iconfont icontable'}/>
                                 <p>表格</p>
                             </li>
@@ -201,6 +249,24 @@ class mySider extends React.Component{
                             <li>
                                 <i className={'iconfont iconfavorite'}/>
                                 <p>收藏</p>
+                            </li>
+                            <li className={'line'}>
+                                <div/>
+                            </li>
+                            <li>
+                                <i className={'iconfont iconinput'}/>
+                                <p>文本框</p>
+                                <i className={'iconfont iconrightarrow'}/>
+                                <ul className={'contextMenu next'}>
+                                    <li>
+                                        <i className={'iconfont iconpassword'}/>
+                                        <p>密码文本</p>
+                                    </li>
+                                    <li>
+                                        <i className={'iconfont iconnumber'}/>
+                                        <p>数字文本</p>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
                     </li>
@@ -249,12 +315,18 @@ class mySider extends React.Component{
     render() {
         return(
             <div style={{position:'relative'}}>
-                <Tree showIcon defaultExpandAll onSelect={(e)=>this.treeNodeonClick(e)} onRightClick={(e)=>this.treeNodeonRightClick(e)}>
+                <Tree showIcon defaultExpandAll
+                      onSelect={(e)=>this.treeNodeonClick(e)}
+                      onMouseEnter={(e)=>{changeHoveredTag(e.node.props.eventKey)}}
+                      onMouseLeave={()=>{changeHoveredTag('')}}
+                      onRightClick={(e)=>this.treeNodeonRightClick(e)}>
                     <TreeNode icon={<i className={'iconfont icondiv'}/>} title='总容器' key="0">
                         {this.state.tagList.children.map(val=>this.createNodes(val))}
                     </TreeNode>
                 </Tree>
                 {this.getNodeTreeRightClickMenu()}
+                <TableModal showTableModal={this.state.showTableModal} cancel={()=>this.setState({showTableModal:false})}/>
+                <ImageModal showImageModal={this.state.showImageModal} cancel={()=>this.setState({showImageModal:false})} imageModalTitle={this.state.imageModalTitle}/>
             </div>
         )
     }

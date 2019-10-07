@@ -4,7 +4,7 @@ import { Select , InputNumber,Divider } from 'antd';
 import {updateTag} from "../../store/action";
 import store from "../../store";
 
-const { Option } = Select;
+const { Option,OptGroup } = Select;
 
 
 
@@ -26,13 +26,20 @@ class font extends React.Component{
         this.setState(newState);
     };
 
-    onChange = value=> {
+    changeFontSize = value => {
         updateTag({
             prop:'style',
-            styleProp:'fontSize',
+            innerProp:'fontSize',
             value:value
-        })
-        console.log(`selected ${value}`);
+        });
+    };
+
+    changeFont = value => {
+        updateTag({
+            prop:'style',
+            innerProp:'fontFamily',
+            value:value
+        });
     };
 
     getDefaultFontsize = ()=>{
@@ -40,6 +47,14 @@ class font extends React.Component{
             return this.state.selectedTag.style.fontSize||14;
         } else {
             return 14;
+        }
+    };
+
+    getDefaultFont = ()=>{
+        if (JSON.stringify(this.state.selectedTag)!=='{}'){
+            return this.state.selectedTag.style.fontFamily||'选择字体';
+        } else {
+            return '选择字体';
         }
     }
 
@@ -49,14 +64,16 @@ class font extends React.Component{
                 <Select
                     showSearch
                     style={{ width: 120 }}
-                    placeholder="选择字体"
+                    value={this.getDefaultFont()}
                     optionFilterProp="children"
+                    onChange={this.changeFont}
                     dropdownRender={menu => (
                         <div>
                             {menu}
                             <Divider style={{ margin: '4px 0' }} />
-                            <div style={{ padding: '8px', cursor: 'pointer' }}>
-                                Add item
+                            <div className={'uploadfont'}>
+                               <i className={'iconfont iconuploadfont'}/>
+                               <span>上传字体</span>
                             </div>
                         </div>
                     )}
@@ -64,14 +81,29 @@ class font extends React.Component{
                         option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                     }
                 >
-                    <Option value="1">1</Option>
-                    <Option value="2">2</Option>
-                    <Option value="3">3</Option>
+                    <OptGroup label={'我的字体'}>
+                        <Option value="0">0</Option>
+                    </OptGroup>
+                    <OptGroup label={'中文字体'}>
+                        <Option value="宋体">宋体</Option>
+                        <Option value="黑体">黑体</Option>
+                        <Option value="微软雅黑">微软雅黑</Option>
+                        <Option value="隶书">隶书</Option>
+                        <Option value="楷体">楷体</Option>
+                        <Option value="幼圆">幼圆</Option>
+                    </OptGroup>
+                    <OptGroup label={'英文字体'}>
+                        <Option value="1">111</Option>
+                        <Option value="2">222</Option>
+                        <Option value="3">333</Option>
+                        <Option value="4">444</Option>
+                    </OptGroup>
+
                 </Select>
                 <InputNumber className={'fontsize'}
                              formatter={value => `${value}px`}
                              parser={value => value.replace('px', '')}
-                             min={12} max={50} value={this.getDefaultFontsize()} onChange={this.onChange} />
+                             min={12} max={50} value={this.getDefaultFontsize()} onChange={this.changeFontSize} />
             </div>
         );
     }

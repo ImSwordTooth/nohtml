@@ -4,14 +4,13 @@ import {addTag} from "../../../store/action";
 import { Menu, Dropdown,Modal,Input,Button,message } from 'antd';
 import store from '../../../store/index'
 
+import {TableModal} from "../../common/modals/tableModal";
+
 import '../css/insert.less'
+import {ImageModal} from "../../common/modals/imageModal";
 const {TextArea} = Input;
 
-
-
-
 class insert extends React.Component{
-
 
     constructor(props){
         super(props);
@@ -32,6 +31,7 @@ class insert extends React.Component{
             pid:0,
             props:{
                 dataName:name,
+
                 children:[{
                     type:'p',
                     props:'静态文本'
@@ -40,74 +40,6 @@ class insert extends React.Component{
         }
     };
 
-    //模态框的控制
-    modals = (modal,status)=>{
-        this.setState({
-            [modal]:status
-        })
-    };
-
-    //修改表头内容
-    changeTableThsValue = (e)=>{
-        let index = parseInt(e.target.id.split('-')[1]);
-        let arr = this.state.tableThs;
-        arr[index] = e.target.value;
-        this.setState({
-            tableThs:arr
-        })
-    };
-
-    //添加表头
-    addTableThs = ()=>{
-        let size = this.state.tableThs.length;
-        if (size>=10){
-            message.warn('最多10个表头')
-        }else {
-            this.setState({
-                tableThs:this.state.tableThs.concat(`表头${size+1}`)
-            })
-        }
-    };
-
-    //删除表头
-    deleteTableThs = (index)=>{
-        let arr = [...this.state.tableThs];
-        arr.splice(index,1);
-        this.setState({
-            tableThs:arr
-        })
-    };
-
-    //获取表头，复用到下面的预设中
-    getTableThs = ()=>{
-        return this.state.tableThs.map((item,key)=>{
-            return (
-                <div className={'input_wp'} key={key}>
-                    <Input value={item} id={`th-${key}`} onChange={this.changeTableThsValue}/>
-                    <span onClick={()=>this.deleteTableThs(key)}><i className={'iconfont icondelete'}/></span>
-                </div>
-            )
-        })
-    };
-
-    //创建一个个列表，用于预设样式中的展示
-    getTablePreviews = (border)=>{
-        return (
-            <table border={border}>
-                <tbody>
-                    <tr>
-                        {this.state.tableThs.map((item,index)=><th key={index}>{item}</th>)}
-                    </tr>
-                    <tr>
-                        {this.state.tableThs.map((item,index)=><td key={index}>{`数据${index+1}`}</td>)}
-                    </tr>
-                    <tr>
-                        {this.state.tableThs.map((item,index)=><td key={index}>{`数据${index+this.state.tableThs.length+1}`}</td>)}
-                    </tr>
-                </tbody>
-            </table>
-        )
-    };
 
     //js点击上传input
     clickUpload = ()=>{
@@ -131,37 +63,6 @@ class insert extends React.Component{
         }
     };
 
-    //打开图片模态框，因为需要确认额外的标题，所以又写了一个函数
-    openImageModal = (title)=>{
-        this.setState({
-            showImageModal:true,
-            imageModalTitle:title,
-        })
-    };
-
-    //生成模态框里的内容
-    getImageModal = (type)=>{
-        if (type === '网络图片') {
-            return (
-                <div className={'modal_item'}>
-                    <span>图片地址</span>
-                    <div>
-                        <Input style={{width:500}}/>
-                    </div>
-                </div>
-            )
-
-        }else if (type === 'base64编码') {
-            return (
-                <div className={'modal_item'}>
-                    <span>base64编码</span>
-                    <div>
-                        <TextArea autosize={{ minRows: 5}} style={{width:500}}/>
-                    </div>
-                </div>
-            )
-        }
-    };
 
     render() {
 
@@ -190,11 +91,21 @@ class insert extends React.Component{
         // 下拉 · 图片
         const imgMenu = (
             <div className={'tag_wp popover'}>
-                <div className={'tag'} onClick={()=>this.openImageModal('网络图片')}>
+                <div className={'tag'} onClick={()=>{
+                    this.setState({
+                        showImageModal:true,
+                        imageModalTitle:'网络图片'
+                    })
+                }}>
                     <i className={'iconfont iconnetworkimg'}/>
                     <p className={'tagName'}>网络图片</p>
                 </div>
-                <div className={'tag'} onClick={()=>this.openImageModal('base64编码')}>
+                <div className={'tag'} onClick={()=>{
+                    this.setState({
+                        showImageModal:true,
+                        imageModalTitle:'base64编码'
+                    })
+                }}>
                     <i className={'iconfont iconzip'}/>
                     <p className={'tagName'}>base64</p>
                 </div>
@@ -206,11 +117,11 @@ class insert extends React.Component{
             <Menu>
                 <Menu.Item className={'menuItem'}>
                     <i className={'iconfont iconpassword'}/>
-                    <span>密码文本框</span>
+                    <span>密码文本</span>
                 </Menu.Item>
                 <Menu.Item className={'menuItem'}>
                     <i className={'iconfont iconnumber'}/>
-                    <span>数字文本框</span>
+                    <span>数字文本</span>
                 </Menu.Item>
             </Menu>
         );
@@ -251,7 +162,7 @@ class insert extends React.Component{
                             </div>
                         </Dropdown>
                     </div>
-                    <div className={'tag'} onClick={()=>this.modals('showTableModal',true)}>
+                    <div className={'tag'} onClick={()=>this.setState({showTableModal:true})}>
                         <i className={'iconfont icontable'}/>
                         <p className={'tagName'}>表格</p>
                     </div>
@@ -296,40 +207,8 @@ class insert extends React.Component{
                     </div>
 
                 </div>
-                <Modal title='插入表格' width={1000}
-                       className={'tableModal modals'}
-                        visible={this.state.showTableModal}
-                        onOk={this.handleOk}
-                        onCancel={()=>this.modals('showTableModal',false)}>
-                        <div>
-                            <div className={'modal_item'}>
-                                <span>表头</span>
-                                <div className={'ths'}>
-                                    {this.getTableThs()}
-                                    <Button type="primary" ghost onClick={()=>this.addTableThs()}>添加</Button>
-                                </div>
-                            </div>
-                            <div className={'modal_item'}>
-                                <span>预设样式</span>
-                                <div>
-                                    <ul className={'previewList'}>
-                                        <li className={'standard'}>{this.getTablePreviews()}</li>
-                                        <li className={'business'}>{this.getTablePreviews()}</li>
-                                        <li className={'line'}>{this.getTablePreviews('1')}</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                </Modal>
-                <Modal title={this.state.imageModalTitle} width={800}
-                       className={'imageModal modals'}
-                       visible={this.state.showImageModal}
-                       onOk={this.handleOk}
-                       onCancel={()=>this.modals('showImageModal',false)}>
-                    <div>
-                        {this.getImageModal(this.state.imageModalTitle)}
-                    </div>
-                </Modal>
+                <TableModal showTableModal={this.state.showTableModal} cancel={()=>this.setState({showTableModal:false})}/>
+                <ImageModal showImageModal={this.state.showImageModal} cancel={()=>this.setState({showImageModal:false})} imageModalTitle={this.state.imageModalTitle}/>
             </div>
         )
     }

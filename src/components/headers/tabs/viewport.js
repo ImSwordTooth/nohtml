@@ -1,5 +1,5 @@
 import React from 'react'
-import {Icon, Switch} from "antd";
+import {Icon, Switch,Button} from "antd";
 
 import '../css/viewport.less'
 class Viewport extends React.Component{
@@ -25,15 +25,19 @@ class Viewport extends React.Component{
 
     render() {
         return (
-            <div className='device'>
-                <i className={`iconfont iconpc ${this.state.isChecked ? 'active':''}`}/>
-                <Switch  checkedChildren={<Icon type="check" />}
-                         unCheckedChildren={<Icon type="check" />}
-                         defaultChecked
-                         onChange={this.changeDevice}
-                />
-                <i className={`iconfont iconphone ${!this.state.isChecked ? 'active':''}`} />
+            <div className={'viewport'}>
+                <Button>预览</Button>
+                <div className='device'>
+                    <i className={`iconfont iconpc ${this.state.isChecked ? 'active':''}`}/>
+                    <Switch  checkedChildren={<Icon type="check" />}
+                             unCheckedChildren={<Icon type="check" />}
+                             defaultChecked
+                             onChange={this.changeDevice}
+                    />
+                    <i className={`iconfont iconphone ${!this.state.isChecked ? 'active':''}`} />
+                </div>
             </div>
+
         )
     }
 }

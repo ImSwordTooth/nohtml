@@ -23,6 +23,16 @@
     cursor: default;
     //TODO 这里设置为定值似乎不太对，但是暂时没有更好的
     width: 120px;
+    &.disable{
+      cursor: not-allowed;
+      color: #c7c7c7;
+      &:hover{
+        background-color: #fff;
+        &>.next{
+          display: none;
+        }
+      }
+    }
     &:hover{
       background-color: #bae7ff;
       transition: background-color .5s;
@@ -89,6 +99,21 @@
     left: 0;
     width: 120px;
     height: 100%;
+  }
+}
+
+//当前被选中的标签的样式
+.current{
+  position: relative;
+  &:after{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(118, 171, 226, 0.58);
+    border: dashed 1px rgb(24, 144, 255);
   }
 }
 

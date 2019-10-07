@@ -19,24 +19,29 @@ class fontStyle extends React.Component{
     };
 
     getDefaultClass = (prop,value)=>{
-        if (this.state.selectedTag){
-            return this.state.selectedTag.style[prop]===value?'active':''
+        if (this.state.selectedTag!==undefined){
+            if (JSON.stringify(this.state.selectedTag)!=='{}'){
+                return this.state.selectedTag.style[prop]===value?'active':''
+            } else {
+                return ''
+            }
+
         }else {
             return ''
         }
-    }
+    };
 
     changeFont = (prop,value)=>{
         if (this.state.selectedTag.style[prop]===value){
             updateTag({
                 prop:'style',
-                styleProp:prop,
+                innerProp:prop,
                 value:''
             })
         } else {
             updateTag({
                 prop:'style',
-                styleProp:prop,
+                innerProp:prop,
                 value:value
             })
         }
@@ -52,8 +57,8 @@ class fontStyle extends React.Component{
                     <i className={`iconfont iconlighter ${this.getDefaultClass('fontWeight','lighter')}`} onClick={()=>this.changeFont('fontWeight','lighter')} />
                     <i className={`iconfont iconitalic ${this.getDefaultClass('fontStyle','italic')}`} onClick={()=>this.changeFont('fontStyle','italic')} />
                     <i className={`iconfont iconunderline ${this.getDefaultClass('textDecoration','underline')}`} onClick={()=>this.changeFont('textDecoration','underline')} />
-                    <i className={'iconfont iconsub'} />
-                    <i className={'iconfont iconsup'} />
+                    <i className={`iconfont iconlinethrough ${this.getDefaultClass('textDecoration','line-through')}`} onClick={()=>this.changeFont('textDecoration','line-through')} />
+                    <i className={`iconfont iconoverline ${this.getDefaultClass('textDecoration','overline')}`} onClick={()=>this.changeFont('textDecoration','overline')} />
                 </div>
 
             </div>

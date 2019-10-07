@@ -12,7 +12,7 @@ class myContent extends React.Component{
     constructor(props){
         super(props);
         this.state = Object.assign({},store.getState(),{
-
+            isReName:false
         });
         store.subscribe(this.listener)
     }
@@ -33,14 +33,34 @@ class myContent extends React.Component{
         })
     }
 
+    //重命名
+    reName = (e)=>{
+        updateTag({
+            prop:'dataName',
+            value:e.target.value
+        })
+    };
+
     drawerTitle = ()=>{
         let selectedTag = this.state.selectedTag;
+        let title = null;
+        if (this.state.isReName){
+            title = <Input value={selectedTag.dataName} style={{width:120}} onChange={this.reName} onPressEnter={()=>this.setState({isReName:false})}/>;
+        }else{
+            title = (
+                    <>
+                    <span className={'title'}>{selectedTag.dataName}</span>
+                    <i className={'iconfont iconrename rename'} onClick={()=>this.setState({isReName:true})}/>
+                    </>
+            );
+        }
         return (
             <div className={'drawerTitle'}>
                 <i className={`iconfont icon${selectedTag.type}`} />
-                <span className={'title'}>{selectedTag.dataName}</span>
+                {title}
             </div>
         )
+
     };
 
     drawerContent = ()=>{
@@ -49,15 +69,27 @@ class myContent extends React.Component{
                 <TextArea value={this.state.selectedTag.content} onChange={(e)=>this.changeContent(e)}/>
             </div>
         )
-    }
+    };
 
-    createNodes = ({id, pid, children, type,style,content}) => {
-        // console.log(style)
-        return React.createElement(
-            type || 'div',
-            {style:{...style}},
-            [(content || ''),...children.map(val => this.createNodes(val))]
-        )
+    createNodes = ({key, pid, children, type,style,content,props}) => {
+        if (children!==undefined){
+            return React.createElement(
+                type || 'div',
+                {
+                    id:key,
+                    style:{...style},
+                    src:props.src?props.src:null,
+                    className:this.state.hoveredTagKey===key?'current':''
+                },
+                [(content || ''),...children.map(val => this.createNodes(val))]
+            )
+        } else {
+            return React.createElement(
+                type || 'div',
+                {style:{...style},src:props.src?props.src:null}
+            )
+        }
+
     };
 
     render() {

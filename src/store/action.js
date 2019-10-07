@@ -11,7 +11,7 @@ export function updateTag(update) {
         store.dispatch({
             type:'update_tag',
             prop:update.prop,           //表示改变的是一个属性值
-            styleProp:update.styleProp || '',         //如果style要改变，把要变的style的属性值传过来，比如color
+            innerProp:update.innerProp || '',         //如果style要改变，把要变的style的属性值传过来，比如color
             value:update.value,
             key:store.getState().selectedTag.key
         })
@@ -26,8 +26,6 @@ export function changeDrawer(status) {
     store.dispatch({type:'change_drawer',status})
 }
 
-export function setPageTitle(data) {
-    return (dispatch,getState)=>{
-        dispatch({type:'SET_PAGETITLE',data:data})
-    }
+export function changeHoveredTag(key) {
+    store.dispatch({type:'change_hoveredTagKey',key})
 }

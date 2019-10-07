@@ -30,7 +30,7 @@ class color extends React.Component{
     changeColor = color =>{         //修改字体颜色
         updateTag({
             prop:'style',
-            styleProp:'color',
+            innerProp:'color',
             value:color.color
         })
     };
@@ -38,7 +38,7 @@ class color extends React.Component{
     changeBackgroundColor = color =>{       //修改背景色
         updateTag({
             prop:'style',
-            styleProp:'backgroundColor',
+            innerProp:'backgroundColor',
             value:color.color
         })
     };

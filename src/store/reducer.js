@@ -10,7 +10,7 @@ function tagList(state = defaultState.tagList,action) {
             //对每一层递归，根据key值找到目标对象
             const getTargetObj = function (obj) {
                 if (obj.key === action.dom.pid){
-                    return obj;
+                    obj.children.push(action.dom);
                 } else {
                     for (let i=0;i<obj.children.length;i++){
                         if (action.dom.pid.indexOf(obj.children[i].key)===0){
@@ -20,8 +20,8 @@ function tagList(state = defaultState.tagList,action) {
                 }
 
             };
-            let targetObj = getTargetObj(addTagArr);
-            targetObj.children.push(action.dom);
+            getTargetObj(addTagArr);
+            // targetObj.children.push(action.dom);
             return addTagArr;
         case 'update_tag':
             let updateTagArr = Object.assign([],state);
@@ -31,12 +31,12 @@ function tagList(state = defaultState.tagList,action) {
                     if (action.prop !== 'style'){
                         obj[action.prop] = action.value;
                     } else {
-                        obj.style[action.styleProp] = action.value;
+                        obj[action.prop][action.innerProp] = action.value;
                         // if (action.innerProp !== 'style'){
                         //     obj[action.prop][action.innerProp] = action.value;
                         // } else {
                         //     obj.props.style = Object.assign({},obj.props.style,{
-                        //         [action.styleProp]:action.value
+                        //         [action.innerProp]:action.value
                         //     });
                         // }
 
@@ -100,12 +100,19 @@ function showDrawer(state = defaultState.showDrawer,action) {
     switch (action.type) {
         case 'change_drawer':return action.status;
         default:return state;
+    }
+}
 
+function hoveredTagKey(state = defaultState.hoveredTagKey,action) {
+    switch (action.type) {
+        case 'change_hoveredTagKey':return action.key;
+        default:return state;
     }
 }
 
 export default combineReducers({
     tagList,
     selectedTag,
-    showDrawer
+    showDrawer,
+    hoveredTagKey
 });
