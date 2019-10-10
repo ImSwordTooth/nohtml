@@ -1,0 +1,174 @@
+.tableModal{
+
+  & .ths{
+
+    & .input_wp{
+      position: relative;
+      display: inline-flex;
+      margin:0 10px 10px 0;
+      align-items: center;
+      &>input{
+        width: 120px;
+        padding-right: 25px;
+        &:hover+span{
+          background-color: red;
+          transition: background-color .5s;
+        }
+      }
+      &>span{
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 15px;
+        height: 15px;
+        right: 5px;
+        -webkit-border-radius: 100%;
+        -moz-border-radius: 100%;
+        border-radius: 100%;
+        background-color: #d9d9d9;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color .5s;
+        &:hover{
+          background-color: red;
+        }
+        i{
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
+
+.modals{
+  & .modal_item{
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+
+    &:nth-last-of-type(1){
+      margin-bottom: 0;
+    }
+    &>span{
+      position: absolute;
+      left: 5%;
+      margin-top: 5px;
+    }
+    &>div{
+      padding-left: calc(5% + 100px);
+
+      .previewList{
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        &>li{
+          margin-bottom: 20px;
+          cursor: pointer;
+        }
+
+        & .standard{
+          & table{
+            width: 750px;
+            border-radius: 4px 4px 0 0;
+            border-collapse: separate;
+            border-spacing: 0;
+            & tr{
+              transition: all .3s;
+              &:hover{
+                background-color: rgba(209, 209, 209, 0.21);
+              }
+            }
+            & th{
+              color: rgba(0,0,0,0.85);
+              font-weight: 500;
+              text-align: left;
+              background: #fafafa;
+              border-bottom: 1px solid #e8e8e8;
+              transition: background .3s ease;
+              padding: 8px 16px;
+            }
+            & td{
+              border-bottom: 1px solid #e8e8e8;
+              -webkit-transition: all .3s,border 0s;
+              transition: all .3s,border 0s;
+              padding: 8px 16px;
+            }
+          }
+
+        }
+        & .business{
+          & table{
+            width: 750px;
+            border-radius: 4px 4px 0 0;
+            border-collapse: separate;
+            border-spacing: 0;
+            & tr{
+              transition: all .3s;
+              &:hover{
+                background-color: rgb(230, 247, 255);
+              }
+            }
+            & th{
+              color: rgba(255, 255, 255, 0.85);
+              font-weight: 500;
+              text-align: left;
+              background: #1e2f68;
+              border-bottom: 1px solid #e8e8e8;
+              transition: background .3s ease;
+              padding: 8px 16px;
+            }
+            & td{
+              border-bottom: 1px solid rgba(146, 190, 235, 0.63);
+              transition: all .3s,border 0s;
+              padding: 8px 16px;
+            }
+          }
+        }
+        & .line{
+          & table{
+            width: 750px;
+            border-radius: 4px 4px 0 0;
+            border-spacing: 0;
+            border:solid 1px #7d7d7d;
+            & tr{
+              transition: all .3s;
+              &:hover{
+                background-color: #e0e0e0;
+              }
+            }
+            & th{
+              color: rgb(0, 0, 0);
+              font-weight: 500;
+              text-align: left;
+              background: #bebebe;
+              transition: background .3s ease;
+              padding: 8px 16px;
+            }
+            & td{
+              transition: all .3s,border 0s;
+              padding: 8px 16px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+//当前被选中的表格的样式
+.currentTable{
+  position: relative;
+  &::after{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(118, 171, 226, 0.2);
+    border: dashed 2px #0587ff;
+  }
+}

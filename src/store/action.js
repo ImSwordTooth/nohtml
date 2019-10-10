@@ -5,6 +5,18 @@ export function addTag(dom) {
     store.dispatch({type:'add_tag',dom});
 }
 
+//插入元素
+export function insertTag(dom) {
+    store.dispatch({type:'insert_tag',dom,selectedKey:store.getState().selectedTag.key});
+}
+
+export function deleteTag(key) {
+    console.log(key)
+    store.dispatch({type:'delete_tag',key});
+    store.dispatch({type:'change_drawer',status:false})
+    store.dispatch({type:'reset_currenttag'})
+}
+
 //修改元素属性
 export function updateTag(update) {
         // store.dispatch({type:'change_currentTagProp',update});

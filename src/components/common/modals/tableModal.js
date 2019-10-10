@@ -1,13 +1,15 @@
 import React from 'react'
 import {Button, Input, message, Modal} from "antd";
 import store from "../../../store";
+import '../css/tableModal.less'
 
 export class TableModal extends React.Component{
 
     constructor(props){
         super(props);
         this.state = {
-            tableThs:['表头1','表头2','表头3']        //表头数组初值
+            tableThs:['表头1','表头2','表头3'],        //表头数组初值
+            currentClass:''                   //选中的预设的表的类名
         }
     }
 
@@ -73,13 +75,45 @@ export class TableModal extends React.Component{
         )
     };
 
+    toggleCurrent = (e)=>{
+        let className = e.currentTarget.dataset.class;
+        if (className === this.state.currentClass){
+            this.setState({
+                currentClass:''
+            })
+        } else {
+            this.setState({
+                currentClass:e.currentTarget.dataset.class
+            })
+        }
+
+    }
+
+     cancel = ()=>{
+        this.props.cancel();
+        this.setState({
+            tableThs:['表头1','表头2','表头3'],
+            currentClass:''
+        })
+     }
+
+     ok = ()=>{
+        this.props.ok(this.state.tableThs,this.state.currentClass);
+         this.setState({
+             tableThs:['表头1','表头2','表头3'],
+             currentClass:''
+         })
+     }
+
     render() {
         return (
-            <Modal title='插入表格' width={1000}
+            <Modal title={`${this.props.type}表格`} width={1000}
                    className={'tableModal modals'}
                    visible={this.props.showTableModal}
-                   onOk={this.handleOk}
-                   onCancel={this.props.cancel}>
+                   cancelText={'取消'}
+                   okText={this.props.type}
+                   onOk={this.ok}
+                   onCancel={this.cancel}>
                 <div>
                     <div className={'modal_item'}>
                         <span>表头</span>
@@ -92,9 +126,9 @@ export class TableModal extends React.Component{
                         <span>预设样式</span>
                         <div>
                             <ul className={'previewList'}>
-                                <li className={'standard'}>{this.getTablePreviews()}</li>
-                                <li className={'business'}>{this.getTablePreviews()}</li>
-                                <li className={'line'}>{this.getTablePreviews('1')}</li>
+                                <li className={`standard ${this.state.currentClass==='standard'?'currentTable':''}`} data-class={'standard'} onClick={(e)=>this.toggleCurrent(e)}>{this.getTablePreviews()}</li>
+                                <li className={`business ${this.state.currentClass==='business'?'currentTable':''}`} data-class={'business'} onClick={(e)=>this.toggleCurrent(e)}>{this.getTablePreviews()}</li>
+                                <li className={`line ${this.state.currentClass==='line'?'currentTable':''}`} data-class={'line'} onClick={(e)=>this.toggleCurrent(e)}>{this.getTablePreviews('1')}</li>
                             </ul>
                         </div>
                     </div>

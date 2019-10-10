@@ -9,6 +9,9 @@ class myLayout extends React.Component{
     constructor(props){
         super(props);
         this.state = ({
+            isPosition:true,
+            isDisplay:true,
+            isFloat:true,
             currentDirection:'',        //当前正在编辑的方向：top、bottom、left、right
             top:{                       //三个值分别为百分比、px值、单位，下同      //TODO 后续考虑加入更多单位
                 percent:0,
@@ -31,6 +34,10 @@ class myLayout extends React.Component{
                 unit:'%'
             }
         })
+    }
+
+    handleCheck = (prop,status)=>{
+
     }
 
     //修改当前正在编辑的方向
@@ -110,7 +117,7 @@ class myLayout extends React.Component{
         return(
             <div className={'layout'}>
                 <div className={'layout_item'}>
-                    <Checkbox/>
+                    <Checkbox checked={this.state.isPosition} onChange={(e)=>this.handleCheck('position',e)}/>
                     <span className={'info'}>positon：</span>
                     <Select defaultValue="relative" style={{ width: 120 }} >
                         <Option value="relative">relative</Option>
@@ -139,7 +146,7 @@ class myLayout extends React.Component{
                 </div>
                 <Divider type={'vertical'}/>
                 <div className={'layout_item'}>
-                    <Checkbox/>
+                    <Checkbox checked={this.state.isDisplay} onChange={(e)=>this.handleCheck('display',e)}/>
                     <span className={'info'}>display：</span>
                     <Select defaultValue="block" style={{ width: 120 }} >
                         <Option value="block">block</Option>
@@ -150,7 +157,7 @@ class myLayout extends React.Component{
                 </div>
                 <Divider type={'vertical'}/>
                 <div className={'layout_item'}>
-                    <Checkbox/>
+                    <Checkbox checked={this.state.isFloat} onChange={(e)=>this.handleCheck('float',e)}/>
                     <span className={'info'}>float：</span>
                     <Select defaultValue="left" style={{ width: 120 }} >
                         <Option value="left">left</Option>

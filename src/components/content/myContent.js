@@ -72,21 +72,37 @@ class myContent extends React.Component{
     };
 
     createNodes = ({key, pid, children, type,style,content,props}) => {
+        let className = '';
+        if (props.className){
+            className += props.className;
+        }
+        if (this.state.hoveredTagKey===key){
+            className += ' current';
+        }
         if (children!==undefined){
             return React.createElement(
                 type || 'div',
                 {
                     id:key,
+                    key,
                     style:{...style},
                     src:props.src?props.src:null,
-                    className:this.state.hoveredTagKey===key?'current':''
+                    className
                 },
-                [(content || ''),...children.map(val => this.createNodes(val))]
+                [(content || null),...children.map(val => this.createNodes(val))]
             )
         } else {
             return React.createElement(
                 type || 'div',
-                {style:{...style},src:props.src?props.src:null}
+                {
+                    id:key,
+                    key,
+                    style:{...style},
+                    src:props.src?props.src:null,
+                    type:props.type?props.type:null,
+                    className
+                }
+
             )
         }
 

@@ -5,6 +5,7 @@ export default {
         pid:null,
         key:'0',
         dataName:'总容器',
+        iconName:'icondiv',
         style:{},
         props:{},
         children:[
@@ -13,8 +14,9 @@ export default {
                 pid:'0',
                 key:'0-0',
                 dataName:'新建div',
+                iconName:'icondiv',
                 content:'我是新建div的内容',
-                style:{backgroundColor:'#265910',color:'white',fontFamily:'幼圆'},
+                style:{color:'#b10100',fontFamily:'幼圆'},
                 props:{},
                 children:[
                     {
@@ -22,6 +24,7 @@ export default {
                         pid:'0-0',
                         key:'0-0-0',
                         dataName:'新建p',
+                        iconName:'iconp',
                         style:{},
                         props:{},
                         children:[]
@@ -33,6 +36,7 @@ export default {
                 pid:'0',
                 key:'0-2',
                 dataName:'新建div',
+                iconName:'icondiv',
                 style:{},
                 props:{},
                 children:[
@@ -41,8 +45,9 @@ export default {
                         pid:'0-2',
                         key:'0-2-0',
                         dataName:'新建段落2',
+                        iconName:'iconp',
                         content:'我是新建段落2的内容',
-                        style:{color:'red',fontSize:'28px'},
+                        style:{color:'#ff0000',fontSize:'28px'},
                         props:{},
                         children:[]
                     }
@@ -53,6 +58,7 @@ export default {
                 pid:'0',
                 key:'0-1',
                 dataName:'新建div',
+                iconName:'icondiv',
                 style:{},
                 props:{},
                 children:[]

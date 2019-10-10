@@ -1,8 +1,8 @@
 import React from 'react'
 import store from '../../store'
-import {Tree, Popover, Input, message} from 'antd';
+import {Tree, Popover, Input, message,Popconfirm} from 'antd';
 import './mySider.less'
-import {addTag,changeCurrentTag,updateTag,changeDrawer,changeHoveredTag} from "../../store/action";
+import {addTag, changeCurrentTag, updateTag, changeDrawer, changeHoveredTag, deleteTag} from "../../store/action";
 import {TableModal} from "../common/modals/tableModal";
 import {ImageModal} from "../common/modals/imageModal";
 
@@ -45,12 +45,134 @@ class mySider extends React.Component{
             pid:selectTag.key,
             key:selectTag.willCreateKey,
             dataName:name,
+            iconName:'icon'+type,
             content:`新建${type}`,
             style:{},
             props:{},
             children:[]
         }
     };
+
+    formatImage = (name,src) =>{
+        let selectTag = this.state.selectedTag;
+        this.setState({
+            showImageModal:false
+        })
+        return {
+            type:'img',
+            pid:selectTag.key,
+            key:selectTag.willCreateKey,
+            dataName:name,
+            iconName:'iconimg',
+            style:{},
+            props:{
+                src
+            }
+        }
+    };
+
+    formatTable = (arr,className)=>{
+        let selectTag = this.state.selectedTag;
+        this.setState({
+            showTableModal:false
+        });
+
+        //确定tr标签
+        let trs = new Array(arr.length);
+        arr.forEach((item,index)=>{
+            trs[index] = Object.assign({},{
+                type:'tr',
+                pid:selectTag.willCreateKey+'-0',
+                key:`${selectTag.willCreateKey}-0-${index}`,
+                dataName:`新建tr${index+1}`,
+                iconName:'icontr',
+                style:{},
+                props:{},
+                children:[]
+            })
+        });
+
+        //tr标签的第一个，在其children中添加th标签
+        arr.forEach((item,index)=>{
+            trs[0].children.push({
+                type:'th',
+                pid:trs[0].key,
+                key:`${trs[0].key}-${index}`,
+                dataName:`表头${index+1}：${item}`,
+                iconName:'iconth',
+                content:item,
+                style:{},
+                props:{},
+                children:[]
+            })
+        });
+
+
+        //从第二个开始遍历tr标签，添加td标签
+        for (let i=1;i<trs.length;i++){
+            trs[i].children.push(...arr.map((item,index)=>{
+                return {
+                    type:'td',
+                    pid:trs[i].key,
+                    key:`${trs[i].key}-${index}`,
+                    dataName:`数据${arr.length*i+index}`,
+                    iconName:'icontd',
+                    content:`数据${arr.length*i+index}`,
+                    style:{},
+                    props:{},
+                    children:[]
+                }
+            }))
+        }
+
+        return {
+            type:'table',
+            pid:selectTag.key,
+            key:selectTag.willCreateKey,
+            dataName:'新建table',
+            iconName:'icontable',
+            style:{},
+            props:{
+                className:className
+            },
+            children: [
+                {
+                    type:'tbody',
+                    pid:selectTag.willCreateKey,
+                    key:selectTag.willCreateKey+'-0',
+                    dataName:'新建tbody',
+                    iconName:'icontbody',
+                    style:{},
+                    props:{},
+                    children:trs
+                }
+            ]
+        }
+    };
+
+    formatInput = (type)=>{
+        let selectTag = this.state.selectedTag;
+        let dataName = '';
+        let iconName = '';
+        switch (type) {
+            case 'text':dataName = '新建text文本框';iconName = 'iconinput';break;
+            case 'password':dataName = '新建password文本框';iconName = 'iconpassword';break;
+            case 'number':dataName = '新建number文本框';iconName = 'iconnumber';break;
+            case 'checkbox':dataName = '新建复选框';iconName = 'iconcheckbox';break;
+            case 'radio':dataName = '新建单选框';iconName = 'iconradio';break;
+        }
+        return {
+            type:'input',
+            pid:selectTag.key,
+            key:selectTag.willCreateKey,
+            dataName,
+            iconName,
+            style:{},
+            props:{
+                type
+            }
+        }
+    }
 
     //tree列表上单击事件
     treeNodeonClick = e =>{
@@ -84,11 +206,14 @@ class mySider extends React.Component{
 
     //根据json字符串动态生成树节点
     createNodes = (val) => {
+        if (val.type==='img'){
+            console.log(val)
+        }
         let son = null;
         if (val.children){
             son = [...val.children.map(val => this.createNodes(val))];
         }
-        return <TreeNode className={`${this.state.selectedTag.key===val.key}?'ant-tree-node-selected':''`} icon={<i className={`iconfont icon${val.type}`} onClick={(e)=>this.treeNodeonClick(e)}/>} title={val.dataName} key={val.key}>{son}</TreeNode>
+        return <TreeNode className={`${this.state.selectedTag.key===val.key}?'ant-tree-node-selected':''`} icon={<i className={`iconfont ${val.iconName}`} onClick={(e)=>this.treeNodeonClick(e)}/>} title={val.dataName} key={val.key}>{son}</TreeNode>
     };
 
 
@@ -104,6 +229,7 @@ class mySider extends React.Component{
     //上传图片
     handleUploadImage = ()=>{
         let that = this;
+        let selectTag = this.state.selectedTag;
         let file = document.getElementById('uploadLocalImg_Sider').files[0];
         if (!file || !window.FileReader) { // 看支持不支持FileReader
             message.warn('您的浏览器不支持FileReader本地上传');
@@ -114,20 +240,7 @@ class mySider extends React.Component{
             reader.readAsDataURL(file); // 将图片将转成 base64 格式
             reader.onloadend = function () { // 读取成功后的回调
                 message.success('上传成功');
-                console.log(this.result)
-                let selectTag = that.state.selectedTag;
-                addTag({
-                    type:'img',
-                    pid:selectTag.key,
-                    key:selectTag.willCreateKey,
-                    dataName:'新建img',
-                    content:'',
-                    style:{},
-                    props:{
-                      src:this.result
-                    },
-                    // children:[]
-                })
+                addTag(that.formatImage(file.name,this.result))
             }
         }
     };
@@ -215,6 +328,37 @@ class mySider extends React.Component{
                                 </ul>
                             </li>
                             <li>
+                                <i className={'iconfont iconh'}/>
+                                <p>标题</p>
+                                <i className={'iconfont iconrightarrow'}/>
+                                <ul className={'contextMenu next'}>
+                                    <li onClick={()=>{addTag(this.formatTag('h1','新建h1'))}}>
+                                        <i className={'iconfont iconh1'}/>
+                                        <p>一级标题</p>
+                                    </li>
+                                    <li onClick={()=>{addTag(this.formatTag('h2','新建h2'))}}>
+                                        <i className={'iconfont iconh2'}/>
+                                        <p>二级标题</p>
+                                    </li>
+                                    <li onClick={()=>{addTag(this.formatTag('h3','新建h3'))}}>
+                                        <i className={'iconfont iconh3'}/>
+                                        <p>三级标题</p>
+                                    </li>
+                                    <li onClick={()=>{addTag(this.formatTag('h4','新建h4'))}}>
+                                        <i className={'iconfont iconh4'}/>
+                                        <p>四级标题</p>
+                                    </li>
+                                    <li onClick={()=>{addTag(this.formatTag('h5','新建h5'))}}>
+                                        <i className={'iconfont iconh5'}/>
+                                        <p>五级标题</p>
+                                    </li>
+                                    <li onClick={()=>{addTag(this.formatTag('h6','新建h6'))}}>
+                                        <i className={'iconfont iconh6'}/>
+                                        <p>六级标题</p>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
                                 <i className={'iconfont iconimg'}/>
                                 <p>图片</p>
                                 <i className={'iconfont iconrightarrow'}/>
@@ -258,11 +402,15 @@ class mySider extends React.Component{
                                 <p>文本框</p>
                                 <i className={'iconfont iconrightarrow'}/>
                                 <ul className={'contextMenu next'}>
-                                    <li>
+                                    <li onClick={()=>addTag(this.formatInput('text'))}>
+                                        <i className={'iconfont iconinput'}/>
+                                        <p>普通文本</p>
+                                    </li>
+                                    <li onClick={()=>addTag(this.formatInput('password'))}>
                                         <i className={'iconfont iconpassword'}/>
                                         <p>密码文本</p>
                                     </li>
-                                    <li>
+                                    <li onClick={()=>addTag(this.formatInput('number'))}>
                                         <i className={'iconfont iconnumber'}/>
                                         <p>数字文本</p>
                                     </li>
@@ -284,6 +432,22 @@ class mySider extends React.Component{
                     <li>
                         <i className={'iconfont iconcut'}/>
                         <p>剪切</p>
+                    </li>
+                    <li>
+                        <Popconfirm
+                            placement="rightTop"
+                            title={'确认要删除该项吗?'}
+                            onConfirm={()=>deleteTag(this.state.selectedTag.key)}
+                            onClick={(e)=>this.stopDefault(e)}
+                            okText="删除"
+                            cancelText="取消"
+                        >
+                            <div className={'reName_wp'}>
+                                <i className={'iconfont icondelete'}/>
+                                <p>删除</p>
+                            </div>
+                        </Popconfirm>
+
                     </li>
                     <li className={'line'}>
                         <div/>
@@ -325,8 +489,8 @@ class mySider extends React.Component{
                     </TreeNode>
                 </Tree>
                 {this.getNodeTreeRightClickMenu()}
-                <TableModal showTableModal={this.state.showTableModal} cancel={()=>this.setState({showTableModal:false})}/>
-                <ImageModal showImageModal={this.state.showImageModal} cancel={()=>this.setState({showImageModal:false})} imageModalTitle={this.state.imageModalTitle}/>
+                <TableModal type={'新建'} showTableModal={this.state.showTableModal} ok={(arr,className)=>addTag(this.formatTable(arr,className))} cancel={()=>this.setState({showTableModal:false})}/>
+                <ImageModal type={'新建'} showImageModal={this.state.showImageModal} ok={(name,src)=>addTag(this.formatImage(name,src))} cancel={()=>this.setState({showImageModal:false})} imageModalTitle={this.state.imageModalTitle}/>
             </div>
         )
     }
