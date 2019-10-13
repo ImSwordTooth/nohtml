@@ -120,15 +120,19 @@ function selectedTag(state = defaultState.selectedTag,action) {
             } else {
                 let targetObj = fn(defaultState.tagList);           //这个就是目标对象
                 let res = {};
-                var getCreate = new Promise((resolve,reject)=>{
-                    getWillCreateKey(targetObj);
-                    resolve(getInsert)
-                });
-                var getInsert = new Promise(((resolve, reject) => {
-                    getWillInsertKey(targetObj,action.key);
-                    resolve(res = targetObj)
-                }))
-                return res
+                if (targetObj){
+                    var getCreate = new Promise((resolve,reject)=>{
+                        getWillCreateKey(targetObj);
+                        resolve(getInsert)
+                    });
+                    var getInsert = new Promise(((resolve, reject) => {
+                        getWillInsertKey(targetObj,action.key);
+                        resolve(res = targetObj)
+                    }))
+                    return res
+                }
+                return state;
+
             }
         }
         case 'reset_currenttag':
@@ -153,8 +157,8 @@ function hoveredTagKey(state = defaultState.hoveredTagKey,action) {
 
 function getWillCreateKey(targetObj) {
     let willCreateKey = '';                 //即将新建的元素的key值
-    console.log(targetObj)
-    if (targetObj.children){
+    // console.log(targetObj)
+    if (targetObj && targetObj.children){
         if (JSON.stringify(targetObj.children)!=='[]') {
             let arr = [];
             for (let j = 0; j < targetObj.children.length; j++) {
@@ -179,9 +183,11 @@ function getWillInsertKey(targetObj,actionKey) {
         let arr  = actionKey.split('-');
         key = arr.slice(0,arr.length-1).join('-');
     }
+    // console.log(key)
     let childrenKeyArr = [];
     const getInsertKey = function (obj) {
         if (obj.key === key){
+            // console.log(obj)
             return obj;
         } else {
             for (let i=0;i<obj.children.length;i++){
@@ -191,12 +197,16 @@ function getWillInsertKey(targetObj,actionKey) {
             }
         }
     };
+
     let parent = getInsertKey(defaultState.tagList);
-    for (let i=0;i<parent.children.length;i++){
-        let x = parent.children[i].key.split('-');
-        childrenKeyArr.push(x[x.length-1]);
+    if (parent && parent.children){
+        for (let i=0;i<parent.children.length;i++){
+            let x = parent.children[i].key.split('-');
+            childrenKeyArr.push(x[x.length-1]);
+        }
+        targetObj.willInsertKey = `${parent.key}-${Math.max(...childrenKeyArr)+1}`
     }
-    targetObj.willInsertKey = `${parent.key}-${Math.max(...childrenKeyArr)+1}`
+
 }
 
 export default combineReducers({

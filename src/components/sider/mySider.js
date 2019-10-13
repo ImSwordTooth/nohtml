@@ -180,8 +180,13 @@ class mySider extends React.Component{
             changeCurrentTag(e.toString());
         }
         if (!this.state.showDrawer){
-            changeDrawer(true)
+            //此处先把hoverTag变成空
+            changeHoveredTag('');
+            changeDrawer(true);
+            //右侧抽屉出来之后再置为本来的key，使蒙版重新计算一次，就不会因抽屉的出现而导致蒙版错位
+            setTimeout(()=>changeHoveredTag(e.toString()),0);
         }
+
     };
 
     // tree列表上右键事件

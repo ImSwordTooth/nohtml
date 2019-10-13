@@ -11,9 +11,8 @@ export function insertTag(dom) {
 }
 
 export function deleteTag(key) {
-    console.log(key)
     store.dispatch({type:'delete_tag',key});
-    store.dispatch({type:'change_drawer',status:false})
+    store.dispatch({type:'change_drawer',status:false});
     store.dispatch({type:'reset_currenttag'})
 }
 

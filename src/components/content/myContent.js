@@ -76,9 +76,6 @@ class myContent extends React.Component{
         if (props.className){
             className += props.className;
         }
-        if (this.state.hoveredTagKey===key){
-            className += ' current';
-        }
         if (children!==undefined){
             return React.createElement(
                 type || 'div',
@@ -108,14 +105,29 @@ class myContent extends React.Component{
 
     };
 
+    mask = ()=>{
+        if (this.state.hoveredTagKey!==''){
+            let ele = document.getElementById(this.state.hoveredTagKey);
+            let style = {
+                width:ele.clientWidth,
+                height:ele.clientHeight,
+                left:ele.getBoundingClientRect().left,
+                top:ele.getBoundingClientRect().top
+            };
+            return <div className={'mask'} style={style}/>
+        }
+
+    }
+
     render() {
 
         const content = this.state.tagList.children;
 
         return (
-            <div className={'container_wp'}>
-                <div className={`container ${this.state.showDrawer?'operation_open':''}`}>
+            <div className={'container_wp'} id={'container_wp'}>
+                <div className={`container ${this.state.showDrawer?'operation_open':''}`} id={'0'} style={{width:'65vw',height:'65vh'}}>
                     {content.map(val => this.createNodes(val))}
+                    {this.mask()}
                 </div>
                 <Drawer
                     className={'operation_wp'}
@@ -125,8 +137,8 @@ class myContent extends React.Component{
                     onClose={this.closeDrawer}
                     visible={this.state.showDrawer}
                     mask={false}
-                    getContainer={false}
-                    style={{ position: 'absolute'}}
+                    getContainer={()=>document.getElementById('0')}
+                    // width={'20vw'}
                     width={400}
                 >
                     {this.drawerContent()}

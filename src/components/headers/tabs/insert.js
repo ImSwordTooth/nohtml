@@ -1,7 +1,7 @@
 import React from 'react'
 
 import {insertTag} from "../../../store/action";
-import { Menu, Dropdown,Input,message } from 'antd';
+import {Menu, Dropdown, Input, message, Tooltip} from 'antd';
 import store from '../../../store/index'
 
 import {TableModal} from "../../common/modals/tableModal";
@@ -242,27 +242,41 @@ class insert extends React.Component{
 
         // 下拉 · 图片
         const imgMenu = (
-            <div className={'tag_wp popover'}>
-                <div className={'tag'} onClick={()=>{
-                    this.setState({
-                        showImageModal:true,
-                        imageModalTitle:'网络图片'
-                    })
-                }}>
+            <Menu>
+                <Menu.Item className={'menuItem'} onClick={()=>this.setState({showImageModal:true,imageModalTitle:'网络图片'})}>
                     <i className={'iconfont iconnetworkimg'}/>
-                    <p className={'tagName'}>网络图片</p>
-                </div>
-                <div className={'tag'} onClick={()=>{
-                    this.setState({
-                        showImageModal:true,
-                        imageModalTitle:'base64编码'
-                    })
-                }}>
+                    <span>网络图片</span>
+                </Menu.Item>
+                <Menu.Item className={'menuItem'} onClick={()=>this.setState({showImageModal:true,imageModalTitle:'base64编码'})}>
                     <i className={'iconfont iconzip'}/>
-                    <p className={'tagName'}>base64</p>
-                </div>
-            </div>
+                    <span>base64</span>
+                </Menu.Item>
+            </Menu>
         );
+
+        // // 下拉 · 图片
+        // const imgMenu = (
+        //     <div className={'tag_wp popover'}>
+        //         <div className={'tag'} onClick={()=>{
+        //             this.setState({
+        //                 showImageModal:true,
+        //                 imageModalTitle:'网络图片'
+        //             })
+        //         }}>
+        //             <i className={'iconfont iconnetworkimg'}/>
+        //             <p className={'tagName'}>网络图片</p>
+        //         </div>
+        //         <div className={'tag'} onClick={()=>{
+        //             this.setState({
+        //                 showImageModal:true,
+        //                 imageModalTitle:'base64编码'
+        //             })
+        //         }}>
+        //             <i className={'iconfont iconzip'}/>
+        //             <p className={'tagName'}>base64</p>
+        //         </div>
+        //     </div>
+        // );
 
         // 下拉 · 文本框
         const inputMenu = (
@@ -280,6 +294,8 @@ class insert extends React.Component{
 
         return (
             <div>
+                <div style={{position:'relative',width:'max-content'}}>
+                    <Tooltip title={'请先选中要操作的元素'}><div className={`${JSON.stringify(this.state.selectedTag)==='{}'?'no_operate':''}`}/></Tooltip>
                 <div className={'tag_wp'}>
                     <div className={'tag'} onClick={()=>{insertTag(this.formatTag('div','新建div'))}}>
                         <i className={'iconfont icondiv'}/>
@@ -374,6 +390,7 @@ class insert extends React.Component{
                 </div>
                 <TableModal type={'插入'} showTableModal={this.state.showTableModal} ok={(arr,className)=>insertTag(this.formatTable(arr,className))} cancel={()=>this.setState({showTableModal:false})}/>
                 <ImageModal type={'插入'} showImageModal={this.state.showImageModal} ok={(name,src)=>insertTag(this.formatImage(name,src))} cancel={()=>this.setState({showImageModal:false})} imageModalTitle={this.state.imageModalTitle}/>
+            </div>
             </div>
         )
     }
