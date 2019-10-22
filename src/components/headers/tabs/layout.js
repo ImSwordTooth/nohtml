@@ -85,7 +85,7 @@ class myLayout extends React.Component{
         return (
             <div>
                 <span className={'info'}>单位：</span>
-                <Select defaultValue={this.state[direction].unit} style={{ width: 150 }} onChange={this.changeUnit}>
+                <Select defaultValue={this.state[direction].unit} style={{ width: 120,marginLeft:'10px' }} onChange={this.changeUnit}>
                     <Option value='%'>%</Option>
                     <Option value='px'>px</Option>
                 </Select>
@@ -129,19 +129,19 @@ class myLayout extends React.Component{
                     </Select>
                     <span className={'info'}>top：</span>
                     <Popover placement="bottomLeft" content={this.setting('top')} title={this.titleSetting('top')} trigger="click">
-                        <Tag onClick={()=>this.changeCurrentDirection('top')}>0</Tag>
+                        <Tag style={{cursor:'pointer'}} onClick={()=>this.changeCurrentDirection('top')}>0</Tag>
                     </Popover>
                     <span className={'info'}>right：</span>
                     <Popover placement="bottomLeft" content={this.setting('right')} title={this.titleSetting('right')} trigger="click">
-                        <Tag onClick={()=>this.changeCurrentDirection('right')}>0</Tag>
+                        <Tag style={{cursor:'pointer'}} onClick={()=>this.changeCurrentDirection('right')}>0</Tag>
                     </Popover>
                     <span className={'info'}>bottom：</span>
                     <Popover placement="bottomLeft" content={this.setting('bottom')} title={this.titleSetting('bottom')} trigger="click">
-                        <Tag onClick={()=>this.changeCurrentDirection('bottom')}>0</Tag>
+                        <Tag style={{cursor:'pointer'}} onClick={()=>this.changeCurrentDirection('bottom')}>0</Tag>
                     </Popover>
                     <span className={'info'}>left：</span>
                     <Popover placement="bottomLeft" content={this.setting('left')} title={this.titleSetting('left')} trigger="click">
-                        <Tag onClick={()=>this.changeCurrentDirection('left')}>0</Tag>
+                        <Tag style={{cursor:'pointer'}} onClick={()=>this.changeCurrentDirection('left')}>0</Tag>
                     </Popover>
                 </div>
                 <Divider type={'vertical'}/>

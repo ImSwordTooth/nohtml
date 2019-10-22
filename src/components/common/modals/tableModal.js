@@ -1,6 +1,5 @@
 import React from 'react'
 import {Button, Input, message, Modal} from "antd";
-import store from "../../../store";
 import '../css/tableModal.less'
 
 export class TableModal extends React.Component{

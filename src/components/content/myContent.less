@@ -122,3 +122,56 @@
    border: dashed 1px rgb(24, 144, 255);
    min-height: 1px;
  }
+
+ .collapsePanel{
+   background-color: #ffffff;
+   margin-bottom: 24px;
+ }
+
+ .drawerUl{
+   list-style: none;
+   padding: 0;
+   &>li{
+     border-bottom: solid 1px #d4d4d4;
+     position: relative;
+     display: flex;
+     align-items: center;
+     border-left: solid 3px #949494;
+     transition: all .3s;
+     &:hover{
+       background-color: rgba(228, 228, 228, 0.48);
+       transition: all .3s;
+     }
+     & div{
+       &.key{
+         flex: .3;
+         position: relative;
+         font-weight: 600;
+         cursor: default;
+         padding: 8px 16px;
+         &:after{
+           content: '';
+           position: absolute;
+           left: 100%;
+           top: 20%;
+           width: 1px;
+           height: 60%;
+           background-color: #d4d4d4;
+         }
+       }
+       &.value{
+         flex: .6;
+         cursor: pointer;
+         padding: 8px 16px;
+         #editingInput{
+           outline:none;
+           border:solid 1px #9c9c9c;
+           border-radius: 5px;
+           padding: 5px 10px;
+           width: 140px;
+           background-color: rgba(255, 255, 255, 0.81);
+         }
+       }
+     }
+   }
+ }

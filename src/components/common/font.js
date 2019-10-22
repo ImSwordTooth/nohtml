@@ -30,7 +30,7 @@ class font extends React.Component{
         updateTag({
             prop:'style',
             innerProp:'fontSize',
-            value:value
+            value:value+'px'
         });
     };
 
@@ -44,7 +44,11 @@ class font extends React.Component{
 
     getDefaultFontsize = ()=>{
         if (JSON.stringify(this.state.selectedTag)!=='{}'){
-            return this.state.selectedTag.style.fontSize||14;
+            if (this.state.selectedTag.style.fontSize){
+                return this.state.selectedTag.style.fontSize.replace('px','')
+            } else {
+                return 14;
+            }
         } else {
             return 14;
         }

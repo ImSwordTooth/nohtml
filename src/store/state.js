@@ -16,7 +16,7 @@ export default {
                 dataName:'新建div',
                 iconName:'icondiv',
                 content:'我是新建div的内容',
-                style:{color:'#b10100',fontFamily:'幼圆'},
+                style:{fontFamily:'幼圆'},
                 props:{},
                 children:[
                     {
@@ -25,7 +25,7 @@ export default {
                         key:'0-0-0',
                         dataName:'新建p',
                         iconName:'iconp',
-                        style:{},
+                        style:{transition:'x'},
                         props:{},
                         children:[]
                     }
@@ -47,7 +47,7 @@ export default {
                         dataName:'新建段落2',
                         iconName:'iconp',
                         content:'我是新建段落2的内容',
-                        style:{color:'#ff0000',fontSize:'28px'},
+                        style:{fontSize:'28px',backgroundColor:'#ffffff',fontWeight:'lighter',fontStyle:'italic',textDecoration:'underline'},
                         props:{},
                         children:[]
                     }

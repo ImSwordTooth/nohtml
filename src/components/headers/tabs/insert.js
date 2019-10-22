@@ -1,7 +1,7 @@
 import React from 'react'
 
 import {insertTag} from "../../../store/action";
-import {Menu, Dropdown, Input, message, Tooltip} from 'antd';
+import {Menu, Dropdown, message, Tooltip} from 'antd';
 import store from '../../../store/index'
 
 import {TableModal} from "../../common/modals/tableModal";
@@ -150,6 +150,7 @@ class insert extends React.Component{
             case 'number':dataName = '新建number文本框';iconName = 'iconnumber';break;
             case 'checkbox':dataName = '新建复选框';iconName = 'iconcheckbox';break;
             case 'radio':dataName = '新建单选框';iconName = 'iconradio';break;
+            default:dataName = '新建text文本框';iconName = 'iconinput';
         }
         return {
             type:'input',
@@ -173,7 +174,6 @@ class insert extends React.Component{
     //上传图片
     handleUploadImage = ()=>{
         let that = this;
-        let selectTag = this.state.selectedTag;
         let file = document.getElementById('uploadLocalImg').files[0];
         if (!file || !window.FileReader) { // 看支持不支持FileReader
             message.warn('您的浏览器不支持FileReader本地上传');

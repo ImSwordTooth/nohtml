@@ -121,7 +121,7 @@ function selectedTag(state = defaultState.selectedTag,action) {
                 let targetObj = fn(defaultState.tagList);           //这个就是目标对象
                 let res = {};
                 if (targetObj){
-                    var getCreate = new Promise((resolve,reject)=>{
+                    new Promise((resolve,reject)=>{
                         getWillCreateKey(targetObj);
                         resolve(getInsert)
                     });
