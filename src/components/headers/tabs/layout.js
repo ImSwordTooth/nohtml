@@ -2,6 +2,8 @@ import React from 'react'
 import '../css/layout.less'
 
 import { Select,Checkbox,Divider,Tag,Popover,Slider,InputNumber  } from 'antd';
+import {dataSource} from "../../../untils/cssTable";
+
 const { Option } = Select;
 
 class myLayout extends React.Component{
@@ -13,7 +15,7 @@ class myLayout extends React.Component{
             isDisplay:true,
             isFloat:true,
             currentDirection:'',        //当前正在编辑的方向：top、bottom、left、right
-            top:{                       //三个值分别为百分比、px值、单位，下同      //TODO 后续考虑加入更多单位
+            top:{                       //三个值分别为百分比、px值、单位，下同
                 percent:0,
                 px:0,
                 unit:'%'
@@ -114,18 +116,22 @@ class myLayout extends React.Component{
         </div>
     );
     render() {
+
+        const displayList = dataSource.display.sort().map(item=>{
+            return <Option value={item} title={item}>{item}</Option>
+        })
+
         return(
             <div className={'layout'}>
                 <div className={'layout_item'}>
                     <Checkbox checked={this.state.isPosition} onChange={(e)=>this.handleCheck('position',e)}/>
                     <span className={'info'}>positon：</span>
-                    <Select defaultValue="relative" style={{ width: 120 }} >
+                    <Select defaultValue="relative" style={{ width: 120 }}>
                         <Option value="relative">relative</Option>
                         <Option value="absolute">absolute</Option>
-                        <Option value="disabled" disabled>
-                            Disabled
-                        </Option>
-                        <Option value="Yiminghe">yiminghe</Option>
+                        <Option value="fixed">fixed</Option>
+                        <Option value="sticky">sticky</Option>
+                        <Option value="static">static</Option>
                     </Select>
                     <span className={'info'}>top：</span>
                     <Popover placement="bottomLeft" content={this.setting('top')} title={this.titleSetting('top')} trigger="click">
@@ -148,11 +154,10 @@ class myLayout extends React.Component{
                 <div className={'layout_item'}>
                     <Checkbox checked={this.state.isDisplay} onChange={(e)=>this.handleCheck('display',e)}/>
                     <span className={'info'}>display：</span>
-                    <Select defaultValue="block" style={{ width: 120 }} >
-                        <Option value="block">block</Option>
-                        <Option value="inlnie">inline</Option>
-                        <Option value="flex">flex</Option>
-                        <Option value="grid">grid</Option>
+                    <Select defaultValue="block" style={{ width: 150 }}
+                            showSearch
+                            filterOption={(input, option) =>option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0 }>
+                        {displayList}
                     </Select>
                 </div>
                 <Divider type={'vertical'}/>

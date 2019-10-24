@@ -1,13 +1,14 @@
-export let dataSourceKeys = [];
-
 export const dataSource = {
     alignItems:['normal','flex-start','flex-end','start','end','center','left','right','self-start','self-end','baseline','first baseline','last baseline','stretch','safe','unsafe',],
     alignContent:['normal','center','start','end','flex-start','flex-end','baseline','first baseline','last baseline','space-between','space-around','space-evenly','stretch','safe','unsafe'],
     alignSelf:['auto','flex-start','flex-end','center','baseline','stretch'],
+    all:[],
     animation:['ease','ease-in','ease-out','ease-in-out','linear','step-start','step-end','cubic-bezier()','frames()','steps()','infinite','normal','reverse','alternate','alternate-reverse','forwards','backwards','none','both','running','paused'],
+    animationDelay:[],
     animationDirection:['normal','reverse','alternate','alternate-reverse'],
     animationFillMode:['forwards','backwards','none','both'],
     animationIterationCount:['infinite'],
+    animationName:[],
     animationPlayState:['running','paused'],
     animationTimingFunction:['ease','ease-in','ease-out','ease-in-out','linear','step-start','step-end','cubic-bezier()','frames()','steps()'],
     backfaceVisibility:['visible','hidden'],
@@ -21,6 +22,7 @@ export const dataSource = {
     backgroundPosition:['top','bottom','left','right','center'],
     backgroundRepeat:['repeat-x','repeat-y','repeat','space','round','no-repeat'],
     backgroundSize:['cover','contain','auto'],
+    blockSize:[],
     border:['rgb()','rgba()','hsl()','hsla()','currentColor','transparent','thin','medium','thick','none','hidden','dotted','dashed','solid','double','groove','ridge','inset','outset'],
     borderTop:['rgb()','rgba()','hsl()','hsla()','currentColor','transparent','thin','medium','thick','none','hidden','dotted','dashed','solid','double','groove','ridge','inset','outset'],
     borderBottom:['rgb()','rgba()','hsl()','hsla()','currentColor','transparent','thin','medium','thick','none','hidden','dotted','dashed','solid','double','groove','ridge','inset','outset'],
@@ -41,6 +43,17 @@ export const dataSource = {
     borderBottomStyle:['none','hidden','dotted','dashed','solid','double','groove','ridge','inset','outset'],
     borderLeftStyle:['none','hidden','dotted','dashed','solid','double','groove','ridge','inset','outset'],
     borderRightStyle:['none','hidden','dotted','dashed','solid','double','groove','ridge','inset','outset'],
+    borderRadius:[],
+    borderTopLeftRadius:[],
+    borderTopRightRadius:[],
+    borderBottomLeftRadius:[],
+    borderBottomRightRadius:[],
+    borderImage:[],
+    borderImageSource:['none','url()','linear-gradient()','repeating-linear-gradient()','radial-gradient()','repeating-radial-gradient()'],
+    borderImageSlice:[],
+    borderImageWidth:[],
+    borderImageOutset:[],
+    borderImageRepeat:[],
     borderCollapse:['collapse','separate'],
     top:['auto'],
     bottom:['auto'],
@@ -252,12 +265,26 @@ export const dataSource = {
     zIndex:['auto']
 };
 
-dataSourceKeys = [...Object.keys(dataSource)];
+export const dataSourceKeys = [...Object.keys(dataSource)];
 
 //TODO 此处不太规范。。。但是数据源太大，如果规范就会很慢。以后有兴致可以手动一个个写
 dataSource.transition = dataSourceKeys.concat(dataSource.transition);
 dataSource.willChange = dataSourceKeys.concat(dataSource.willChange);
 
 export const defaultCssProp = {
-    div:['color','display','fontSize','height','width','lineHeight','margin','padding','overflow','position','boxSizing']
+    div:['color','display','fontSize','height','width','margin','padding','overflow','position','boxSizing'],
+    button:['color','backgroundColor','fontSize','border','display','position','margin','padding','borderRadius'],
+    p:['fontSize','lineHeight','fontWeight','fontStyle','color','textDecoration'],
+    a:['fontSize','lineHeight','fontWeight','fontStyle','color','textDecoration'],
+    pre:['fontSize','lineHeight','fontWeight','fontStyle','color','textDecoration'],
+    code:['fontSize','lineHeight','fontWeight','fontStyle','color','textDecoration'],
+    h1:['fontSize','lineHeight','fontWeight','fontStyle','color','textDecoration'],
+    h2:['fontSize','lineHeight','fontWeight','fontStyle','color','textDecoration'],
+    h3:['fontSize','lineHeight','fontWeight','fontStyle','color','textDecoration'],
+    h4:['fontSize','lineHeight','fontWeight','fontStyle','color','textDecoration'],
+    h5:['fontSize','lineHeight','fontWeight','fontStyle','color','textDecoration'],
+    h6:['fontSize','lineHeight','fontWeight','fontStyle','color','textDecoration'],
+    img:['width','height','margin','objectFit','filter','border'],
+    table:['fontSize','borderCollapse','border','color'],
+
 }

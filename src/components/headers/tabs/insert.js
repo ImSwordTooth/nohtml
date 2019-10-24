@@ -37,7 +37,8 @@ class insert extends React.Component{
             dataName:name,
             iconName:'icon'+type,
             content:`新建${type}`,
-            style:{},
+            trueStyle:{},
+            viewStyle:{},
             props:{},
             children:[]
         }
@@ -54,7 +55,8 @@ class insert extends React.Component{
             key:selectTag.willInsertKey,
             dataName:name,
             iconName:'iconimg',
-            style:{},
+            trueStyle:{},
+            viewStyle:{},
             props:{
                 src
             }
@@ -76,7 +78,8 @@ class insert extends React.Component{
                key:`${selectTag.willInsertKey}-0-${index}`,
                dataName:`新建tr${index+1}`,
                iconName:'icontr',
-               style:{},
+               trueStyle:{},
+               viewStyle:{},
                props:{},
                children:[]
             })
@@ -91,7 +94,8 @@ class insert extends React.Component{
                 dataName:`表头${index+1}：${item}`,
                 iconName:'iconth',
                 content:item,
-                style:{},
+                trueStyle:{},
+                viewStyle:{},
                 props:{},
                 children:[]
             })
@@ -108,7 +112,8 @@ class insert extends React.Component{
                     dataName:`数据${arr.length*i+index}`,
                     iconName:'icontd',
                     content:`数据${arr.length*i+index}`,
-                    style:{},
+                    trueStyle:{},
+                    viewStyle:{},
                     props:{},
                     children:[]
                 }
@@ -121,7 +126,8 @@ class insert extends React.Component{
             key:selectTag.willInsertKey,
             dataName:'新建table',
             iconName:'icontable',
-            style:{},
+            trueStyle:{},
+            viewStyle:{},
             props:{
                 className:className
             },
@@ -132,7 +138,8 @@ class insert extends React.Component{
                     key:selectTag.willInsertKey+'-0',
                     dataName:'新建tbody',
                     iconName:'icontbody',
-                    style:{},
+                    trueStyle:{},
+                    viewStyle:{},
                     props:{},
                     children:trs
                 }
@@ -158,7 +165,8 @@ class insert extends React.Component{
             key:selectTag.willInsertKey,
             dataName,
             iconName,
-            style:{},
+            trueStyle:{},
+            viewStyle:{},
             props:{
                 type
             }

@@ -163,13 +163,19 @@
          flex: .6;
          cursor: pointer;
          padding: 8px 16px;
-         #editingInput{
-           outline:none;
-           border:solid 1px #9c9c9c;
-           border-radius: 5px;
-           padding: 5px 10px;
-           width: 140px;
-           background-color: rgba(255, 255, 255, 0.81);
+       }
+       & .autoCompleteInput{
+         outline:none;
+         border:solid 1px #9c9c9c;
+         border-radius: 5px;
+         padding: 5px 10px;
+         width: 140px;
+         background-color: rgba(234, 234, 234, 0.81);
+         &::placeholder{
+           color: #ababab;
+           text-shadow: 1px 1px rgba(186, 186, 186, 0.47);
+           font-style: italic;
+           font-size: 12px;
          }
        }
      }

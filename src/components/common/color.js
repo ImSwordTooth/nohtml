@@ -21,7 +21,7 @@ class color extends React.Component{
 
     getDefaultColor = (prop)=>{
         if (JSON.stringify(this.state.selectedTag)!=='{}'){
-            return this.state.selectedTag.style[prop]||"#000000";
+            return this.state.selectedTag.viewStyle[prop]||"#000000";
         } else {
             return "#000000";
         }

@@ -4,6 +4,7 @@ import Start from './tabs/start'
 import Insert from './tabs/insert'
 import Layout from './tabs/layout'
 import Viewport from './tabs/viewport'
+import Animation from './tabs/animation'
 
 import './css/myHeader.less'
 
@@ -27,7 +28,7 @@ class myHeader extends React.Component{
                         <Layout/>
                     </TabPane>
                     <TabPane tab="动画" key="4">
-
+                        <Animation/>
                     </TabPane>
                     <TabPane tab="视图" key="5">
                         <Viewport/>

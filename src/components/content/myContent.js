@@ -4,11 +4,10 @@ import {Collapse, Drawer, Input, Tag,Tooltip,AutoComplete} from 'antd'
 import './myContent.less'
 import store from '../../store'
 import {changeDrawer, updateTag} from "../../store/action";
-import {dataSource,defaultCssProp} from "../../untils/cssTable";
+import {dataSource,defaultCssProp,dataSourceKeys} from "../../untils/cssTable";
 
 const {TextArea} = Input;
 const { Panel } = Collapse;
-const { Option, OptGroup } = AutoComplete;
 
 class myContent extends React.Component{
 
@@ -17,7 +16,9 @@ class myContent extends React.Component{
         this.state = Object.assign({},store.getState(),{
             isReName:false,
             editingStyleName:'',        //当前正在编辑的样式的名字，同一时间只能编辑一个
-            editingStyleValue:''        //当前正在编辑的样式的值
+            editingStyleValue:'',        //当前正在编辑的样式的值
+            newStyleName:'',            //新建样式属性名
+            newStyleValue:''            //新建样式属性值
         });
         store.subscribe(this.listener)
     }
@@ -91,11 +92,13 @@ class myContent extends React.Component{
     //点击外部重置为空
     handleClickOutside=(e)=> {
         //如果用户点击的不是正在编辑的input
-        if (e.target.id!=='editingInput'){
+        if (e.target.className!=='autoCompleteInput'){
             //就把正在编辑的内容置为空
             this.setState({
                 editingStyleName: '',
-                editingStyleValue:''
+                editingStyleValue:'',
+                newStyleName:'',
+                newStyleValue:''
             });
             //然后移除监听器
             document.removeEventListener('mousedown', this.handleClickOutside, false);
@@ -108,7 +111,7 @@ class myContent extends React.Component{
 
         if (JSON.stringify(selectedTag)!=='{}') {
             let props = Object.assign({},selectedTag.props),
-                css = Object.assign({},selectedTag.style);
+                css = Object.assign({},selectedTag.viewStyle);
             let defaultCssArr = defaultCssProp[selectedTag.type]||defaultCssProp.div;
             // console.log(this.state.selectedTag.style)
             // console.log(getComputedStyle(document.getElementById(selectedTag.key), null))
@@ -141,13 +144,28 @@ class myContent extends React.Component{
                         <TextArea value={this.state.selectedTag.content} style={{marginBottom:'10px'}} onChange={(e) => this.changeContent(e)}/>
                         <Collapse expandIconPosition={'right'} bordered={false} defaultActiveKey={['1','2']}>
                             <Panel key={1} header={'属性'} style={{background: '#f7f7f7',borderRadius: 4, marginBottom: 10,border: 0,overflow: 'hidden',borderTop:'solid 4px rgba(218, 218, 218, 0.34)'}}>
-                                {[...Object.entries(selectedTag.props)].map(item => {
-                                    return <span>{item}</span>
-                                })}
+                                <ul className={'drawerUl'}>
+                                    {[...Object.entries(selectedTag.props)].map((item,index) => {
+                                        return (
+                                            <li key={index}>
+                                                <div className={'key'}>{item[0].replace(/[#&]/g,'')}</div>
+                                                <div className={'value'} onClick={()=>this.changeEditing(item[0].replace(/[#&]/g,''),item[1])}>
+                                                    <span>{item[1]}</span>
+                                                </div>
+                                            </li>
+                                        )
+                                    })}
+                                </ul>
                             </Panel>
                             <Panel key={2} header={'CSS'}
                                    style={{background: '#f7f7f7',borderRadius: 4, marginBottom: 10,border: 0,overflow: 'hidden',borderTop:'solid 4px rgba(218, 218, 218, 0.34)'}}
-                                   extra={<Tooltip placement='topLeft' title={<span><span style={{color:'#949494'}}>深色</span>代表用户自定义样式；<span style={{color:'#d4d4d4'}}>浅色</span>代表计算后的样式。<br/><span><strong>修改</strong>：单击属性值（您应该始终使用<i>全选</i>来修改属性值）</span><br/><span><strong>删除</strong>：ctrl+单击属性名</span></span>}><i className={'iconfont iconhelp'}/></Tooltip>}>
+                                   extra={
+                                       <div>
+                                           {/*<i className={'iconfont iconadd'}/>*/}
+                                           <Tooltip placement='topLeft'
+                                                    title={<span><span style={{color:'#949494'}}>深色</span>代表用户自定义样式；<span style={{color:'#d4d4d4'}}>浅色</span>代表计算后的样式。<br/><span><strong>修改</strong>：单击属性值（您应该始终使用<i>全选</i>来修改属性值）</span><br/><span><strong>删除</strong>：ctrl+单击属性名</span></span>}><i className={'iconfont iconhelp'}/>
+                                           </Tooltip>
+                                       </div>}>
                                 <ul className={'drawerUl'}>
                                     {/*<li>*/}
                                     {[...Object.entries(css)].sort().map((item,index) => {
@@ -173,15 +191,30 @@ class myContent extends React.Component{
                                                                             return option.props.children.toUpperCase().indexOf(arr[arr.length-1])!==-1
                                                                         }
                                                                     }
-                                                                    children={<input id={'editingInput'} onFocus={(e)=>{e.target.select()}}/>}
+                                                                    children={<input className={'autoCompleteInput'} id={'editingInput'} onFocus={(e)=>{e.target.select()}}/>}
                                                                     backfill={true}
                                                                     value={item[1]}
                                                                     onChange={(e)=>{
+                                                                        if (!/\d+px/.test(e)){
                                                                             updateTag({
                                                                                 prop:'style',
                                                                                 innerProp:item[0].replace(/[#&]/g,''),
                                                                                 value:e
                                                                             })
+                                                                        }else {
+                                                                            updateTag({
+                                                                                prop:'trueStyle',
+                                                                                innerProp:item[0].replace(/[#&]/g,''),
+                                                                                value:e.replace(/\d+px/g,function (i) {
+                                                                                    return parseInt(i)/14*0.6+'rem'
+                                                                                })
+                                                                            });
+                                                                            updateTag({
+                                                                                prop:'viewStyle',
+                                                                                innerProp:item[0].replace(/[#&]/g,''),
+                                                                                value:e
+                                                                            })
+                                                                        }
                                                                     }}
                                                                     onSelect={(e)=> {
                                                                         updateTag({
@@ -201,6 +234,84 @@ class myContent extends React.Component{
 
                                     })}
                                     {/*</li>*/}
+                                    <li>
+                                        <div className={'key'}>
+                                            <Tooltip trigger={['focus']} title={this.state.newStyleName} placement="topLeft">
+                                                <AutoComplete
+                                                    // autoFocus={true}
+                                                    dataSource={dataSourceKeys.sort()}
+                                                    filterOption={(inputValue, option) =>
+                                                        option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+                                                    }
+                                                    children={<input className={'autoCompleteInput'} id={'newStyleName'} style={{width:120}} placeholder={'新建属性'} onFocus={(e)=>{e.target.select()}}/>}
+                                                    backfill={true}
+                                                    value={this.state.newStyleName}
+                                                    onChange={(e)=>{this.setState({newStyleName:e})}}
+                                                    onBlur={()=>{
+                                                        if (this.state.newStyleName !=='' && this.state.newStyleValue !== ''){
+                                                            updateTag({
+                                                                prop:'style',
+                                                                innerProp:this.state.newStyleName,
+                                                                value:this.state.newStyleValue
+                                                            });
+                                                            this.setState({
+                                                                newStyleName:'',
+                                                                newStyleValue:''
+                                                            })
+                                                        }
+                                                    }}
+                                                />
+                                            </Tooltip>
+                                        </div>
+                                        <div className={'value'}>
+                                            <Tooltip trigger={['focus']} title={this.state.newStyleValue===''?'':this.state.newStyleValue} placement="topLeft">
+                                                <AutoComplete
+                                                    // autoFocus={true}
+                                                    dataSource={dataSource[this.state.newStyleName]===undefined?[]:dataSource[this.state.newStyleName].sort()}
+                                                    filterOption={(inputValue, option) =>
+                                                        option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+                                                    }
+                                                    children={
+                                                        <input className={'autoCompleteInput'} id={'newStyleValue'} style={{width:120}} placeholder={'属性值'}
+                                                                onFocus={(e)=>{e.target.select()}}
+                                                                onKeyDown={(e)=>{
+                                                                    if (e.key === 'Tab'){
+                                                                        e.preventDefault();
+                                                                        updateTag({
+                                                                            prop:'style',
+                                                                            innerProp:this.state.newStyleName,
+                                                                            value:this.state.newStyleValue
+                                                                        });
+                                                                        this.setState({
+                                                                            newStyleName:'',
+                                                                            newStyleValue:''
+                                                                        });
+                                                                        document.getElementById('newStyleName').focus();
+                                                                    }
+                                                                }}
+                                                        />}
+                                                    backfill={true}
+                                                    value={this.state.newStyleValue}
+                                                    onChange={(e)=>{
+                                                        this.setState({newStyleValue:e})
+                                                    }}
+                                                    onBlur={()=>{
+                                                        if (this.state.newStyleName !=='' && this.state.newStyleValue !== ''){
+                                                            updateTag({
+                                                                prop:'style',
+                                                                innerProp:this.state.newStyleName,
+                                                                value:this.state.newStyleValue
+                                                            });
+                                                            this.setState({
+                                                                newStyleName:'',
+                                                                newStyleValue:''
+                                                            })
+                                                        }
+                                                    }}
+                                                />
+                                            </Tooltip>
+                                        </div>
+                                    </li>
                                 </ul>
 
                             </Panel>
@@ -210,7 +321,7 @@ class myContent extends React.Component{
         }
     };
 
-    createNodes = ({key, pid, children, type,style,content,props}) => {
+    createNodes = ({key, pid, children, type,trueStyle,content,props}) => {
         let className = '';
         if (props.className){
             className += props.className;
@@ -221,7 +332,7 @@ class myContent extends React.Component{
                 {
                     id:key,
                     key,
-                    style:{...style},
+                    style:{...trueStyle},
                     src:props.src?props.src:null,
                     className
                 },
@@ -233,7 +344,7 @@ class myContent extends React.Component{
                 {
                     id:key,
                     key,
-                    style:{...style},
+                    style:{...trueStyle},
                     src:props.src?props.src:null,
                     type:props.type?props.type:null,
                     className
@@ -266,12 +377,14 @@ class myContent extends React.Component{
 
         return (
             <div className={'container_wp'} id={'container_wp'}>
+
                 <div className={`container ${this.state.showDrawer?'operation_open':''}`} id={'0'} style={{width:'60vw',height:'60vh'}}>
                     {content.map(val => this.createNodes(val))}
                     {this.mask()}
                 </div>
                 <Drawer
                     className={'operation_wp'}
+                    id={'Drawer'}
                     title={this.drawerTitle()}
                     placement="right"
                     closable={true}

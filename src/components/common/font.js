@@ -28,7 +28,12 @@ class font extends React.Component{
 
     changeFontSize = value => {
         updateTag({
-            prop:'style',
+            prop:'trueStyle',
+            innerProp:'fontSize',
+            value:value/14*this.state.scale+'rem'
+        });
+        updateTag({
+            prop:'viewStyle',
             innerProp:'fontSize',
             value:value+'px'
         });
@@ -44,8 +49,8 @@ class font extends React.Component{
 
     getDefaultFontsize = ()=>{
         if (JSON.stringify(this.state.selectedTag)!=='{}'){
-            if (this.state.selectedTag.style.fontSize){
-                return this.state.selectedTag.style.fontSize.replace('px','')
+            if (this.state.selectedTag.viewStyle.fontSize){
+                return this.state.selectedTag.viewStyle.fontSize.replace('px','')
             } else {
                 return 14;
             }
@@ -56,7 +61,7 @@ class font extends React.Component{
 
     getDefaultFont = ()=>{
         if (JSON.stringify(this.state.selectedTag)!=='{}'){
-            return this.state.selectedTag.style.fontFamily||'选择字体';
+            return this.state.selectedTag.viewStyle.fontFamily||'选择字体';
         } else {
             return '选择字体';
         }

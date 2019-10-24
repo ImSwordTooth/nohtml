@@ -47,7 +47,8 @@ class mySider extends React.Component{
             dataName:name,
             iconName:'icon'+type,
             content:`新建${type}`,
-            style:{},
+            trueStyle:{},
+            viewStyle:{},
             props:{},
             children:[]
         }
@@ -64,7 +65,8 @@ class mySider extends React.Component{
             key:selectTag.willCreateKey,
             dataName:name,
             iconName:'iconimg',
-            style:{},
+            trueStyle:{},
+            viewStyle:{},
             props:{
                 src
             }
@@ -86,7 +88,8 @@ class mySider extends React.Component{
                 key:`${selectTag.willCreateKey}-0-${index}`,
                 dataName:`新建tr${index+1}`,
                 iconName:'icontr',
-                style:{},
+                trueStyle:{},
+                viewStyle:{},
                 props:{},
                 children:[]
             })
@@ -101,7 +104,8 @@ class mySider extends React.Component{
                 dataName:`表头${index+1}：${item}`,
                 iconName:'iconth',
                 content:item,
-                style:{},
+                trueStyle:{},
+                viewStyle:{},
                 props:{},
                 children:[]
             })
@@ -118,7 +122,8 @@ class mySider extends React.Component{
                     dataName:`数据${arr.length*i+index}`,
                     iconName:'icontd',
                     content:`数据${arr.length*i+index}`,
-                    style:{},
+                    trueStyle:{},
+                    viewStyle:{},
                     props:{},
                     children:[]
                 }
@@ -131,7 +136,8 @@ class mySider extends React.Component{
             key:selectTag.willCreateKey,
             dataName:'新建table',
             iconName:'icontable',
-            style:{},
+            trueStyle:{},
+            viewStyle:{},
             props:{
                 className:className
             },
@@ -142,7 +148,8 @@ class mySider extends React.Component{
                     key:selectTag.willCreateKey+'-0',
                     dataName:'新建tbody',
                     iconName:'icontbody',
-                    style:{},
+                    trueStyle:{},
+                    viewStyle:{},
                     props:{},
                     children:trs
                 }
@@ -168,7 +175,8 @@ class mySider extends React.Component{
             key:selectTag.willCreateKey,
             dataName,
             iconName,
-            style:{},
+            trueStyle:{},
+            viewStyle:{},
             props:{
                 type
             }
@@ -184,8 +192,8 @@ class mySider extends React.Component{
             //此处先把hoverTag变成空
             changeHoveredTag('');
             changeDrawer(true);
-            //右侧抽屉出来之后再置为本来的key，使蒙版重新计算一次，就不会因抽屉的出现而导致蒙版错位
-            setTimeout(()=>changeHoveredTag(e.toString()),0);
+            // 右侧抽屉出来之后再置为本来的key，使蒙版重新计算一次，就不会因抽屉的出现而导致蒙版错位
+            // setTimeout(()=>changeHoveredTag(e.toString()),1000);        //此处有一些小bug
         }
 
     };

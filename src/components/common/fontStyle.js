@@ -21,7 +21,12 @@ class fontStyle extends React.Component{
     getDefaultClass = (prop,value)=>{
         if (this.state.selectedTag!==undefined){
             if (JSON.stringify(this.state.selectedTag)!=='{}'){
-                return this.state.selectedTag.style[prop]===value?'active':''
+                if (this.state.selectedTag.viewStyle[prop]){
+                    return this.state.selectedTag.viewStyle[prop]===value?'active':''
+                } else {
+                    return '';
+                }
+                // return this.state.selectedTag.viewStyle[prop]===value?'active':''
             } else {
                 return ''
             }
@@ -32,7 +37,7 @@ class fontStyle extends React.Component{
     };
 
     changeFont = (prop,value)=>{
-        if (this.state.selectedTag.style[prop]===value){
+        if (this.state.selectedTag.viewStyle[prop]===value){
             updateTag({
                 prop:'style',
                 innerProp:prop,

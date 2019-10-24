@@ -1,6 +1,6 @@
 
 import {combineReducers} from "redux";
-import defaultState from './state'
+import {defaultState} from './state'
 function tagList(state = defaultState.tagList,action) {
     switch (action.type) {
         case 'add_tag':
@@ -9,7 +9,7 @@ function tagList(state = defaultState.tagList,action) {
             const getCreateTargetObj = function (obj) {
                 if (obj.key === action.dom.pid){
                     obj.children.push(action.dom);
-                    getWillCreateKey(obj)
+                    getWillCreateKey(obj);
                     getWillInsertKey(obj,obj.key)
                 } else {
                     for (let i=0;i<obj.children.length;i++){
@@ -69,17 +69,16 @@ function tagList(state = defaultState.tagList,action) {
 
             };
             deleteTargetObj(deleteTagArr);
-            console.log(
-                deleteTagArr
-            )
             return deleteTagArr;
         case 'update_tag':
             let updateTagArr = Object.assign([],state);
             const fn = function (obj) {
                 if (obj.key === action.key){
-
-                    if (action.prop !== 'style'){
+                    if (action.prop !== 'trueStyle' && action.prop !=='viewStyle' && action.prop !== 'style'){
                         obj[action.prop] = action.value;
+                    } else if (action.prop === 'style'){                //如果传的值是style，就代表trueStyle和viewStyle一样的
+                        obj.viewStyle[action.innerProp] = action.value;
+                        obj.trueStyle[action.innerProp] = action.value;
                     } else {
                         obj[action.prop][action.innerProp] = action.value;
                     }
