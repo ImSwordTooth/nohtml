@@ -2,7 +2,16 @@ import React from 'react'
 import store from '../../store'
 import {Tree, Popover, Input, message,Popconfirm} from 'antd';
 import './mySider.less'
-import {addTag, changeCurrentTag, updateTag, changeDrawer, changeHoveredTag, deleteTag} from "../../store/action";
+import {
+    addTag,
+    changeCurrentTag,
+    updateTag,
+    changeDrawer,
+    changeHoveredTag,
+    deleteTag,
+    dropTag,
+    reSetTag
+} from "../../store/action";
 import {TableModal} from "../common/modals/tableModal";
 import {ImageModal} from "../common/modals/imageModal";
 
@@ -220,9 +229,9 @@ class mySider extends React.Component{
 
     //根据json字符串动态生成树节点
     createNodes = (val) => {
-        if (val.type==='img'){
-            console.log(val)
-        }
+        // if (val.type==='img'){
+        //     console.log(val)
+        // }
         let son = null;
         if (val.children){
             son = [...val.children.map(val => this.createNodes(val))];
@@ -285,6 +294,38 @@ class mySider extends React.Component{
              </div>
          );
      };
+
+     drop = (e)=>{
+         console.log(e.dropPosition)
+         reSetTag()
+         let isSelected = false;
+         if (JSON.stringify(this.state.selectedTag) !== '{}'){
+             if (this.state.selectedTag.key === e.dragNodesKeys[e.dragNodesKeys.length-1]){
+                 isSelected = true;
+             }
+         }
+         // if (e.node.props.dragOver){        //直接拖拽到目标上
+             dropTag({
+                 dropOver:e.node.props.dragOver,
+                 originKey:e.dragNodesKeys,
+                 targetKey:e.node.props.eventKey,
+                 dropPosition:e.dropPosition,
+                 // dropPos:e.node.props.pos.split('-'),
+                 isSelected
+             })
+         // }else{
+
+             // dropTag({
+             //     dropOver: false,
+             //     originKey:e.dragNodesKeys,
+             //     targetKey:
+             // })
+         // }
+         // console.log(e.event);
+         // console.log(this.state);
+         // console.log(e.dragNode);
+         // console.log(e.dragNodesKeys);      //被拖拽的对象的key的列表，直接包含了节点和节点下的children
+     }
 
     // 自定义右键菜单内容
     getNodeTreeRightClickMenu = () => {
@@ -492,7 +533,12 @@ class mySider extends React.Component{
     render() {
         return(
             <div style={{position:'relative'}}>
-                <Tree showIcon defaultExpandAll
+                <Tree showIcon defaultExpandAll draggable
+                      onDragStart={()=>{                //开始拖拽的时候把hover—mask和抽屉去掉，十分low的行为，有机会改掉
+                          changeHoveredTag('');
+                          changeDrawer(false)
+                      }}
+                      onDrop={(e)=>this.drop(e)}
                       onSelect={(e)=>this.treeNodeonClick(e)}
                       onMouseEnter={(e)=>{changeHoveredTag(e.node.props.eventKey)}}
                       onMouseLeave={()=>{changeHoveredTag('')}}
@@ -501,6 +547,7 @@ class mySider extends React.Component{
                         {this.state.tagList.children.map(val=>this.createNodes(val))}
                     </TreeNode>
                 </Tree>
+                <span>{this.state.selectedTag.key}</span>
                 {this.getNodeTreeRightClickMenu()}
                 <TableModal type={'新建'} showTableModal={this.state.showTableModal} ok={(arr,className)=>addTag(this.formatTable(arr,className))} cancel={()=>this.setState({showTableModal:false})}/>
                 <ImageModal type={'新建'} showImageModal={this.state.showImageModal} ok={(name,src)=>addTag(this.formatImage(name,src))} cancel={()=>this.setState({showImageModal:false})} imageModalTitle={this.state.imageModalTitle}/>

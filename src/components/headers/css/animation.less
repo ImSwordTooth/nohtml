@@ -1,18 +1,43 @@
 @import "./animation_keyframes";
 .animationTimingFunction{
+  display: inline-flex;
   .timingFunctionList{
     margin: 0;
     padding: 0;
     list-style: none;
+    display: inline-flex;
+    align-items:center;
     & > li{
+      position: relative;
       display: inline-flex;
       justify-content: center;
       align-items: center;
       width: 50px;
       height: 50px;
       background-color: rgba(232, 232, 232, 0.29);
+      border: dashed 1.5px transparent;
       border-radius: 5px;
       margin-right: 10px;
+      cursor: pointer;
+      transition: all ease-out .3s;
+      &.active{
+        color: #1890ff;
+        border: dashed 1.5px #3f91dc;
+        box-shadow: 1px -1px 7px 0px rgba(189, 189, 189, 0.91);
+        &>span{
+          top: -20px;
+        }
+      }
+      &>span{
+        font-size: 12px;
+        position: absolute;
+        left: 0;
+        top: -12px;
+        font-weight: bold;
+        font-family: 幼圆, serif;
+        text-shadow: 2px 1px #a9a9a95e;
+        transition: all ease-out .3s;
+      }
       &>div{
         width: 12px;
         height: 12px;
@@ -26,12 +51,25 @@
       .rotate{
         animation: rotate ease 2s infinite;
         border-radius: 0;
+
       }
       .scale{
         animation: scale ease 2s infinite;
       }
       .skew{
         animation: skew linear 2s infinite;
+      }
+      .hang{
+        animation:hang linear 2s infinite;
+        width: 20px;
+        height: 20px;
+        border-radius: 0;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+      .bounce{
+        animation: bounce 1800ms ease-out infinite;
       }
     }
   }

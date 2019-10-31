@@ -1,5 +1,6 @@
 export const defaultState = {
     showDrawer:false,
+    showCode:false,
     tagList:{
         type:'div',
         pid:null,
@@ -31,13 +32,18 @@ export const defaultState = {
                         viewStyle:{},
                         props:{},
                         children:[
-                            // {
-                                // type:'img',
-                                // pid:'0-0-0',
-                                // key:'0-0-0-0',
-                                // dataName:'logo图片',
-
-                            // }
+                            {
+                                type:'img',
+                                pid:'0-0-0',
+                                key:'0-0-0-0',
+                                dataName:'logo图片',
+                                iconName:'iconimg',
+                                trueStyle:{width:`${60/14*0.6}rem`},
+                                viewStyle:{width:'60px'},
+                                props:{
+                                    src:'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2035944494,3453366933&fm=26&gp=0.jpg'
+                                }
+                            }
                         ]
                     },
                     {
@@ -49,7 +55,21 @@ export const defaultState = {
                         trueStyle:{},
                         viewStyle:{},
                         props:{},
-                        children:[]
+                        children:[
+                            {
+                                type:'img',
+                                pid:'0-0-1',
+                                key:'0-0-1-0',
+                                dataName:'头像',
+                                iconName:'iconimg',
+                                trueStyle:{width:`${60/14*0.6}rem`,border:`solid ${1/14*0.6}rem #cccccc`,borderRadius:'100%'},
+                                viewStyle:{width:'60px',border:'solid 1px #cccccc',borderRadius:'100%'},
+                                props:{
+                                    src:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1572435050159&di=e849863eeca637da14272395b9118f8c&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201806%2F07%2F20180607185957_fjrFt.thumb.700_0.jpeg'
+                                }
+
+                            }
+                        ]
                     }
                 ]
             },
@@ -105,7 +125,4 @@ export const defaultState = {
     },
     selectedTag:{},
     hoveredTagKey:'',       //在树结构上hover的元素的key值，用于与content部分选中样式搭配
-
 }
-
-var scale = defaultState.scale

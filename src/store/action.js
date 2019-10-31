@@ -28,13 +28,24 @@ export function updateTag(update) {
         })
 }
 
+export function dropTag(drag) {
+    store.dispatch({type:'drag_tag',drag})
+}
+
 //更新当前选中元素
 export function changeCurrentTag(key) {
     store.dispatch({type:'change_currenttag',key});
 }
+export function reSetTag() {
+    store.dispatch({type:'reset_currenttag'});
+}
 
 export function changeDrawer(status) {
     store.dispatch({type:'change_drawer',status})
+}
+
+export function changeCode(status) {
+    store.dispatch({type:'change_code',status})
 }
 
 export function changeHoveredTag(key) {

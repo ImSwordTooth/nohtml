@@ -7,6 +7,7 @@ import MyHeader from './components/headers/myHeader'
 import MySider from './components/sider/mySider'
 import MyContent from './components/content/myContent'
 import MyFooter from './components/footer/myFooter'
+import CodeModal from './components/common/modals/codeModal'
 
 import './css/app.less'
 const { Content, Footer, Sider } = Layout;
@@ -31,6 +32,7 @@ function App() {
                  <MyFooter/>
               </Footer>
           </Layout>
+          <CodeModal/>
       </Provider>
   );
 }

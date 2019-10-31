@@ -7,17 +7,17 @@ import Viewport from './tabs/viewport'
 import Animation from './tabs/animation'
 
 import './css/myHeader.less'
-
+import {changeCode} from "../../store/action";
 import { Tabs ,Button } from 'antd'
 const { TabPane } = Tabs;
-const operations = <Button>代码</Button>;
+const operations = <Button onClick={()=>changeCode(true)}>代码</Button>;
 class myHeader extends React.Component{
 
     render() {
         return(
             <header className='header'>
                 !Html
-                <Tabs defaultActiveKey="1" tabBarExtraContent={operations}>
+                <Tabs defaultActiveKey="4" tabBarExtraContent={operations}>
                     <TabPane tab="开始" key="1">
                         <Start/>
                     </TabPane>
@@ -33,9 +33,13 @@ class myHeader extends React.Component{
                     <TabPane tab="视图" key="5">
                         <Viewport/>
                     </TabPane>
-                    <TabPane tab="设计" key="6">
+                    <TabPane tab="样式类" key="6">
                         Content of Tab Pane 5
                     </TabPane>
+                    <TabPane tab="设置" key="7">
+                        ico/title/meta...
+                    </TabPane>
+
                 </Tabs>
             </header>
         )

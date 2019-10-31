@@ -1,5 +1,5 @@
 import React from 'react'
-import {Collapse, Drawer, Input, Tag,Tooltip,AutoComplete} from 'antd'
+import {Collapse, Drawer, Input, Tag,Tooltip,AutoComplete,Select} from 'antd'
 
 import './myContent.less'
 import store from '../../store'
@@ -8,6 +8,7 @@ import {dataSource,defaultCssProp,dataSourceKeys} from "../../untils/cssTable";
 
 const {TextArea} = Input;
 const { Panel } = Collapse;
+const {Option} = Select;
 
 class myContent extends React.Component{
 
@@ -18,7 +19,8 @@ class myContent extends React.Component{
             editingStyleName:'',        //当前正在编辑的样式的名字，同一时间只能编辑一个
             editingStyleValue:'',        //当前正在编辑的样式的值
             newStyleName:'',            //新建样式属性名
-            newStyleValue:''            //新建样式属性值
+            newStyleValue:'',            //新建样式属性值
+            newPanelList:[':hover',':link',':active',':visited',':first-child',':']
         });
         store.subscribe(this.listener)
     }
@@ -89,11 +91,15 @@ class myContent extends React.Component{
         })
     };
 
+    addNewPanel = (e)=>{
+        console.log(e)
+    }
+
     //点击外部重置为空
     handleClickOutside=(e)=> {
         //如果用户点击的不是正在编辑的input
         if (e.target.className!=='autoCompleteInput'){
-            //就把正在编辑的内容置为空
+            //就把正在编辑的内容置为空--
             this.setState({
                 editingStyleName: '',
                 editingStyleValue:'',
@@ -313,8 +319,24 @@ class myContent extends React.Component{
                                         </div>
                                     </li>
                                 </ul>
-
                             </Panel>
+                            <Panel key={3}
+                                   disabled={true}
+                                   header={
+                                       <div>
+                                           <Select defaultValue="lucy" style={{ width: 120 }} onFocus={(e)=>console.log(e)} onChange={(e)=>this.addNewPanel(e)}>
+                                               <Option value="jack">Jack</Option>
+                                               <Option value="lucy">Lucy</Option>
+                                               <Option value="disabled" disabled>
+                                                   Disabled
+                                               </Option>
+                                               <Option value="Yiminghe">yiminghe</Option>
+                                           </Select>
+                                           <button>完成</button>
+                                       </div>
+
+                                    }
+                                   style={{background: '#f7f7f7',borderRadius: 4, marginBottom: 10,border: 0,overflow: 'hidden',borderTop:'solid 4px rgba(218, 218, 218, 0.34)'}}/>
                         </Collapse>
                     </div>
                 )

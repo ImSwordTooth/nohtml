@@ -30,7 +30,7 @@ class font extends React.Component{
         updateTag({
             prop:'trueStyle',
             innerProp:'fontSize',
-            value:value/14*this.state.scale+'rem'
+            value:value/14*0.6+'rem'
         });
         updateTag({
             prop:'viewStyle',

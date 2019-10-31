@@ -1,6 +1,7 @@
 
 import {combineReducers} from "redux";
 import {defaultState} from './state'
+import {dropTag} from "./action";
 function tagList(state = defaultState.tagList,action) {
     switch (action.type) {
         case 'add_tag':
@@ -93,6 +94,107 @@ function tagList(state = defaultState.tagList,action) {
             };
             fn(updateTagArr);
             return updateTagArr;
+        case 'drag_tag':
+            let {dropOver,originKey,targetKey,dropPosition,dropPos,isSelected} = action.drag;        //分别是【是否拖拽到目标内部】、【被拖拽的对象的key的列表（最后一位是当前对象）】、【拖拽目标】、【拖拽位置】、【是否被选中（待确定）】
+            let dragTagArr = Object.assign([],state);
+            let OriginObj = null;
+            const getOriginObj = function (parentObj,index,obj,key) {
+                if (obj.key === key){
+                    OriginObj = obj;
+                    tagList(undefined,{type:'delete_tag',key:obj.key});                         //因为执行的类似于剪切操作，所以要把原对象删掉
+                } else {
+                    for (let i=0;i<obj.children.length;i++){
+                        if (key.indexOf(obj.children[i].key)===0){
+                            return getOriginObj(obj,i,obj.children[i],key);
+                        }
+                    }
+                }
+
+            };
+            getOriginObj(null,0,dragTagArr,originKey[originKey.length-1]);          //获取拖拽对象
+
+            if (dropOver){      //直接拖拽到目标上
+                const getTargetObj = function (obj,key) {
+                    if (obj.key === key){                               //获取目标对象
+                        if (!obj.willCreateKey){                        //如果对象没有willCreateKey，获取一个
+                            getWillCreateKey(obj);
+                        }
+                        let will = obj.willCreateKey;
+                        const handleDrag = function(obj,pid,key){                   //一层一层遍历，把拖拽过来的对象们的pid和key都改成该有的样子
+                            obj.pid = pid;
+                            obj.key = key;
+                            if (obj.children ){
+                                for (let i=0;i<obj.children.length;i++){
+                                    handleDrag(obj.children[i],obj.key,obj.children[i].key.replace(originKey[originKey.length-1],will))                         //子元素的key有些特殊
+                                }
+                            }
+                        };
+                        handleDrag(OriginObj,targetKey,will);
+                        obj.children.push(OriginObj);                               //然后直接push到末尾就行
+                        if (isSelected){                                                        //待确认
+                            selectedTag(undefined,{type:'change_currenttag',key:will})
+                        }
+                        getWillCreateKey(obj);                              //因为用过一次了，所以要获取新的willCreateKey
+                    } else {
+                        for (let i=0;i<obj.children.length;i++){
+                            if (key.indexOf(obj.children[i].key)===0){
+                                return getTargetObj(obj.children[i],key);
+                            }
+                        }
+                    }
+                };
+                getTargetObj(dragTagArr,targetKey);
+                return dragTagArr;
+            } else {
+                const getTargetObj = function (obj,key) {
+                    if (obj.key === key){                               //获取目标对象
+                        let index = dropPosition;
+                        //  - Number(dropPos[dropPos.length - 1])
+                        // for (let i=0;i<obj.children.length;i++){
+                        //     if (key.indexOf(obj.children[i].key)===targetKey){
+                        //         index = i;
+                        //     }
+                        // }
+
+
+                        if (!obj.willCreateKey){                        //如果对象没有willCreateKey，获取一个
+                            getWillCreateKey(obj);
+                        }
+                        let will = obj.willCreateKey;
+                        const handleDrag = function(obj,pid,key){                   //一层一层遍历，把拖拽过来的对象们的pid和key都改成该有的样子
+                            obj.pid = pid;
+                            obj.key = key;
+                            if (obj.children ){
+                                for (let i=0;i<obj.children.length;i++){
+                                    handleDrag(obj.children[i],obj.key,obj.children[i].key.replace(originKey[originKey.length-1],will))                         //子元素的key有些特殊
+                                }
+                            }
+                        };
+                        handleDrag(OriginObj,obj.key,will);
+                        console.log(index)
+                        // if (index === -1){
+                        //     obj.children.splice(index,0,OriginObj);
+                        // }else {
+                            obj.children.splice(index+1,0,OriginObj);
+                        // }
+                                                       //然后直接push到末尾就行
+                        if (isSelected){                                                        //待确认
+                            selectedTag(undefined,{type:'change_currenttag',key:will})
+                        }
+                        getWillCreateKey(obj);                              //因为用过一次了，所以要获取新的willCreateKey
+                    } else {
+                        for (let i=0;i<obj.children.length;i++){
+                            if (key.indexOf(obj.children[i].key)===0){
+                                return getTargetObj(obj.children[i],key);
+                            }
+                        }
+                    }
+                };
+                let parentKey = targetKey.split('-');
+                parentKey.pop();
+                getTargetObj(dragTagArr,parentKey.join('-'));
+                return dragTagArr;
+            }
         default:return state;
     }
 
@@ -101,6 +203,7 @@ function tagList(state = defaultState.tagList,action) {
 function selectedTag(state = defaultState.selectedTag,action) {
     switch (action.type) {
         case 'change_currenttag':{
+            console.log('来了')
             //对每一层递归，根据key值找到目标对象
             const fn = function (obj) {
                 if (obj.key === action.key){
@@ -143,6 +246,13 @@ function selectedTag(state = defaultState.selectedTag,action) {
 function showDrawer(state = defaultState.showDrawer,action) {
     switch (action.type) {
         case 'change_drawer':return action.status;
+        default:return state;
+    }
+}
+
+function showCode(state = defaultState.showCode,action) {
+    switch (action.type) {
+        case 'change_code':return action.status;
         default:return state;
     }
 }
@@ -212,5 +322,6 @@ export default combineReducers({
     tagList,
     selectedTag,
     showDrawer,
+    showCode,
     hoveredTagKey
 });
