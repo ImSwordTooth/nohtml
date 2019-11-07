@@ -318,10 +318,26 @@ function getWillInsertKey(targetObj,actionKey) {
 
 }
 
+function nocssStyle(state = defaultState.nocssStyle,action) {
+    switch (action.type) {
+        case 'change_nossSstyle': {
+            let obj = Object.assign({}, state);
+            obj[action.style.prop] = action.style.value;
+            return obj;
+        }
+        default:{
+            return state;
+        }
+
+    }
+
+}
+
 export default combineReducers({
     tagList,
     selectedTag,
     showDrawer,
     showCode,
-    hoveredTagKey
+    hoveredTagKey,
+    nocssStyle
 });

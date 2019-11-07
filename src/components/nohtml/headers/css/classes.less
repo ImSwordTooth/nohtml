@@ -1,0 +1,41 @@
+.class_list{
+  display: inline-flex;
+  margin: 0;
+  padding: 5px 5px 25px 5px;
+  list-style: none;
+  //border: solid 1px #2c99d4;
+  //border-radius: 5px;
+  &>li{
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: solid 2px transparent;
+    margin-right: 10px;
+    background-color: transparent;
+    cursor: pointer;
+
+    &.active{
+      border: solid 2px rgba(24, 144, 255, 0.71);
+      border-radius: 3px;
+      box-shadow: 1px 1px 4px 1px rgba(144, 144, 144, 0.16);
+      transition:border ease-out .5s;
+  }
+    &>div{
+      display: inline-block;
+      width: 60px;
+      height: 60px;
+    }
+    .className{
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 100%;
+      margin: auto;
+      text-align: center;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+  }
+}

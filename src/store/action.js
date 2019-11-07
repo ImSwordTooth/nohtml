@@ -48,6 +48,11 @@ export function changeCode(status) {
     store.dispatch({type:'change_code',status})
 }
 
+//修改hover时的标签
 export function changeHoveredTag(key) {
     store.dispatch({type:'change_hoveredTagKey',key})
+}
+
+export function changeNocssStyle(style) {
+    store.dispatch({type:'change_nossSstyle',style})
 }

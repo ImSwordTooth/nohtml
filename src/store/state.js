@@ -125,4 +125,14 @@ export const defaultState = {
     },
     selectedTag:{},
     hoveredTagKey:'',       //在树结构上hover的元素的key值，用于与content部分选中样式搭配
+    nocssStyle:{
+        color:'#000000',
+        backgroundColor:'#ffffff',
+        fontSize:'12px',
+        fontWeight:'normal',
+        fontStyle:'normal',
+        textDecoration:'none',
+        border:'0px solid #000000',
+        padding:'0px 0px 0px 0px'
+    }
 }

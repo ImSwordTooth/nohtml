@@ -1,0 +1,38 @@
+import React from 'react'
+import {Icon, Switch, Tabs} from "antd";
+
+import Standard from './standard/standard'
+
+const {TabPane} = Tabs;
+
+class Operation extends React.Component{
+    render() {
+        return (
+            <div className={'show_wp'} style={{borderLeft:'solid 1px #eeeeee'}}>
+                <div className={'Title'}>
+                    <div>
+                        <i className={'iconfont iconoperation titleIcon'}/>操作区
+                    </div>
+                    <div>
+                        <i className={'iconfont iconreload'}/>
+                    </div>
+                </div>
+                <div style={{padding:'2px 10px'}}>
+                    <Tabs>
+                        <TabPane tab="基础" key="1">
+                            <Standard/>
+                        </TabPane>
+                        <TabPane tab="伪类" key="2">
+                            <div className={'html'}>
+                                伪类
+                            </div>
+                        </TabPane>
+                    </Tabs>
+                </div>
+            </div>
+        )
+    }
+
+}
+
+export default Operation

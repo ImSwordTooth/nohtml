@@ -1,0 +1,196 @@
+//属性列表
+.operationUl {
+  list-style: none;
+  padding: 0;
+  margin: 5px 0 0 0;
+  //属性项
+  & > li {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border-bottom: solid 1px #e2e2e2;
+    padding: 10px 0 10px 10px;
+    position: relative;
+    height: 50px;
+    transition: all .3s;
+    &:hover{
+      background-color: #d0d0d00f;
+      box-shadow: 0 0 1px 4px #d6d6d61c;
+    }
+    &#color,
+    &#backgroundColor,
+    &#border{
+      & .colorpicker{
+        display: flex;
+        align-items: center;
+        background-color: transparent!important;
+        cursor: pointer;
+      }
+      & .currentColor{
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        box-shadow: 0 0 1px 0 rgba(185, 185, 185, 0.71);
+      }
+      & .currentColorText{
+        font-size: 14px;
+        margin-left: 8px;
+        font-family: codeSaver,monospace;
+      }
+    }
+    &#fontStyle{
+      & .icons{
+        & i{
+          margin: 0 2px;
+          padding: 3px;
+          cursor: pointer;
+          border: solid 1px transparent;
+          transition: all .3s;
+          &.active{
+            border: solid 1px #76abe2;
+            background-color: rgba(219, 245, 255, 0.52);
+            box-shadow: 1px 1px 3px 0 rgba(111, 172, 224, 0.38);
+          }
+          &:hover{
+            background-color: rgba(181, 227, 253, 0.3);
+            transition: background-color .3s;
+          }
+        }
+      }
+    }
+    &#border{
+      & .ant-select-selection-selected-value{
+        display: flex!important;
+        align-items: flex-end;
+        &>span{
+          margin-left: 5px;
+          font-style: italic;
+          font-size: 12px;
+        }
+      }
+
+    }
+    //属性标题
+    .operateTitle {
+      display: inline-flex;
+      align-items: center;
+      font-size: 14px;
+      margin-right: 50px;
+      position: absolute;
+      //属性图标
+      & i {
+        margin-right: 5px;
+      }
+    }
+
+    //属性内容
+    .content {
+      display: inline-flex;
+      align-items: center;
+      position: relative;
+      left: 120px;
+      width: calc(100% - 120px);
+      .items{
+        position: relative;
+        display: flex;
+        align-items: center;
+        margin-left: 20px;
+        &:nth-of-type(1){
+          margin-left: 0;
+        }
+      }
+      & .unit{
+        margin-left: 5px;
+        font-family: codeSaver,monospace;
+      }
+      & .info{
+        position: absolute;
+        left: -5px;
+        top: -5px;
+        font-size: 12px;
+        box-shadow: 0 0 black;
+        text-shadow: 0 0 2px #a2a2a2;
+      }
+    }
+  }
+
+  ////属性项hover
+  //& > li:hover {
+  //  background-color: #f5f5f5;
+  //  box-shadow: 1px 0 4px 0 #dadada;
+  //}
+
+  //范围输入框》开始
+  input[type=range] {
+    -webkit-appearance: none;
+    border-radius: 5px; /*这个属性设置使填充进度条时的图形为圆角*/
+    //范围输入框后表示数值的span
+    & + span {
+      background-color: #efefef;
+      padding: 5px;
+      border-radius: 5px;
+      font-size: 12px;
+      border: solid 1px #cccccc;
+    }
+  }
+
+  input[type=range]::-webkit-slider-runnable-track {
+    height: 10px;
+    border: solid 1px #c1c1c1;
+    border-radius: 5px; /*将轨道设为圆角的*/
+    box-shadow: 0 0 2px #ccc inset; /*轨道内置阴影效果*/
+    background-color: transparent;
+  }
+
+  input[type=range]:focus {
+    outline: none;
+  }
+
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 15px;
+    width: 15px;
+    margin-top: -4px; /*使滑块超出轨道部分的偏移量相等*/
+    background: #ffffff;
+    border-radius: 100%; /*外观设置为圆形*/
+    box-shadow: 0 1px 1px 1px #818286; /*添加底部阴影*/
+  }
+
+  //范围输入框》结束
+  //文本框
+  .operateText {
+    border-radius: 2px;
+    line-height: normal;
+    white-space: nowrap;
+    font-size: 14px;
+    padding: 5px 2px;
+    text-align: center;
+    color: #000;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: #f3f3f3;
+    width: 30px;
+    -webkit-box-shadow: 0 1px 2px -1px rgba(255, 255, 255, 0.5) inset, 0 -2px 0 0 rgba(0, 0, 0, 0.1) inset;
+    outline: none;
+    vertical-align: middle;
+  }
+
+  //文本框聚焦
+  .operateText:focus {
+    background-color: #d4ecfd;
+  }
+}
+
+.borderStyle{
+  display: flex!important;
+  align-items: center;
+  &>span{
+    margin-left: 10px;
+    font-style: italic;
+    font-size: 12px;
+  }
+}
+
+@font-face {
+  font-family: 'codeSaver';
+  src: url("../../../../asset/CodeSaver-Regular.otf");
+}

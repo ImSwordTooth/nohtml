@@ -1,40 +1,55 @@
-import React from 'react';
-import { Provider } from 'react-redux'
-import store from './store/index'
+import React from 'react'
+import {Menu} from "antd";
+import {BrowserRouter as Router,Switch,Route,Link}  from 'react-router-dom'
+import Nohtml from "./nohtml";
+import Nocss from "./nocss";
 
-import { Layout } from 'antd'
-import MyHeader from './components/headers/myHeader'
-import MySider from './components/sider/mySider'
-import MyContent from './components/content/myContent'
-import MyFooter from './components/footer/myFooter'
-import CodeModal from './components/common/modals/codeModal'
+class App extends React.Component{
 
-import './css/app.less'
-const { Content, Footer, Sider } = Layout;
+    render() {
+        return (
+            <Router>
+                <Menu mode="horizontal">
+                    <Menu.Item key="mail">
+                        <Link to={'/'}>
+                            <i className={'iconfont iconhome'}/>
+                            home
+                        </Link>
+                    </Menu.Item>
+                    <Menu.Item key="html">
+                        <Link to={'/nohtml'}>
+                            <i className={'iconfont iconhtml'} />
+                            nohtml
+                        </Link>
+                    </Menu.Item>
+                    <Menu.Item key="nocss">
+                        <Link to={'/nocss'}>
+                            <i className={'iconfont iconcss'}/>
+                            nocss
+                        </Link>
+                    </Menu.Item>
+                    <Menu.Item key="discuss">
+                        <Link to={'/begin'}>
+                            <i className={'iconfont icondiscuss'}/>
+                            讨论区
+                        </Link>
+                    </Menu.Item>
 
+                </Menu>
 
-function App() {
-  return (
-      <Provider store={store}>
-          <Layout className={'App'}>
-              <MyHeader/>
-              <Content>
-                  <Layout style={{ padding: '24px 0', background: '#fff' }}>
-                      <Sider width={200} style={{ background: '#fff' }}>
-                          <MySider/>
-                      </Sider>
-                      <Content style={{ padding: '0 24px', minHeight: 280 }}>
-                          <MyContent/>
-                      </Content>
-                  </Layout>
-              </Content>
-              <Footer className={'footer'}>
-                 <MyFooter/>
-              </Footer>
-          </Layout>
-          <CodeModal/>
-      </Provider>
-  );
+                <Switch>
+                    <Route path="/nocss">
+                        <Nocss />
+                    </Route>
+                    <Route path="/nohtml">
+                        <Nohtml />
+                    </Route>
+                </Switch>
+            </Router>
+        )
+    }
+
 }
+
 
 export default App;
