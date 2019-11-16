@@ -13,30 +13,33 @@
     position: relative;
     height: 50px;
     transition: all .3s;
+    flex-wrap: wrap;
+    &.multi{
+      height: auto;
+      .operateTitle {
+        align-self: flex-start;
+      }
+    }
     &:hover{
       background-color: #d0d0d00f;
       box-shadow: 0 0 1px 4px #d6d6d61c;
     }
-    &#color,
-    &#backgroundColor,
-    &#border{
-      & .colorpicker{
-        display: flex;
-        align-items: center;
-        background-color: transparent!important;
-        cursor: pointer;
-      }
-      & .currentColor{
-        display: inline-block;
-        width: 15px;
-        height: 15px;
-        box-shadow: 0 0 1px 0 rgba(185, 185, 185, 0.71);
-      }
-      & .currentColorText{
-        font-size: 14px;
-        margin-left: 8px;
-        font-family: codeSaver,monospace;
-      }
+    & .colorpicker{
+      display: flex;
+      align-items: center;
+      background-color: transparent!important;
+      cursor: pointer;
+    }
+    & .currentColor{
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      box-shadow: 0 0 1px 0 rgba(185, 185, 185, 0.71);
+    }
+    & .currentColorText{
+      font-size: 14px;
+      margin-left: 8px;
+      font-family: codeSaver,monospace;
     }
     &#fontStyle{
       & .icons{
@@ -81,15 +84,37 @@
       & i {
         margin-right: 5px;
       }
+      & .add{
+        position: absolute;
+        right: -20px;
+        top: 0;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        line-height: 20px;
+        color: #529ede;
+        background-color: transparent;
+        border-radius: 100%;
+        font-size: 18px;
+        transition: color 0.3s, background-color 0.5s;
+        cursor: pointer;
+        &:hover{
+          background-color: #529ede;
+          color: #fff;
+        }
+      }
     }
 
     //属性内容
     .content {
-      display: inline-flex;
+      display: flex;
       align-items: center;
       position: relative;
       left: 120px;
       width: calc(100% - 120px);
+      &:not(:nth-of-type(1)){
+        margin-top: 5px;
+      }
       .items{
         position: relative;
         display: flex;
@@ -97,6 +122,9 @@
         margin-left: 20px;
         &:nth-of-type(1){
           margin-left: 0;
+        }
+        &.flexStart{
+          align-self: flex-start;
         }
       }
       & .unit{
@@ -110,6 +138,24 @@
         font-size: 12px;
         box-shadow: 0 0 black;
         text-shadow: 0 0 2px #a2a2a2;
+      }
+      & .delete{
+        position: absolute;
+        left: -20px;
+        width: 15px;
+        height: 15px;
+        text-align: center;
+        line-height: 15px;
+        color: #d45555;
+        background-color: transparent;
+        border-radius: 100%;
+        font-size: 12px;
+        transition:color .3s,background-color .5s;
+        cursor: pointer;
+        &:hover{
+          background-color: red;
+          color: #fff;
+        }
       }
     }
   }

@@ -483,7 +483,7 @@ module.exports = function(webpackEnv) {
               use: getStyleLoaders(
                   {
                     importLoaders: 2,
-                    sourceMap: isEnvProduction && shouldUseSourceMap,
+                    sourceMap: isEnvProduction && shouldUseSourceMap
                   },
                   'less-loader'
               ),

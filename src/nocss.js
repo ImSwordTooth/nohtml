@@ -1,14 +1,11 @@
 import React from 'react'
 import {Provider} from 'react-redux'
 import store from './store/index'
-
-import {Layout} from "antd";
 import Code from './components/nocss/code/code'
 import Operation from './components/nocss/operation/operation'
 import Show from './components/nocss/show/show'
 
 import './css/nocss.less'
-const { Content, Sider } = Layout;
 
 
 class Nocss extends React.Component{

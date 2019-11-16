@@ -1,0 +1,86 @@
+.header_wp{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background:linear-gradient(to left,rgba(0,0,0,.3),rgba(255,255,255,.8));
+  height: 60px;
+  .left{
+    display: flex;
+    align-items: flex-end;
+    height: 100%;
+    margin-left: 100px;
+    .logo_wp{
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: inline-block;
+      z-index: 9999;
+      .logo{
+        width: 75px;
+        filter: drop-shadow(2px 4px 2px rgba(31, 31, 31, 0.31));
+      }
+    }
+    .nav{
+      list-style: none;
+      margin:0;
+      border-bottom: solid 2px black;
+      border-image: linear-gradient(to left,#000000,#ffffff) 10;
+      &>li{
+        display: inline-flex;
+        align-items: center;
+        margin-right: 20px;
+        cursor: pointer;
+        padding: 5px 8px;
+        &>a{
+          color: rgba(0, 0, 0, 0.73);
+          display: flex;
+          align-items: center;
+          &>i{
+            margin-right: 5px;
+          }
+        }
+        &.active{
+          border-top: solid 2px rgb(24,144,255);
+          &>a{
+            color: rgb(24,144,255);
+          }
+        }
+        &:hover{
+          &>a{
+            color: rgb(24,144,255);
+          }
+        }
+
+      }
+    }
+  }
+
+  .right{
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin-right: 40px;
+    & i{
+      font-size: 36px;
+      cursor: pointer;
+      margin: 0 5px;
+    }
+    .userInfo{
+      margin-left: 20px;
+      .loginLink{
+        color: #3d85d2;
+        text-shadow: 1px 0 0 #0000009c;
+      }
+      & > img{
+        width: 50px;
+        border-radius: 100%;
+        border: solid 1px #ddd;
+      }
+    }
+  }
+}
+
+.ant-badge-count{
+  box-shadow: none!important;
+}

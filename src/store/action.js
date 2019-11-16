@@ -1,5 +1,9 @@
 import store from './index'
 
+export function changeNav(nav) {
+    store.dispatch({type:'change_nav',nav})
+}
+
 //添加元素
 export function addTag(dom) {
     store.dispatch({type:'add_tag',dom});

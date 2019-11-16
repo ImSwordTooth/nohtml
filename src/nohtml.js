@@ -12,28 +12,53 @@ import MyFooter from './components/nohtml/footer/myFooter'
 import './css/nohtml.less'
 const { Content, Footer, Sider } = Layout;
 
+class Nohtml extends React.Component{
 
-function Nohtml() {
-  return (
-      <Provider store={store}>
-          <Layout className={'App'}>
-              <MyHeader/>
-              <Content>
-                  <Layout style={{ padding: '24px 0', background: '#fff' }}>
-                      <Sider width={200} style={{ background: '#fff' }}>
-                          <MySider/>
-                      </Sider>
-                      <Content style={{ padding: '0 24px', minHeight: 280 }}>
-                          <MyContent/>
-                      </Content>
-                  </Layout>
-              </Content>
-              <Footer className={'footer'}>
-                 <MyFooter/>
-              </Footer>
-          </Layout>
-      </Provider>
-  );
+    render() {
+        return (
+            <Provider store={store}>
+                <Layout className={'App'}>
+                    <MyHeader/>
+                    <Content>
+                        <Layout style={{ padding: '24px 0', background: '#fff' }}>
+                            <Sider width={200} style={{ background: '#fff' }}>
+                                <MySider/>
+                            </Sider>
+                            <Content style={{ padding: '0 24px', minHeight: 280 }}>
+                                <MyContent/>
+                            </Content>
+                        </Layout>
+                    </Content>
+                    <Footer className={'footer'}>
+                        <MyFooter/>
+                    </Footer>
+                </Layout>
+            </Provider>
+        );
+    }
+
 }
+// function Nohtml() {
+//   return (
+//       <Provider store={store}>
+//           <Layout className={'App'}>
+//               <MyHeader/>
+//               <Content>
+//                   <Layout style={{ padding: '24px 0', background: '#fff' }}>
+//                       <Sider width={200} style={{ background: '#fff' }}>
+//                           <MySider/>
+//                       </Sider>
+//                       <Content style={{ padding: '0 24px', minHeight: 280 }}>
+//                           <MyContent/>
+//                       </Content>
+//                   </Layout>
+//               </Content>
+//               <Footer className={'footer'}>
+//                  <MyFooter/>
+//               </Footer>
+//           </Layout>
+//       </Provider>
+//   );
+// }
 
 export default Nohtml;

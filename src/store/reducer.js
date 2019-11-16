@@ -1,7 +1,6 @@
 
 import {combineReducers} from "redux";
 import {defaultState} from './state'
-import {dropTag} from "./action";
 function tagList(state = defaultState.tagList,action) {
     switch (action.type) {
         case 'add_tag':
@@ -171,7 +170,6 @@ function tagList(state = defaultState.tagList,action) {
                             }
                         };
                         handleDrag(OriginObj,obj.key,will);
-                        console.log(index)
                         // if (index === -1){
                         //     obj.children.splice(index,0,OriginObj);
                         // }else {
@@ -203,7 +201,6 @@ function tagList(state = defaultState.tagList,action) {
 function selectedTag(state = defaultState.selectedTag,action) {
     switch (action.type) {
         case 'change_currenttag':{
-            console.log('来了')
             //对每一层递归，根据key值找到目标对象
             const fn = function (obj) {
                 if (obj.key === action.key){
@@ -230,7 +227,7 @@ function selectedTag(state = defaultState.selectedTag,action) {
                     var getInsert = new Promise(((resolve, reject) => {
                         getWillInsertKey(targetObj,action.key);
                         resolve(res = targetObj)
-                    }))
+                    }));
                     return res
                 }
                 return state;
@@ -328,9 +325,18 @@ function nocssStyle(state = defaultState.nocssStyle,action) {
         default:{
             return state;
         }
-
     }
+}
 
+function nav(state = defaultState.nav,action) {
+    switch (action.type) {
+        case 'change_nav':{
+            return action.nav
+        }
+        default:{
+            return state
+        }
+    }
 }
 
 export default combineReducers({
@@ -339,5 +345,6 @@ export default combineReducers({
     showDrawer,
     showCode,
     hoveredTagKey,
-    nocssStyle
+    nocssStyle,
+    nav
 });

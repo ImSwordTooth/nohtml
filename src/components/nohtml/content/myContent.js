@@ -10,6 +10,7 @@ const {TextArea} = Input;
 const { Panel } = Collapse;
 const {Option} = Select;
 
+
 class myContent extends React.Component{
 
     constructor(props){
@@ -47,7 +48,7 @@ class myContent extends React.Component{
             prop:'content',
             value:e.target.value
         })
-    }
+    };
 
     //重命名
     reName = (e)=>{
@@ -93,7 +94,7 @@ class myContent extends React.Component{
 
     addNewPanel = (e)=>{
         console.log(e)
-    }
+    };
 
     //点击外部重置为空
     handleClickOutside=(e)=> {
@@ -142,7 +143,7 @@ class myContent extends React.Component{
                         }
                         console.log(getComputedStyle(document.getElementById(selectedTag.key), null).display)
                         console.log(this.state.selectedTag.style.display)*/
-                    })
+                    });
 
 
                 return (
@@ -391,7 +392,7 @@ class myContent extends React.Component{
             }
         }
 
-    }
+    };
 
     render() {
 

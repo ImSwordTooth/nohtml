@@ -8,7 +8,7 @@ class Show extends React.Component{
     constructor(props){
         super(props);
         this.state = Object.assign({},store.getState(),{
-
+            showText:'文本'
         });
         store.subscribe(this.listener);
     }
@@ -26,13 +26,13 @@ class Show extends React.Component{
                         <i className={'iconfont iconshow titleIcon'}/>展示区
                     </div>
                     <div>
-                        <input type='text' className={'selfText'} placeholder={'自定义文本'}/>
+                        <input type='text' className={'selfText'} placeholder={'自定义文本'} onChange={(e)=>this.setState({showText:e.target.value||'文本'})}/>
                         <i className={'iconfont iconuploadimg'}/>
                     </div>
                 </div>
                 <article>
                     <div style={this.state.nocssStyle}>
-                        文本
+                        {this.state.showText}
                     </div>
                 </article>
             </div>

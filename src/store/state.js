@@ -1,4 +1,5 @@
 export const defaultState = {
+    nav:'home',
     showDrawer:false,
     showCode:false,
     tagList:{
@@ -90,7 +91,7 @@ export const defaultState = {
                         key:'0-1-0',
                         dataName:'侧边栏',
                         iconName:'icondiv',
-                        content:'我是新建段落2的内容',
+                        content:'我是侧边栏',
                         trueStyle:{fontSize:`${18/14*0.6}rem`,backgroundColor:'#ffffff',fontWeight:'lighter',fontStyle:'italic',textDecoration:'underline'},
                         viewStyle:{fontSize:`18px`,backgroundColor:'#ffffff',fontWeight:'lighter',fontStyle:'italic',textDecoration:'underline'},
                         props:{},
@@ -102,7 +103,7 @@ export const defaultState = {
                         key:'0-1-1',
                         dataName:'主体内容',
                         iconName:'icondiv',
-                        content:'我是新建段落2的内容',
+                        content:'我是主体内容',
                         trueStyle:{fontSize:`${18/14*0.6}rem`,backgroundColor:'#ffffff',fontWeight:'lighter',fontStyle:'italic',textDecoration:'underline'},
                         viewStyle:{fontSize:`18px`,backgroundColor:'#ffffff',fontWeight:'lighter',fontStyle:'italic',textDecoration:'underline'},
                         props:{},
@@ -126,13 +127,15 @@ export const defaultState = {
     selectedTag:{},
     hoveredTagKey:'',       //在树结构上hover的元素的key值，用于与content部分选中样式搭配
     nocssStyle:{
-        color:'#000000',
-        backgroundColor:'#ffffff',
-        fontSize:'12px',
-        fontWeight:'normal',
+        color:'#1082c9',
+        backgroundColor:'rgba(230,230,230,0.3)',
+        fontSize:'32px',
+        fontWeight:'lighter',
         fontStyle:'normal',
         textDecoration:'none',
-        border:'0px solid #000000',
-        padding:'0px 0px 0px 0px'
+        border:'2px dashed #000000',
+        padding:'4px 6px 4px 6px',
+        boxShadow:'0px 0px 24px 0px rgba(0,0,0,0.32),5px 5px 14px 0px rgba(13,71,134,0.2)',
+        textShadow:'1px 0px 0px #000000,0px 3px 5px rgba(70,117,214,0.5)'
     }
-}
+};

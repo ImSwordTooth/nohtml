@@ -19,7 +19,7 @@ class myHeader extends React.Component{
     render() {
         return(
             <header className='header'>
-                !Html
+                {/*!Html*/}
                 <Tabs defaultActiveKey="1" tabBarExtraContent={operations}>
                     <TabPane tab="开始" key="1">
                         <Start/>

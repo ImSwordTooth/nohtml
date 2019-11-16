@@ -67,7 +67,7 @@ class mySider extends React.Component{
         let selectTag = this.state.selectedTag;
         this.setState({
             showImageModal:false
-        })
+        });
         return {
             type:'img',
             pid:selectTag.key,
@@ -190,7 +190,7 @@ class mySider extends React.Component{
                 type
             }
         }
-    }
+    };
 
     //tree列表上单击事件
     treeNodeonClick = e =>{
@@ -221,7 +221,7 @@ class mySider extends React.Component{
     };
 
     // 点击取消隐藏
-    hideRight = e => {
+    hideRight = () => {
         this.setState({
             display: 'none',
         });
@@ -296,8 +296,7 @@ class mySider extends React.Component{
      };
 
      drop = (e)=>{
-         console.log(e.dropPosition)
-         reSetTag()
+         reSetTag();
          let isSelected = false;
          if (JSON.stringify(this.state.selectedTag) !== '{}'){
              if (this.state.selectedTag.key === e.dragNodesKeys[e.dragNodesKeys.length-1]){
@@ -325,7 +324,7 @@ class mySider extends React.Component{
          // console.log(this.state);
          // console.log(e.dragNode);
          // console.log(e.dragNodesKeys);      //被拖拽的对象的key的列表，直接包含了节点和节点下的children
-     }
+     };
 
     // 自定义右键菜单内容
     getNodeTreeRightClickMenu = () => {
@@ -547,7 +546,6 @@ class mySider extends React.Component{
                         {this.state.tagList.children.map(val=>this.createNodes(val))}
                     </TreeNode>
                 </Tree>
-                <span>{this.state.selectedTag.key}</span>
                 {this.getNodeTreeRightClickMenu()}
                 <TableModal type={'新建'} showTableModal={this.state.showTableModal} ok={(arr,className)=>addTag(this.formatTable(arr,className))} cancel={()=>this.setState({showTableModal:false})}/>
                 <ImageModal type={'新建'} showImageModal={this.state.showImageModal} ok={(name,src)=>addTag(this.formatImage(name,src))} cancel={()=>this.setState({showImageModal:false})} imageModalTitle={this.state.imageModalTitle}/>
