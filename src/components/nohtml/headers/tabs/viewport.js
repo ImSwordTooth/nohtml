@@ -27,7 +27,7 @@ class Viewport extends React.Component{
         return (
             <div className={'viewport'}>
                 <Button>预览</Button>
-                <div className='device'>
+                <div className='deviceChoose'>
                     <i className={`iconfont iconpc ${this.state.isChecked ? 'active':''}`}/>
                     <Switch  checkedChildren={<Icon type="check" />}
                              unCheckedChildren={<Icon type="check" />}
@@ -35,10 +35,22 @@ class Viewport extends React.Component{
                              onChange={this.changeDevice}
                     />
                     <i className={`iconfont iconphone ${!this.state.isChecked ? 'active':''}`} />
-                    <div><i className={'iconfont iconiphone5'}/> </div>
-                    <div><i className={'iconfont iconiphone6'}/> </div>
-                    <div><i className={'iconfont iconiphone7'}/> </div>
-                    <div><i className={'iconfont iconipad'}/> </div>
+                    <div className={'devices'}>
+                        <i className={'iconfont iconiphone5'}/>
+                        <span>iP5</span>
+                    </div>
+                    <div className={'devices'}>
+                        <i className={'iconfont iconiphone6'}/>
+                        <span>iP6</span>
+                    </div>
+                    <div className={'devices'}>
+                        <i className={'iconfont iconiphone7'}/>
+                        <span>iP7</span>
+                    </div>
+                    <div className={'devices'}>
+                        <i className={'iconfont iconipad'}/>
+                        <span>iPad</span>
+                    </div>
                 </div>
             </div>
 

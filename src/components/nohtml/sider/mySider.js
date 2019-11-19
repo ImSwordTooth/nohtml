@@ -14,6 +14,7 @@ import {
 } from "../../../store/action";
 import {TableModal} from "../common/modals/tableModal";
 import {ImageModal} from "../common/modals/imageModal";
+import {UploadFile} from "../../../api/common";
 
 const { TreeNode } = Tree;
 
@@ -251,20 +252,40 @@ class mySider extends React.Component{
 
     //上传图片
     handleUploadImage = ()=>{
-        let that = this;
-        let file = document.getElementById('uploadLocalImg_Sider').files[0];
-        if (!file || !window.FileReader) { // 看支持不支持FileReader
-            message.warn('您的浏览器不支持FileReader本地上传');
-            return
-        }
-        if (/^image/.test(file.type)) {
-            let reader = new FileReader(); // 创建一个reader
-            reader.readAsDataURL(file); // 将图片将转成 base64 格式
-            reader.onloadend = function () { // 读取成功后的回调
-                message.success('上传成功');
-                addTag(that.formatImage(file.name,this.result))
-            }
-        }
+
+        let form = document.getElementById('upload_form');
+        // window.event.preventDefault();
+        // console.log('aaaaaaaaaa')
+        // let that = this;
+        // let file = document.getElementById('uploadLocalImg_Sider').files[0];        //从input file里拿到用户选择的file
+        // console.log(file);
+        // console.log(UploadFile(file));
+
+        let FD = new FormData(form);
+        console.log(FD.get('file'))
+        console.log(FD)
+        // FD.append('file',file);
+        UploadFile(FD)
+
+
+        /*下方是用FileReader，base64转码，方便前端显示，现在先不用*/
+
+        // if (!file || !window.FileReader) { // 看支持不支持FileReader
+        //     message.warn('您的浏览器不支持FileReader本地上传');
+        //     return
+        // }
+        // if (/^image/.test(file.type)) {
+        //     let reader = new FileReader(); // 创建一个reader
+        //     // reader.readAsDataURL(file); // 将图片将转成 base64 格式
+        //     reader.readAsText(file,'utf-8'); // 将图片将转成 base64 格式
+        //     reader.onloadend = function () { // 读取成功后的回调
+        //         message.success('上传成功');
+        //         console.log(this.result)
+        //         console.log(UploadFile(this.result));
+        //         addTag(that.formatImage(file.name,this.result))
+        //
+        //     }
+        // }
     };
 
     //重命名
@@ -419,7 +440,10 @@ class mySider extends React.Component{
                                     <li onClick={()=>this.clickUpload()}>
                                         <i className={'iconfont iconuploadimg'}/>
                                         <p>本地</p>
-                                        <input type="file" hidden onChange={()=>this.handleUploadImage()} id={'uploadLocalImg_Sider'} accept="image/*"/>
+                                        <form encType={'multipart/form-data'} id={'upload_form'}>
+                                            <input type="file" hidden name={'file'} onChange={()=>this.handleUploadImage()} id={'uploadLocalImg_Sider'} accept="image/*"/>
+                                        </form>
+
                                     </li>
                                     <li onClick={()=>this.setState({showImageModal:true,imageModalTitle:'网络图片'})}>
                                         <i className={'iconfont iconnetworkimg'}/>

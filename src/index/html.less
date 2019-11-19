@@ -4,23 +4,27 @@
   src: url("../asset/FZY1JW.TTF");
 }
 .html_wp{
-  //width: 80%;
-  //margin: 0 auto;
-  padding: 50px 10%;
-  background: url("../asset/bc.jpg") top/cover repeat-y;
-  .enter{
+  background: url("../asset/bc.jpg") repeat-y;
+  height: calc(100% - 60px);
+  overflow: hidden;
+  & .enter{
+    position: absolute;
+    right: 40px;
+    top: 70px;
     font-size: 32px;
     background-color: orange;
     border: solid 4px black;
     color: black;
+    z-index: 99;
   }
   .describe_wp{
     display: flex;
     justify-content: space-between;
     color: black;
-    margin: 30px 0;
+    padding: 40px 10%;
     & img{
-      //width: 200px;
+      //max-height: 500px;
+      box-shadow: 0 0 18px 8px #c5c5c54a;
     }
     & .describe{
       font-family: describe,sans-serif;
@@ -38,7 +42,24 @@
 
   }
 
-  //background-color: #76abe2;
+  & .swiper-pagination{
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    .swiper-pagination-bullet{
+      width: 10px;
+      height: 10px;
+      margin: 0 7px;
+      background-color: black;
+    }
+  }
+  & .swiper-button-prev,
+  & .swiper-button-next{
+      color: rgb(133, 133, 133);
+      margin: 0 20px;
+      outline: none;
+  }
 }
+
 
 

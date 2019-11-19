@@ -1,29 +1,46 @@
 .viewport{
   display: flex;
   align-items: center;
+  //设备选择
+  .deviceChoose{
+    display: inline-flex;
+    align-items: center;
+    & .ant-switch{
+      background-color: #3abd3a;
+    }
+    & .ant-switch.ant-switch-checked{
+      background-color: #1890ff;
+    }
+    & i{
+      margin-right: 5px;
+      &:nth-last-of-type(1){
+        margin-left: 5px;
+      }
+      &.active{
+        color: #1890ff;
+      }
+      &:nth-last-of-type(1).active{
+        color: #3abd3a;
+      }
+    }
+  }
+
+  .devices{
+    position: relative;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 0 5px;
+    border: solid 1px #82828266;
+    border-radius: 5px;
+    box-shadow: 0 0 6px 0 #6f6f6f2e;
+    cursor: pointer;
+    user-select: none;
+    & > span{
+      font-size: 12px;
+    }
+  }
 }
 
 
-//设备选择
-.device{
-  display: inline-flex;
-  align-items: center;
-  & .ant-switch{
-    background-color: #3abd3a;
-  }
-  & .ant-switch.ant-switch-checked{
-    background-color: #1890ff;
-  }
-  & i{
-    margin-right: 5px;
-    &:nth-last-of-type(1){
-      margin-left: 5px;
-    }
-    &.active{
-      color: #1890ff;
-    }
-    &:nth-last-of-type(1).active{
-      color: #3abd3a;
-    }
-  }
-}

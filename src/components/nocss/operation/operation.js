@@ -2,6 +2,7 @@ import React from 'react'
 import {Icon, Switch, Tabs} from "antd";
 
 import Standard from './standard/standard'
+import Hover from "./hover/hover";
 
 const {TabPane} = Tabs;
 
@@ -22,9 +23,9 @@ class Operation extends React.Component{
                         <TabPane tab="基础" key="1">
                             <Standard/>
                         </TabPane>
-                        <TabPane tab="伪类" key="2">
+                        <TabPane tab="hover" key="2">
                             <div className={'html'}>
-                                伪类
+                                <Hover/>
                             </div>
                         </TabPane>
                     </Tabs>
