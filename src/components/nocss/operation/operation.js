@@ -24,16 +24,13 @@ class Operation extends React.Component{
                             <Standard/>
                         </TabPane>
                         <TabPane tab="hover" key="2">
-                            <div className={'html'}>
-                                <Hover/>
-                            </div>
+                            <Hover/>
                         </TabPane>
                     </Tabs>
                 </div>
             </div>
         )
     }
-
 }
 
 export default Operation

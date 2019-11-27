@@ -34,9 +34,10 @@ class myContent extends React.Component{
     componentDidMount() {
 
     }
-    componentWillUnmount() {
-
-    }
+    // componentWillUnmount() {
+    //
+    //     console.log('ss')
+    // }
 
 
     closeDrawer = ()=>{
@@ -131,7 +132,10 @@ class myContent extends React.Component{
                              * Elt.style只能获取行内样式，要想使用计算过的样式，要用getComputedStyle(Ele,pseudoElt)。
                              * 此处把非行内样式做了一个标记，在后面添加了一个“#”，不影响排序的情况下判断该属性是否是行内属性，输出的时候把“#”替换成“”即可
                              * */
-                            css[item+'#'] = getComputedStyle(document.getElementById(selectedTag.key), null)[item];
+                            if (document.getElementById(selectedTag.key)!==null){
+                                css[item+'#'] = getComputedStyle(document.getElementById(selectedTag.key), null)[item];
+                            }
+
                         }
                         /**
                          * 此处是想把不合规则的属性标记为红色，但是判断起来并不简单。暂时搁置，以后再写或者直接砍掉。

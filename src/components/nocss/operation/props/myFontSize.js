@@ -1,7 +1,7 @@
 import React from 'react'
 import store from '../../../../store'
 
-import {changeProp} from "../common/api";
+import {changeProp, getProp} from "../common/api";
 import {Slider} from "antd";
 
 class MyFontSize extends React.Component{
@@ -19,10 +19,10 @@ class MyFontSize extends React.Component{
 
     render() {
         return(
-            <li id={'fontSize'}>
+            <li className={'fontSize'}>
                 <span className={'operateTitle'}><i className={'iconfont iconnocssfontsize'}/>字体大小</span>
                 <div className={'content'}>
-                    <Slider style={{width:200}} min={12} max={100} onChange={(e)=>changeProp('fontSize',e)} value={parseInt(this.state.nocssStyle.fontSize)}/><span className={'unit'}>{this.state.nocssStyle.fontSize}</span>
+                    <Slider style={{width:200}} min={12} max={100} onChange={(e)=>changeProp(this.props.stateName,'fontSize',e)} value={parseInt(this.state[this.props.stateName].fontSize)}/><span className={'unit'}>{this.state[this.props.stateName].fontSize}</span>
                 </div>
             </li>
         )

@@ -9,6 +9,8 @@ import Html from "./index/html";
 import LoginModal from "./components/commonModals/loginModal";
 
 import {changeNav} from "./store/action";
+import Home from "./index/home";
+import Nohtml from "./nohtml";
 
 
 class App extends React.Component{
@@ -93,15 +95,24 @@ class App extends React.Component{
 
                 </div>
 
-                <Switch>
-                    <Route path="/nocss">
-                        <Nocss />
-                    </Route>
-                    <Route path="/nohtml">
-                        <Html />
-                    </Route>
+                {/*<Switch>*/}
+                <Route exact path={"/"} children={(props)=>
+                {
+                    console.log(props);
+                    return <div>my page</div>
+                }
+                }>
+                    <Home/>
+                </Route>
+                <Route exact path="/nohtml">
+                    <Nohtml />
+                </Route>
+                <Route exact path="/nocss">
+                    <Nocss />
+                </Route>
 
-                </Switch>
+
+                {/*</Switch>*/}
             </Router>
         )
     }

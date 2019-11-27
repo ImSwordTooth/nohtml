@@ -8,7 +8,11 @@ class Show extends React.Component{
     constructor(props){
         super(props);
         this.state = Object.assign({},store.getState(),{
-            showText:'文本'
+            showText:'文本',
+            isHover:false,
+            computedHoverStyle:Object.entries(Object.assign({},store.getState().hoverStyle)).map(item=>{
+                item[1] = item[1].value
+            })
         });
         store.subscribe(this.listener);
     }
@@ -16,6 +20,14 @@ class Show extends React.Component{
     listener = ()=>{
         let newState = store.getState();
         this.setState(newState)
+    };
+
+    computedStyle = ()=>{
+        if (this.state.isHover){
+            return Object.assign(Object.assign({},this.state.nocssStyle),Object.assign({},this.state.hoverStyle))
+        } else {
+            return this.state.nocssStyle;
+        }
     };
 
     render() {
@@ -31,7 +43,7 @@ class Show extends React.Component{
                     </div>
                 </div>
                 <article>
-                    <div style={this.state.nocssStyle}>
+                    <div style={this.computedStyle()} onMouseEnter={()=>this.setState({isHover:true})} onMouseLeave={()=>this.setState({isHover:false})}>
                         {this.state.showText}
                     </div>
                 </article>

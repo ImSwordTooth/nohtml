@@ -34,21 +34,21 @@ class Standard extends React.Component{
             <div>
                 <ul className={'operationUl'}>
                     {/*颜色*/}
-                    <MyColor/>
+                    <MyColor stateName={'nocssStyle'}/>
                     {/*背景颜色*/}
-                    <MyBackgroundColor/>
+                    <MyBackgroundColor stateName={'nocssStyle'}/>
                     {/*字体大小*/}
-                    <MyFontSize/>
+                    <MyFontSize stateName={'nocssStyle'}/>
                     {/*字型*/}
-                    <MyFontStyle/>
+                    <MyFontStyle stateName={'nocssStyle'}/>
                     {/*边框*/}
-                    <MyBorder/>
+                    <MyBorder stateName={'nocssStyle'}/>
                     {/*内边距*/}
-                    <MyPadding/>
+                    <MyPadding stateName={'nocssStyle'}/>
                     {/*盒子阴影*/}
-                    <MyBoxShadow/>
+                    <MyBoxShadow stateName={'nocssStyle'}/>
                     {/*字体阴影*/}
-                    <MyTextShadow/>
+                    <MyTextShadow stateName={'nocssStyle'}/>
                     {/*轮廓线*/}
                     <li id={'outline'}>
                         <span className={'operateTitle'}><i className={'iconfont iconnetworkimg'}/>背景</span>

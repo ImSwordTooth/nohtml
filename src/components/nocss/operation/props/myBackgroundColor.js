@@ -2,7 +2,7 @@ import React from 'react'
 import ColorPicker from "rc-color-picker";
 import store from '../../../../store'
 
-import {changeProp} from "../common/api";
+import {changeProp, getProp} from "../common/api";
 
 class MyBackgroundColor extends React.Component{
 
@@ -19,13 +19,13 @@ class MyBackgroundColor extends React.Component{
 
     render() {
         return(
-            <li id={'backgroundColor'}>
+            <li className={'backgroundColor'}>
                 <span className={'operateTitle'}><i className={'iconfont iconnocssbackgroundcolor'}/>背景颜色</span>
                 <div className={'content'}>
-                    <ColorPicker onChange={(e)=>changeProp('backgroundColor',e)} defaultColor={this.state.nocssStyle.backgroundColor} defaultAlpha={new RegExp('(?<=\\()\\S+(?=\\))','g').exec(this.state.nocssStyle.backgroundColor)?Number(new RegExp('(?<=\\()\\S+(?=\\))','g').exec(this.state.nocssStyle.backgroundColor)[0].split(',')[3])*100:100}>
+                    <ColorPicker onChange={(e)=>changeProp(this.props.stateName,'backgroundColor',e)} defaultColor={this.state[this.props.stateName].backgroundColor} defaultAlpha={new RegExp('(?<=\\()\\S+(?=\\))','g').exec(this.state[this.props.stateName].backgroundColor)?Number(new RegExp('(?<=\\()\\S+(?=\\))','g').exec(this.state[this.props.stateName].backgroundColor)[0].split(',')[3])*100:100}>
                         <div className={'colorpicker'}>
-                            <span className={'currentColor'} style={{backgroundColor:this.state.nocssStyle.backgroundColor}}/>
-                            <span className={'currentColorText'}>{this.state.nocssStyle.backgroundColor}</span>
+                            <span className={'currentColor'} style={{backgroundColor:this.state[this.props.stateName].backgroundColor}}/>
+                            <span className={'currentColorText'}>{this.state[this.props.stateName].backgroundColor}</span>
                         </div>
                     </ColorPicker>
                 </div>

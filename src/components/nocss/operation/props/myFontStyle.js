@@ -1,6 +1,6 @@
 import React from 'react'
 import store from '../../../../store'
-import {changeProp} from "../common/api";
+import {changeProp, getProp} from "../common/api";
 
 class MyFontStyle extends React.Component{
 
@@ -17,16 +17,16 @@ class MyFontStyle extends React.Component{
 
     render() {
         return(
-            <li id={'fontStyle'}>
+            <li className={'fontStyle'}>
                 <span className={'operateTitle'}><i className={'iconfont iconnocssfontstyle'}/>字型</span>
                 <div className={'content'}>
                     <div className={'icons'}>
-                        <i className={`iconfont iconbold ${this.state.nocssStyle.fontWeight==='bold'?'active':''}`} onClick={()=>changeProp('fontWeight',this.state.nocssStyle.fontWeight==='bold'?'normal':'bold')}/>
-                        <i className={`iconfont iconlighter ${this.state.nocssStyle.fontWeight==='lighter'?'active':''}`} onClick={()=>changeProp('fontWeight',this.state.nocssStyle.fontWeight==='lighter'?'normal':'lighter')}/>
-                        <i className={`iconfont iconitalic ${this.state.nocssStyle.fontStyle==='italic'?'active':''}`} onClick={()=>changeProp('fontStyle',this.state.nocssStyle.fontStyle==='italic'?'normal':'italic')}/>
-                        <i className={`iconfont iconunderline ${this.state.nocssStyle.textDecoration==='underline'?'active':''}`} onClick={()=>changeProp('textDecoration',this.state.nocssStyle.textDecoration==='underline'?'none':'underline')}/>
-                        <i className={`iconfont iconlinethrough ${this.state.nocssStyle.textDecoration==='line-through'?'active':''}`} onClick={()=>changeProp('textDecoration',this.state.nocssStyle.textDecoration==='line-through'?'none':'line-through')}/>
-                        <i className={`iconfont iconoverline ${this.state.nocssStyle.textDecoration==='overline'?'active':''}`} onClick={()=>changeProp('textDecoration',this.state.nocssStyle.textDecoration==='overline'?'none':'overline')}/>
+                        <i className={`iconfont iconbold ${this.state[this.props.stateName].fontWeight==='bold'?'active':''}`} onClick={()=>changeProp(this.props.stateName,'fontWeight',this.state[this.props.stateName].fontWeight==='bold'?'normal':'bold')}/>
+                        <i className={`iconfont iconlighter ${this.state[this.props.stateName].fontWeight==='lighter'?'active':''}`} onClick={()=>changeProp(this.props.stateName,'fontWeight',this.state[this.props.stateName].fontWeight==='lighter'?'normal':'lighter')}/>
+                        <i className={`iconfont iconitalic ${this.state[this.props.stateName].fontStyle==='italic'?'active':''}`} onClick={()=>changeProp(this.props.stateName,'fontStyle',this.state[this.props.stateName].fontStyle==='italic'?'normal':'italic')}/>
+                        <i className={`iconfont iconunderline ${this.state[this.props.stateName].textDecoration==='underline'?'active':''}`} onClick={()=>changeProp(this.props.stateName,'textDecoration',this.state[this.props.stateName].textDecoration==='underline'?'none':'underline')}/>
+                        <i className={`iconfont iconlinethrough ${this.state[this.props.stateName].textDecoration==='line-through'?'active':''}`} onClick={()=>changeProp(this.props.stateName,'textDecoration',this.state[this.props.stateName].textDecoration==='line-through'?'none':'line-through')}/>
+                        <i className={`iconfont iconoverline ${this.state[this.props.stateName].textDecoration==='overline'?'active':''}`} onClick={()=>changeProp(this.props.stateName,'textDecoration',this.state[this.props.stateName].textDecoration==='overline'?'none':'overline')}/>
                     </div>
                 </div>
             </li>

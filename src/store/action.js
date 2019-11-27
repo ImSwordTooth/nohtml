@@ -57,6 +57,19 @@ export function changeHoveredTag(key) {
     store.dispatch({type:'change_hoveredTagKey',key})
 }
 
+//修改nocss的样式
 export function changeNocssStyle(style) {
-    store.dispatch({type:'change_nossSstyle',style})
+    store.dispatch({type:'change_nocssTyle',style})
+}
+
+export function changeHoverStyle(style) {
+    store.dispatch({type:'change_hoverStyle',style})
+}
+
+export function addHoverList(comp) {
+    store.dispatch({type:'add_hoverList',comp})
+}
+
+export function deleteHoverList(propName) {
+    store.dispatch({type:'delete_hoverList',propName})
 }

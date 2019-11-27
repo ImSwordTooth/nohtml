@@ -35,7 +35,14 @@ class Code extends React.Component{
                     {[...Object.entries(this.state.nocssStyle)].map((item,index)=>{
                     return <p className={'cssText'} key={index}><strong>{item[0]}：</strong><span>{item[1]};</span></p>
                 })}
-                }
+}
+                    <br/>
+                    {`.${this.state.selfClassName}:hover{`}
+                    {[...Object.entries(this.state.hoverStyle)].map((item,index)=>{
+                        return <p className={'cssText'} key={index}><strong>{item[0]}：</strong><span>{item[1]};</span></p>
+                    })}
+}
+
                 </div>
 
             </div>

@@ -2,25 +2,33 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ff1a0ef3-317e-4184-bdf8-7f396ae86e22" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/api/common.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/nocss/operation/hover/hover.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/nocss/operation/hover/hover.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/nohtml.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/nohtml.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/index/home.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/asset/QQ截图20191116150047.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/asset/QQ截图20191116150047.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/footer/myFooter.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/footer/myFooter.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nocss/code/code.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nocss/code/code.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nocss/operation/common/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nocss/operation/common/api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nocss/operation/hover/hover.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nocss/operation/hover/hover.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/nocss/operation/operation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nocss/operation/operation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/nohtml/headers/css/animation.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/headers/css/animation.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/nohtml/headers/css/viewport.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/headers/css/viewport.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nocss/operation/props/myBackgroundColor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nocss/operation/props/myBackgroundColor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nocss/operation/props/myBorder.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nocss/operation/props/myBorder.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nocss/operation/props/myBoxShadow.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nocss/operation/props/myBoxShadow.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nocss/operation/props/myColor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nocss/operation/props/myColor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nocss/operation/props/myFontSize.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nocss/operation/props/myFontSize.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nocss/operation/props/myFontStyle.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nocss/operation/props/myFontStyle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nocss/operation/props/myPadding.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nocss/operation/props/myPadding.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nocss/operation/props/myTextShadow.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nocss/operation/props/myTextShadow.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nocss/operation/standard/standard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nocss/operation/standard/standard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nocss/operation/standard/standard.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nocss/operation/standard/standard.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nocss/show/show.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nocss/show/show.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nocss/show/show.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nocss/show/show.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nohtml/content/myContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/content/myContent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/nohtml/headers/myHeader.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/headers/myHeader.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/nohtml/headers/tabs/animation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/headers/tabs/animation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/nohtml/headers/tabs/viewport.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/headers/tabs/viewport.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/nohtml/sider/mySider.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/sider/mySider.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/app.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/app.less" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index/html.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index/html.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index/html.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/index/html.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index/html.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/index/home.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/logo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/logo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/action.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/state.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/state.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -34,96 +42,40 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/api/common.js">
+        <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/hover/hover.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="11" column="6" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
+            <state relative-caret-position="164">
+              <caret line="45" column="64" selection-start-line="45" selection-start-column="64" selection-end-line="45" selection-end-column="64" />
+              <folding>
+                <element signature="e#0#25#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/tabs/layout.js">
+        <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/standard/standard.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="e#0#25#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="-336">
+              <caret line="8" column="59" selection-start-line="8" selection-start-column="59" selection-end-line="8" selection-end-column="59" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/standard/standard.less">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="20">
+              <caret line="1" column="14" lean-forward="true" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/tabs/animation.js">
+        <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/hover/hover.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="78" column="162" selection-start-line="78" selection-start-column="162" selection-end-line="78" selection-end-column="162" />
-              <folding>
-                <element signature="e#0#25#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/tabs/viewport.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="920">
-              <caret line="49" column="47" selection-start-line="49" selection-start-column="47" selection-end-line="49" selection-end-column="47" />
-              <folding>
-                <element signature="e#0#25#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/css/viewport.less">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="760">
-              <caret line="38" column="21" selection-start-line="38" selection-start-column="21" selection-end-line="38" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/css/animation.less">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="15" column="19" lean-forward="true" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/myHeader.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="25" column="30" selection-start-line="25" selection-start-column="30" selection-end-line="25" selection-end-column="30" />
-              <folding>
-                <element signature="e#0#25#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/nohtml/sider/mySider.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4740">
-              <caret line="253" column="29" selection-start-line="253" selection-start-column="29" selection-end-line="253" selection-end-column="29" />
-              <folding>
-                <element signature="e#0#25#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/index/html.less">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="17" column="15" selection-start-line="17" selection-start-column="15" selection-end-line="17" selection-end-column="15" />
+            <state relative-caret-position="100">
+              <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -131,8 +83,55 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/operation.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="14" column="48" selection-start-line="14" selection-start-column="48" selection-end-line="14" selection-end-column="48" />
+            <state relative-caret-position="604">
+              <caret line="32" column="5" selection-start-line="32" selection-start-column="5" selection-end-line="32" selection-end-column="5" />
+              <folding>
+                <element signature="e#0#25#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/operation.less">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/common/api.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="464">
+              <caret line="160" column="38" lean-forward="true" selection-start-line="160" selection-start-column="38" selection-end-line="160" selection-end-column="38" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/props/myTextShadow.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="148">
+              <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+              <folding>
+                <element signature="e#0#25#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/store/state.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="128">
+              <caret line="117" column="30" lean-forward="true" selection-start-line="117" selection-start-column="30" selection-end-line="117" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/props/myBoxShadow.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-312">
+              <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
@@ -154,21 +153,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Select</find>
-      <find>//</find>
-      <find>content</find>
-      <find>iconok</find>
-      <find>fi</find>
-      <find>animationCssCode</find>
-      <find>replace</find>
-      <find>changeAnimationCssCode</find>
-      <find>an</find>
-      <find>changeAnimationKeyframesCode</find>
-      <find>.</find>
-      <find>./src/App</find>
-      <find>App</find>
-      <find>iconcode</find>
-      <find>.iconup</find>
       <find>flexDisplay</find>
       <find>antd</find>
       <find>less</find>
@@ -184,11 +168,32 @@
       <find>Slider</find>
       <find>borderStyle</find>
       <find>input</find>
+      <find>componentDidMount</find>
+      <find>setTime</find>
+      <find>componentWillUnmount</find>
+      <find>getCurrentLocation</find>
+      <find>console.log</find>
+      <find>hover</find>
+      <find>.nocssStyle</find>
+      <find>changeProp</find>
+      <find>nocssStyle</find>
+      <find>changeProp(</find>
+      <find>this.state.nocssStyle.border</find>
+      <find>changeHoverStyle</find>
+      <find>standard</find>
+      <find>getProp</find>
+      <find>getProp(this.props.stateName,'backgroundColor')</find>
     </findStrings>
     <replaceStrings>
       <replace>innerProp</replace>
       <replace>insertTag</replace>
       <replace>store.getState()</replace>
+      <replace>[this.props.stateName]</replace>
+      <replace>hoverStyle</replace>
+      <replace>changeProp(this.props.stateName,</replace>
+      <replace>getProp(this.props.stateName,'border')</replace>
+      <replace>nocssStyle</replace>
+      <replace>this.state[this.props.stateName].backgroundColorgetProp</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -202,57 +207,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/components/nocss/show/show.less" />
-        <option value="$PROJECT_DIR$/src/components/nohtml/common/color.js" />
-        <option value="$PROJECT_DIR$/src/components/nohtml/common/css/animationModal.less" />
-        <option value="$PROJECT_DIR$/src/components/nocss/show/show.js" />
-        <option value="$PROJECT_DIR$/src/index/css.js" />
-        <option value="$PROJECT_DIR$/src/logo.js" />
         <option value="$PROJECT_DIR$/src/css/antd_color.less" />
         <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/config/webpack.config.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/nocss.js" />
         <option value="$PROJECT_DIR$/src/components/commonModals/loginModal.js" />
-        <option value="$PROJECT_DIR$/src/nohtml.js" />
-        <option value="$PROJECT_DIR$/src/store/action.js" />
         <option value="$PROJECT_DIR$/src/components/nohtml/headers/css/myHeader.less" />
         <option value="$PROJECT_DIR$/src/css/nocss.less" />
         <option value="$PROJECT_DIR$/src/css/iconfont.css" />
         <option value="$PROJECT_DIR$/src/components/footer/myFooter.js" />
-        <option value="$PROJECT_DIR$/src/components/nocss/operation/common/api.js" />
-        <option value="$PROJECT_DIR$/src/components/nocss/operation/props/myColor.js" />
-        <option value="$PROJECT_DIR$/src/components/nocss/operation/props/myBackgroundColor.js" />
-        <option value="$PROJECT_DIR$/src/components/nocss/operation/props/myBorder.js" />
-        <option value="$PROJECT_DIR$/src/components/nocss/operation/props/myBoxShadow.js" />
-        <option value="$PROJECT_DIR$/src/components/nocss/operation/props/myFontSize.js" />
-        <option value="$PROJECT_DIR$/src/components/nocss/operation/props/myFontStyle.js" />
-        <option value="$PROJECT_DIR$/src/components/nocss/operation/props/myPadding.js" />
-        <option value="$PROJECT_DIR$/src/components/nocss/operation/props/myTextShadow.js" />
         <option value="$PROJECT_DIR$/src/components/nocss/code/code.less" />
-        <option value="$PROJECT_DIR$/src/components/nocss/operation/standard/standard.js" />
-        <option value="$PROJECT_DIR$/src/App.js" />
-        <option value="$PROJECT_DIR$/src/components/nocss/code/code.js" />
-        <option value="$PROJECT_DIR$/src/store/reducer.js" />
-        <option value="$PROJECT_DIR$/src/components/nohtml/content/myContent.js" />
         <option value="$PROJECT_DIR$/src/components/commonModals/css/loginModal.less" />
-        <option value="$PROJECT_DIR$/src/store/state.js" />
-        <option value="$PROJECT_DIR$/src/components/nocss/operation/operation.js" />
-        <option value="$PROJECT_DIR$/src/components/nocss/operation/standard/standard.less" />
-        <option value="$PROJECT_DIR$/src/components/nocss/operation/hover/hover.js" />
         <option value="$PROJECT_DIR$/src/components/nocss/operation/hover/hover.less" />
         <option value="$PROJECT_DIR$/public/index.html" />
         <option value="$PROJECT_DIR$/src/css/app.less" />
         <option value="$PROJECT_DIR$/src/components/footer/myFooter.less" />
-        <option value="$PROJECT_DIR$/src/index/html.js" />
         <option value="$PROJECT_DIR$/src/index/html.less" />
         <option value="$PROJECT_DIR$/src/components/nohtml/sider/mySider.js" />
         <option value="$PROJECT_DIR$/src/api/common.js" />
-        <option value="$PROJECT_DIR$/src/components/nohtml/headers/myHeader.js" />
         <option value="$PROJECT_DIR$/src/components/nohtml/headers/tabs/viewport.js" />
         <option value="$PROJECT_DIR$/src/components/nohtml/headers/css/viewport.less" />
         <option value="$PROJECT_DIR$/src/components/nohtml/headers/css/animation.less" />
         <option value="$PROJECT_DIR$/src/components/nohtml/headers/tabs/animation.js" />
+        <option value="$PROJECT_DIR$/src/index/home.less" />
+        <option value="$PROJECT_DIR$/src/components/nohtml/headers/myHeader.js" />
+        <option value="$PROJECT_DIR$/src/logo.js" />
+        <option value="$PROJECT_DIR$/src/index/html.js" />
+        <option value="$PROJECT_DIR$/src/components/nohtml/content/myContent.js" />
+        <option value="$PROJECT_DIR$/src/components/nohtml/headers/tabs/layout.js" />
+        <option value="$PROJECT_DIR$/src/index/home.js" />
+        <option value="$PROJECT_DIR$/src/App.js" />
+        <option value="$PROJECT_DIR$/src/nohtml.js" />
+        <option value="$PROJECT_DIR$/src/components/nocss/show/show.less" />
+        <option value="$PROJECT_DIR$/src/components/nocss/operation/standard/standard.less" />
+        <option value="$PROJECT_DIR$/src/store/state.js" />
+        <option value="$PROJECT_DIR$/src/components/nocss/code/code.js" />
+        <option value="$PROJECT_DIR$/src/components/nocss/operation/standard/standard.js" />
+        <option value="$PROJECT_DIR$/src/components/nocss/operation/props/myBorder.js" />
+        <option value="$PROJECT_DIR$/src/components/nocss/operation/props/myColor.js" />
+        <option value="$PROJECT_DIR$/src/store/action.js" />
+        <option value="$PROJECT_DIR$/src/store/reducer.js" />
+        <option value="$PROJECT_DIR$/src/components/nocss/show/show.js" />
+        <option value="$PROJECT_DIR$/src/components/nocss/operation/props/myFontSize.js" />
+        <option value="$PROJECT_DIR$/src/components/nocss/operation/props/myBackgroundColor.js" />
+        <option value="$PROJECT_DIR$/src/components/nocss/operation/props/myFontStyle.js" />
+        <option value="$PROJECT_DIR$/src/components/nocss/operation/props/myPadding.js" />
+        <option value="$PROJECT_DIR$/src/components/nocss/operation/props/myBoxShadow.js" />
+        <option value="$PROJECT_DIR$/src/components/nocss/operation/common/api.js" />
+        <option value="$PROJECT_DIR$/src/components/nocss/operation/props/myTextShadow.js" />
+        <option value="$PROJECT_DIR$/src/components/nocss/operation/hover/hover.js" />
+        <option value="$PROJECT_DIR$/src/components/nocss/operation/operation.js" />
       </list>
     </option>
   </component>
@@ -267,6 +272,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -349,6 +355,15 @@
               <item name="components" type="462c0819:PsiDirectoryNode" />
               <item name="nocss" type="462c0819:PsiDirectoryNode" />
               <item name="operation" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nohtml" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nohtml" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="nocss" type="462c0819:PsiDirectoryNode" />
+              <item name="operation" type="462c0819:PsiDirectoryNode" />
               <item name="hover" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -381,63 +396,6 @@
               <item name="nohtml" type="b2602c69:ProjectViewProjectNode" />
               <item name="nohtml" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="nohtml" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nohtml" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nohtml" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="nohtml" type="462c0819:PsiDirectoryNode" />
-              <item name="content" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nohtml" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nohtml" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="nohtml" type="462c0819:PsiDirectoryNode" />
-              <item name="footer" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nohtml" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nohtml" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="nohtml" type="462c0819:PsiDirectoryNode" />
-              <item name="headers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nohtml" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nohtml" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="nohtml" type="462c0819:PsiDirectoryNode" />
-              <item name="headers" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nohtml" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nohtml" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="nohtml" type="462c0819:PsiDirectoryNode" />
-              <item name="headers" type="462c0819:PsiDirectoryNode" />
-              <item name="tabs" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nohtml" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nohtml" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="nohtml" type="462c0819:PsiDirectoryNode" />
-              <item name="sider" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nohtml" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nohtml" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="css" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -462,7 +420,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -655,7 +612,14 @@
       <workItem from="1573968032884" duration="13037000" />
       <workItem from="1574078060873" duration="2985000" />
       <workItem from="1574123397706" duration="8022000" />
-      <workItem from="1574148451906" duration="1561000" />
+      <workItem from="1574148451906" duration="3292000" />
+      <workItem from="1574153693493" duration="1217000" />
+      <workItem from="1574238838701" duration="8000" />
+      <workItem from="1574333456304" duration="838000" />
+      <workItem from="1574401842601" duration="15000" />
+      <workItem from="1574658045462" duration="600000" />
+      <workItem from="1574742697919" duration="25973000" />
+      <workItem from="1574853516385" duration="4401000" />
     </task>
     <task id="LOCAL-00001" summary="左侧树形控件可以正常地层层嵌套了">
       <created>1569331389721</created>
@@ -748,11 +712,18 @@
       <option name="project" value="LOCAL" />
       <updated>1573897453126</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="测试上传图片">
+      <created>1574151814329</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1574151814329</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="617601000" />
+    <option name="totallyTimeSpent" value="652384000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -773,7 +744,7 @@
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.329718" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49947312" visible="true" weight="0.25813448" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49947312" visible="true" weight="0.20065077" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -781,7 +752,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.329718" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50052685" side_tool="true" weight="0.19088937" />
-      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49947312" weight="0.24702059" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49947312" weight="0.2462039" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.329718" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -805,137 +776,10 @@
     <MESSAGE value="动画部分初见成效。树控件可拖拽大致完成（antd的拖拽API没写清楚）。代码生成的核心代码已完成。" />
     <MESSAGE value="加入nocss，加入首页和谈论区的路由，以后慢慢加" />
     <MESSAGE value="1.添加了react路由&#10;2.完成了页眉和页脚&#10;3.拆分了nocss的代码，可复用性大大提升&#10;4.添加了nocss代码区的样式&#10;5.添加了nohtml首页的介绍（未完成）" />
-    <option name="LAST_COMMIT_MESSAGE" value="1.添加了react路由&#10;2.完成了页眉和页脚&#10;3.拆分了nocss的代码，可复用性大大提升&#10;4.添加了nocss代码区的样式&#10;5.添加了nohtml首页的介绍（未完成）" />
+    <MESSAGE value="测试上传图片" />
+    <option name="LAST_COMMIT_MESSAGE" value="测试上传图片" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-            <element signature="e#195#223#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/logo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="4" column="14" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/nohtml.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="21" column="29" lean-forward="true" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/rc-color-picker/lib/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/common/api.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="86" column="32" selection-start-line="86" selection-start-column="32" selection-end-line="86" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#58#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/props/myBackgroundColor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="33" column="5" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/props/myBoxShadow.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1200">
-          <caret line="60" column="5" selection-start-line="60" selection-start-column="5" selection-end-line="60" selection-end-column="5" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/props/myColor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="454">
-          <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/props/myFontSize.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="560">
-          <caret line="28" column="5" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/props/myPadding.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="43" column="5" selection-start-line="43" selection-start-column="5" selection-end-line="43" selection-end-column="5" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/props/myTextShadow.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/index/css.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="9" column="5" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/nocss/show/show.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="11" column="11" lean-forward="true" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/nocss/show/show.less">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/operation.less">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/nocss/code/code.less">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="140">
@@ -960,101 +804,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="39" column="21" selection-start-line="39" selection-start-column="21" selection-end-line="39" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/store/reducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="202" column="34" selection-start-line="202" selection-start-column="34" selection-end-line="202" selection-end-column="34" />
-          <folding>
-            <element signature="e#1#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/css/iconfont.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/store/state.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="130" column="48" lean-forward="true" selection-start-line="130" selection-start-column="48" selection-end-line="130" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/commonModals/css/loginModal.less">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="379">
           <caret line="101" column="29" selection-start-line="101" selection-start-column="29" selection-end-line="101" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/nocss/code/code.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="16" column="6" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/nohtml/content/myContent.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7760">
-          <caret line="394" column="6" selection-start-line="394" selection-start-column="6" selection-end-line="394" selection-end-column="6" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/hover/hover.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="12" column="64" selection-start-line="12" selection-start-column="64" selection-end-line="12" selection-end-column="64" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/standard/standard.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4460">
-          <caret line="223" column="22" selection-start-line="223" selection-start-column="22" selection-end-line="223" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/props/myBorder.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="26" column="32" selection-start-line="26" selection-start-column="32" selection-end-line="26" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/standard/standard.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="29" column="6" selection-start-line="29" selection-start-column="6" selection-end-line="29" selection-end-column="6" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1070,13 +823,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/swiper/js/swiper.js">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/hover/hover.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/footer/myFooter.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -1095,40 +841,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/css/app.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1760">
-          <caret line="88" column="3" selection-start-line="88" selection-start-column="3" selection-end-line="88" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/props/myFontStyle.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="620">
-          <caret line="33" column="5" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/index/html.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1720">
-          <caret line="92" column="45" selection-start-line="92" selection-start-column="45" selection-end-line="92" selection-end-column="45" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-            <element signature="e#160#180#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/api/common.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
           <caret line="11" column="6" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/tabs/animation.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="940">
+          <caret line="54" column="13" selection-start-line="54" selection-start-column="13" selection-end-line="54" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/css/nohtml.less">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/tabs/viewport.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -1147,10 +878,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/css/animation.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="15" column="19" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/index/home.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="14" column="20" lean-forward="true" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/logo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="500">
+          <caret line="25" column="55" lean-forward="true" selection-start-line="25" selection-start-column="55" selection-end-line="25" selection-end-column="55" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/myHeader.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="25" column="30" selection-start-line="25" selection-start-column="30" selection-end-line="25" selection-end-column="30" />
+        <state relative-caret-position="340">
+          <caret line="17" column="30" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>
@@ -1159,54 +914,268 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/nohtml/sider/mySider.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4740">
-          <caret line="253" column="29" selection-start-line="253" selection-start-column="29" selection-end-line="253" selection-end-column="29" />
+        <state relative-caret-position="120">
+          <caret line="22" column="23" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/index/html.less">
+    <entry file="file://$PROJECT_DIR$/src/components/nohtml/content/myContent.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="17" column="15" selection-start-line="17" selection-start-column="15" selection-end-line="17" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/operation.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="14" column="48" selection-start-line="14" selection-start-column="48" selection-end-line="14" selection-end-column="48" />
+        <state relative-caret-position="249">
+          <caret line="34" selection-start-line="34" selection-end-line="34" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/css/animation.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="15" column="19" lean-forward="true" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/tabs/layout.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="469">
+          <caret line="38" column="5" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/tabs/animation.js">
+    <entry file="file://$PROJECT_DIR$/src/index/html.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="78" column="162" selection-start-line="78" selection-start-column="162" selection-end-line="78" selection-end-column="162" />
+        <state relative-caret-position="-600">
+          <caret line="15" column="21" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+            <element signature="e#160#180#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/index/home.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="80" column="58" selection-start-line="80" selection-start-column="58" selection-end-line="80" selection-end-column="58" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/css/app.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="853">
+          <caret line="88" column="3" selection-start-line="88" selection-start-column="3" selection-end-line="88" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/css/iconfont.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nohtml.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="20" column="31" lean-forward="true" selection-start-line="20" selection-start-column="31" selection-end-line="20" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="107" column="20" selection-start-line="107" selection-start-column="20" selection-end-line="107" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/nocss/show/show.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="27" column="19" selection-start-line="27" selection-start-column="19" selection-end-line="27" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/store/reducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="229">
+          <caret line="333" column="35" selection-start-line="333" selection-start-column="35" selection-end-line="333" selection-end-column="35" />
+          <folding>
+            <element signature="e#1#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/store/action.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1280">
+          <caret line="64" column="41" selection-start-line="64" selection-start-column="41" selection-end-line="64" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/props/myColor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="24" column="335" selection-start-line="24" selection-start-column="335" selection-end-line="24" selection-end-column="335" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/nocss/show/show.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="26" column="90" selection-start-line="26" selection-start-column="90" selection-end-line="26" selection-end-column="90" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/props/myFontSize.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="20" column="15" selection-start-line="20" selection-start-column="15" selection-end-line="20" selection-end-column="15" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/props/myBackgroundColor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="24" column="371" selection-start-line="24" selection-start-column="371" selection-end-line="24" selection-end-column="371" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/props/myFontStyle.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="13" column="40" selection-start-line="13" selection-start-column="40" selection-end-line="13" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/nocss/code/code.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="780">
+          <caret line="41" column="109" selection-start-line="41" selection-start-column="109" selection-end-line="41" selection-end-column="109" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/props/myPadding.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="560">
+          <caret line="38" column="270" selection-start-line="38" selection-start-column="270" selection-end-line="38" selection-end-column="270" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/props/myBorder.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-260">
+          <caret line="13" column="38" lean-forward="true" selection-start-line="13" selection-start-column="38" selection-end-line="13" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/common/api.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="464">
+          <caret line="160" column="38" lean-forward="true" selection-start-line="160" selection-start-column="38" selection-end-line="160" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/props/myBoxShadow.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-312">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/store/state.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="117" column="30" lean-forward="true" selection-start-line="117" selection-start-column="30" selection-end-line="117" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/props/myTextShadow.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/hover/hover.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="45" column="64" selection-start-line="45" selection-start-column="64" selection-end-line="45" selection-end-column="64" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/standard/standard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-336">
+          <caret line="8" column="59" selection-start-line="8" selection-start-column="59" selection-end-line="8" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/operation.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="604">
+          <caret line="32" column="5" selection-start-line="32" selection-start-column="5" selection-end-line="32" selection-end-column="5" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/operation.less">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/standard/standard.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="1" column="14" lean-forward="true" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/hover/hover.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
         </state>
       </provider>
     </entry>

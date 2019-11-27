@@ -13,7 +13,12 @@ import './css/myHeader.less'
 import {changeCode} from "../../../store/action";
 import { Tabs ,Button } from 'antd'
 const { TabPane } = Tabs;
-const operations = <Button onClick={()=>changeCode(true)}>代码</Button>;
+const operations = (
+    <div>
+        <span>最近保存:{Date.now()}</span>
+        <Button onClick={()=>changeCode(true)}>代码</Button>;
+    </div>
+)
 class myHeader extends React.Component{
 
     render() {

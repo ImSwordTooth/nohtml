@@ -4,7 +4,7 @@ import Nohtml from "../nohtml";
 
 // import Swiper from 'swiper'
 
-import './html.less'
+import './home.less'
 import MyFooter from "../components/footer/myFooter";
 
 import Swiper from 'swiper/js/swiper'
@@ -19,34 +19,34 @@ class Html extends React.Component{
         }
     }
 
-    componentDidMount() {
-        new Swiper('.swiper-container', {
-            height:'100%',
-            direction: 'horizontal',//横向轮播
-            loop: true,//无缝轮播
-            parallax:true,
-            speed:300,
-            grabCursor : true,
-            autoplay : {
-                delay:3000,
-                disableOnInteraction: false,
-            },
-            pagination: {
-                el: '.swiper-pagination',
-            },
-            navigation: {//左右分页
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            }
-        })
-    }
-
-    componentWillUnmount() {
-        if (this.state.mySwiper !== null) { // 销毁swiper
-            console.log('aaaaaaa')
-            // this.state.mySwiper.destroy()
-        }
-    }
+    // componentDidMount() {
+    //     new Swiper('.swiper-container', {
+    //         height:'100%',
+    //         direction: 'horizontal',//横向轮播
+    //         loop: true,//无缝轮播
+    //         parallax:true,
+    //         speed:300,
+    //         grabCursor : true,
+    //         autoplay : {
+    //             delay:3000,
+    //             disableOnInteraction: false,
+    //         },
+    //         pagination: {
+    //             el: '.swiper-pagination',
+    //         },
+    //         navigation: {//左右分页
+    //             nextEl: '.swiper-button-next',
+    //             prevEl: '.swiper-button-prev',
+    //         }
+    //     })
+    // }
+    //
+    // componentWillUnmount() {
+    //     if (this.state.mySwiper !== null) { // 销毁swiper
+    //         console.log('aaaaaaa')
+    //         // this.state.mySwiper.destroy()
+    //     }
+    // }
 
     render() {
         return (

@@ -19,24 +19,24 @@ class MyPadding extends React.Component{
 
     render() {
         return(
-            <li id={'padding'}>
+            <li className={'padding'}>
                 <span className={'operateTitle'}><i className={'iconfont iconnocsspadding'}/>内边距</span>
                 <div className={'content'}>
                     <div className={'items'}>
                         <div className={'info'}>top：</div>
-                        <Slider style={{width:100}} min={0} max={100} onChange={(e)=>changeProp('padding',e+'px',0)} value={parseInt(this.state.nocssStyle.padding.split(' ')[0])}/><span className={'unit'}>{this.state.nocssStyle.padding.split(' ')[0]}</span>
+                        <Slider style={{width:100}} min={0} max={100} onChange={(e)=>changeProp(this.props.stateName,'padding',e+'px',0)} value={parseInt(this.state[this.props.stateName].padding.split(' ')[0])}/><span className={'unit'}>{this.state[this.props.stateName].padding.split(' ')[0]}</span>
                     </div>
                     <div className={'items'}>
                         <div className={'info'}>right：</div>
-                        <Slider style={{width:100}} min={0} max={100} onChange={(e)=>changeProp('padding',e+'px',1)} value={parseInt(this.state.nocssStyle.padding.split(' ')[1])}/><span className={'unit'}>{this.state.nocssStyle.padding.split(' ')[1]}</span>
+                        <Slider style={{width:100}} min={0} max={100} onChange={(e)=>changeProp(this.props.stateName,'padding',e+'px',1)} value={parseInt(this.state[this.props.stateName].padding.split(' ')[1])}/><span className={'unit'}>{this.state[this.props.stateName].padding.split(' ')[1]}</span>
                     </div>
                     <div className={'items'}>
                         <div className={'info'}>bottom：</div>
-                        <Slider style={{width:100}} min={0} max={100} onChange={(e)=>changeProp('padding',e+'px',2)} value={parseInt(this.state.nocssStyle.padding.split(' ')[2])}/><span className={'unit'}>{this.state.nocssStyle.padding.split(' ')[2]}</span>
+                        <Slider style={{width:100}} min={0} max={100} onChange={(e)=>changeProp(this.props.stateName,'padding',e+'px',2)} value={parseInt(this.state[this.props.stateName].padding.split(' ')[2])}/><span className={'unit'}>{this.state[this.props.stateName].padding.split(' ')[2]}</span>
                     </div>
                     <div className={'items'}>
                         <div className={'info'}>left：</div>
-                        <Slider style={{width:100}} min={0} max={100} onChange={(e)=>changeProp('padding',e+'px',3)} value={parseInt(this.state.nocssStyle.padding.split(' ')[3])}/><span className={'unit'}>{this.state.nocssStyle.padding.split(' ')[3]}</span>
+                        <Slider style={{width:100}} min={0} max={100} onChange={(e)=>changeProp(this.props.stateName,'padding',e+'px',3)} value={parseInt(this.state[this.props.stateName].padding.split(' ')[3])}/><span className={'unit'}>{this.state[this.props.stateName].padding.split(' ')[3]}</span>
                     </div>
                 </div>
             </li>

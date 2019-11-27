@@ -317,9 +317,41 @@ function getWillInsertKey(targetObj,actionKey) {
 
 function nocssStyle(state = defaultState.nocssStyle,action) {
     switch (action.type) {
-        case 'change_nossSstyle': {
+        case 'change_nocssTyle': {
             let obj = Object.assign({}, state);
             obj[action.style.prop] = action.style.value;
+            return obj;
+        }
+        default:{
+            return state;
+        }
+    }
+}
+
+function hoverStyle(state = defaultState.hoverStyle,action) {
+
+    switch (action.type) {
+        case 'change_hoverStyle': {
+            let obj = Object.assign({}, state);
+            obj[action.style.prop] = action.style.value;
+            return obj;
+        }
+        default:{
+            return state;
+        }
+    }
+}
+
+function hoverList(state = defaultState.hoverList,action) {
+    switch (action.type) {
+        case 'add_hoverList':{
+            let obj = Object.assign({}, state);
+            obj[action.comp.prop] = action.comp.comp;
+            return obj;
+        }
+        case 'delete_hoverList':{
+            let obj = Object.assign({}, state);
+            delete obj[action.propName];
             return obj;
         }
         default:{
@@ -346,5 +378,7 @@ export default combineReducers({
     showCode,
     hoveredTagKey,
     nocssStyle,
+    hoverStyle,
+    hoverList,
     nav
 });
