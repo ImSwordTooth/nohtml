@@ -2,7 +2,7 @@ import React from 'react'
 import {Modal,Select,Input,Tabs,message} from "antd";
 import store from '../../../../store'
 import '../css/classesModal.less'
-import {cssPropKeys} from "../../../../untils/cssTable";
+import {cssPropKeys} from "../../../../data/cssTable";
 import {addClassList} from "../../../../store/action";
 
 const {Option} = Select;
@@ -70,27 +70,34 @@ class ClassesModal extends React.Component{
         let {className,tag,parentClass,relation,css,hover} = this.state;
         let cssArr = css.split(/[:;]/g),
             hoverArr = hover.split(/[:;]/g);
-        let cssObj = {},
-            hoverObj = {};
+        let viewStyle = {},
+            trueStyle = {},
+            hoverViewStyle = {},
+            hoverTrueStyle = {};
         for (let i=0;i<cssArr.length;i+=2){
             if (/^[0-9]/.test(cssArr[i])){
                 continue;
             }
-            cssObj[cssArr[i]] = cssArr[i+1]
+            viewStyle[cssArr[i]] = cssArr[i+1];
+            trueStyle[cssArr[i]] = cssArr[i+1].replace(/\d+px/g,i=>parseInt(i)/14*0.6+'rem');
         }
         for (let i=0;i<hoverArr.length;i+=2){
             if (/^[0-9]/.test(hoverArr[i])){
                 continue;
             }
-            hoverObj[hoverArr[i]] = hoverArr[i+1]
+            hoverViewStyle[hoverArr[i]] = hoverArr[i+1];
+            hoverTrueStyle[hoverArr[i]] = hoverArr[i+1].replace(/\d+px/g,i=>parseInt(i)/14*0.6+'rem');
+
         }
         addClassList({
             className,
             tag,
             parentClass,
             relation,
-            css:cssObj,
-            hover:hoverObj
+            trueStyle,
+            viewStyle,
+            hoverTrueStyle,
+            hoverViewStyle
         })
     }
 

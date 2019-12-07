@@ -1,4 +1,3 @@
-
 import {combineReducers} from "redux";
 import {defaultState} from './state'
 function tagList(state = defaultState.tagList,action) {

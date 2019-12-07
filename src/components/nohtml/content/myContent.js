@@ -4,7 +4,8 @@ import {Collapse, Drawer, Input, Tag,Tooltip,AutoComplete,Select} from 'antd'
 import './myContent.less'
 import store from '../../../store'
 import {changeDrawer, updateTag} from "../../../store/action";
-import {dataSource,defaultCssProp,dataSourceKeys} from "../../../untils/cssTable";
+import {dataSource,defaultCssProp,dataSourceKeys} from "../../../data/cssTable";
+import {getComputedCss} from "../../../common/units";
 
 const {TextArea} = Input;
 const { Panel } = Collapse;
@@ -21,7 +22,8 @@ class myContent extends React.Component{
             editingStyleValue:'',        //当前正在编辑的样式的值
             newStyleName:'',            //新建样式属性名
             newStyleValue:'',            //新建样式属性值
-            newPanelList:[':hover',':link',':active',':visited',':first-child',':']
+            newPanelList:[':hover',':link',':active',':visited',':first-child',':'],
+            hoverId:'',                 //展示区hover的元素的id
         });
         store.subscribe(this.listener)
     }
@@ -118,8 +120,19 @@ class myContent extends React.Component{
 
 
         if (JSON.stringify(selectedTag)!=='{}') {
+            //类中的样式
+            let classStyle = {};
+            let list = this.state.classList.map(item=>item.className);
+            if (selectedTag.props.className){
+                selectedTag.props.className.forEach((item)=>{
+                    if (list.includes(item)){
+                        classStyle = Object.assign({},classStyle,this.state.classList[list.indexOf(item)].css);
+                    }
+                });
+            }
             let props = Object.assign({},selectedTag.props),
-                css = Object.assign({},selectedTag.viewStyle);
+                css = Object.assign({},classStyle,selectedTag.viewStyle);
+
             let defaultCssArr = defaultCssProp[selectedTag.type]||defaultCssProp.div;
             // console.log(this.state.selectedTag.style)
             // console.log(getComputedStyle(document.getElementById(selectedTag.key), null))
@@ -162,7 +175,8 @@ class myContent extends React.Component{
                                                 <div className={'key'}>{item[0].replace(/[#&]/g,'')}</div>
                                                 <Tooltip placement={'topLeft'} title={item[1]}>
                                                     <div className={'value'} onClick={()=>this.changeEditing(item[0].replace(/[#&]/g,''),item[1])}>
-                                                        <span>{item[1]}</span>
+                                                        {/*TODO 改*/}
+                                                         <span>{item[1]}</span>
                                                     </div>
                                                 </Tooltip>
                                             </li>
@@ -176,13 +190,31 @@ class myContent extends React.Component{
                                        <div>
                                            {/*<i className={'iconfont iconadd'}/>*/}
                                            <Tooltip placement='topLeft'
-                                                    title={<span><span style={{color:'#949494'}}>深色</span>代表用户自定义样式；<span style={{color:'#d4d4d4'}}>浅色</span>代表计算后的样式。<br/><span><strong>修改</strong>：单击属性值（您应该始终使用<i>全选</i>来修改属性值）</span><br/><span><strong>删除</strong>：ctrl+单击属性名</span></span>}><i className={'iconfont iconhelp'}/>
+                                                    title={
+                                                        <span>
+                                                            <span style={{color:'#949494'}}>深色</span>代表用户自定义样式；
+                                                            <span style={{color:'#d4d4d4'}}>浅色</span>代表计算后的样式。
+                                                            <span style={{color:'#1493d3'}}>蓝色</span>代表该样式来自于某个样式类。
+                                                            <br/>
+                                                            <span>
+                                                                <strong>修改</strong>：单击属性值（您应该始终使用<i>全选</i>来修改属性值）
+                                                            </span>
+                                                            <br/>
+                                                            <span>
+                                                                <strong>删除</strong>：ctrl+单击属性名
+                                                            </span>
+                                                        </span>}
+                                           >
+                                               <i className={'iconfont iconhelp'}/>
                                            </Tooltip>
                                        </div>}>
                                 <ul className={'drawerUl'}>
                                     {/*<li>*/}
                                     {[...Object.entries(css)].sort().map((item,index) => {
                                         let borderLeft = '';
+                                        if (classStyle[item[0]] && classStyle[item[0]] === item[1]){
+                                            borderLeft = 'solid 3px #1493d3';
+                                        }
                                         if (item[0].match(/#/)) {
                                             borderLeft = 'solid 3px #d4d4d4';
                                         }else if (item[0].match(/&/)) {
@@ -350,35 +382,38 @@ class myContent extends React.Component{
         }
     };
 
-    createNodes = ({key, pid, children, type,trueStyle,content,props}) => {
+    createNodes = (node) => {
         let className = '';
-        if (props.className){
-            className += props.className;
+        if (node.props.className){
+            className += node.props.className.join(' ');
+            let css = getComputedCss(node,'trueStyle'),
+                hover = getComputedCss(node,'hoverTrueStyle');
+            node.trueStyle = Object.assign({},css,node.trueStyle);
+            node.hoverTrueStyle = Object.assign({},hover,node.hoverTrueStyle);
         }
-        if (children!==undefined){
+        if (node.children!==undefined){
             return React.createElement(
-                type || 'div',
+                node.type || 'div',
                 {
-                    id:key,
-                    key,
-                    style:{...trueStyle},
-                    src:props.src?props.src:null,
+                    id:node.key,
+                    key:node.key,
+                    style:node.key===this.state.hoverId?{...Object.assign({},node.trueStyle,node.hoverTrueStyle)}:{...Object.assign({},node.trueStyle)},
+                    src:node.props.src?node.props.src:null,
                     className
                 },
-                [(content || null),...children.map(val => this.createNodes(val))]
+                [(node.content || null),...node.children.map(val => this.createNodes(val))]
             )
         } else {
             return React.createElement(
-                type || 'div',
+                node.type || 'div',
                 {
-                    id:key,
-                    key,
-                    style:{...trueStyle},
-                    src:props.src?props.src:null,
-                    type:props.type?props.type:null,
+                    id:node.key,
+                    key:node.key,
+                    style:node.key===this.state.hoverId?{...Object.assign({},node.trueStyle,node.hoverTrueStyle)}:{...Object.assign({},node.trueStyle)},
+                    src:node.props.src?node.props.src:null,
+                    type:node.props.type?node.props.type:null,
                     className
                 }
-
             )
         }
 
@@ -400,6 +435,14 @@ class myContent extends React.Component{
 
     };
 
+    setHover = (e)=>{
+        let id = e.target.id;
+        this.setState({
+            hoverId:id
+        })
+
+    }
+
     render() {
 
         const content = this.state.tagList.children;
@@ -407,7 +450,7 @@ class myContent extends React.Component{
         return (
             <div className={'container_wp'} id={'container_wp'}>
 
-                <div className={`container ${this.state.showDrawer?'operation_open':''}`} id={'0'} style={{width:'60vw',height:'60vh'}}>
+                <div className={`container ${this.state.showDrawer?'operation_open':''}`} id={'0'} style={{width:'60vw',height:'60vh'}} onMouseMove={(e)=>this.setHover(e)}>
                     {content.map(val => this.createNodes(val))}
                     {this.mask()}
                 </div>

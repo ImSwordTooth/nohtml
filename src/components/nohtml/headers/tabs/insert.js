@@ -39,6 +39,8 @@ class insert extends React.Component{
             content:`新建${type}`,
             trueStyle:{},
             viewStyle:{},
+            hoverTrueStyle:{},
+            hoverViewStyle:{},
             props:{},
             children:[]
         }
@@ -57,6 +59,8 @@ class insert extends React.Component{
             iconName:'iconimg',
             trueStyle:{},
             viewStyle:{},
+            hoverTrueStyle:{},
+            hoverViewStyle:{},
             props:{
                 src
             }
@@ -80,6 +84,8 @@ class insert extends React.Component{
                iconName:'icontr',
                trueStyle:{},
                viewStyle:{},
+               hoverTrueStyle:{},
+               hoverViewStyle:{},
                props:{},
                children:[]
             })
@@ -96,6 +102,8 @@ class insert extends React.Component{
                 content:item,
                 trueStyle:{},
                 viewStyle:{},
+                hoverTrueStyle:{},
+                hoverViewStyle:{},
                 props:{},
                 children:[]
             })
@@ -114,6 +122,8 @@ class insert extends React.Component{
                     content:`数据${arr.length*i+index}`,
                     trueStyle:{},
                     viewStyle:{},
+                    hoverTrueStyle:{},
+                    hoverViewStyle:{},
                     props:{},
                     children:[]
                 }
@@ -128,6 +138,8 @@ class insert extends React.Component{
             iconName:'icontable',
             trueStyle:{},
             viewStyle:{},
+            hoverTrueStyle:{},
+            hoverViewStyle:{},
             props:{
                 className:className
             },
@@ -140,6 +152,8 @@ class insert extends React.Component{
                     iconName:'icontbody',
                     trueStyle:{},
                     viewStyle:{},
+                    hoverTrueStyle:{},
+                    hoverViewStyle:{},
                     props:{},
                     children:trs
                 }
@@ -167,6 +181,8 @@ class insert extends React.Component{
             iconName,
             trueStyle:{},
             viewStyle:{},
+            hoverTrueStyle:{},
+            hoverViewStyle:{},
             props:{
                 type
             }

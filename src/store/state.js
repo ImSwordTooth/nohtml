@@ -7,9 +7,11 @@ export const defaultState = {
         pid:null,
         key:'0',
         dataName:'总容器',
-        iconName:'icondiv',
+        iconName:'icondiv',     //标签的图标
         trueStyle:{},       //放在标签内的样式
         viewStyle:{},       //用于数据展示的样式
+        hoverTrueStyle:{},      //hover时放在标签内的样式
+        hoverViewStyle:{},      //hover时用于数据展示的样式
         props:{},
         children:[
             {
@@ -21,6 +23,8 @@ export const defaultState = {
                 // content:'我是新建div的内容',
                 trueStyle:{fontFamily:'幼圆',display:'flex',alignItems:'center',justifyContent:'space-between',height:`${60/14*0.6}rem`},
                 viewStyle:{fontFamily:'幼圆',display:'flex',alignItems:'center',justifyContent:'space-between',height:'60px'},
+                hoverTrueStyle:{},
+                hoverViewStyle:{},
                 props:{},
                 children:[
                     {
@@ -31,6 +35,8 @@ export const defaultState = {
                         iconName:'icondiv',
                         trueStyle:{},
                         viewStyle:{},
+                        hoverTrueStyle:{},
+                        hoverViewStyle:{},
                         props:{},
                         children:[
                             {
@@ -41,6 +47,8 @@ export const defaultState = {
                                 iconName:'iconimg',
                                 trueStyle:{width:`${60/14*0.6}rem`},
                                 viewStyle:{width:'60px'},
+                                hoverTrueStyle:{},
+                                hoverViewStyle:{},
                                 props:{
                                     src:'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2035944494,3453366933&fm=26&gp=0.jpg'
                                 }
@@ -55,6 +63,8 @@ export const defaultState = {
                         iconName:'icondiv',
                         trueStyle:{},
                         viewStyle:{},
+                        hoverTrueStyle:{},
+                        hoverViewStyle:{},
                         props:{},
                         children:[
                             {
@@ -65,6 +75,8 @@ export const defaultState = {
                                 iconName:'iconimg',
                                 trueStyle:{width:`${60/14*0.6}rem`,border:`solid ${1/14*0.6}rem #cccccc`,borderRadius:'100%'},
                                 viewStyle:{width:'60px',border:'solid 1px #cccccc',borderRadius:'100%'},
+                                hoverTrueStyle:{},
+                                hoverViewStyle:{},
                                 props:{
                                     src:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1572435050159&di=e849863eeca637da14272395b9118f8c&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201806%2F07%2F20180607185957_fjrFt.thumb.700_0.jpeg'
                                 }
@@ -82,8 +94,9 @@ export const defaultState = {
                 iconName:'icondiv',
                 trueStyle:{},
                 viewStyle:{},
+                hoverTrueStyle:{},
+                hoverViewStyle:{},
                 props:{},
-
                 children:[
                     {
                         type:'div',
@@ -94,6 +107,8 @@ export const defaultState = {
                         content:'我是侧边栏',
                         trueStyle:{fontSize:`${18/14*0.6}rem`,backgroundColor:'#ffffff',fontWeight:'lighter',fontStyle:'italic',textDecoration:'underline'},
                         viewStyle:{fontSize:`18px`,backgroundColor:'#ffffff',fontWeight:'lighter',fontStyle:'italic',textDecoration:'underline'},
+                        hoverTrueStyle:{color:'red'},
+                        hoverViewStyle:{color:'red'},
                         props:{},
                         children:[]
                     },
@@ -104,9 +119,13 @@ export const defaultState = {
                         dataName:'主体内容',
                         iconName:'icondiv',
                         content:'我是主体内容',
-                        trueStyle:{fontSize:`${18/14*0.6}rem`,backgroundColor:'#ffffff',fontWeight:'lighter',fontStyle:'italic',textDecoration:'underline'},
-                        viewStyle:{fontSize:`18px`,backgroundColor:'#ffffff',fontWeight:'lighter',fontStyle:'italic',textDecoration:'underline'},
-                        props:{},
+                        trueStyle:{backgroundColor:'#ffffff',fontWeight:'lighter',fontStyle:'italic',textDecoration:'underline'},
+                        viewStyle:{backgroundColor:'#ffffff',fontWeight:'lighter',fontStyle:'italic',textDecoration:'underline'},
+                        hoverTrueStyle:{color:'blue'},
+                        hoverViewStyle:{color:'blue'},
+                        props:{
+                            className:['init','test']
+                        },
                         children:[]
                     }
                 ]
@@ -118,6 +137,8 @@ export const defaultState = {
                 dataName:'页脚',
                 iconName:'icondiv',
                 trueStyle:{position:''},
+                hoverTrueStyle:{},
+                hoverViewStyle:{},
                 viewStyle:{},
                 props:{},
                 children:[]
@@ -132,12 +153,31 @@ export const defaultState = {
             tag:'none',
             parentClass:'',
             relation:'',
-            css:{
-                color:'red',
-                height:'200px'
+            trueStyle:{color:'red'},
+            viewStyle:{color:'red'},
+            hoverTrueStyle:{},
+            hoverViewStyle:{},
+        },
+        {
+            className:'test',
+            tag:'none',
+            parentClass:'',
+            relation:'',
+            trueStyle:{
+                color:'rgba(255,0,0,.3)',
+                fontSize:`${36/14*0.6}rem`,
+                fontWeight:'bold'
             },
-            hover:{
-
+            viewStyle:{
+                color:'rgba(255,0,0,.3)',
+                fontSize:'36px',
+                fontWeight:'bold'
+            },
+            hoverTrueStyle:{
+                color:'purple'
+            },
+            hoverViewStyle:{
+                color:'purple'
             }
         }
     ],

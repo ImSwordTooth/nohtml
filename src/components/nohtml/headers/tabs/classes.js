@@ -76,12 +76,12 @@ class Classes extends React.Component{
             <div>
                 <ul className={'class_list'}>
                     {this.state.classList.map((item,index)=>{
-                        return (<Popover content={<div style={item.css}>示例文字</div>} placement={'bottomLeft'}>
+                        return (<Popover content={<div style={item.trueStyle}>示例文字</div>} placement={'bottomLeft'}>
                                     <li key={index} className={this.state.selectedClassIndex===index?'active':''}
                                         onClick={()=>this.setState({selectedClassIndex:index})}
                                         onContextMenu={(e)=>this.rightClick(e)}
                                     >
-                                        <div style={this.ignore(item.css)}>示例文字</div>
+                                        <div style={this.ignore(item.trueStyle)}>示例文字</div>
                                         <span className={'className'}>{item.className}</span>
                                         <i className={'iconfont iconlook look'}/>
                                     </li>

@@ -14,7 +14,7 @@ import {
 } from "../../../store/action";
 import {TableModal} from "../common/modals/tableModal";
 import {ImageModal} from "../common/modals/imageModal";
-import {UploadFile} from "../../../api/common";
+import {UploadFile} from "../../../common/api";
 
 const { TreeNode } = Tree;
 
@@ -59,6 +59,8 @@ class mySider extends React.Component{
             content:`新建${type}`,
             trueStyle:{},
             viewStyle:{},
+            hoverTrueStyle:{},
+            hoverViewStyle:{},
             props:{},
             children:[]
         }
@@ -77,6 +79,8 @@ class mySider extends React.Component{
             iconName:'iconimg',
             trueStyle:{},
             viewStyle:{},
+            hoverTrueStyle:{},
+            hoverViewStyle:{},
             props:{
                 src
             }
@@ -100,6 +104,8 @@ class mySider extends React.Component{
                 iconName:'icontr',
                 trueStyle:{},
                 viewStyle:{},
+                hoverTrueStyle:{},
+                hoverViewStyle:{},
                 props:{},
                 children:[]
             })
@@ -116,6 +122,8 @@ class mySider extends React.Component{
                 content:item,
                 trueStyle:{},
                 viewStyle:{},
+                hoverTrueStyle:{},
+                hoverViewStyle:{},
                 props:{},
                 children:[]
             })
@@ -134,6 +142,8 @@ class mySider extends React.Component{
                     content:`数据${arr.length*i+index}`,
                     trueStyle:{},
                     viewStyle:{},
+                    hoverTrueStyle:{},
+                    hoverViewStyle:{},
                     props:{},
                     children:[]
                 }
@@ -160,6 +170,8 @@ class mySider extends React.Component{
                     iconName:'icontbody',
                     trueStyle:{},
                     viewStyle:{},
+                    hoverTrueStyle:{},
+                    hoverViewStyle:{},
                     props:{},
                     children:trs
                 }
@@ -187,6 +199,8 @@ class mySider extends React.Component{
             iconName,
             trueStyle:{},
             viewStyle:{},
+            hoverTrueStyle:{},
+            hoverViewStyle:{},
             props:{
                 type
             }
