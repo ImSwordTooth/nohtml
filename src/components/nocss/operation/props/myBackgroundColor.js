@@ -2,7 +2,7 @@ import React from 'react'
 import ColorPicker from "rc-color-picker";
 import store from '../../../../store'
 
-import {changeProp, getProp} from "../common/api";
+import {changeProp} from "../../../../common/units";
 
 class MyBackgroundColor extends React.Component{
 

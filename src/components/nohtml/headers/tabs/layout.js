@@ -2,7 +2,7 @@ import React from 'react'
 import '../css/layout.less'
 
 import { Select,Checkbox,Divider,Tag,Popover,Slider,InputNumber  } from 'antd';
-import {dataSource} from "../../../../untils/cssTable";
+import {dataSource} from "../../../../data/cssTable";
 
 const { Option } = Select;
 

@@ -2,7 +2,7 @@ import React from 'react'
 import ColorPicker from "rc-color-picker";
 import store from '../../../../store'
 
-import {changeProp,colorRgba,addProp,deleteProp} from "../common/api";
+import {changeProp,colorRgba,addProp,deleteProp} from "../../../../common/units";
 import {Slider} from "antd";
 
 class MyBoxShadow extends React.Component{

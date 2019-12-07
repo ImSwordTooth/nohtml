@@ -2,7 +2,7 @@ import React from 'react'
 import store from '../../../../store'
 import '../css/animationModal.less'
 import {Affix, Input, InputNumber, Modal, Select, Steps, message, Switch, AutoComplete, Tooltip, Button, Icon} from "antd";
-import {dataSource, dataSourceKeys} from "../../../../untils/cssTable";
+import {dataSource, dataSourceKeys} from "../../../../data/cssTable";
 import {updateTag} from "../../../../store/action";
 const { Step } = Steps;
 const { Option } = Select;

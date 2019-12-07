@@ -1,6 +1,6 @@
 import React from 'react'
 import store from '../../../../store'
-import {addProp, changeProp} from "../common/api";
+import {addProp, changeProp} from "../../../../common/units";
 import {Select} from "antd";
 const {Option} = Select;
 

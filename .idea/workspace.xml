@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ff1a0ef3-317e-4184-bdf8-7f396ae86e22" name="Default Changelist" comment="">
+    <list default="true" id="ff1a0ef3-317e-4184-bdf8-7f396ae86e22" name="Default Changelist" comment="调整了目录结构，现在更加简洁合理。&#10;完成了内联样式+类样式的艰难合并，奥利给">
       <change afterPath="$PROJECT_DIR$/src/common/units.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/components/nohtml/common/api.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -31,8 +31,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/tabs/classes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="353">
-              <caret line="71" column="6" lean-forward="true" selection-start-line="71" selection-start-column="6" selection-end-line="71" selection-end-column="6" />
+            <state relative-caret-position="173">
+              <caret line="62" column="23" lean-forward="true" selection-start-line="62" selection-start-column="23" selection-end-line="62" selection-end-column="23" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
@@ -48,15 +48,6 @@
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/props/myFontSize.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="3" column="50" selection-start-line="3" selection-start-column="50" selection-end-line="3" selection-end-column="50" />
             </state>
           </provider>
         </entry>
@@ -593,7 +584,7 @@
       <workItem from="1575520091126" duration="8443000" />
       <workItem from="1575639088575" duration="539000" />
       <workItem from="1575684013354" duration="5660000" />
-      <workItem from="1575715467759" duration="7693000" />
+      <workItem from="1575715467759" duration="7958000" />
     </task>
     <task id="LOCAL-00001" summary="左侧树形控件可以正常地层层嵌套了">
       <created>1569331389721</created>
@@ -707,11 +698,18 @@
       <option name="project" value="LOCAL" />
       <updated>1575684119799</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="调整了目录结构，现在更加简洁合理。&#10;完成了内联样式+类样式的艰难合并，奥利给">
+      <created>1575723416589</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1575723416589</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="708358000" />
+    <option name="totallyTimeSpent" value="708623000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -767,7 +765,8 @@
     <MESSAGE value="测试上传图片" />
     <MESSAGE value="重新规划了主页和nohtml、nocss的逻辑，添加了nocss的hover模块" />
     <MESSAGE value="完善了样式类制作器" />
-    <option name="LAST_COMMIT_MESSAGE" value="完善了样式类制作器" />
+    <MESSAGE value="调整了目录结构，现在更加简洁合理。&#10;完成了内联样式+类样式的艰难合并，奥利给" />
+    <option name="LAST_COMMIT_MESSAGE" value="调整了目录结构，现在更加简洁合理。&#10;完成了内联样式+类样式的艰难合并，奥利给" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/hover/hover.less">
@@ -1139,13 +1138,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/nohtml/common/font.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="6" selection-start-line="6" selection-end-line="6" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/tabs/start.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="460">
@@ -1156,10 +1148,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/nohtml/common/font.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40">
+          <caret line="6" selection-start-line="6" selection-end-line="6" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/tabs/classes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="353">
-          <caret line="71" column="6" lean-forward="true" selection-start-line="71" selection-start-column="6" selection-end-line="71" selection-end-column="6" />
+        <state relative-caret-position="173">
+          <caret line="62" column="23" lean-forward="true" selection-start-line="62" selection-start-column="23" selection-end-line="62" selection-end-column="23" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>

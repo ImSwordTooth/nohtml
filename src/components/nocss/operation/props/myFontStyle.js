@@ -1,6 +1,6 @@
 import React from 'react'
 import store from '../../../../store'
-import {changeProp, getProp} from "../common/api";
+import {changeProp} from "../../../../common/units";
 
 class MyFontStyle extends React.Component{
 

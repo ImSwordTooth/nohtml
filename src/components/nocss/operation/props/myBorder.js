@@ -2,7 +2,7 @@ import React from 'react'
 import ColorPicker from "rc-color-picker";
 import store from '../../../../store'
 
-import {changeProp,colorRgba} from "../common/api";
+import {changeProp,colorRgba} from "../../../../common/units";
 import {Select, Slider} from "antd";
 const {Option} = Select;
 

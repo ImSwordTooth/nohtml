@@ -1,7 +1,7 @@
 import React from 'react'
 import store from '../../../../store'
 
-import {changeProp, getProp} from "../common/api";
+import {changeProp} from "../../../../common/units";
 import {Slider} from "antd";
 
 class MyFontSize extends React.Component{

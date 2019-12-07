@@ -1,7 +1,7 @@
 import React from 'react'
 import store from '../../../../store'
 
-import {changeProp} from "../common/api";
+import {changeProp} from "../../../../common/units";
 import {Slider} from "antd";
 
 class MyPadding extends React.Component{
