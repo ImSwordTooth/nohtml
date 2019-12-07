@@ -329,7 +329,6 @@ function nocssStyle(state = defaultState.nocssStyle,action) {
 }
 
 function hoverStyle(state = defaultState.hoverStyle,action) {
-
     switch (action.type) {
         case 'change_hoverStyle': {
             let obj = Object.assign({}, state);
@@ -360,6 +359,19 @@ function hoverList(state = defaultState.hoverList,action) {
     }
 }
 
+function classList(state = defaultState.classList,action) {
+    switch (action.type) {
+        case 'add_classlist':{
+            let list = state.slice();
+            list.push(action.classInfo);
+            return list
+        }
+        default:{
+            return state;
+        }
+    }
+}
+
 function nav(state = defaultState.nav,action) {
     switch (action.type) {
         case 'change_nav':{
@@ -380,5 +392,6 @@ export default combineReducers({
     nocssStyle,
     hoverStyle,
     hoverList,
+    classList,
     nav
 });

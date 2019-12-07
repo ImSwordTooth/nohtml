@@ -126,6 +126,21 @@ export const defaultState = {
     },
     selectedTag:{},
     hoveredTagKey:'',       //在树结构上hover的元素的key值，用于与content部分选中样式搭配
+    classList:[               //nohtml中的类列表
+        {
+            className:'init',
+            tag:'none',
+            parentClass:'',
+            relation:'',
+            css:{
+                color:'red',
+                height:'200px'
+            },
+            hover:{
+
+            }
+        }
+    ],
     nocssStyle:{
         color:'#1082c9',
         backgroundColor:'rgba(230,230,230,0.3)',
@@ -136,7 +151,8 @@ export const defaultState = {
         border:'2px dashed #000000',
         padding:'4px 6px 4px 6px',
         boxShadow:'0px 0px 24px 0px rgba(0,0,0,0.32),5px 5px 14px 0px rgba(13,71,134,0.2)',
-        textShadow:'1px 0px 0px #000000,0px 3px 5px rgba(70,117,214,0.5)'
+        textShadow:'1px 0px 0px #000000,0px 3px 5px rgba(70,117,214,0.5)',
+        transform:'rotate(20deg) translate(0px,40px)'
     },
     hoverStyle:{
 

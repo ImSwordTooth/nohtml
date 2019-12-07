@@ -23,7 +23,7 @@
   }
     &>div{
       display: inline-block;
-      width: 60px;
+      //width: 60px;
       height: 60px;
     }
     .className{
@@ -36,6 +36,88 @@
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
+    }
+    .look{
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+}
+
+.contextMenu_wp{
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+
+}
+
+.contextMenu{
+  position: absolute;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background-color: white;
+  & li{
+    position: relative;
+    padding: 0 20px 0 10px;
+    display: flex;
+    align-items: center;
+    cursor: default;
+    //TODO 这里设置为定值似乎不太对，但是暂时没有更好的
+    width: 120px;
+    &.disable{
+      cursor: not-allowed;
+      color: #c7c7c7;
+      &:hover{
+        background-color: #fff;
+        &>.next{
+          display: none;
+        }
+      }
+    }
+    &:hover{
+      background-color: #bae7ff;
+      transition: background-color .5s;
+
+      &>.next{
+        display: block;
+      }
+    }
+    &.line{
+      padding: 0 6px;
+      margin: 1px 0;
+      & div{
+        height: 1px;
+        width: 100%;
+        background-color: #bdbdbd;
+      }
+
+    }
+    & p{
+      margin: 0 0 0 5px;
+      display: inline-block;
+      font-size: 14px;
+    }
+    .iconrightarrow{
+      position: absolute;
+      right: 2px;
+    }
+    .next{
+      position: absolute;
+      left: 100%;
+      top: 0;
+      width: 100%;
+      display: none;
+
+      //.iconrightarrow{
+      //  position: relative;
+      //  margin-left: 10px;
+      //}
     }
   }
 }

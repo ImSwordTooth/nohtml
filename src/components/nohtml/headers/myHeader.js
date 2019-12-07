@@ -15,17 +15,15 @@ import { Tabs ,Button } from 'antd'
 const { TabPane } = Tabs;
 const operations = (
     <div>
-        <span>最近保存:{Date.now()}</span>
+        <span style={{marginRight:'100px'}}>最近保存:{Date.now()}</span>
         <Button onClick={()=>changeCode(true)}>代码</Button>;
     </div>
 )
 class myHeader extends React.Component{
-
     render() {
         return(
             <header className='header'>
-                {/*!Html*/}
-                <Tabs defaultActiveKey="5" tabBarExtraContent={operations}>
+                <Tabs defaultActiveKey="6" tabBarExtraContent={operations}>
                     <TabPane tab="开始" key="1">
                         <Start/>
                     </TabPane>

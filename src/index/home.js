@@ -46,7 +46,7 @@ class Home extends React.Component{
 
     render() {
         return (
-            <div>
+            <>
             {/*<Router basename={'/'}>*/}
                 {/*<Route exact path={'/'}>*/}
                     <div className={'home_wp'}>
@@ -99,7 +99,7 @@ class Home extends React.Component{
                 {/*</Route>*/}
             {/*// </Router>*/}
 
-</div>
+</>
 
         )
     }

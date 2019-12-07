@@ -286,5 +286,8 @@ export const defaultCssProp = {
     h6:['fontSize','lineHeight','fontWeight','fontStyle','color','textDecoration'],
     img:['width','height','margin','objectFit','filter','border'],
     table:['fontSize','borderCollapse','border','color'],
-
 }
+
+
+//TODO html标签列表，以后再补全
+export const cssPropKeys = [...Object.keys(defaultCssProp)];

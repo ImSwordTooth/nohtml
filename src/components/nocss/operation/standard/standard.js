@@ -13,6 +13,7 @@ import MyBorder from "../props/myBorder";
 import MyPadding from "../props/myPadding";
 import MyBoxShadow from "../props/myBoxShadow";
 import MyTextShadow from "../props/myTextShadow";
+import MyTransform from "../props/myTransform";
 
 class Standard extends React.Component{
 
@@ -49,6 +50,8 @@ class Standard extends React.Component{
                     <MyBoxShadow stateName={'nocssStyle'}/>
                     {/*字体阴影*/}
                     <MyTextShadow stateName={'nocssStyle'}/>
+                    {/*变形*/}
+                    <MyTransform stateName={'nocssStyle'}/>
                     {/*轮廓线*/}
                     <li id={'outline'}>
                         <span className={'operateTitle'}><i className={'iconfont iconnetworkimg'}/>背景</span>

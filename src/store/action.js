@@ -73,3 +73,7 @@ export function addHoverList(comp) {
 export function deleteHoverList(propName) {
     store.dispatch({type:'delete_hoverList',propName})
 }
+
+export function addClassList(classInfo){
+    store.dispatch({type:'add_classlist',classInfo})
+}

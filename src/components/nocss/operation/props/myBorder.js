@@ -29,14 +29,14 @@ class MyBorder extends React.Component{
                     </div>
                     <div className={'items flexStart'}>
                         <Select style={{width:150}} defaultValue={this.state[this.props.stateName].border.split(' ')[1]} onChange={(e)=>changeProp(this.props.stateName,'border',e,1)}>
-                            <Option className={'borderStyle'} value={'solid'}><i className={'iconfont iconsolid'}/>实线<span>solid</span></Option>
-                            <Option className={'borderStyle'} value={'dashed'}><i className={'iconfont icondashed'}/>虚线<span>dashed</span></Option>
-                            <Option className={'borderStyle'} value={'dotted'}><i className={'iconfont icondotted'}/>点状<span>dotted</span></Option>
-                            <Option className={'borderStyle'} value={'double'}><i className={'iconfont icondouble'}/>双实线<span>double</span></Option>
-                            <Option className={'borderStyle'} value={'ridge'}><i className={'iconfont iconridge'}/>凸起<span>ridge</span></Option>
-                            <Option className={'borderStyle'} value={'groove'}><i className={'iconfont icongroove'}/>凹槽<span>groove</span></Option>
-                            <Option className={'borderStyle'} value={'inset'}><i className={'iconfont iconinset'}/>内阴影<span>inset</span></Option>
-                            <Option className={'borderStyle'} value={'outset'}><i className={'iconfont iconoutset'}/>外阴影<span>outset</span></Option>
+                            <Option className={'OptionItem'} value={'solid'}><i className={'iconfont iconsolid'}/>实线<span>solid</span></Option>
+                            <Option className={'OptionItem'} value={'dashed'}><i className={'iconfont icondashed'}/>虚线<span>dashed</span></Option>
+                            <Option className={'OptionItem'} value={'dotted'}><i className={'iconfont icondotted'}/>点状<span>dotted</span></Option>
+                            <Option className={'OptionItem'} value={'double'}><i className={'iconfont icondouble'}/>双实线<span>double</span></Option>
+                            <Option className={'OptionItem'} value={'ridge'}><i className={'iconfont iconridge'}/>凸起<span>ridge</span></Option>
+                            <Option className={'OptionItem'} value={'groove'}><i className={'iconfont icongroove'}/>凹槽<span>groove</span></Option>
+                            <Option className={'OptionItem'} value={'inset'}><i className={'iconfont iconinset'}/>内阴影<span>inset</span></Option>
+                            <Option className={'OptionItem'} value={'outset'}><i className={'iconfont iconoutset'}/>外阴影<span>outset</span></Option>
                         </Select>
                     </div>
                     <div className={'items'}>

@@ -160,9 +160,11 @@ class myContent extends React.Component{
                                         return (
                                             <li key={index}>
                                                 <div className={'key'}>{item[0].replace(/[#&]/g,'')}</div>
-                                                <div className={'value'} onClick={()=>this.changeEditing(item[0].replace(/[#&]/g,''),item[1])}>
-                                                    <span>{item[1]}</span>
-                                                </div>
+                                                <Tooltip placement={'topLeft'} title={item[1]}>
+                                                    <div className={'value'} onClick={()=>this.changeEditing(item[0].replace(/[#&]/g,''),item[1])}>
+                                                        <span>{item[1]}</span>
+                                                    </div>
+                                                </Tooltip>
                                             </li>
                                         )
                                     })}

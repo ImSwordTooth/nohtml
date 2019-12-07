@@ -3,9 +3,8 @@ import {Badge} from "antd";
 import store from './store'
 import {BrowserRouter as Router,Switch,Route,Link}  from 'react-router-dom'
 import Nocss from "./nocss";
-import Logo from './logo'
+import Logo from './components/logo/logo'
 import './css/app.less'
-import Html from "./index/html";
 import LoginModal from "./components/commonModals/loginModal";
 
 import {changeNav} from "./store/action";
@@ -79,7 +78,7 @@ class App extends React.Component{
                         </ul>
                     </div>
                     <div className={'right'}>
-                        <i className={'iconfont icongithub'}/>
+                        <i className={'iconfont icongithub'} onClick={()=>window.open('https://github.com/ImSwordTooth/nohtml')}/>
                         <Badge count={5} overflowCount={10} offset={[-5,5]}>
                             <i className={'iconfont icondiscuss'}/>
                         </Badge>
@@ -96,12 +95,7 @@ class App extends React.Component{
                 </div>
 
                 {/*<Switch>*/}
-                <Route exact path={"/"} children={(props)=>
-                {
-                    console.log(props);
-                    return <div>my page</div>
-                }
-                }>
+                <Route exact path={"/"}>
                     <Home/>
                 </Route>
                 <Route exact path="/nohtml">
