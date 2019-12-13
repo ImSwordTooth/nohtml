@@ -18,10 +18,12 @@ class myContent extends React.Component{
         super(props);
         this.state = Object.assign({},store.getState(),{
             isReName:false,
-            editingStyleName:'',        //当前正在编辑的样式的名字，同一时间只能编辑一个
+            editingStyleName:'',        //当前正在编辑的样式的名字，同一时间只能编辑一个,hover的是'hover'+属性名
             editingStyleValue:'',        //当前正在编辑的样式的值
             newStyleName:'',            //新建样式属性名
             newStyleValue:'',            //新建样式属性值
+            newHoverStyleName:'',       //新建hover样式属性值
+            newHoverStyleValue:'',      //新建hover样式属性值
             newPanelList:[':hover',':link',':active',':visited',':first-child',':'],
             hoverId:'',                 //展示区hover的元素的id
         });
@@ -34,12 +36,30 @@ class myContent extends React.Component{
     };
 
     componentDidMount() {
-
+        document.getElementById('content').addEventListener('scroll',this.debounce(this.getDrawerTop,100))
     }
-    // componentWillUnmount() {
-    //
-    //     console.log('ss')
-    // }
+    componentWillUnmount() {
+        document.getElementById('content').removeEventListener('scroll',this.debounce);
+    }
+
+    //防抖函数
+    debounce = (fn,wait)=>{
+        let timeout = null;
+        return function(){
+            if(timeout !== null){       //如果用户在wait时间内再次触发，就会清除定时器
+                clearTimeout(timeout);
+            }
+            timeout = setTimeout(fn,wait);      //然后再重新设置定时器
+        }
+    };
+
+    //动态设置抽屉的位置
+    getDrawerTop = ()=>{
+        let top = document.getElementById('content').scrollTop;
+        document.getElementById('Drawer').style.transform = `translateY(${top}px)`;         //使用transform的好处是可以添加动画，十分平滑不突兀
+    };
+
+
 
 
     closeDrawer = ()=>{
@@ -99,6 +119,16 @@ class myContent extends React.Component{
         console.log(e)
     };
 
+    deleteClassName = (name)=>{
+        let classList = this.state.selectedTag.props.className.concat();
+        classList.splice(classList.indexOf(name),1);
+        updateTag({
+            prop:'props',
+            innerProp:'className',
+            value:classList
+        })
+    }
+
     //点击外部重置为空
     handleClickOutside=(e)=> {
         //如果用户点击的不是正在编辑的input
@@ -126,12 +156,14 @@ class myContent extends React.Component{
             if (selectedTag.props.className){
                 selectedTag.props.className.forEach((item)=>{
                     if (list.includes(item)){
-                        classStyle = Object.assign({},classStyle,this.state.classList[list.indexOf(item)].css);
+                        classStyle = Object.assign({},classStyle,this.state.classList[list.indexOf(item)].viewStyle);
                     }
                 });
             }
+
             let props = Object.assign({},selectedTag.props),
-                css = Object.assign({},classStyle,selectedTag.viewStyle);
+                css = getComputedCss(selectedTag,'viewStyle');
+            let hover = getComputedCss(selectedTag,'hoverViewStyle');
 
             let defaultCssArr = defaultCssProp[selectedTag.type]||defaultCssProp.div;
             // console.log(this.state.selectedTag.style)
@@ -166,20 +198,56 @@ class myContent extends React.Component{
                 return (
                     <div>
                         <TextArea value={this.state.selectedTag.content} style={{marginBottom:'10px'}} onChange={(e) => this.changeContent(e)}/>
-                        <Collapse expandIconPosition={'right'} bordered={false} defaultActiveKey={['1','2']}>
+                        <Collapse expandIconPosition={'right'} bordered={false} defaultActiveKey={['1','2','3']}>
                             <Panel key={1} header={'属性'} style={{background: '#f7f7f7',borderRadius: 4, marginBottom: 10,border: 0,overflow: 'hidden',borderTop:'solid 4px rgba(218, 218, 218, 0.34)'}}>
                                 <ul className={'drawerUl'}>
                                     {[...Object.entries(selectedTag.props)].map((item,index) => {
                                         return (
-                                            <li key={index}>
-                                                <div className={'key'}>{item[0].replace(/[#&]/g,'')}</div>
-                                                <Tooltip placement={'topLeft'} title={item[1]}>
-                                                    <div className={'value'} onClick={()=>this.changeEditing(item[0].replace(/[#&]/g,''),item[1])}>
-                                                        {/*TODO 改*/}
-                                                         <span>{item[1]}</span>
-                                                    </div>
-                                                </Tooltip>
-                                            </li>
+                                            item[0] === 'className'
+                                            ?
+                                                item[1].length > 0
+                                                    ?
+                                                    <li key={index}>
+                                                        <div className={'key'}>{item[0]}</div>
+                                                        <div className={'value'} onClick={()=>this.changeEditing(item[0],item[1])}>
+                                                            <div>
+                                                                {item[1].map((i)=>{
+                                                                    return (
+                                                                        <Tooltip title={
+                                                                            Object.entries(this.state.classList[this.state.classList.findIndex((item)=>item.className===i)].viewStyle).map((i)=>{
+                                                                                return `${i[0].replace(/[A-Z]/g,w=>'-'+w.toLowerCase())}: ${i[1]};\n`
+                                                                            })
+                                                                        }
+                                                                                 overlayStyle={{whiteSpace:'pre-wrap',fontFamily:'codeSaver, monospace',fontSize:'13px'}}
+                                                                        >
+                                                                            <Tag closable={true} onClose={()=>this.deleteClassName(i)}>{i}</Tag>
+                                                                        </Tooltip>
+                                                                    )
+                                                                })}
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    :null
+                                            :
+                                                <li key={index}>
+                                                    <div className={'key'}>{item[0]}</div>
+                                                    <Tooltip placement={'topLeft'} title={item[1]}>
+                                                        <div className={'value'} onClick={()=>this.changeEditing(item[0],item[1])}>
+                                                            {
+                                                                item[0] === 'className'
+                                                                    ?
+                                                                    <div>
+                                                                        {item[1].map((i)=>{
+                                                                            return <Tag closable={true}>{i}</Tag>
+                                                                        })}
+                                                                    </div>
+                                                                    :
+                                                                    <span>{item[1]}</span>
+                                                            }
+
+                                                        </div>
+                                                    </Tooltip>
+                                                </li>
                                         )
                                     })}
                                 </ul>
@@ -294,11 +362,26 @@ class myContent extends React.Component{
                                                     onChange={(e)=>{this.setState({newStyleName:e})}}
                                                     onBlur={()=>{
                                                         if (this.state.newStyleName !=='' && this.state.newStyleValue !== ''){
-                                                            updateTag({
-                                                                prop:'style',
-                                                                innerProp:this.state.newStyleName,
-                                                                value:this.state.newStyleValue
-                                                            });
+                                                            if (!/\d+px/.test(this.state.newStyleValue)){
+                                                                updateTag({
+                                                                    prop:'style',
+                                                                    innerProp:this.state.newStyleName,
+                                                                    value:this.state.newStyleValue
+                                                                })
+                                                            }else {
+                                                                updateTag({
+                                                                    prop:'trueStyle',
+                                                                    innerProp:this.state.newStyleName,
+                                                                    value:this.state.newStyleValue.replace(/\d+px/g,function (i) {
+                                                                        return parseInt(i)/14*0.6+'rem'
+                                                                    })
+                                                                });
+                                                                updateTag({
+                                                                    prop:'viewStyle',
+                                                                    innerProp:this.state.newStyleName,
+                                                                    value:this.state.newStyleValue
+                                                                })
+                                                            }
                                                             this.setState({
                                                                 newStyleName:'',
                                                                 newStyleValue:''
@@ -322,11 +405,26 @@ class myContent extends React.Component{
                                                                 onKeyDown={(e)=>{
                                                                     if (e.key === 'Tab'){
                                                                         e.preventDefault();
-                                                                        updateTag({
-                                                                            prop:'style',
-                                                                            innerProp:this.state.newStyleName,
-                                                                            value:this.state.newStyleValue
-                                                                        });
+                                                                        if (!/\d+px/.test(this.state.newStyleValue)){
+                                                                            updateTag({
+                                                                                prop:'style',
+                                                                                innerProp:this.state.newStyleName,
+                                                                                value:this.state.newStyleValue
+                                                                            })
+                                                                        }else {
+                                                                            updateTag({
+                                                                                prop:'trueStyle',
+                                                                                innerProp:this.state.newStyleName,
+                                                                                value:this.state.newStyleValue.replace(/\d+px/g,function (i) {
+                                                                                    return parseInt(i)/14*0.6+'rem'
+                                                                                })
+                                                                            });
+                                                                            updateTag({
+                                                                                prop:'viewStyle',
+                                                                                innerProp:this.state.newStyleName,
+                                                                                value:this.state.newStyleValue
+                                                                            })
+                                                                        }
                                                                         this.setState({
                                                                             newStyleName:'',
                                                                             newStyleValue:''
@@ -342,11 +440,26 @@ class myContent extends React.Component{
                                                     }}
                                                     onBlur={()=>{
                                                         if (this.state.newStyleName !=='' && this.state.newStyleValue !== ''){
-                                                            updateTag({
-                                                                prop:'style',
-                                                                innerProp:this.state.newStyleName,
-                                                                value:this.state.newStyleValue
-                                                            });
+                                                            if (!/\d+px/.test(this.state.newStyleValue)){
+                                                                updateTag({
+                                                                    prop:'style',
+                                                                    innerProp:this.state.newStyleName,
+                                                                    value:this.state.newStyleValue
+                                                                })
+                                                            }else {
+                                                                updateTag({
+                                                                    prop:'trueStyle',
+                                                                    innerProp:this.state.newStyleName,
+                                                                    value:this.state.newStyleValue.replace(/\d+px/g,function (i) {
+                                                                        return parseInt(i)/14*0.6+'rem'
+                                                                    })
+                                                                });
+                                                                updateTag({
+                                                                    prop:'viewStyle',
+                                                                    innerProp:this.state.newStyleName,
+                                                                    value:this.state.newStyleValue
+                                                                })
+                                                            }
                                                             this.setState({
                                                                 newStyleName:'',
                                                                 newStyleValue:''
@@ -359,23 +472,178 @@ class myContent extends React.Component{
                                     </li>
                                 </ul>
                             </Panel>
-                            <Panel key={3}
-                                   disabled={true}
-                                   header={
-                                       <div>
-                                           <Select defaultValue="lucy" style={{ width: 120 }} onFocus={(e)=>console.log(e)} onChange={(e)=>this.addNewPanel(e)}>
-                                               <Option value="jack">Jack</Option>
-                                               <Option value="lucy">Lucy</Option>
-                                               <Option value="disabled" disabled>
-                                                   Disabled
-                                               </Option>
-                                               <Option value="Yiminghe">yiminghe</Option>
-                                           </Select>
-                                           <button>完成</button>
-                                       </div>
+                            <Panel key={3} header={'hover'}
+                                   style={{background: '#f7f7f7',borderRadius: 4, marginBottom: 10,border: 0,overflow: 'hidden',borderTop:'solid 4px rgba(218, 218, 218, 0.34)'}}>
+                                <ul className={'drawerUl'}>
+                                {[...Object.entries(hover)].sort().map((item,index) => {
+                                    if (item[1]!==''){
+                                        return (
+                                            <li key={index}>
+                                                <div className={'key'}>{item[0]}</div>
+                                                <div className={'value'} onClick={()=>this.changeEditing('hover'+item[0],item[1])}>
+                                                    {this.state.editingStyleName==='hover'+item[0]
+                                                        ?<Tooltip trigger={['focus']} title={item[1]} placement="topLeft">
+                                                            <AutoComplete
+                                                                autoFocus={true}
+                                                                dataSource={dataSource[item[0]].sort()}
+                                                                filterOption={(inputValue, option) =>{
+                                                                    let arr = inputValue.toUpperCase().split(' ');
+                                                                    return option.props.children.toUpperCase().indexOf(arr[arr.length-1])!==-1
+                                                                }
+                                                                }
+                                                                children={<input className={'autoCompleteInput'} id={'editingInput'} onFocus={(e)=>{e.target.select()}}/>}
+                                                                backfill={true}
+                                                                value={item[1]}
+                                                                onChange={(e)=>{
+                                                                    if (!/\d+px/.test(e)){
+                                                                        updateTag({
+                                                                            prop:'hover',
+                                                                            innerProp:item[0],
+                                                                            value:e
+                                                                        })
+                                                                    }else {
+                                                                        updateTag({
+                                                                            prop:'hoverTrueStyle',
+                                                                            innerProp:item[0],
+                                                                            value:e.replace(/\d+px/g,function (i) {
+                                                                                return parseInt(i)/14*0.6+'rem'
+                                                                            })
+                                                                        });
+                                                                        updateTag({
+                                                                            prop:'hoverViewStyle',
+                                                                            innerProp:item[0],
+                                                                            value:e
+                                                                        })
+                                                                    }
+                                                                }}
+                                                                onSelect={(e)=> {
+                                                                    updateTag({
+                                                                        prop: 'hover',
+                                                                        innerProp: item[0],
+                                                                        value: window.event.target.value.replace(/(?<=\s*)\w+\b$/g,e)
+                                                                    })
+                                                                }}
+                                                                onBlur={()=>this.changeEditing('','')}/>
+                                                        </Tooltip>
+                                                        :<span>{item[1]}</span>}
+                                                </div>
 
+                                            </li>
+                                        )
                                     }
-                                   style={{background: '#f7f7f7',borderRadius: 4, marginBottom: 10,border: 0,overflow: 'hidden',borderTop:'solid 4px rgba(218, 218, 218, 0.34)'}}/>
+
+                                })}
+                                    <li>
+                                        <div className={'key'}>
+                                            <Tooltip trigger={['focus']} title={this.state.newHoverStyleName} placement="topLeft">
+                                                <AutoComplete
+                                                    // autoFocus={true}
+                                                    dataSource={dataSourceKeys.sort()}
+                                                    filterOption={(inputValue, option) =>
+                                                        option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+                                                    }
+                                                    children={<input className={'autoCompleteInput'} id={'newHoverStyleName'} style={{width:120}} placeholder={'新建属性'} onFocus={(e)=>{e.target.select()}}/>}
+                                                    backfill={true}
+                                                    value={this.state.newHoverStyleName}
+                                                    onChange={(e)=>{this.setState({newHoverStyleName:e})}}
+                                                    onBlur={()=>{
+                                                        if (this.state.newHoverStyleName !=='' && this.state.newHoverStyleValue !== ''){
+                                                            updateTag({
+                                                                prop:'style',
+                                                                innerProp:this.state.newHoverStyleName,
+                                                                value:this.state.newHoverStyleValue
+                                                            });
+                                                            this.setState({
+                                                                newHoverStyleName:'',
+                                                                newHoverStyleValue:''
+                                                            })
+                                                        }
+                                                    }}
+                                                />
+                                            </Tooltip>
+                                        </div>
+                                        <div className={'value'}>
+                                            <Tooltip trigger={['focus']} title={this.state.newHoverStyleValue===''?'':this.state.newHoverStyleValue} placement="topLeft">
+                                                <AutoComplete
+                                                    // autoFocus={true}
+                                                    dataSource={dataSource[this.state.newHoverStyleName]===undefined?[]:dataSource[this.state.newHoverStyleName].sort()}
+                                                    filterOption={(inputValue, option) =>
+                                                        option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+                                                    }
+                                                    children={
+                                                        <input className={'autoCompleteInput'} id={'newHoverStyleValue'} style={{width:120}} placeholder={'属性值'}
+                                                               onFocus={(e)=>{e.target.select()}}
+                                                               onKeyDown={(e)=>{
+                                                                   if (e.key === 'Tab'){
+                                                                       e.preventDefault();
+                                                                       if (!/\d+px/.test(this.state.newHoverStyleValue)){
+                                                                           updateTag({
+                                                                               prop:'hover',
+                                                                               innerProp:this.state.newHoverStyleName,
+                                                                               value:this.state.newHoverStyleValue
+                                                                           })
+                                                                       }else {
+                                                                           updateTag({
+                                                                               prop:'hoverTrueStyle',
+                                                                               innerProp:this.state.newHoverStyleName,
+                                                                               value:this.state.newHoverStyleValue.replace(/\d+px/g,function (i) {
+                                                                                   return parseInt(i)/14*0.6+'rem'
+                                                                               })
+                                                                           });
+                                                                           updateTag({
+                                                                               prop:'hoverViewStyle',
+                                                                               innerProp:this.state.newHoverStyleName,
+                                                                               value:this.state.newHoverStyleValue
+                                                                           })
+                                                                       }
+                                                                       this.setState({
+                                                                           newHoverStyleName:'',
+                                                                           newHoverStyleValue:''
+                                                                       });
+                                                                       document.getElementById('newHoverStyleName').focus();
+                                                                   }
+                                                               }}
+                                                        />}
+                                                    backfill={true}
+                                                    value={this.state.newHoverStyleValue}
+                                                    onChange={(e)=>{
+                                                        this.setState({newHoverStyleValue:e})
+                                                    }}
+                                                    onBlur={()=>{
+                                                        if (this.state.newHoverStyleName !=='' && this.state.newHoverStyleValue !== ''){
+                                                            if (!/\d+px/.test(this.state.newHoverStyleValue)){
+                                                                updateTag({
+                                                                    prop:'hover',
+                                                                    innerProp:this.state.newHoverStyleName,
+                                                                    value:this.state.newHoverStyleValue
+                                                                })
+                                                            }else {
+                                                                updateTag({
+                                                                    prop:'hoverTrueStyle',
+                                                                    innerProp:this.state.newHoverStyleName,
+                                                                    value:this.state.newHoverStyleValue.replace(/\d+px/g,function (i) {
+                                                                        return parseInt(i)/14*0.6+'rem'
+                                                                    })
+                                                                });
+                                                                updateTag({
+                                                                    prop:'hoverViewStyle',
+                                                                    innerProp:this.state.newHoverStyleName,
+                                                                    value:this.state.newHoverStyleValue
+                                                                })
+                                                            }
+                                                            this.setState({
+                                                                newHoverStyleName:'',
+                                                                newHoverStyleValue:''
+                                                            })
+                                                        }
+                                                    }}
+                                                />
+                                            </Tooltip>
+                                        </div>
+                                    </li>
+                                </ul>
+
+                                </Panel>
                         </Collapse>
                     </div>
                 )
@@ -384,12 +652,13 @@ class myContent extends React.Component{
 
     createNodes = (node) => {
         let className = '';
+        let css = Object.assign({},node.trueStyle),
+            hover = Object.assign({},node.hoverTrueStyle);
         if (node.props.className){
             className += node.props.className.join(' ');
-            let css = getComputedCss(node,'trueStyle'),
-                hover = getComputedCss(node,'hoverTrueStyle');
-            node.trueStyle = Object.assign({},css,node.trueStyle);
-            node.hoverTrueStyle = Object.assign({},hover,node.hoverTrueStyle);
+            css = getComputedCss(node,'trueStyle');
+            hover = getComputedCss(node,'hoverTrueStyle');
+
         }
         if (node.children!==undefined){
             return React.createElement(
@@ -397,7 +666,7 @@ class myContent extends React.Component{
                 {
                     id:node.key,
                     key:node.key,
-                    style:node.key===this.state.hoverId?{...Object.assign({},node.trueStyle,node.hoverTrueStyle)}:{...Object.assign({},node.trueStyle)},
+                    style:node.key===this.state.hoverId?{...Object.assign({},css,hover)}:{...css},
                     src:node.props.src?node.props.src:null,
                     className
                 },
@@ -409,7 +678,7 @@ class myContent extends React.Component{
                 {
                     id:node.key,
                     key:node.key,
-                    style:node.key===this.state.hoverId?{...Object.assign({},node.trueStyle,node.hoverTrueStyle)}:{...Object.assign({},node.trueStyle)},
+                    style:node.key===this.state.hoverId?{...Object.assign({},css,hover)}:{...css},
                     src:node.props.src?node.props.src:null,
                     type:node.props.type?node.props.type:null,
                     className
@@ -450,12 +719,16 @@ class myContent extends React.Component{
         return (
             <div className={'container_wp'} id={'container_wp'}>
 
-                <div className={`container ${this.state.showDrawer?'operation_open':''}`} id={'0'} style={{width:'60vw',height:'60vh'}} onMouseMove={(e)=>this.setHover(e)}>
+                <div className={`container ${this.state.showDrawer?'operation_open':''}`} id={'0'}
+                     style={!this.state.setting.width.match(/vw$/g)?{width:parseInt(this.state.setting.width)*.6+'px',height:parseInt(this.state.setting.height)*.6+'px'}:{width:'60vw',height:'60vh'}}
+                     // style={{width:'1980px',height:'1024px'}}
+                     onMouseMove={(e)=>this.setHover(e)}>
                     {content.map(val => this.createNodes(val))}
                     {this.mask()}
                 </div>
                 <Drawer
                     className={'operation_wp'}
+                    // style={{top:document.getElementById('0') && document.getElementById('0').getBoundingClientRect().top}}
                     id={'Drawer'}
                     title={this.drawerTitle()}
                     placement="right"

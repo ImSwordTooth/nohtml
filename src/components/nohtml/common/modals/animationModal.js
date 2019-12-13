@@ -41,8 +41,7 @@ class AnimationModal extends React.Component{
             animationDelay:'',
             animationDelayUnit:'s',
             animationTimingFunction:'linear',
-            isInfinite:true,
-
+            isInfinite:true
         })
         store.subscribe(this.listener)
     }

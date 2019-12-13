@@ -71,17 +71,20 @@ function tagList(state = defaultState.tagList,action) {
             return deleteTagArr;
         case 'update_tag':
             let updateTagArr = Object.assign([],state);
+            let ignore = ['trueStyle','viewStyle','hoverTrueStyle','hoverViewStyle','style','hover','props'];           //除了数组里的元素，其他的直接是 obj[a] = b;
             const fn = function (obj) {
                 if (obj.key === action.key){
-                    if (action.prop !== 'trueStyle' && action.prop !=='viewStyle' && action.prop !== 'style'){
+                    if (!ignore.includes(action.prop)){
                         obj[action.prop] = action.value;
                     } else if (action.prop === 'style'){                //如果传的值是style，就代表trueStyle和viewStyle一样的
                         obj.viewStyle[action.innerProp] = action.value;
                         obj.trueStyle[action.innerProp] = action.value;
+                    } else if (action.prop === 'hover') {
+                        obj.hoverViewStyle[action.innerProp] = action.value;
+                        obj.hoverTrueStyle[action.innerProp] = action.value;
                     } else {
                         obj[action.prop][action.innerProp] = action.value;
                     }
-
                 } else {
                     for (let i=0;i<obj.children.length;i++){
                         if (action.key.indexOf(obj.children[i].key)===0){
@@ -363,7 +366,25 @@ function classList(state = defaultState.classList,action) {
         case 'add_classlist':{
             let list = state.slice();
             list.push(action.classInfo);
-            return list
+            return list;
+        }
+        case 'update_classlist':{
+            let list = JSON.parse(JSON.stringify(state));
+            list.splice(action.index,1,action.classInfo);
+            return list;
+        }
+        default:{
+            return state;
+        }
+    }
+}
+
+function setting(state = defaultState.setting,action) {
+    switch (action.type) {
+        case 'update_setting':{
+            let obj = Object.assign({},state);
+            obj[action.setting.prop] = action.setting.value;
+            return obj;
         }
         default:{
             return state;
@@ -392,5 +413,6 @@ export default combineReducers({
     hoverStyle,
     hoverList,
     classList,
-    nav
+    nav,
+    setting
 });

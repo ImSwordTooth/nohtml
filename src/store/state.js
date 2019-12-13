@@ -2,6 +2,10 @@ export const defaultState = {
     nav:'home',
     showDrawer:false,
     showCode:false,
+    setting:{
+      width:'60vw',
+      height:'60vh'
+    },
     tagList:{
         type:'div',
         pid:null,
@@ -107,9 +111,11 @@ export const defaultState = {
                         content:'我是侧边栏',
                         trueStyle:{fontSize:`${18/14*0.6}rem`,backgroundColor:'#ffffff',fontWeight:'lighter',fontStyle:'italic',textDecoration:'underline'},
                         viewStyle:{fontSize:`18px`,backgroundColor:'#ffffff',fontWeight:'lighter',fontStyle:'italic',textDecoration:'underline'},
-                        hoverTrueStyle:{color:'red'},
-                        hoverViewStyle:{color:'red'},
-                        props:{},
+                        hoverTrueStyle:{},
+                        hoverViewStyle:{},
+                        props:{
+
+                        },
                         children:[]
                     },
                     {
@@ -151,22 +157,22 @@ export const defaultState = {
         {
             className:'init',
             tag:'none',
-            parentClass:'',
-            relation:'',
-            trueStyle:{color:'red'},
-            viewStyle:{color:'red'},
+            parentClass:'none',
+            relation:' ',
+            trueStyle:{color:'blue'},
+            viewStyle:{color:'blue'},
             hoverTrueStyle:{},
             hoverViewStyle:{},
         },
         {
             className:'test',
-            tag:'none',
-            parentClass:'',
-            relation:'',
+            tag:'button',
+            parentClass:'init',
+            relation:'+',
             trueStyle:{
                 color:'rgba(255,0,0,.3)',
                 fontSize:`${36/14*0.6}rem`,
-                fontWeight:'bold'
+                fontWeight:'bold',
             },
             viewStyle:{
                 color:'rgba(255,0,0,.3)',

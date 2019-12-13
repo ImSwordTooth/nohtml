@@ -26,6 +26,7 @@ class start extends React.Component{
     };
 
     //获取颜色值
+    //TODO 获取透明度
     getDefaultColor = (prop)=>{
         if (JSON.stringify(this.state.selectedTag)!=='{}'){
             return getComputedCss(this.state.selectedTag,'viewStyle')[prop]||"#000000";

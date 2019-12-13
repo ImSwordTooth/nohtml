@@ -3,6 +3,7 @@ import '../css/classes.less'
 import store from '../../../../store'
 import ClassesModal from "../../common/modals/classesModal";
 import {Popover} from "antd";
+import {updateTag} from "../../../../store/action";
 
 class Classes extends React.Component{
 
@@ -15,6 +16,7 @@ class Classes extends React.Component{
                 pageY: ''
             },
             selectedClassIndex:-1,
+            rightClassIndex:-1,
             showClassesModal:false
         });
         store.subscribe(this.listener)
@@ -50,17 +52,17 @@ class Classes extends React.Component{
         const menu = (
             <div className={'contextMenu_wp'} style={wp_style} onClick={()=>this.setState({display:'none'})}>
                 <ul className={'contextMenu'} style={menu_Style}>
-                    <li>
+                    <li onClick={()=>this.setState({showClassesModal:true})}>
                         <i className={'iconfont iconlook'}/>详情</li>
                     <li>
-                        <i className={'iconfont icondelete'}/> 删除</li>
+                        <i className={'iconfont icondelete'}/>删除</li>
                 </ul>
             </div>
         );
         return this.state.rightClickItem == null ? '' : menu;
     };
 
-    rightClick = e => {
+    rightClick = (e,index) => {
         e.preventDefault();
         this.setState({
             display: 'block',
@@ -68,8 +70,21 @@ class Classes extends React.Component{
                 pageX: e.pageX,
                 pageY: e.pageY
             },
+            rightClassIndex:index
         });
     };
+
+    chooseClass = (index)=>{
+        this.setState({
+            selectedClassIndex:index
+        });
+        let classList = this.state.selectedTag.props.className || [];
+        updateTag({
+            prop:'props',
+            innerProp:'className',
+            value:classList.concat(this.state.classList[index].className)
+        })
+    }
 
     render() {
         return (
@@ -78,8 +93,8 @@ class Classes extends React.Component{
                     {this.state.classList.map((item,index)=>{
                         return (<Popover content={<div style={item.trueStyle}>示例文字</div>} placement={'bottomLeft'}>
                                     <li key={index} className={this.state.selectedClassIndex===index?'active':''}
-                                        onClick={()=>this.setState({selectedClassIndex:index})}
-                                        onContextMenu={(e)=>this.rightClick(e)}
+                                        onClick={()=>this.chooseClass(index)}
+                                        onContextMenu={(e)=>this.rightClick(e,index)}
                                     >
                                         <div style={this.ignore(item.trueStyle)}>示例文字</div>
                                         <span className={'className'}>{item.className}</span>
@@ -89,8 +104,8 @@ class Classes extends React.Component{
                     })}
                 </ul>
                 <span>more</span>
-                <span onClick={()=>this.setState({showClassesModal:true})}>新增类</span>
-                <ClassesModal showClassesModal={this.state.showClassesModal} cancel={()=>this.setState({showClassesModal:false})}/>
+                <span onClick={()=>this.setState({showClassesModal:true,rightClassIndex:-1})}>新增类</span>
+                <ClassesModal showClassesModal={this.state.showClassesModal} cancel={()=>this.setState({showClassesModal:false})} rightClassIndex={this.state.rightClassIndex} classObj={this.state.classList[this.state.rightClassIndex]}/>
                 {this.getRightClickMenu()}
             </div>
         )

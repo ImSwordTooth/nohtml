@@ -20,6 +20,8 @@ export function getComputedCss(originObj,styleType) {
                 }
             });
         }
+
+
     }
     return Object.assign({},classStyle,originObj[styleType]);
 }

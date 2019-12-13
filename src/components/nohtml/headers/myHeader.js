@@ -23,7 +23,7 @@ class myHeader extends React.Component{
     render() {
         return(
             <header className='header'>
-                <Tabs defaultActiveKey="6" tabBarExtraContent={operations}>
+                <Tabs defaultActiveKey="5" tabBarExtraContent={operations}>
                     <TabPane tab="开始" key="1">
                         <Start/>
                     </TabPane>

@@ -24,13 +24,13 @@ class Nohtml extends React.Component{
                             <Sider width={200} style={{ background: '#fff' }}>
                                 <MySider/>
                             </Sider>
-                            <Content style={{ padding: '0 24px', minHeight: 280 }}>
+                            <Content id={'content'} className={'content'}>
                                 <MyContent/>
                             </Content>
                         </Layout>
                     </Content>
                     <Footer className={'footer'}>
-                        <MyFooter/>
+                        {/*<MyFooter/>*/}
                     </Footer>
                 </Layout>
             </Provider>

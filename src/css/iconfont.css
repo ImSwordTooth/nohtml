@@ -1,11 +1,11 @@
 @font-face {
     font-family: 'iconfont';  /* project id 1380631 */
-    src: url('//at.alicdn.com/t/font_1380631_5rpzntknrda.eot');
-    src: url('//at.alicdn.com/t/font_1380631_5rpzntknrda.eot?#iefix') format('embedded-opentype'),
-    url('//at.alicdn.com/t/font_1380631_5rpzntknrda.woff2') format('woff2'),
-    url('//at.alicdn.com/t/font_1380631_5rpzntknrda.woff') format('woff'),
-    url('//at.alicdn.com/t/font_1380631_5rpzntknrda.ttf') format('truetype'),
-    url('//at.alicdn.com/t/font_1380631_5rpzntknrda.svg#iconfont') format('svg');
+    src: url('//at.alicdn.com/t/font_1380631_scetuwf61p.eot');
+    src: url('//at.alicdn.com/t/font_1380631_scetuwf61p.eot?#iefix') format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_1380631_scetuwf61p.woff2') format('woff2'),
+    url('//at.alicdn.com/t/font_1380631_scetuwf61p.woff') format('woff'),
+    url('//at.alicdn.com/t/font_1380631_scetuwf61p.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_1380631_scetuwf61p.svg#iconfont') format('svg');
 }
 .iconfont{
     font-family:"iconfont" !important;
@@ -97,10 +97,15 @@
 .iconadd:before{content:'\e600'}
 .iconanimation:before{content:'\e633'}
 
+.iconfullscreen:before{content:'\e85b'}
+.icondefaultdivice:before{content:'\e634'}
 .iconiphone5:before{content:'\e69d'}
 .iconiphone6:before{content:'\e616'}
 .iconiphone7:before{content:'\e60a'}
 .iconipad:before{content:'\e702'}
+.iconpc1:before{content:'\e631'}
+.iconpc2:before{content:'\e68c'}
+.iconpc3:before{content:'\e632'}
 
 .iconshow:before{content:'\e65b'}
 .iconoperation:before{content:'\e61b'}

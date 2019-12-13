@@ -63,6 +63,14 @@ ${space}</${type}>`
             }
 
         }
+    };
+    getCssContent = (val)=>{
+        let style = '';
+            for (let i in val.viewStyle){
+                style += `\t${i.replace(/[A-Z]/g,w=>'-'+w.toLowerCase())}:${val.viewStyle[i]};`
+            }
+
+            return `.${val.className}{\n${style.replace(/;(?<!;$)/g,';\n')}\n}\n`
     }
 
     cancel = ()=>{
@@ -109,13 +117,8 @@ ${space}</${type}>`
                         </div>
                     </TabPane>
                     <TabPane tab="css" key="2">
-                        <div className={'html'}>
-                            {this.state.tagList.children.map(val=>this.getHTMLContent(val,0))}
-                        </div>
-                    </TabPane>
-                    <TabPane tab="js" key="3">
-                        <div className={'html'}>
-                            {this.state.tagList.children.map(val=>this.getHTMLContent(val,0))}
+                        <div className={'css'}>
+                            {this.state.classList.map(val=>this.getCssContent(val,0))}
                         </div>
                     </TabPane>
                 </Tabs>

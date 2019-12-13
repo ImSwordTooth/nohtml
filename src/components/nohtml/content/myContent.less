@@ -2,30 +2,32 @@
   position: relative;
   padding: 15px;
   display: flex;
-  //height: 100%;
-  //overflow: auto;
+  //height: calc(60vh + 20px);
+  //transform: scale(1);
   //justify-content: center;
 
 
   .container{
-    //width: 1152px;
-    //height: 80%;
-    overflow: auto;
-    box-shadow: 0 0 3px rgba(179, 179, 179, 0.34);
-    //border: solid 1px rgba(214, 214, 214, 0.7);;
+    box-shadow: 0 0 3px rgba(197, 197, 197, 0.61);
     margin: 0 auto;
-    transition: margin .5s;
+    transition: margin 0.5s;
+    border: solid 1px #bdbdbd8a;
+    overflow: hidden;
+
     &.operation_open{
       margin: 0;
     }
   }
   .operation_wp{
     position: absolute;
+    right: 15px;
     top:15px;
-    height: calc(100% - 30px);
+    //height: calc(100% - 30px);
+    height: 60vh;
     border: solid 1px #eee;
+    transition: transform ease-out .3s;
     &>div{
-      //position: absolute;
+      position: absolute;
       //right: 10%;
       //height: 500px;
     }

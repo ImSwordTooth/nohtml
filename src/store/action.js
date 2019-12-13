@@ -77,3 +77,16 @@ export function deleteHoverList(propName) {
 export function addClassList(classInfo){
     store.dispatch({type:'add_classlist',classInfo})
 }
+
+export function updateCLassList(classInfo,index) {
+    console.log(classInfo)
+    store.dispatch({
+        type:'update_classlist',
+        index,
+        classInfo
+    })
+}
+
+export function updateSetting(setting) {
+    store.dispatch({type:'update_setting',setting})
+}
