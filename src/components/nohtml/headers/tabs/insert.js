@@ -8,6 +8,7 @@ import {TableModal} from "../../common/modals/tableModal";
 
 import '../css/insert.less'
 import {ImageModal} from "../../common/modals/imageModal";
+import Mask from "../mask";
 
 class insert extends React.Component{
 
@@ -319,99 +320,101 @@ class insert extends React.Component{
         return (
             <div>
                 <div style={{position:'relative',width:'max-content'}}>
-                    <Tooltip title={'请先选中要操作的元素'}><div className={`${JSON.stringify(this.state.selectedTag)==='{}'?'no_operate':''}`}/></Tooltip>
-                <div className={'tag_wp'}>
-                    <div className={'tag'} onClick={()=>{insertTag(this.formatTag('div','新建div'))}}>
-                        <i className={'iconfont icondiv'}/>
-                        <p className={'tagName'}>div</p>
-                    </div>
-                    <div className={'tag'}>
-                        <div onClick={()=>{insertTag(this.formatTag('button','新建button'))}}>
-                            <i className={'iconfont iconbutton'}/>
-                            <p className={'tagName'}>按钮</p>
+                    {
+                        JSON.stringify(this.state.selectedTag)==='{}'?<Mask title={'请先选中要插入的元素'}/>:<></>
+                    }
+                    <div className={'tag_wp'}>
+                        <div className={'tag'} onClick={()=>{insertTag(this.formatTag('div','新建div'))}}>
+                            <i className={'iconfont icondiv'}/>
+                            <p className={'tagName'}>div</p>
                         </div>
-                    </div>
-                    <div className={'tag'}>
-                        <div onClick={()=>{insertTag(this.formatTag('span','新建span'))}}>
-                            <i className={'iconfont icontext'}/>
-                            <p className={'tagName'}>文本</p>
+                        <div className={'tag'}>
+                            <div onClick={()=>{insertTag(this.formatTag('button','新建button'))}}>
+                                <i className={'iconfont iconbutton'}/>
+                                <p className={'tagName'}>按钮</p>
+                            </div>
                         </div>
-                        <Dropdown overlay={textMenu} placement="bottomLeft" trigger={['click']}>
+                        <div className={'tag'}>
+                            <div onClick={()=>{insertTag(this.formatTag('span','新建span'))}}>
+                                <i className={'iconfont icontext'}/>
+                                <p className={'tagName'}>文本</p>
+                            </div>
+                            <Dropdown overlay={textMenu} placement="bottomLeft" trigger={['click']}>
+                                <div className={'arrow'}>
+                                    <i className={'iconfont icondownarrow'}/>
+                                </div>
+                            </Dropdown>
+                        </div>
+                        <div className={'tag'}>
+                            <div onClick={()=>{insertTag(this.formatTag('h1','新建h1'))}}>
+                                <i className={'iconfont iconh1'}/>
+                                <p className={'tagName'}>标题</p>
+                            </div>
+                            <Dropdown overlay={hMenu} placement="bottomLeft" trigger={['click']}>
+                                <div className={'arrow'}>
+                                    <i className={'iconfont icondownarrow'}/>
+                                </div>
+                            </Dropdown>
+                        </div>
+                        <div className={'tag'}>
+                            <div onClick={()=>this.clickUpload()}>
+                                <i className={'iconfont iconimg'}/>
+                                <p className={'tagName'}>图片</p>
+                            </div>
+                            <input type="file" hidden onChange={()=>this.handleUploadImage()} id={'uploadLocalImg'} accept="image/*"/>
+                            <Dropdown overlay={imgMenu} placement="bottomLeft" trigger={['click']}>
+                                <div className={'arrow'}>
+                                    <i className={'iconfont icondownarrow'}/>
+                                </div>
+                            </Dropdown>
+                        </div>
+                        <div className={'tag'} onClick={()=>this.setState({showTableModal:true})}>
+                            <i className={'iconfont icontable'}/>
+                            <p className={'tagName'}>表格</p>
+                        </div>
+                        <div className={'tag'}>
+                            <i className={'iconfont iconlist'}/>
+                            <p className={'tagName'}>列表</p>
                             <div className={'arrow'}>
                                 <i className={'iconfont icondownarrow'}/>
                             </div>
-                        </Dropdown>
-                    </div>
-                    <div className={'tag'}>
-                        <div onClick={()=>{insertTag(this.formatTag('h1','新建h1'))}}>
-                            <i className={'iconfont iconh1'}/>
-                            <p className={'tagName'}>标题</p>
                         </div>
-                        <Dropdown overlay={hMenu} placement="bottomLeft" trigger={['click']}>
+                        <div className={'tag'}>
+                            <i className={'iconfont iconpseudoelement'}/>
+                            <p className={'tagName'}>伪元素</p>
                             <div className={'arrow'}>
                                 <i className={'iconfont icondownarrow'}/>
                             </div>
-                        </Dropdown>
-                    </div>
-                    <div className={'tag'}>
-                        <div onClick={()=>this.clickUpload()}>
-                            <i className={'iconfont iconimg'}/>
-                            <p className={'tagName'}>图片</p>
                         </div>
-                        <input type="file" hidden onChange={()=>this.handleUploadImage()} id={'uploadLocalImg'} accept="image/*"/>
-                        <Dropdown overlay={imgMenu} placement="bottomLeft" trigger={['click']}>
+                        <div className={'tag line'}>
+                            <i className={'iconfont iconfavorite'}/>
+                            <p className={'tagName'}>收藏</p>
                             <div className={'arrow'}>
                                 <i className={'iconfont icondownarrow'}/>
                             </div>
-                        </Dropdown>
-                    </div>
-                    <div className={'tag'} onClick={()=>this.setState({showTableModal:true})}>
-                        <i className={'iconfont icontable'}/>
-                        <p className={'tagName'}>表格</p>
-                    </div>
-                    <div className={'tag'}>
-                        <i className={'iconfont iconlist'}/>
-                        <p className={'tagName'}>列表</p>
-                        <div className={'arrow'}>
-                            <i className={'iconfont icondownarrow'}/>
                         </div>
-                    </div>
-                    <div className={'tag'}>
-                        <i className={'iconfont iconpseudoelement'}/>
-                        <p className={'tagName'}>伪元素</p>
-                        <div className={'arrow'}>
-                            <i className={'iconfont icondownarrow'}/>
-                        </div>
-                    </div>
-                    <div className={'tag line'}>
-                        <i className={'iconfont iconfavorite'}/>
-                        <p className={'tagName'}>收藏</p>
-                        <div className={'arrow'}>
-                            <i className={'iconfont icondownarrow'}/>
-                        </div>
-                    </div>
 
-                    <div className={'tag'}>
-                        <div onClick={()=>insertTag(this.formatInput('text'))}>
-                            <i className={'iconfont iconinput'}/>
-                            <p className={'tagName'}>文本框</p>
-                        </div>
-                        <Dropdown overlay={inputMenu} placement="bottomLeft" trigger={['click']}>
-                            <div className={'arrow'}>
-                                <i className={'iconfont icondownarrow'}/>
+                        <div className={'tag'}>
+                            <div onClick={()=>insertTag(this.formatInput('text'))}>
+                                <i className={'iconfont iconinput'}/>
+                                <p className={'tagName'}>文本框</p>
                             </div>
-                        </Dropdown>
-                    </div>
-                    <div className={'tag'} onClick={()=>insertTag(this.formatInput('checkbox'))}>
-                        <i className={'iconfont iconcheckbox'}/>
-                        <p className={'tagName'}>复选框</p>
-                    </div>
-                    <div className={'tag'} onClick={()=>insertTag(this.formatInput('radio'))}>
-                        <i className={'iconfont iconradio'}/>
-                        <p className={'tagName'}>单选框</p>
-                    </div>
+                            <Dropdown overlay={inputMenu} placement="bottomLeft" trigger={['click']}>
+                                <div className={'arrow'}>
+                                    <i className={'iconfont icondownarrow'}/>
+                                </div>
+                            </Dropdown>
+                        </div>
+                        <div className={'tag'} onClick={()=>insertTag(this.formatInput('checkbox'))}>
+                            <i className={'iconfont iconcheckbox'}/>
+                            <p className={'tagName'}>复选框</p>
+                        </div>
+                        <div className={'tag'} onClick={()=>insertTag(this.formatInput('radio'))}>
+                            <i className={'iconfont iconradio'}/>
+                            <p className={'tagName'}>单选框</p>
+                        </div>
 
-                </div>
+                    </div>
                 <TableModal type={'插入'} showTableModal={this.state.showTableModal} ok={(arr,className)=>insertTag(this.formatTable(arr,className))} cancel={()=>this.setState({showTableModal:false})}/>
                 <ImageModal type={'插入'} showImageModal={this.state.showImageModal} ok={(name,src)=>insertTag(this.formatImage(name,src))} cancel={()=>this.setState({showImageModal:false})} imageModalTitle={this.state.imageModalTitle}/>
             </div>

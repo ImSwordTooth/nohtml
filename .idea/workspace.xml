@@ -2,26 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ff1a0ef3-317e-4184-bdf8-7f396ae86e22" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/nohtml/headers/css/mask.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/nohtml/headers/mask.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/units.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/units.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/nohtml/common/css/classesModal.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/common/css/classesModal.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/nohtml/common/css/codeModal.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/common/css/codeModal.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/nohtml/common/modals/animationModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/common/modals/animationModal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/nohtml/common/modals/classesModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/common/modals/classesModal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/nohtml/common/modals/codeModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/common/modals/codeModal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/nohtml/content/myContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/content/myContent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/nohtml/content/myContent.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/content/myContent.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nohtml/footer/myFooter.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/footer/myFooter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nohtml/footer/myFooter.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/footer/myFooter.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nohtml/headers/css/layout.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/headers/css/layout.less" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/nohtml/headers/css/viewport.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/headers/css/viewport.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/nohtml/headers/myHeader.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/headers/myHeader.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nohtml/headers/tabs/animation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/headers/tabs/animation.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/nohtml/headers/tabs/classes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/headers/tabs/classes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nohtml/headers/tabs/insert.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/headers/tabs/insert.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nohtml/headers/tabs/layout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/headers/tabs/layout.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/nohtml/headers/tabs/start.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/headers/tabs/start.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/nohtml/headers/tabs/viewport.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/headers/tabs/viewport.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/iconfont.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/iconfont.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/app.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/app.less" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/css/nohtml.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/nohtml.less" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/nohtml.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/nohtml.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/store/action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/action.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/reducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/state.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/state.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -35,12 +34,62 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/nohtml/common/modals/animationModal.js">
+        <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/tabs/animation.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="560">
-              <caret line="33" column="50" selection-start-line="33" selection-start-column="50" selection-end-line="33" selection-end-column="50" />
+            <state relative-caret-position="1340">
+              <caret line="75" column="97" selection-start-line="75" selection-start-column="97" selection-end-line="75" selection-end-column="97" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/nohtml/common/modals/animationModal.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="20">
+              <caret line="191" column="17" selection-start-line="191" selection-start-column="17" selection-end-line="191" selection-end-column="17" />
+              <folding>
+                <element signature="e#0#25#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/components/nohtml/content/myContent.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="329">
+              <caret line="734" column="87" selection-start-line="734" selection-start-column="87" selection-end-line="734" selection-end-column="87" />
+              <folding>
+                <element signature="e#0#25#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/tabs/viewport.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="403">
+              <caret line="252" column="35" selection-start-line="252" selection-start-column="35" selection-end-line="252" selection-end-column="35" />
+              <folding>
+                <element signature="e#0#25#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/store/state.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="160">
+              <caret line="8" column="12" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
+              <folding>
+                <element signature="n#!!block;n#tagList#0;n#!!block;n#defaultState#0;n#!!top" />
+                <element signature="e#6253#7150#0" />
+                <element signature="n#!!block;n#nocssStyle#0;n#!!block;n#defaultState#0;n#!!top" />
               </folding>
             </state>
           </provider>
@@ -49,20 +98,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/css/viewport.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="126" column="9" lean-forward="true" selection-start-line="126" selection-start-column="9" selection-end-line="126" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/components/nohtml/content/myContent.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="460">
-              <caret line="53" column="6" lean-forward="true" selection-start-line="53" selection-start-column="6" selection-end-line="53" selection-end-column="6" />
-              <folding>
-                <element signature="e#0#25#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="407">
+              <caret line="83" column="19" selection-start-line="83" selection-start-column="19" selection-end-line="83" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -70,56 +107,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/nohtml/content/myContent.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="17" column="16" lean-forward="true" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/nohtml/footer/myFooter.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="e#0#25#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/nohtml/footer/myFooter.less">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/App.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="e#0#25#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/css/nohtml.less">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="24" column="5" lean-forward="true" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/nohtml.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="18" column="36" lean-forward="true" selection-start-line="18" selection-start-column="36" selection-end-line="18" selection-end-column="36" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="380">
+              <caret line="19" column="5" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -138,9 +127,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>getProp(this.props.stateName,'backgroundColor')</find>
-      <find>bounce</find>
-      <find>borderStyle</find>
       <find>?&lt;</find>
       <find>replace</find>
       <find>cssName</find>
@@ -168,6 +154,9 @@
       <find>editingStyleName</find>
       <find>divider</find>
       <find>operation_wp</find>
+      <find>selectedTag</find>
+      <find>change_currenttag</find>
+      <find>hover</find>
     </findStrings>
     <replaceStrings>
       <replace>innerProp</replace>
@@ -196,20 +185,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/index/home.js" />
-        <option value="$PROJECT_DIR$/src/index/home.less" />
-        <option value="$PROJECT_DIR$/src/css/app.less" />
-        <option value="$PROJECT_DIR$/src/components/logo/logo.js" />
-        <option value="$PROJECT_DIR$/src/components/logo/logo.less" />
-        <option value="$PROJECT_DIR$/src/App.js" />
-        <option value="$PROJECT_DIR$/src/components/nocss/operation/operation.less" />
-        <option value="$PROJECT_DIR$/src/components/nocss/operation/standard/standard.less" />
         <option value="$PROJECT_DIR$/src/components/nocss/operation/operation.js" />
         <option value="$PROJECT_DIR$/src/components/nocss/operation/standard/standard.js" />
         <option value="$PROJECT_DIR$/src/untils/cssTable.js" />
         <option value="$PROJECT_DIR$/src/components/nocss/code/code.js" />
         <option value="$PROJECT_DIR$/src/components/nohtml/headers/css/classes.less" />
-        <option value="$PROJECT_DIR$/src/components/nohtml/headers/tabs/insert.js" />
         <option value="$PROJECT_DIR$/src/components/nohtml/common/api/computedCSS.js" />
         <option value="$PROJECT_DIR$/src/components/nohtml/common/api/getComputedCSS.js" />
         <option value="$PROJECT_DIR$/src/components/nohtml/common/api.js" />
@@ -226,25 +206,34 @@
         <option value="$PROJECT_DIR$/src/components/nocss/operation/props/myTextShadow.js" />
         <option value="$PROJECT_DIR$/src/components/nocss/operation/props/myTransform.js" />
         <option value="$PROJECT_DIR$/src/components/nohtml/sider/mySider.js" />
-        <option value="$PROJECT_DIR$/src/components/nohtml/headers/tabs/start.js" />
         <option value="$PROJECT_DIR$/src/common/units.js" />
         <option value="$PROJECT_DIR$/src/components/nohtml/common/css/codeModal.less" />
         <option value="$PROJECT_DIR$/src/components/nohtml/common/modals/codeModal.js" />
         <option value="$PROJECT_DIR$/src/components/nohtml/common/css/classesModal.less" />
-        <option value="$PROJECT_DIR$/src/components/nohtml/headers/tabs/classes.js" />
         <option value="$PROJECT_DIR$/src/components/nohtml/common/modals/classesModal.js" />
         <option value="$PROJECT_DIR$/src/components/nohtml/common/modals/animationModal.js" />
         <option value="$PROJECT_DIR$/src/components/nohtml/headers/myHeader.js" />
         <option value="$PROJECT_DIR$/src/components/commonModals/css/myDivider.less" />
         <option value="$PROJECT_DIR$/src/components/commonModals/myDivider.js" />
         <option value="$PROJECT_DIR$/src/store/state.js" />
-        <option value="$PROJECT_DIR$/src/store/action.js" />
-        <option value="$PROJECT_DIR$/src/store/reducer.js" />
         <option value="$PROJECT_DIR$/src/css/iconfont.css" />
+        <option value="$PROJECT_DIR$/src/css/app.less" />
+        <option value="$PROJECT_DIR$/src/components/nohtml/headers/mask.js" />
+        <option value="$PROJECT_DIR$/src/components/nohtml/headers/tabs/start.js" />
+        <option value="$PROJECT_DIR$/src/components/nohtml/headers/tabs/insert.js" />
+        <option value="$PROJECT_DIR$/src/components/nohtml/headers/css/layout.less" />
+        <option value="$PROJECT_DIR$/src/components/nohtml/headers/tabs/layout.js" />
+        <option value="$PROJECT_DIR$/src/components/nohtml/headers/css/mask.less" />
+        <option value="$PROJECT_DIR$/src/components/nohtml/headers/tabs/animation.js" />
+        <option value="$PROJECT_DIR$/src/components/nohtml/headers/tabs/classes.js" />
+        <option value="$PROJECT_DIR$/src/nohtml.js" />
+        <option value="$PROJECT_DIR$/src/css/nohtml.less" />
+        <option value="$PROJECT_DIR$/src/store/reducer.js" />
+        <option value="$PROJECT_DIR$/src/store/action.js" />
+        <option value="$PROJECT_DIR$/src/components/nohtml/footer/myFooter.less" />
+        <option value="$PROJECT_DIR$/src/components/nohtml/footer/myFooter.js" />
         <option value="$PROJECT_DIR$/src/components/nohtml/headers/css/viewport.less" />
         <option value="$PROJECT_DIR$/src/components/nohtml/headers/tabs/viewport.js" />
-        <option value="$PROJECT_DIR$/src/css/nohtml.less" />
-        <option value="$PROJECT_DIR$/src/nohtml.js" />
         <option value="$PROJECT_DIR$/src/components/nohtml/content/myContent.less" />
         <option value="$PROJECT_DIR$/src/components/nohtml/content/myContent.js" />
       </list>
@@ -261,6 +250,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -405,7 +395,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -625,7 +614,12 @@
       <workItem from="1576123520574" duration="7700000" />
       <workItem from="1576132093683" duration="547000" />
       <workItem from="1576141315902" duration="2381000" />
-      <workItem from="1576220403088" duration="5753000" />
+      <workItem from="1576220403088" duration="7021000" />
+      <workItem from="1576242821639" duration="15000" />
+      <workItem from="1576243393902" duration="1937000" />
+      <workItem from="1576290494101" duration="8370000" />
+      <workItem from="1576389715470" duration="1386000" />
+      <workItem from="1576456501543" duration="5340000" />
     </task>
     <task id="LOCAL-00001" summary="左侧树形控件可以正常地层层嵌套了">
       <created>1569331389721</created>
@@ -753,11 +747,18 @@
       <option name="project" value="LOCAL" />
       <updated>1575723509481</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="完成了视图页的大部分工作，优化了展示区的定位，抽屉的位置也调整得非常棒！">
+      <created>1576228297782</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1576228297782</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="762964000" />
+    <option name="totallyTimeSpent" value="781280000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -778,7 +779,7 @@
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.329718" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49947312" weight="0.20173536" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49947312" visible="true" weight="0.20173536" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -786,7 +787,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.329718" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50052685" side_tool="true" weight="0.19088937" />
-      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49947312" visible="true" weight="0.24403471" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49947312" weight="0.2426869" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.329718" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -814,46 +815,10 @@
     <MESSAGE value="重新规划了主页和nohtml、nocss的逻辑，添加了nocss的hover模块" />
     <MESSAGE value="完善了样式类制作器" />
     <MESSAGE value="调整了目录结构，现在更加简洁合理。&#10;完成了内联样式+类样式的艰难合并，奥利给" />
-    <option name="LAST_COMMIT_MESSAGE" value="调整了目录结构，现在更加简洁合理。&#10;完成了内联样式+类样式的艰难合并，奥利给" />
+    <MESSAGE value="完成了视图页的大部分工作，优化了展示区的定位，抽屉的位置也调整得非常棒！" />
+    <option name="LAST_COMMIT_MESSAGE" value="完成了视图页的大部分工作，优化了展示区的定位，抽屉的位置也调整得非常棒！" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/components/nocss/code/code.less">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/nohtml/sider/mySider.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="3" column="9" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/nocss/code/code.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="640">
-          <caret line="34" column="49" selection-start-line="34" selection-start-column="49" selection-end-line="34" selection-end-column="49" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/tabs/insert.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="201" column="62" selection-start-line="201" selection-start-column="62" selection-end-line="201" selection-end-column="62" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/css/classes.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="57" column="13" selection-start-line="57" selection-start-column="13" selection-end-line="57" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/nohtml/common/api/getComputedCSS.js" />
     <entry file="file://$PROJECT_DIR$/src/components/logo/logo.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -908,15 +873,6 @@
     <entry file="file://$PROJECT_DIR$/src/components/nohtml/common/color.js" />
     <entry file="file://$PROJECT_DIR$/src/components/nohtml/common/fontStyle.js" />
     <entry file="file://$PROJECT_DIR$/src/components/nohtml/common/font.js" />
-    <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/tabs/layout.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/nocss/operation/props/myFontStyle.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="40">
@@ -928,16 +884,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="3" column="50" selection-start-line="3" selection-start-column="50" selection-end-line="3" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/tabs/start.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -962,16 +908,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="160">
           <caret line="8" column="26" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/tabs/classes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2040">
-          <caret line="107" column="145" selection-start-line="107" selection-start-column="130" selection-end-line="107" selection-end-column="145" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1014,7 +950,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/commonModals/css/myDivider.less" />
     <entry file="file://$PROJECT_DIR$/src/components/commonModals/myDivider.js" />
-    <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/tabs/animation.js">
+    <entry file="file://$PROJECT_DIR$/src/css/iconfont.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2220">
+          <caret line="111" column="36" selection-start-line="111" selection-start-column="36" selection-end-line="111" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/data/cssTable.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4740" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <folding>
@@ -1023,20 +971,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/nohtml/sider/mySider.js">
+    <entry file="file://$PROJECT_DIR$/src/css/app.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="25" column="66" lean-forward="true" selection-start-line="25" selection-start-column="66" selection-end-line="25" selection-end-column="66" />
+        <state relative-caret-position="300">
+          <caret line="15" column="25" lean-forward="true" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/mask.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="6" column="5" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="5" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/store/action.js">
+    <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/tabs/layout.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1800">
-          <caret line="90" column="49" selection-start-line="90" selection-start-column="42" selection-end-line="90" selection-end-column="49" />
+        <state relative-caret-position="100">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/css/layout.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="1" column="21" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/tabs/insert.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1050,57 +1025,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/css/iconfont.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2220">
-          <caret line="111" column="36" selection-start-line="111" selection-start-column="36" selection-end-line="111" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/store/state.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="6" column="19" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/store/reducer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="643">
-          <caret line="375" column="17" selection-start-line="375" selection-start-column="17" selection-end-line="375" selection-end-column="17" />
+        <state relative-caret-position="216">
+          <caret line="196" column="13" selection-start-line="196" selection-start-column="13" selection-end-line="196" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/tabs/viewport.js">
+    <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/tabs/start.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="236" column="56" selection-start-line="236" selection-start-column="56" selection-end-line="236" selection-end-column="56" />
+        <state relative-caret-position="1580">
+          <caret line="88" column="19" selection-start-line="88" selection-start-column="19" selection-end-line="88" selection-end-column="19" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/data/cssTable.js">
+    <entry file="file://$PROJECT_DIR$/src/components/nohtml/sider/mySider.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4740" />
+        <state relative-caret-position="11240">
+          <caret line="578" column="59" selection-start-line="578" selection-start-column="59" selection-end-line="578" selection-end-column="59" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/store/action.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/nohtml/footer/myFooter.less">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/nohtml/footer/myFooter.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="520">
+          <caret line="26" column="14" selection-start-line="26" selection-start-column="14" selection-end-line="26" selection-end-column="14" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.js">
+    <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/css/mask.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="200">
+          <caret line="10" column="20" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/tabs/classes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="11" column="21" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>
@@ -1109,18 +1085,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/nohtml.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="18" column="36" lean-forward="true" selection-start-line="18" selection-start-column="36" selection-end-line="18" selection-end-column="36" />
+        <state relative-caret-position="440">
+          <caret line="33" column="29" selection-start-line="33" selection-start-column="29" selection-end-line="33" selection-end-column="29" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/nohtml/common/modals/animationModal.js">
+    <entry file="file://$PROJECT_DIR$/src/components/nohtml/footer/myFooter.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="560">
-          <caret line="33" column="50" selection-start-line="33" selection-start-column="50" selection-end-line="33" selection-end-column="50" />
+        <state relative-caret-position="215">
+          <caret line="42" column="40" selection-start-line="42" selection-start-column="40" selection-end-line="42" selection-end-column="40" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>
@@ -1129,29 +1105,71 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/css/nohtml.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="24" column="5" lean-forward="true" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
+        <state relative-caret-position="520">
+          <caret line="35" column="36" selection-start-line="35" selection-start-column="36" selection-end-line="35" selection-end-column="36" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/nohtml/content/myContent.less">
+    <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/tabs/animation.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="17" column="16" lean-forward="true" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
+        <state relative-caret-position="1340">
+          <caret line="75" column="97" selection-start-line="75" selection-start-column="97" selection-end-line="75" selection-end-column="97" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/nohtml/common/modals/animationModal.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="191" column="17" selection-start-line="191" selection-start-column="17" selection-end-line="191" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/store/state.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="8" column="12" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
+          <folding>
+            <element signature="n#!!block;n#tagList#0;n#!!block;n#defaultState#0;n#!!top" />
+            <element signature="e#6253#7150#0" />
+            <element signature="n#!!block;n#nocssStyle#0;n#!!block;n#defaultState#0;n#!!top" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/css/viewport.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="126" column="9" lean-forward="true" selection-start-line="126" selection-start-column="9" selection-end-line="126" selection-end-column="9" />
+        <state relative-caret-position="407">
+          <caret line="83" column="19" selection-start-line="83" selection-start-column="19" selection-end-line="83" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/nohtml/headers/tabs/viewport.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="403">
+          <caret line="252" column="35" selection-start-line="252" selection-start-column="35" selection-end-line="252" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/nohtml/content/myContent.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="19" column="5" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/nohtml/content/myContent.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="53" column="6" lean-forward="true" selection-start-line="53" selection-start-column="6" selection-end-line="53" selection-end-column="6" />
+        <state relative-caret-position="329">
+          <caret line="734" column="87" selection-start-line="734" selection-start-column="87" selection-end-line="734" selection-end-column="87" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>

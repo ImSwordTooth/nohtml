@@ -30,7 +30,7 @@ class Nohtml extends React.Component{
                         </Layout>
                     </Content>
                     <Footer className={'footer'}>
-                        {/*<MyFooter/>*/}
+                        <MyFooter/>
                     </Footer>
                 </Layout>
             </Provider>

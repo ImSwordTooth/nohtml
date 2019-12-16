@@ -56,7 +56,9 @@ class myContent extends React.Component{
     //动态设置抽屉的位置
     getDrawerTop = ()=>{
         let top = document.getElementById('content').scrollTop;
-        document.getElementById('Drawer').style.transform = `translateY(${top}px)`;         //使用transform的好处是可以添加动画，十分平滑不突兀
+        if(document.getElementById('Drawer')){
+            document.getElementById('Drawer').style.transform = `translateY(${top}px)`;         //使用transform的好处是可以添加动画，十分平滑不突兀
+        }
     };
 
 
@@ -651,6 +653,15 @@ class myContent extends React.Component{
     };
 
     createNodes = (node) => {
+
+        if (this.state.setting.width === 'full'){
+            let element = document.getElementById('0');
+            let requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
+            if (requestMethod) {
+                requestMethod.call(element);
+            }
+        }
+
         let className = '';
         let css = Object.assign({},node.trueStyle),
             hover = Object.assign({},node.hoverTrueStyle);
@@ -718,10 +729,8 @@ class myContent extends React.Component{
 
         return (
             <div className={'container_wp'} id={'container_wp'}>
-
                 <div className={`container ${this.state.showDrawer?'operation_open':''}`} id={'0'}
                      style={!this.state.setting.width.match(/vw$/g)?{width:parseInt(this.state.setting.width)*.6+'px',height:parseInt(this.state.setting.height)*.6+'px'}:{width:'60vw',height:'60vh'}}
-                     // style={{width:'1980px',height:'1024px'}}
                      onMouseMove={(e)=>this.setHover(e)}>
                     {content.map(val => this.createNodes(val))}
                     {this.mask()}

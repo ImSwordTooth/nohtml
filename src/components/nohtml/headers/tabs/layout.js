@@ -1,8 +1,9 @@
 import React from 'react'
 import '../css/layout.less'
-
+import store from '../../../../store'
 import { Select,Checkbox,Divider,Tag,Popover,Slider,InputNumber  } from 'antd';
 import {dataSource} from "../../../../data/cssTable";
+import Mask from "../mask";
 
 const { Option } = Select;
 
@@ -10,7 +11,7 @@ class myLayout extends React.Component{
 
     constructor(props){
         super(props);
-        this.state = ({
+        this.state = Object.assign({},store.getState(),{
             isPosition:true,
             isDisplay:true,
             isFloat:true,
@@ -123,6 +124,9 @@ class myLayout extends React.Component{
 
         return(
             <div className={'layout'}>
+                {
+                    JSON.stringify(this.state.selectedTag)==='{}'?<Mask title={'请先选中要操作的元素'}/>:<></>
+                }
                 <div className={'layout_item'}>
                     <Checkbox checked={this.state.isPosition} onChange={(e)=>this.handleCheck('position',e)}/>
                     <span className={'info'}>positon：</span>

@@ -93,9 +93,24 @@ class Viewport extends React.Component{
     }
 
     changeSize = (divice,index)=>{
-        if (this.state.activeDiviceIndex === index && index !== 0){
+        if (index !== -1 && this.state.isEditing){
+            this.setState({
+                isEditing:false,
+                activeDiviceIndex:index
+            },()=>{
+                updateSetting({
+                    prop:'width',
+                    value:divice.width
+                });
+                updateSetting({
+                    prop:'height',
+                    value:divice.height
+                });
+            })
+        }
 
-            //有bug
+        if (this.state.activeDiviceIndex === index && index !== 0 && index !== -1){
+
 
             let diviceList = this.state.diviceList.slice();
             diviceList[index].isHorizontal = !diviceList[index].isHorizontal;
@@ -117,7 +132,27 @@ class Viewport extends React.Component{
             this.setState({
                 activeDiviceIndex:index
             });
-            this.changeViewPort(this.state.diviceList[index]);
+            if (index === -1 ){
+            //     this.changeViewPort(this.state.diviceList[this.state.activeDiviceIndex]);
+            // } else {
+                const gcd = function(m,n){
+                    if (n === 0){
+                        return m;
+                    } else {
+                        return gcd(n,m%n);
+                    }
+                };
+                let max = gcd(parseInt(this.state.editWidth),parseInt(this.state.editHeight));
+                this.setState({
+                    viewport:{
+                        diviceType:'自定义',
+                        diviceDirectionL:'自定义',
+                        size:`${this.state.editWidth} * ${this.state.editHeight}`,
+                        ratio:`${parseInt(this.state.editWidth)/max} * ${parseInt(this.state.editHeight)/max}`
+                    },
+                })
+            }
+
             updateSetting({
                 prop:'width',
                 value:divice.width
@@ -164,15 +199,60 @@ class Viewport extends React.Component{
         if (this.state.activeDiviceIndex>-1){
             this.changeViewPort(this.state.diviceList[this.state.activeDiviceIndex])
         } else {
-            // 设置为自定义的
+            const gcd = function(m,n){
+                if (n === 0){
+                    return m;
+                } else {
+                    return gcd(n,m%n);
+                }
+            };
+            let max = gcd(parseInt(this.state.editWidth),parseInt(this.state.editHeight));
+            this.setState({
+                viewport:{
+                    diviceType:'自定义',
+                    diviceDirectionL:'自定义',
+                    size:`${this.state.editWidth} * ${this.state.editHeight}`,
+                    ratio:`${parseInt(this.state.editWidth)/max} * ${parseInt(this.state.editHeight)/max}`
+                },
+            })
         }
 
+    }
+
+    startCustomer = ()=>{
+        const gcd = function(m,n){
+            if (n === 0){
+                return m;
+            } else {
+                return gcd(n,m%n);
+            }
+        };
+        let max = gcd(parseInt(this.state.editWidth),parseInt(this.state.editHeight));
+        this.setState({
+            isEditing:true,
+            viewport:{
+                diviceType:'自定义',
+                diviceDirectionL:'自定义',
+                size:`${this.state.editWidth} * ${this.state.editHeight}`,
+                ratio:`${parseInt(this.state.editWidth)/max} * ${parseInt(this.state.editHeight)/max}`
+            },
+            activeDiviceIndex:-1
+        })
     }
 
     render() {
         return (
             <div className={'viewport'}>
-                <div className={'full'}>
+                <div className={'full'} onClick={()=>{
+                    updateSetting({
+                        prop:'width',
+                        value:'full'
+                    });
+                    updateSetting({
+                        prop:'height',
+                        value:'full'
+                    });
+                }}>
                     <i className={'iconfont iconfullscreen'}/>
                     <span>全屏显示</span>
                 </div>
@@ -193,24 +273,22 @@ class Viewport extends React.Component{
                         })
                     }
                 </div>
-                <div className={'customize'}>
+                <div className={`customize ${this.state.activeDiviceIndex===-1?'active':''}`} onClick={()=>this.setState({activeDiviceIndex:-1},()=>this.changeSize({width:this.state.editWidth,height:this.state.editHeight},-1))}>
                     <div className={'customizeTitle'}>
                         <span>自定义：</span>
                         {
                             this.state.isEditing
-                                ? <i className={'iconfont iconcurrent'} onClick={()=>this.setState({isEditing:false})}/>
-                                : <i className={'iconfont iconrename'} onClick={()=>this.setState({isEditing:true})}/>
-
+                                ? <i className={'iconfont iconcurrent'} title={'应用'} onClick={()=>this.setState({isEditing:false},()=>this.changeSize({width:this.state.editWidth,height:this.state.editHeight},-1))}/>
+                                : <i className={'iconfont iconrename'} title={'编辑'} onClick={()=>this.startCustomer()}/>
                         }
-
                     </div>
                     {
                         this.state.isEditing
                             ?
                             <div className={'customizeContent'}>
-                                <input type={'text'} maxLength={4}/>
+                                <input type={'text'} maxLength={4} value={this.state.editWidth} onChange={(e)=>this.setState({editWidth:e.target.value},()=>this.startCustomer())}/>
                                 <span style={{margin:'0px 5px',fontSize:'20px'}}>*</span>
-                                <input type={'text'} maxLength={4}/>
+                                <input type={'text'} maxLength={4} value={this.state.editHeight} onChange={(e)=>this.setState({editHeight:e.target.value},()=>this.startCustomer())}/>
                             </div>
                             :
                             <span className={'customizeContent'}>{this.state.editWidth} * {this.state.editHeight}</span>
@@ -231,7 +309,7 @@ class Viewport extends React.Component{
                            <span>分辨率：</span><code>{this.state.viewport.size}</code>
                         </span>
                         <span>
-                            <span>宽高：</span><code>{this.state.viewport.ratio}</code>
+                            <span>宽高比：</span><code>{this.state.viewport.ratio}</code>
                         </span>
                     </p>
                     <Tooltip title={'展示区的宽度和高度是此处分辨率的60%'}>

@@ -9,6 +9,7 @@ export function addTag(dom) {
     store.dispatch({type:'add_tag',dom});
 }
 
+
 //插入元素
 export function insertTag(dom) {
     store.dispatch({type:'insert_tag',dom,selectedKey:store.getState().selectedTag.key});

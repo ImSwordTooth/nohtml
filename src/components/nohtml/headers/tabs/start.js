@@ -7,6 +7,7 @@ import {colorRgba, getComputedCss} from "../../../../common/units";
 import {updateTag} from "../../../../store/action";
 import ColorPicker from 'rc-color-picker'
 import 'rc-color-picker/assets/index.css';
+import Mask from "../mask";
 
 const { Option,OptGroup } = Select;
 
@@ -135,7 +136,9 @@ class start extends React.Component{
         return (
             <div className='start'>
                 <div style={{position:'relative',width:'max-content'}}>
-                    <Tooltip title={'请先选中要操作的元素'}><div className={`${JSON.stringify(this.state.selectedTag)==='{}'?'no_operate':''}`}/></Tooltip>
+                    {
+                        JSON.stringify(this.state.selectedTag)==='{}'?<Mask title={'请先选中要操作的元素'}/>:<></>
+                    }
                     <div>
                         <Select
                             showSearch

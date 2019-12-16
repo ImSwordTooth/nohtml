@@ -2,5 +2,34 @@
   //position: absolute;
   //bottom: 0;
   //left: 0;
-
+  & .nodeList{
+    display: flex;
+    align-items: center;
+    cursor: default;
+    & .ant-breadcrumb >span{
+      display: inline-flex;
+      align-items: center;
+    }
+    & .ant-breadcrumb-link{
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      color: #6a6a6a;
+      &:before{
+        position: absolute;
+        top: 5px;
+        left: -5px;
+        content:'';
+        width: calc(100% + 10px);
+        height: calc(100% - 10px);
+        border-radius: 3px;
+      }
+      &:hover{
+        &:before{
+          background-color: rgba(186, 231, 255, 0.26);
+          transition: background-color .3s;
+        }
+      }
+    }
+  }
 }
