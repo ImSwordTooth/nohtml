@@ -198,7 +198,8 @@ export const defaultState = {
         padding:'4px 6px 4px 6px',
         boxShadow:'0px 0px 24px 0px rgba(0,0,0,0.32),5px 5px 14px 0px rgba(13,71,134,0.2)',
         textShadow:'1px 0px 0px #000000,0px 3px 5px rgba(70,117,214,0.5)',
-        transform:'rotate(20deg) translate(0px,40px)'
+        borderRadius:'5px 5px 0 0'
+        // transform:'rotate(20deg) translate(0px,40px)'
     },
     hoverStyle:{
 

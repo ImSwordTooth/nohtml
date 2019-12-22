@@ -14,6 +14,7 @@ import MyPadding from "../props/myPadding";
 import MyBoxShadow from "../props/myBoxShadow";
 import MyTextShadow from "../props/myTextShadow";
 import MyTransform from "../props/myTransform";
+import MyBorderRadius from "../props/myBorderRadius";
 
 class Standard extends React.Component{
 
@@ -60,12 +61,7 @@ class Standard extends React.Component{
                         </div>
                     </li>
                     {/*轮廓线*/}
-                    <li id={'outline'}>
-                        <span className={'operateTitle'}><i className={'iconfont iconnocssoutline'}/>圆角</span>
-                        <div className={'content'}>
-
-                        </div>
-                    </li>
+                    <MyBorderRadius stateName={'nocssStyle'}/>
                     {/*轮廓线*/}
                     <li id={'outline'}>
                         <span className={'operateTitle'}><i className={'iconfont iconnocssoutline'}/>滤镜</span>

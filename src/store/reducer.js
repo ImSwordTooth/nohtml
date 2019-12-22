@@ -70,19 +70,25 @@ function tagList(state = defaultState.tagList,action) {
             deleteTargetObj(deleteTagArr);
             return deleteTagArr;
         case 'update_tag':
-            let updateTagArr = Object.assign([],state);
+            let updateTagArr = Object.assign({},state);
             let ignore = ['trueStyle','viewStyle','hoverTrueStyle','hoverViewStyle','style','hover','props'];           //除了数组里的元素，其他的直接是 obj[a] = b;
             const fn = function (obj) {
                 if (obj.key === action.key){
+                    console.log(obj.dataName)
+
                     if (!ignore.includes(action.prop)){
+                        console.log('1')
                         obj[action.prop] = action.value;
                     } else if (action.prop === 'style'){                //如果传的值是style，就代表trueStyle和viewStyle一样的
+                        console.log('2')
                         obj.viewStyle[action.innerProp] = action.value;
                         obj.trueStyle[action.innerProp] = action.value;
                     } else if (action.prop === 'hover') {
+                        console.log('3')
                         obj.hoverViewStyle[action.innerProp] = action.value;
                         obj.hoverTrueStyle[action.innerProp] = action.value;
                     } else {
+                        console.log('4')
                         obj[action.prop][action.innerProp] = action.value;
                     }
                 } else {

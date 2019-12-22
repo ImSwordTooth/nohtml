@@ -240,19 +240,51 @@ class Viewport extends React.Component{
         })
     }
 
+    fullScreen = ()=>{
+
+            updateSetting({
+                prop:'width',
+                value:'full'
+            });
+            updateSetting({
+                prop:'height',
+                value:'full'
+            });
+
+            let timeout = setTimeout(()=>{
+                if (this.state.setting.width === 'full'){
+                    let element = document.getElementById('0');
+                    let requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
+                    if (requestMethod) {
+                        requestMethod.call(element);
+                    }
+                }
+                clearTimeout(timeout);
+            },0)
+
+
+
+        // new Promise(resolve => {
+        //
+        //
+        // }).then(()=>{
+        //     if (this.state.setting.width === 'full'){
+        //         let element = document.getElementById('0');
+        //         let requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
+        //         if (requestMethod) {
+        //             requestMethod.call(element);
+        //         }
+        //     }
+        // })
+
+
+
+    }
+
     render() {
         return (
             <div className={'viewport'}>
-                <div className={'full'} onClick={()=>{
-                    updateSetting({
-                        prop:'width',
-                        value:'full'
-                    });
-                    updateSetting({
-                        prop:'height',
-                        value:'full'
-                    });
-                }}>
+                <div className={'full'} onClick={()=>this.fullScreen()}>
                     <i className={'iconfont iconfullscreen'}/>
                     <span>全屏显示</span>
                 </div>

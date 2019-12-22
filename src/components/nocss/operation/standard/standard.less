@@ -111,7 +111,7 @@
       align-items: center;
       position: relative;
       left: 120px;
-      width: calc(100% - 120px);
+      //width: calc(100% - 120px);
       &:not(:nth-of-type(1)){
         margin-top: 5px;
       }
@@ -119,7 +119,7 @@
         position: relative;
         display: flex;
         align-items: center;
-        margin-left: 20px;
+        margin:0 40px 0 20px;
         &:nth-of-type(1){
           margin-left: 0;
         }
@@ -127,8 +127,12 @@
           align-self: flex-start;
         }
       }
+      .propTag{
+        position: absolute;
+      }
       & .unit{
-        margin-left: 5px;
+        position: absolute;
+        right: -30px;
         font-family: codeSaver,monospace;
       }
       & .info{

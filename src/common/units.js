@@ -80,7 +80,7 @@ export function changeProp (stateName,prop,value,...extra){
             break;
         case 'border':
         case 'padding':
-
+        case 'borderRadius':
             switch (stateName) {
                 case 'nocssStyle':{
                     let str = store.getState().nocssStyle[prop]+' ';
@@ -131,7 +131,8 @@ export function changeProp (stateName,prop,value,...extra){
         default:
             switch (stateName) {
                 case 'nocssStyle':changeNocssStyle({prop,value});break;
-                case 'hoverStyle':changeHoverStyle({prop,value});break
+                case 'hoverStyle':changeHoverStyle({prop,value});break;
+                default:return;
             }
     }
 }
@@ -213,6 +214,7 @@ export function addProp(stateName,prop) {
                 default:return;
             }
             break;
+        default:return;
     }
 }
 
@@ -230,6 +232,8 @@ export function deleteProp (stateName,prop,index){
         case 'textShadow':
             value = value.split(/(?<=rgba\(.*\)|#\w{6}),/g);
             value.splice(index,1);
+            break;
+        default:return;
     }
     switch (stateName) {
         case 'nocssStyle':

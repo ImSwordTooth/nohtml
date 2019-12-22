@@ -1,123 +1,147 @@
-.class_list{
-  display: inline-flex;
-  margin: 0;
-  padding: 5px 5px 25px 5px;
-  list-style: none;
-  //border: solid 1px #2c99d4;
-  //border-radius: 5px;
-  &>li{
+.classes{
+  display: flex;
+  align-items: center;
+  .addClass{
     position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border: solid 2px transparent;
-    margin-right: 10px;
-    background-color: transparent;
-    cursor: pointer;
-
-    &.active{
-      border: solid 2px rgba(24, 144, 255, 0.71);
-      border-radius: 3px;
-      box-shadow: 1px 1px 4px 1px rgba(144, 144, 144, 0.16);
-      transition:border ease-out .5s;
-  }
-    &>div{
-      display: inline-block;
-      //width: 60px;
-      height: 60px;
-    }
-    .className{
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 100%;
-      margin: auto;
-      text-align: center;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-    }
-    .look{
-      position: absolute;
-      right: 0;
-      top: 0;
-    }
-  }
-}
-
-.contextMenu_wp{
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 3;
-  width: 100%;
-  height: 100%;
-
-}
-
-.contextMenu{
-  position: absolute;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  background-color: white;
-  & li{
-    position: relative;
-    padding: 0 20px 0 10px;
+    width: 50px;
     display: flex;
+    justify-content: center;
     align-items: center;
-    cursor: default;
-    //TODO 这里设置为定值似乎不太对，但是暂时没有更好的
-    width: 120px;
-    &.disable{
-      cursor: not-allowed;
-      color: #c7c7c7;
-      &:hover{
-        background-color: #fff;
-        &>.next{
-          display: none;
+    flex-wrap: wrap;
+    padding: 0 5px 5px;
+    box-sizing: content-box;
+    border: solid 1px transparent;
+    border-radius:5px;
+    cursor: pointer;
+    transition: border .3s;
+    &:hover{
+      border: solid 1px rgba(0, 0, 0, 0.15);
+      box-shadow: inset 0 0 11px 1px rgba(218, 218, 218, 0.13);
+    }
+    i {
+      font-size: 38px;
+    }
+    span{
+      font-size: 12px;
+      margin-top: -10px;
+    }
+
+  }
+  .class_list{
+    display: inline-flex;
+    margin: 0;
+    padding: 5px 5px 25px 5px;
+    list-style: none;
+    //border: solid 1px #2c99d4;
+    //border-radius: 5px;
+    &>li{
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: solid 1px transparent;
+      margin-right: 10px;
+      background-color: transparent;
+      cursor: pointer;
+      transition: all 0.3s;
+      &.active{
+        border: solid 1px rgba(24, 144, 255, 0.71);
+        border-radius: 3px;
+        box-shadow: 1px 1px 4px 1px rgba(142, 185, 239, 0.26);
+      }
+      &>div{
+        display: inline-block;
+        //width: 60px;
+        height: 60px;
+      }
+      .className{
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 100%;
+        margin: auto;
+        text-align: center;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+  }
+
+  .contextMenu_wp{
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+
+  }
+
+  .contextMenu{
+    position: absolute;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    & li{
+      position: relative;
+      padding: 0 20px 0 10px;
+      display: flex;
+      align-items: center;
+      cursor: default;
+      //TODO 这里设置为定值似乎不太对，但是暂时没有更好的
+      width: 120px;
+      &.disable{
+        cursor: not-allowed;
+        color: #c7c7c7;
+        &:hover{
+          background-color: #fff;
+          &>.next{
+            display: none;
+          }
         }
       }
-    }
-    &:hover{
-      background-color: #bae7ff;
-      transition: background-color .5s;
+      &:hover{
+        background-color: #bae7ff;
+        transition: background-color .5s;
 
-      &>.next{
-        display: block;
+        &>.next{
+          display: block;
+        }
       }
-    }
-    &.line{
-      padding: 0 6px;
-      margin: 1px 0;
-      & div{
-        height: 1px;
+      &.line{
+        padding: 0 6px;
+        margin: 1px 0;
+        & div{
+          height: 1px;
+          width: 100%;
+          background-color: #bdbdbd;
+        }
+
+      }
+      & p{
+        margin: 0 0 0 5px;
+        display: inline-block;
+        font-size: 14px;
+      }
+      .iconrightarrow{
+        position: absolute;
+        right: 2px;
+      }
+      .next{
+        position: absolute;
+        left: 100%;
+        top: 0;
         width: 100%;
-        background-color: #bdbdbd;
+        display: none;
+
+        //.iconrightarrow{
+        //  position: relative;
+        //  margin-left: 10px;
+        //}
       }
-
-    }
-    & p{
-      margin: 0 0 0 5px;
-      display: inline-block;
-      font-size: 14px;
-    }
-    .iconrightarrow{
-      position: absolute;
-      right: 2px;
-    }
-    .next{
-      position: absolute;
-      left: 100%;
-      top: 0;
-      width: 100%;
-      display: none;
-
-      //.iconrightarrow{
-      //  position: relative;
-      //  margin-left: 10px;
-      //}
     }
   }
 }

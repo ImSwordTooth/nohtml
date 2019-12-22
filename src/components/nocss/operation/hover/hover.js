@@ -49,6 +49,7 @@ class Hover extends React.Component{
                     <Option className={'hoverProps'} value={'padding'} onClick={()=>this.addHover('padding','myPadding')}><i className={'iconfont iconnocsspadding'}/>内边距<span>padding</span></Option>
                     <Option className={'hoverProps'} value={'boxShadow'} onClick={()=>this.addHover('boxShadow','myBoxShadow')}><i className={'iconfont iconnocssboxshadow'}/>盒子阴影<span>boxShadow</span></Option>
                     <Option className={'hoverProps'} value={'textShadow'} onClick={()=>this.addHover('textShadow','myTextShadow')}><i className={'iconfont iconnocsstextshadow'}/>字体阴影<span>textShadow</span></Option>
+                    <Option className={'hoverProps'} value={'transform'} onClick={()=>this.addHover('transform','myTransform')}><i className={'iconfont iconnocsstransform'}/>变形<span>transform</span></Option>
                 </Select>
                 <div>
                     <ul className={'operationUl'}>

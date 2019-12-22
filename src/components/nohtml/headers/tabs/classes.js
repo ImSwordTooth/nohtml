@@ -2,7 +2,7 @@ import React from 'react'
 import '../css/classes.less'
 import store from '../../../../store'
 import ClassesModal from "../../common/modals/classesModal";
-import {Popover} from "antd";
+import {Popover,Divider} from "antd";
 import {updateTag} from "../../../../store/action";
 import Mask from "../mask";
 
@@ -89,7 +89,12 @@ class Classes extends React.Component{
 
     render() {
         return (
-            <div>
+            <div className={'classes'}>
+                <div className={'addClass'} onClick={()=>this.setState({showClassesModal:true,rightClassIndex:-1})}>
+                    <i className={'iconfont iconclass'}/>
+                    <span>新增类</span>
+                </div>
+                <Divider type={'vertical'} style={{height:'80px',margin:'0 20px'}}/>
                 <div style={{position:'relative',display:'inline-block'}}>
                     {
                         JSON.stringify(this.state.selectedTag)==='{}'?<Mask title={'请先选中要添加类的元素'}/>:<></>
@@ -103,14 +108,12 @@ class Classes extends React.Component{
                                         >
                                             <div style={this.ignore(item.trueStyle)}>示例文字</div>
                                             <span className={'className'}>{item.className}</span>
-                                            <i className={'iconfont iconlook look'}/>
                                         </li>
                                     </Popover>)
                         })}
                     </ul>
                 </div>
-                <span>more</span>
-                <span onClick={()=>this.setState({showClassesModal:true,rightClassIndex:-1})}>新增类</span>
+
                 <ClassesModal showClassesModal={this.state.showClassesModal} cancel={()=>this.setState({showClassesModal:false})} rightClassIndex={this.state.rightClassIndex} classObj={this.state.classList[this.state.rightClassIndex]}/>
                 {this.getRightClickMenu()}
             </div>

@@ -8,10 +8,10 @@ class Code extends React.Component{
         this.state = Object.assign({},store.getState(),{
             selfClassName:'nocss'
         });
-        store.subscribe(this.listen)
+        store.subscribe(this.listener)
     }
 
-    listen = ()=>{
+    listener = ()=>{
         let newState = store.getState();
         this.setState(newState)
     };
@@ -32,13 +32,17 @@ class Code extends React.Component{
                     {`.${this.state.selfClassName}{`}
                     <br/>
                     {[...Object.entries(this.state.nocssStyle)].map((item,index)=>{
-                    return <span style={{display:'block'}} className={'cssText'} key={index}><strong>{item[0]}:</strong><span>{item[1]};</span></span>
+                        if (item[1]){
+                            return <span style={{display:'block'}} className={'cssText'} key={index}><strong>{item[0]}:</strong><span>{item[1]};</span></span>
+                        }
                 })}
 }
                     <br/>
                     {`.${this.state.selfClassName}:hover{`}
                     {[...Object.entries(this.state.hoverStyle)].map((item,index)=>{
-                        return <span style={{display:'block'}} className={'cssText'} key={index}><strong>{item[0]}:</strong><span>{item[1]};</span></span>
+                        if (item[1]){
+                            return <span style={{display:'block'}} className={'cssText'} key={index}><strong>{item[0]}:</strong><span>{item[1]};</span></span>
+                        }
                     })}
 }
 

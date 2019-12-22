@@ -2,7 +2,6 @@ import React from 'react'
 
 import Start from './tabs/start'
 import Insert from './tabs/insert'
-import Layout from './tabs/layout'
 import Viewport from './tabs/viewport'
 import Animation from './tabs/animation'
 import Classes from './tabs/classes'
@@ -23,15 +22,15 @@ class myHeader extends React.Component{
     render() {
         return(
             <header className='header'>
-                <Tabs defaultActiveKey="5" tabBarExtraContent={operations}>
+                <Tabs defaultActiveKey="3" tabBarExtraContent={operations}>
                     <TabPane tab="开始" key="1">
                         <Start/>
                     </TabPane>
                     <TabPane tab="插入" key="2">
                         <Insert/>
                     </TabPane>
-                    <TabPane tab="布局" key="3">
-                        <Layout/>
+                    <TabPane tab="样式类" key="3">
+                        <Classes/>
                     </TabPane>
                     <TabPane tab="动画" key="4">
                         <Animation/>
@@ -39,10 +38,7 @@ class myHeader extends React.Component{
                     <TabPane tab="视图" key="5">
                         <Viewport/>
                     </TabPane>
-                    <TabPane tab="样式类" key="6">
-                        <Classes/>
-                    </TabPane>
-                    <TabPane tab="设置" key="7">
+                    <TabPane tab="设置" key="6">
                         ico/title/meta...
                     </TabPane>
                 </Tabs>

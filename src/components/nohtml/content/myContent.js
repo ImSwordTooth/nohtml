@@ -40,6 +40,7 @@ class myContent extends React.Component{
     }
     componentWillUnmount() {
         document.getElementById('content').removeEventListener('scroll',this.debounce);
+        document.removeEventListener('mousedown', this.handleClickOutside,);
     }
 
     //防抖函数
@@ -168,6 +169,8 @@ class myContent extends React.Component{
             let hover = getComputedCss(selectedTag,'hoverViewStyle');
 
             let defaultCssArr = defaultCssProp[selectedTag.type]||defaultCssProp.div;
+
+
             // console.log(this.state.selectedTag.style)
             // console.log(getComputedStyle(document.getElementById(selectedTag.key), null))
 
@@ -262,10 +265,10 @@ class myContent extends React.Component{
                                            <Tooltip placement='topLeft'
                                                     title={
                                                         <span>
-                                                            <span style={{color:'#949494'}}>深色</span>代表用户自定义样式；
-                                                            <span style={{color:'#d4d4d4'}}>浅色</span>代表计算后的样式。
-                                                            <span style={{color:'#1493d3'}}>蓝色</span>代表该样式来自于某个样式类。
-                                                            <br/>
+                                                            <span style={{color:'#949494'}}>深色</span>代表用户自定义样式；<br/>
+                                                            <span style={{color:'#d4d4d4'}}>浅色</span>代表计算后的样式；<br/>
+                                                            <span style={{color:'#1493d3'}}>蓝色</span>代表该样式来自于某个样式类。<br/>
+                                                            <hr/>
                                                             <span>
                                                                 <strong>修改</strong>：单击属性值（您应该始终使用<i>全选</i>来修改属性值）
                                                             </span>
@@ -653,15 +656,6 @@ class myContent extends React.Component{
     };
 
     createNodes = (node) => {
-
-        if (this.state.setting.width === 'full'){
-            let element = document.getElementById('0');
-            let requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
-            if (requestMethod) {
-                requestMethod.call(element);
-            }
-        }
-
         let className = '';
         let css = Object.assign({},node.trueStyle),
             hover = Object.assign({},node.hoverTrueStyle);
@@ -699,6 +693,20 @@ class myContent extends React.Component{
 
     };
 
+    containerStyle = ()=>{
+        let node = this.state.tagList;
+        let className = '';
+        let css = Object.assign({},node.trueStyle),
+            hover = Object.assign({},node.hoverTrueStyle);
+        if (node.props.className){
+            className += node.props.className.join(' ');
+            css = getComputedCss(node,'trueStyle');
+            hover = getComputedCss(node,'hoverTrueStyle');
+
+        }
+        return node.key===this.state.hoverId?{...Object.assign({},css,hover)}:{...css}
+    }
+
     mask = ()=>{
         if (this.state.hoveredTagKey!==''){
             let ele = document.getElementById(this.state.hoveredTagKey);
@@ -724,20 +732,18 @@ class myContent extends React.Component{
     }
 
     render() {
-
-        const content = this.state.tagList.children;
-
         return (
             <div className={'container_wp'} id={'container_wp'}>
                 <div className={`container ${this.state.showDrawer?'operation_open':''}`} id={'0'}
-                     style={!this.state.setting.width.match(/vw$/g)?{width:parseInt(this.state.setting.width)*.6+'px',height:parseInt(this.state.setting.height)*.6+'px'}:{width:'60vw',height:'60vh'}}
+                     style={!this.state.setting.width.match(/vw$/g)
+                         ?Object.assign({},this.containerStyle(),{width:parseInt(this.state.setting.width)*.6+'px',height:parseInt(this.state.setting.height)*.6+'px'})
+                         :Object.assign({},this.containerStyle(),{width:'60vw',height:'60vh'})}
                      onMouseMove={(e)=>this.setHover(e)}>
-                    {content.map(val => this.createNodes(val))}
+                    {this.state.tagList.children.map(val => this.createNodes(val))}
                     {this.mask()}
                 </div>
                 <Drawer
                     className={'operation_wp'}
-                    // style={{top:document.getElementById('0') && document.getElementById('0').getBoundingClientRect().top}}
                     id={'Drawer'}
                     title={this.drawerTitle()}
                     placement="right"
@@ -745,8 +751,7 @@ class myContent extends React.Component{
                     onClose={this.closeDrawer}
                     visible={this.state.showDrawer}
                     mask={false}
-                    getContainer={()=>document.getElementById('0')}
-                    // width={'20vw'}
+                    getContainer={()=>document.getElementById('container_wp')}
                     width={400}
                 >
                     {this.drawerContent()}
