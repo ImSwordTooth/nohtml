@@ -60,11 +60,27 @@ export function changeHoveredTag(key) {
 
 //修改nocss的样式
 export function changeNocssStyle(style) {
-    store.dispatch({type:'change_nocssTyle',style})
+    store.dispatch({type:'change_nocssStyle',style})
 }
 
 export function changeHoverStyle(style) {
     store.dispatch({type:'change_hoverStyle',style})
+}
+
+export function changeCustomerCssStyle(style) {
+    store.dispatch({type:'change_customerCssStyle',style})
+}
+
+export function changeCustomerHoverStyle(style) {
+    store.dispatch({type:'change_customerHoverStyle',style})
+}
+
+export function deleteCustomerCssStyle(prop) {
+    store.dispatch({type:'delete_customerCssStyle',prop})
+}
+
+export function deleteCustomerHoverStyle(prop) {
+    store.dispatch({type:'delete_customerHoverStyle',prop})
 }
 
 export function addHoverList(comp) {

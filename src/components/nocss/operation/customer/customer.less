@@ -1,0 +1,67 @@
+.customer_table{
+  width: 100%;
+  border-radius: 4px 4px 0 0;
+  border:solid 1px #e8e8e8;
+  border-spacing: 0;
+  table-layout: fixed;
+  & tr{
+    position: relative;
+    transition: all .3s;
+    &.isHover{
+      background-color: rgba(73, 73, 73, 0.02);
+      &:hover{
+        background-color: rgba(73, 73, 73, 0.05);
+      }
+    }
+    &:hover{
+      background-color: rgba(241, 241, 241, 0.3);
+      & .delete{
+        opacity: 1;
+        transition: opacity .3s;
+      }
+    }
+  }
+  & th{
+    color: rgba(0,0,0,0.85);
+    font-weight: 500;
+    text-align: left;
+    background: #f8f8f8;
+    transition: background .3s ease;
+    padding: 8px 16px;
+  }
+  & td{
+    position: relative;
+    transition: all .3s,border 0s;
+    padding: 3px 12px;
+    &.editing{
+      box-shadow: 1px 1px 6px 1px rgba(130, 130, 130, 0.14);
+      border: solid 1px #ccc;
+    }
+    & input{
+      outline: none;
+      border: none;
+      background-color: transparent;
+      width: 100%;
+    }
+    & .category{
+      display: flex;
+      justify-content: center;
+      border: none;
+      cursor: pointer;
+    }
+    & .delete{
+      position: absolute;
+      right: 5px;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      opacity: 0;
+      & > i{
+        font-size: 16px;
+        cursor: pointer;
+      }
+    }
+  }
+}

@@ -24,9 +24,9 @@ class Show extends React.Component{
 
     computedStyle = ()=>{
         if (this.state.isHover){
-            return Object.assign(Object.assign({},this.state.nocssStyle),Object.assign({},this.state.hoverStyle))
+            return Object.assign(Object.assign({},this.state.nocssStyle,this.state.customerCssStyle),Object.assign({},this.state.hoverStyle,this.state.customerHoverStyle))
         } else {
-            return this.state.nocssStyle;
+            return Object.assign({},this.state.nocssStyle,this.state.customerCssStyle);
         }
     };
 

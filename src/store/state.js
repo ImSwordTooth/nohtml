@@ -206,6 +206,12 @@ export const defaultState = {
     },
     hoverList:{
 
+    },
+    customerCssStyle:{          //nocss中用户自定义css样式
+
+    },
+    customerHoverStyle:{        //nocss中用户自定义hover样式
+
     }
 
 };

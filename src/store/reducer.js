@@ -325,7 +325,7 @@ function getWillInsertKey(targetObj,actionKey) {
 
 function nocssStyle(state = defaultState.nocssStyle,action) {
     switch (action.type) {
-        case 'change_nocssTyle': {
+        case 'change_nocssStyle': {
             let obj = Object.assign({}, state);
             obj[action.style.prop] = action.style.value;
             return obj;
@@ -341,6 +341,42 @@ function hoverStyle(state = defaultState.hoverStyle,action) {
         case 'change_hoverStyle': {
             let obj = Object.assign({}, state);
             obj[action.style.prop] = action.style.value;
+            return obj;
+        }
+        default:{
+            return state;
+        }
+    }
+}
+
+function customerCssStyle(state = defaultState.customerCssStyle,action) {
+    switch (action.type) {
+        case 'change_customerCssStyle': {
+            let obj = Object.assign({}, state);
+            obj[action.style.prop] = action.style.value;
+            return obj;
+        }
+        case 'delete_customerCssStyle':{
+            let obj = Object.assign({}, state);
+            delete obj[action.prop];
+            return obj;
+        }
+        default:{
+            return state;
+        }
+    }
+}
+
+function customerHoverStyle(state = defaultState.customerHoverStyle,action) {
+    switch (action.type) {
+        case 'change_customerHoverStyle': {
+            let obj = Object.assign({}, state);
+            obj[action.style.prop] = action.style.value;
+            return obj;
+        }
+        case 'delete_customerHoverStyle': {
+            let obj = Object.assign({}, state);
+            delete obj[action.prop];
             return obj;
         }
         default:{
@@ -418,6 +454,8 @@ export default combineReducers({
     nocssStyle,
     hoverStyle,
     hoverList,
+    customerCssStyle,
+    customerHoverStyle,
     classList,
     nav,
     setting

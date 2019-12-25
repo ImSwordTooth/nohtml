@@ -1,5 +1,5 @@
 import React from 'react'
-import {Collapse, Drawer, Input, Tag,Tooltip,AutoComplete,Select} from 'antd'
+import {Collapse, Drawer, Input, Tag,Tooltip,AutoComplete} from 'antd'
 
 import './myContent.less'
 import store from '../../../store'
@@ -9,7 +9,6 @@ import {getComputedCss} from "../../../common/units";
 
 const {TextArea} = Input;
 const { Panel } = Collapse;
-const {Option} = Select;
 
 
 class myContent extends React.Component{
@@ -261,13 +260,12 @@ class myContent extends React.Component{
                                    style={{background: '#f7f7f7',borderRadius: 4, marginBottom: 10,border: 0,overflow: 'hidden',borderTop:'solid 4px rgba(218, 218, 218, 0.34)'}}
                                    extra={
                                        <div>
-                                           {/*<i className={'iconfont iconadd'}/>*/}
                                            <Tooltip placement='topLeft'
                                                     title={
                                                         <span>
-                                                            <span style={{color:'#949494'}}>深色</span>代表用户自定义样式；<br/>
-                                                            <span style={{color:'#d4d4d4'}}>浅色</span>代表计算后的样式；<br/>
-                                                            <span style={{color:'#1493d3'}}>蓝色</span>代表该样式来自于某个样式类。<br/>
+                                                            <span style={{color:'#949494'}}>深色</span>用户自定义样式；<br/>
+                                                            <span style={{color:'#d4d4d4'}}>浅色</span>计算后的样式；<br/>
+                                                            <span style={{color:'#1493d3'}}>蓝色</span>该样式来自于某个样式类。<br/>
                                                             <hr/>
                                                             <span>
                                                                 <strong>修改</strong>：单击属性值（您应该始终使用<i>全选</i>来修改属性值）
