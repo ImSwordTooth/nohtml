@@ -2,6 +2,24 @@ import {changeHoverStyle, changeNocssStyle} from "../store/action";
 import store from '../store'
 
 /**
+ * redux的reducer中频繁使用的方法，通过key值找到虚拟dom树中的对象
+ *
+ * @param {String} key 目标对象的key值
+ * @param {Object} obj 寻找的目标范围，初始值通常是state中的tagList的浅拷贝
+ * */
+export function getObjByKeyFromTagList(key,obj) {
+    if (obj.key === key){
+        return obj;
+    } else {
+        for (let i=0; i<obj.children.length;i++){
+            if (key.indexOf(obj.children[i].key) === 0){
+                return getObjByKeyFromTagList(key,obj.children[i]);
+            }
+        }
+    }
+}
+
+/**
  * 合并内联样式和类中的样式
  *
  * @param {Object} originObj 当前操作的对象

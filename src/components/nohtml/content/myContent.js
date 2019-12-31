@@ -218,9 +218,11 @@ class myContent extends React.Component{
                                                                 {item[1].map((i)=>{
                                                                     return (
                                                                         <Tooltip title={
-                                                                            Object.entries(this.state.classList[this.state.classList.findIndex((item)=>item.className===i)].viewStyle).map((i)=>{
+                                                                            this.state.classList.findIndex((item)=>item.className===i)>-1
+                                                                                ?Object.entries(this.state.classList[this.state.classList.findIndex((item)=>item.className===i)].viewStyle).map((i)=>{
                                                                                 return `${i[0].replace(/[A-Z]/g,w=>'-'+w.toLowerCase())}: ${i[1]};\n`
                                                                             })
+                                                                                :'预设样式'
                                                                         }
                                                                                  overlayStyle={{whiteSpace:'pre-wrap',fontFamily:'codeSaver, monospace',fontSize:'13px'}}
                                                                         >

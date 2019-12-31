@@ -40,6 +40,7 @@ class Hover extends React.Component{
 
         return (
             <div>
+                <span>添加：</span>
                 <Select defaultValue={'color'} style={{width:220}}>
                     <Option className={'hoverProps'} value={'color'} onClick={()=>this.addHover('color','myColor')}><i className={'iconfont iconnocsscolor'}/>字体颜色<span>color</span></Option>
                     <Option className={'hoverProps'} value={'backgroundColor'} onClick={()=>this.addHover('backgroundColor','myBackgroundColor')}><i className={'iconfont iconnocssbackgroundcolor'}/>背景颜色<span>backgroundColor</span></Option>

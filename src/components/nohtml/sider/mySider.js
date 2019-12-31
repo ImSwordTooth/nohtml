@@ -50,10 +50,13 @@ class mySider extends React.Component{
     // 新建标签格式化
     formatTag = (type,name)=>{
         let selectTag = this.state.selectedTag;
+
+        //TODO 考虑到多人协作时的冲突问题，willCreateKey由后端确定，此处发送一个异步请求，然后再新建，下同
+
         return {
             type:type,
             pid:selectTag.key,
-            key:selectTag.willCreateKey,
+            key:`${selectTag.key}-${selectTag.willCreateKey}`,
             dataName:name,
             iconName:'icon'+type,
             content:`新建${type}`,
@@ -61,6 +64,7 @@ class mySider extends React.Component{
             viewStyle:{},
             hoverTrueStyle:{},
             hoverViewStyle:{},
+            willCreateKey:0,
             props:{},
             children:[]
         }
@@ -74,13 +78,14 @@ class mySider extends React.Component{
         return {
             type:'img',
             pid:selectTag.key,
-            key:selectTag.willCreateKey,
+            key:`${selectTag.key}-${selectTag.willCreateKey}`,
             dataName:name,
             iconName:'iconimg',
             trueStyle:{},
             viewStyle:{},
             hoverTrueStyle:{},
             hoverViewStyle:{},
+            willCreateKey:0,
             props:{
                 src
             }
@@ -92,6 +97,8 @@ class mySider extends React.Component{
         this.setState({
             showTableModal:false
         });
+
+        //TODO 此处有些不同，tr，th，td是本地组装的，所以 willCreateKey并不会冲突，所以需要后端确认的willCreateKey只有最外层的table
 
         //确定tr标签
         let trs = new Array(arr.length);
@@ -106,6 +113,7 @@ class mySider extends React.Component{
                 viewStyle:{},
                 hoverTrueStyle:{},
                 hoverViewStyle:{},
+                willCreateKey:arr.length === 0 ? 0 :arr.length+1,
                 props:{},
                 children:[]
             })
@@ -124,6 +132,7 @@ class mySider extends React.Component{
                 viewStyle:{},
                 hoverTrueStyle:{},
                 hoverViewStyle:{},
+                willCreateKey:0,
                 props:{},
                 children:[]
             })
@@ -144,6 +153,7 @@ class mySider extends React.Component{
                     viewStyle:{},
                     hoverTrueStyle:{},
                     hoverViewStyle:{},
+                    willCreateKey:0,
                     props:{},
                     children:[]
                 }
@@ -153,13 +163,16 @@ class mySider extends React.Component{
         return {
             type:'table',
             pid:selectTag.key,
-            key:selectTag.willCreateKey,
+            key:`${selectTag.key}-${selectTag.willCreateKey}`,
             dataName:'新建table',
             iconName:'icontable',
             trueStyle:{},
             viewStyle:{},
+            hoverTrueStyle:{},
+            hoverViewStyle:{},
+            willCreateKey:1,
             props:{
-                className:className
+                className:[className]
             },
             children: [
                 {
@@ -172,6 +185,7 @@ class mySider extends React.Component{
                     viewStyle:{},
                     hoverTrueStyle:{},
                     hoverViewStyle:{},
+                    willCreateKey:trs.length === 0 ? 0 : trs.length+1,
                     props:{},
                     children:trs
                 }
@@ -194,13 +208,14 @@ class mySider extends React.Component{
         return {
             type:'input',
             pid:selectTag.key,
-            key:selectTag.willCreateKey,
+            key:`${selectTag.key}-${selectTag.willCreateKey}`,
             dataName,
             iconName,
             trueStyle:{},
             viewStyle:{},
             hoverTrueStyle:{},
             hoverViewStyle:{},
+            willCreateKey:0,
             props:{
                 type
             }
@@ -252,6 +267,7 @@ class mySider extends React.Component{
             son = [...val.children.map(val => this.createNodes(val))];
         }
         return <TreeNode className={`${this.state.selectedTag.key===val.key}?'ant-tree-node-selected':''`} icon={<i className={`iconfont ${val.iconName}`} onClick={(e)=>this.treeNodeonClick(e)}/>} title={val.dataName} key={val.key}>{son}</TreeNode>
+        // return <TreeNode className={`${this.state.selectedTag.key===val.key}?'ant-tree-node-selected':''`} icon={<i className={`iconfont ${val.iconName}`} onClick={(e)=>this.treeNodeonClick(e)}/>} title={val.key} key={val.key}>{son}</TreeNode>
     };
 
 
@@ -332,33 +348,12 @@ class mySider extends React.Component{
 
      drop = (e)=>{
          reSetTag();
-         let isSelected = false;
-         if (JSON.stringify(this.state.selectedTag) !== '{}'){
-             if (this.state.selectedTag.key === e.dragNodesKeys[e.dragNodesKeys.length-1]){
-                 isSelected = true;
-             }
-         }
-         // if (e.node.props.dragOver){        //直接拖拽到目标上
-             dropTag({
-                 dropOver:e.node.props.dragOver,
-                 originKey:e.dragNodesKeys,
-                 targetKey:e.node.props.eventKey,
-                 dropPosition:e.dropPosition,
-                 // dropPos:e.node.props.pos.split('-'),
-                 isSelected
-             })
-         // }else{
-
-             // dropTag({
-             //     dropOver: false,
-             //     originKey:e.dragNodesKeys,
-             //     targetKey:
-             // })
-         // }
-         // console.log(e.event);
-         // console.log(this.state);
-         // console.log(e.dragNode);
-         // console.log(e.dragNodesKeys);      //被拖拽的对象的key的列表，直接包含了节点和节点下的children
+         dropTag({
+             dropOver:e.node.props.dragOver,
+             originKey:e.dragNodesKeys,
+             targetKey:e.node.props.eventKey,
+             dropPosition:e.node.props.dragOverGapTop ? 'top':'bottom',
+         })
      };
 
     // 自定义右键菜单内容

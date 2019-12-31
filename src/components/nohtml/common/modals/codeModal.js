@@ -6,6 +6,7 @@ import javascript from 'highlight.js/lib/languages/javascript';
 import '../css/codeModal.less'
 import 'highlight.js/styles/androidstudio.css';
 import {Modal, Tabs, Switch, Icon} from "antd";
+import Spinner from "../../common/spinner";
 const { TabPane } = Tabs;
 
 hljs.registerLanguage('javascript', javascript);
@@ -16,7 +17,7 @@ class CodeModal extends React.Component{
     constructor(props){
         super(props);
         this.state = Object.assign({},store.getState(),{
-
+            cssSpinner:true
         })
         store.subscribe(this.listener)
     }
@@ -64,7 +65,7 @@ ${space}</${type}>`
 
         }
     };
-    getCssContent = (val)=>{
+     getCssContent = (val)=>{
         let style = '';
             for (let i in val.viewStyle){
                 style += `\t${i.replace(/[A-Z]/g,w=>'-'+w.toLowerCase())}:${val.viewStyle[i]};`
@@ -87,6 +88,16 @@ ${space}</${type}>`
         //     tableThs:['表头1','表头2','表头3'],
         //     currentClass:''
         // })
+    }
+
+    xx = ()=>{
+        {new Promise(()=>{
+            return this.state.classList.map(val=>this.getCssContent(val,0))
+        }).then(()=>{
+            this.setState({
+                cssSpinner:false
+            })
+        })}
     }
 
 
@@ -118,6 +129,7 @@ ${space}</${type}>`
                     </TabPane>
                     <TabPane tab="css" key="2">
                         <div className={'css'}>
+                            {/*<Spinner show={this.state.cssSpinner}/>*/}
                             {this.state.classList.map(val=>this.getCssContent(val,0))}
                         </div>
                     </TabPane>

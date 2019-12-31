@@ -34,7 +34,7 @@ class insert extends React.Component{
         return {
             type:type,
             pid:selectTag.pid,
-            key:selectTag.willInsertKey,
+            key:`${selectTag.key}-${selectTag.willCreateKey}`,
             dataName:name,
             iconName:'icon'+type,
             content:`新建${type}`,
@@ -42,6 +42,7 @@ class insert extends React.Component{
             viewStyle:{},
             hoverTrueStyle:{},
             hoverViewStyle:{},
+            willCreateKey:0,
             props:{},
             children:[]
         }
@@ -55,13 +56,14 @@ class insert extends React.Component{
         return {
             type:'img',
             pid:selectTag.pid,
-            key:selectTag.willInsertKey,
+            key:`${selectTag.key}-${selectTag.willCreateKey}`,
             dataName:name,
             iconName:'iconimg',
             trueStyle:{},
             viewStyle:{},
             hoverTrueStyle:{},
             hoverViewStyle:{},
+            willCreateKey:0,
             props:{
                 src
             }
@@ -79,14 +81,15 @@ class insert extends React.Component{
         arr.forEach((item,index)=>{
            trs[index] = Object.assign({},{
                type:'tr',
-               pid:selectTag.willInsertKey+'-0',
-               key:`${selectTag.willInsertKey}-0-${index}`,
+               pid:selectTag.willCreateKey+'-0',
+               key:`${selectTag.willCreateKey}-0-${index}`,
                dataName:`新建tr${index+1}`,
                iconName:'icontr',
                trueStyle:{},
                viewStyle:{},
                hoverTrueStyle:{},
                hoverViewStyle:{},
+               willCreateKey:arr.length === 0 ? 0 :arr.length+1,
                props:{},
                children:[]
             })
@@ -105,6 +108,7 @@ class insert extends React.Component{
                 viewStyle:{},
                 hoverTrueStyle:{},
                 hoverViewStyle:{},
+                willCreateKey:0,
                 props:{},
                 children:[]
             })
@@ -125,6 +129,7 @@ class insert extends React.Component{
                     viewStyle:{},
                     hoverTrueStyle:{},
                     hoverViewStyle:{},
+                    willCreateKey:0,
                     props:{},
                     children:[]
                 }
@@ -134,15 +139,16 @@ class insert extends React.Component{
         return {
             type:'table',
             pid:selectTag.pid,
-            key:selectTag.willInsertKey,
+            key:`${selectTag.key}-${selectTag.willCreateKey}`,
             dataName:'新建table',
             iconName:'icontable',
             trueStyle:{},
             viewStyle:{},
             hoverTrueStyle:{},
             hoverViewStyle:{},
+            willCreateKey:1,
             props:{
-                className:className
+                className:[className]
             },
             children: [
                 {
@@ -155,6 +161,7 @@ class insert extends React.Component{
                     viewStyle:{},
                     hoverTrueStyle:{},
                     hoverViewStyle:{},
+                    willCreateKey:trs.length === 0 ? 0 : trs.length+1,
                     props:{},
                     children:trs
                 }
@@ -177,13 +184,14 @@ class insert extends React.Component{
         return {
             type:'input',
             pid:selectTag.pid,
-            key:selectTag.willInsertKey,
+            key:`${selectTag.key}-${selectTag.willCreateKey}`,
             dataName,
             iconName,
             trueStyle:{},
             viewStyle:{},
             hoverTrueStyle:{},
             hoverViewStyle:{},
+            willCreateKey:0,
             props:{
                 type
             }

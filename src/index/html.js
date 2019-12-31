@@ -43,7 +43,6 @@ class Html extends React.Component{
     //
     // componentWillUnmount() {
     //     if (this.state.mySwiper !== null) { // 销毁swiper
-    //         console.log('aaaaaaa')
     //         // this.state.mySwiper.destroy()
     //     }
     // }

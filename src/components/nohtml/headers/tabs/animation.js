@@ -1,11 +1,9 @@
 import React from 'react'
 import '../css/animation.less'
-
+import {Divider} from "antd";
 import AnimationModal from '../../common/modals/animationModal'
 import store from '../../../../store'
 import {updateTag} from "../../../../store/action";
-import CodeModal from "../../../../App";
-import {Provider} from "react-redux";
 import Mask from "../mask";
 
 class Animation extends React.Component{
@@ -16,7 +14,32 @@ class Animation extends React.Component{
             selectAnimation:'',
             showAnimationModal:false
         })
+        store.subscribe(this.listener)
+    }
 
+    listener = () => {
+        let newState = store.getState();
+        this.setState(newState);
+    };
+    componentDidMount() {
+        // let str = '';
+        // if (value === undefined){
+        //     str = `@keyframes ${this.state.animationName===''?'anonymous':this.state.animationName} {\n`;
+        // }else {
+        //     str = `@keyframes ${value===''?'anonymous':value} {\n`;
+        // }
+        //
+        // for (let i in this.state.framesContent){
+        //     str += `\t${i} {\n`;
+        //     [...Object.entries(this.state.framesContent[i])].forEach(item=>{
+        //         str += `\t\t${item[0].replace(/[A-Z]/g,w=>'-'+w.toLowerCase())}:${item[1]};\n`;
+        //     });
+        //     str +='\t}\n'
+        // }
+        // str += '}';
+        // let css = document.styleSheets[0];
+        // css.deleteRule(0)
+        // css.insertRule(str, 0)
     }
 
     changeSelectAnimation=(value)=>{
@@ -39,7 +62,7 @@ class Animation extends React.Component{
                 value:value + ' ease 2s infinite'
             })
         }
-    }
+    };
 
     openAnimationModal = ()=>{
         let css = document.styleSheets[0];
@@ -58,14 +81,14 @@ class Animation extends React.Component{
         this.setState({
             showAnimationModal:true
         })
-    }
+    };
 
     getCssRule =()=>{
 
         let css = document.styleSheets;
         console.log(css)
 
-    }
+    };
 
     render() {
         return (
@@ -82,6 +105,19 @@ class Animation extends React.Component{
                             <li className={`${this.state.selectAnimation==='skew'?'active':''}`} onClick={()=>this.changeSelectAnimation('skew')}><span>拉扯</span><div className={'skew'}/></li>
                             <li className={`${this.state.selectAnimation==='hang'?'active':''}`} onClick={()=>this.changeSelectAnimation('hang')}><span>悬挂</span><div className={'hang'}/></li>
                             <li className={`${this.state.selectAnimation==='bounce'?'active':''}`} onClick={()=>this.changeSelectAnimation('bounce')}><span>抖动</span><div className={'bounce'}/></li>
+                        </ul>
+                        <Divider type={'vertical'} style={{height:'50px',margin:'0 10px'}}/>
+                        <ul className={'timingFunctionList'}>
+                            {
+                                this.state.keyframesList.map((item,index)=>{
+                                    return (<li key={index}
+                                                className={`${this.state.selectAnimation === item.name ? 'active' : ''}`}
+                                                onClick={()=>this.changeSelectAnimation(item.name)}>
+                                                    <span>{item.name}</span>
+                                                    <div/>
+                                            </li>)
+                                })
+                            }
                         </ul>
                     </div>
                 </div>

@@ -212,16 +212,17 @@ class AnimationModal extends React.Component{
         for (let i in this.state.framesContent){
             str += `\t${i} {\n`;
             [...Object.entries(this.state.framesContent[i])].forEach(item=>{
-                str += `\t\t${item[0].replace(/[A-Z]/g,w=>'-'+w.toLowerCase())}:${item[1]};\n`;
+                str += `\t\t${item[0].replace(/[A-Z]/g,w=>'-'+w.toLowerCase())}:${item[1].replace(/\d+px/g,function (num) {
+                    return parseInt(num)/14*0.6+'rem'
+                })};\n`;
             });
             str +='\t}\n'
         }
         str += '}';
         let css = document.styleSheets[0];
-        console.log(str)
         css.deleteRule(0)
         css.insertRule(str, 0)
-
+        console.log(css)
     }
 
     cssContent = (current,next)=>{
@@ -356,7 +357,9 @@ class AnimationModal extends React.Component{
                         <div>
                             <div className={'checkbox_wp'}>
                                 <Switch defaultChecked onChange={(e)=>this.setState({isInfinite:e})}/>
-                                <i className={'iconfont iconhelp'} style={{marginLeft:'10px'}}/>
+                                <Tooltip title={'由于“非无限”会导致动画只播放一次，因此建议一直开启“无限”以查看效果，实际情况下由你定制'}>
+                                    <i className={'iconfont iconhelp'} style={{marginLeft:'10px'}}/>
+                                </Tooltip>
                             </div>
                         </div>
                     </div>

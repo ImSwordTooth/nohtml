@@ -16,7 +16,11 @@ export const defaultState = {
         viewStyle:{},       //用于数据展示的样式
         hoverTrueStyle:{},      //hover时放在标签内的样式
         hoverViewStyle:{},      //hover时用于数据展示的样式
-        props:{},
+        willCreateKey:3,
+        props:{
+            name:'test',
+            className:['class1','class2']
+        },
         children:[
             {
                 type:'div',
@@ -29,6 +33,7 @@ export const defaultState = {
                 viewStyle:{fontFamily:'幼圆',display:'flex',alignItems:'center',justifyContent:'space-between',height:'60px'},
                 hoverTrueStyle:{},
                 hoverViewStyle:{},
+                willCreateKey:2,
                 props:{},
                 children:[
                     {
@@ -41,6 +46,7 @@ export const defaultState = {
                         viewStyle:{},
                         hoverTrueStyle:{},
                         hoverViewStyle:{},
+                        willCreateKey:1,
                         props:{},
                         children:[
                             {
@@ -53,6 +59,7 @@ export const defaultState = {
                                 viewStyle:{width:'60px'},
                                 hoverTrueStyle:{},
                                 hoverViewStyle:{},
+                                willCreateKey:0,
                                 props:{
                                     src:'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2035944494,3453366933&fm=26&gp=0.jpg'
                                 }
@@ -69,6 +76,7 @@ export const defaultState = {
                         viewStyle:{},
                         hoverTrueStyle:{},
                         hoverViewStyle:{},
+                        willCreateKey:1,
                         props:{},
                         children:[
                             {
@@ -100,6 +108,7 @@ export const defaultState = {
                 viewStyle:{},
                 hoverTrueStyle:{},
                 hoverViewStyle:{},
+                willCreateKey:2,
                 props:{},
                 children:[
                     {
@@ -113,6 +122,7 @@ export const defaultState = {
                         viewStyle:{fontSize:`18px`,backgroundColor:'#ffffff',fontWeight:'lighter',fontStyle:'italic',textDecoration:'underline'},
                         hoverTrueStyle:{},
                         hoverViewStyle:{},
+                        willCreateKey:0,
                         props:{
 
                         },
@@ -129,6 +139,7 @@ export const defaultState = {
                         viewStyle:{backgroundColor:'#ffffff',fontWeight:'lighter',fontStyle:'italic',textDecoration:'underline'},
                         hoverTrueStyle:{color:'blue'},
                         hoverViewStyle:{color:'blue'},
+                        willCreateKey:0,
                         props:{
                             className:['init','test']
                         },
@@ -142,10 +153,11 @@ export const defaultState = {
                 key:'0-2',
                 dataName:'页脚',
                 iconName:'icondiv',
-                trueStyle:{position:''},
+                trueStyle:{},
+                viewStyle:{},
                 hoverTrueStyle:{},
                 hoverViewStyle:{},
-                viewStyle:{},
+                willCreateKey:0,
                 props:{},
                 children:[]
             }
@@ -153,6 +165,45 @@ export const defaultState = {
     },
     selectedTag:{},
     hoveredTagKey:'',       //在树结构上hover的元素的key值，用于与content部分选中样式搭配
+    keyframesList:[
+        {
+            name:'test',
+            during:'2s',
+            delay:'0s',
+            isInfinite:true,
+            timingFunction:'ease',
+            frameList:[
+                {
+                    percent:0,
+                    trueStyle:{
+                        backgroundColor:'black'
+                    },
+                    viewStyle:{
+                        backgroundColor:'black'
+                    }
+                },
+                {
+                    percent:50,
+                    trueStyle:{
+                        backgroundColor:'red',
+                    },
+                    viewStyle:{
+                        backgroundColor:'red'
+                    }
+                },
+                {
+                    percent:100,
+                    trueStyle:{
+                        backgroundColor:'black'
+                    },
+                    viewStyle:{
+                        backgroundColor:'black'
+                    }
+                }
+            ]
+
+        }
+    ],
     classList:[               //nohtml中的类列表
         {
             className:'init',
@@ -189,17 +240,16 @@ export const defaultState = {
     ],
     nocssStyle:{
         color:'#1082c9',
-        backgroundColor:'rgba(230,230,230,0.3)',
+        backgroundColor:'rgba(219,219,219,0.3)',
         fontSize:'32px',
         fontWeight:'lighter',
         fontStyle:'normal',
         textDecoration:'none',
         border:'2px dashed #000000',
         padding:'4px 6px 4px 6px',
-        boxShadow:'0px 0px 24px 0px rgba(0,0,0,0.32),5px 5px 14px 0px rgba(13,71,134,0.2)',
-        textShadow:'1px 0px 0px #000000,0px 3px 5px rgba(70,117,214,0.5)',
-        borderRadius:'5px 5px 0 0'
-        // transform:'rotate(20deg) translate(0px,40px)'
+        boxShadow:'0px 0px 4px 0px rgba(0,0,0,0.32)',
+        textShadow:'0px 3px 3px rgba(70,117,214,0.5)',
+        borderRadius:'0 0 0 0'
     },
     hoverStyle:{
 

@@ -23,7 +23,6 @@ export function deleteTag(key) {
 
 //修改元素属性
 export function updateTag(update) {
-        // store.dispatch({type:'change_currentTagProp',update});
         store.dispatch({
             type:'update_tag',
             prop:update.prop,           //表示改变的是一个属性值
@@ -96,7 +95,6 @@ export function addClassList(classInfo){
 }
 
 export function updateCLassList(classInfo,index) {
-    console.log(classInfo)
     store.dispatch({
         type:'update_classlist',
         index,
@@ -106,4 +104,8 @@ export function updateCLassList(classInfo,index) {
 
 export function updateSetting(setting) {
     store.dispatch({type:'update_setting',setting})
+}
+
+export function addKeyFrames(keyframe) {
+    store.dispatch({type:'add_keyFrames',keyframe})
 }

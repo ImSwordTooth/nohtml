@@ -53,8 +53,6 @@ class MyTransform extends React.Component{
     }
 
     updateTransformValue = (value,index,param)=>{
-        console.log(value)
-        // console.log(param)
         let list = this.state.transformList.slice();
         let parameter = list[index].parameter.slice();
         for (let i=0;i<parameter.length;i++) {
