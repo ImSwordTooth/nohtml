@@ -9,6 +9,7 @@ import {TableModal} from "../../common/modals/tableModal";
 import '../css/insert.less'
 import {ImageModal} from "../../common/modals/imageModal";
 import Mask from "../mask";
+import {getObjByKeyFromTagList} from "../../../../common/units";
 
 class insert extends React.Component{
 
@@ -31,10 +32,11 @@ class insert extends React.Component{
     //插入标签格式化
     formatTag = (type,name)=>{
         let selectTag = this.state.selectedTag;
+        let parent = getObjByKeyFromTagList(selectTag.pid,this.state.tagList);
         return {
             type:type,
             pid:selectTag.pid,
-            key:`${selectTag.key}-${selectTag.willCreateKey}`,
+            key:`${selectTag.pid}-${parent.willCreateKey}`,
             dataName:name,
             iconName:'icon'+type,
             content:`新建${type}`,
@@ -50,13 +52,14 @@ class insert extends React.Component{
 
     formatImage = (name,src) =>{
         let selectTag = this.state.selectedTag;
+        let parent = getObjByKeyFromTagList(selectTag.pid,this.state.tagList);
         this.setState({
             showImageModal:false
         })
         return {
             type:'img',
             pid:selectTag.pid,
-            key:`${selectTag.key}-${selectTag.willCreateKey}`,
+            key:`${selectTag.pid}-${parent.willCreateKey}`,
             dataName:name,
             iconName:'iconimg',
             trueStyle:{},
@@ -72,6 +75,7 @@ class insert extends React.Component{
 
     formatTable = (arr,className)=>{
         let selectTag = this.state.selectedTag;
+        let parent = getObjByKeyFromTagList(selectTag.pid,this.state.tagList);
         this.setState({
             showTableModal:false
         });
@@ -81,8 +85,8 @@ class insert extends React.Component{
         arr.forEach((item,index)=>{
            trs[index] = Object.assign({},{
                type:'tr',
-               pid:selectTag.willCreateKey+'-0',
-               key:`${selectTag.willCreateKey}-0-${index}`,
+               pid:`${selectTag.pid}-${parent.willCreateKey}-0`,
+               key:`${selectTag.pid}-${parent.willCreateKey}-0-${index}`,
                dataName:`新建tr${index+1}`,
                iconName:'icontr',
                trueStyle:{},
@@ -139,7 +143,7 @@ class insert extends React.Component{
         return {
             type:'table',
             pid:selectTag.pid,
-            key:`${selectTag.key}-${selectTag.willCreateKey}`,
+            key:`${selectTag.pid}-${parent.willCreateKey}`,
             dataName:'新建table',
             iconName:'icontable',
             trueStyle:{},
@@ -153,8 +157,8 @@ class insert extends React.Component{
             children: [
                 {
                     type:'tbody',
-                    pid:selectTag.willInsertKey,
-                    key:selectTag.willInsertKey+'-0',
+                    pid:`${selectTag.pid}-${parent.willCreateKey}`,
+                    key:`${selectTag.pid}-${parent.willCreateKey}`+'-0',
                     dataName:'新建tbody',
                     iconName:'icontbody',
                     trueStyle:{},
@@ -184,7 +188,7 @@ class insert extends React.Component{
         return {
             type:'input',
             pid:selectTag.pid,
-            key:`${selectTag.key}-${selectTag.willCreateKey}`,
+            key:`${selectTag.pid}-${selectTag.willCreateKey}`,
             dataName,
             iconName,
             trueStyle:{},

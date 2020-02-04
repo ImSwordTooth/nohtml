@@ -1,10 +1,13 @@
 import {combineReducers} from "redux";
 import {defaultState} from './state'
 import {getObjByKeyFromTagList} from '../common/units'
-import store from "./index";
+import store from '../store'
 
 function tagList(state = defaultState.tagList,action) {
     switch (action.type) {
+        case 'change_tagList':{
+            return action.tagList;
+        }
         case 'add_tag':
             let addTag = Object.assign({},state);
             let addTagObj = getObjByKeyFromTagList(action.dom.pid,addTag);
@@ -72,12 +75,8 @@ function tagList(state = defaultState.tagList,action) {
                 dropOverTargetObj.willCreateKey++;                              //因为用过一次了，所以要获取新的willCreateKey
                 return dragTag;
             } else {
-
                 let notDropOverTargetObj = getObjByKeyFromTagList(targetKey,dragTag);           //获取拖拽目标
-                let parentKey = targetKey.split('-');
-                parentKey.pop();
-                let notDropOverTargetParentObj = getObjByKeyFromTagList(parentKey.join('-'),dragTag);       //获取拖拽目标的父元素，因为这算是父元素的新增
-
+                let notDropOverTargetParentObj = getObjByKeyFromTagList(notDropOverTargetObj.pid,dragTag);       //获取拖拽目标的父元素，因为这算是父元素的新增
                 let will = `${notDropOverTargetParentObj.key}-${notDropOverTargetParentObj.willCreateKey}`;
                 const handleDrag = function(obj,pid,key){                   //一层一层遍历，把拖拽过来的对象们的pid和key都改成该有的样子
                     obj.pid = pid;
@@ -89,7 +88,6 @@ function tagList(state = defaultState.tagList,action) {
                     }
                 };
                 handleDrag(originObj,notDropOverTargetObj.key,will);
-
                 for (let i=0; i<notDropOverTargetParentObj.children.length; i++){
                     if (notDropOverTargetParentObj.children[i].key === targetKey){
                         if (dropPosition === 'top'){
@@ -112,8 +110,9 @@ function tagList(state = defaultState.tagList,action) {
 function selectedTag(state = defaultState.selectedTag,action) {
     switch (action.type) {
         case 'change_currenttag':{
-            let selectTag = Object.assign({},defaultState.tagList);
-            return getObjByKeyFromTagList(action.key, selectTag);
+            // return getObjByKeyFromTagList(action.key, defaultState.tagList);
+            return getObjByKeyFromTagList(action.key, action.list);
+
         }
         case 'reset_currenttag':
             return {};
@@ -141,27 +140,6 @@ function hoveredTagKey(state = defaultState.hoveredTagKey,action) {
         default:return state;
     }
 }
-
-function getWillCreateKey(targetObj) {
-    let willCreateKey = '';                 //即将新建的元素的key值
-    if (targetObj && targetObj.children){
-        if (JSON.stringify(targetObj.children)!=='[]') {
-            let arr = [];
-            for (let j = 0; j < targetObj.children.length; j++) {
-                let x = targetObj.children[j].key.split('-');
-                arr.push(x[x.length - 1])
-            }
-            willCreateKey = `${targetObj.key}-${Math.max(...arr) + 1}`;
-        }
-        else {
-            willCreateKey = `${targetObj.key}-0`;
-        }
-        targetObj.willCreateKey = willCreateKey;
-    }
-
-}
-
-
 
 function nocssStyle(state = defaultState.nocssStyle,action) {
     switch (action.type) {
@@ -298,6 +276,25 @@ function nav(state = defaultState.nav,action) {
     }
 }
 
+function loginStatus(state = defaultState.loginStatus,action) {
+    switch (action.type) {
+        case 'change_loginStatus':{
+            return action.status;
+        }
+        default:return state;
+    }
+}
+
+//登录后的用户信息
+function user(state = defaultState.user,action) {
+    switch (action.type) {
+        case 'change_user':{
+            return action.user;
+        }
+        default:return state;
+    }
+}
+
 export default combineReducers({
     tagList,
     selectedTag,
@@ -312,5 +309,7 @@ export default combineReducers({
     classList,
     nav,
     keyframesList,
-    setting
+    setting,
+    loginStatus,
+    user
 });

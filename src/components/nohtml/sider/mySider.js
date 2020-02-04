@@ -105,8 +105,8 @@ class mySider extends React.Component{
         arr.forEach((item,index)=>{
             trs[index] = Object.assign({},{
                 type:'tr',
-                pid:selectTag.willCreateKey+'-0',
-                key:`${selectTag.willCreateKey}-0-${index}`,
+                pid:`${selectTag.key}-${selectTag.willCreateKey}-0`,
+                key:`${selectTag.key}-${selectTag.willCreateKey}-0-${index}`,
                 dataName:`新建tr${index+1}`,
                 iconName:'icontr',
                 trueStyle:{},
@@ -177,8 +177,8 @@ class mySider extends React.Component{
             children: [
                 {
                     type:'tbody',
-                    pid:selectTag.willCreateKey,
-                    key:selectTag.willCreateKey+'-0',
+                    pid:`${selectTag.key}-${selectTag.willCreateKey}`,
+                    key:`${selectTag.key}-${selectTag.willCreateKey}-0`,
                     dataName:'新建tbody',
                     iconName:'icontbody',
                     trueStyle:{},
@@ -225,7 +225,9 @@ class mySider extends React.Component{
     //tree列表上单击事件
     treeNodeonClick = e =>{
         if(e.toString()){
-            changeCurrentTag(e.toString());
+            //TODO 原来的
+            // changeCurrentTag(e.toString());
+            changeCurrentTag(e.toString(),this.state.tagList);
         }
         if (!this.state.showDrawer){
             //此处先把hoverTag变成空
@@ -240,7 +242,9 @@ class mySider extends React.Component{
     // tree列表上右键事件
     treeNodeonRightClick = e => {
         e.node.onSelect(e.event);       //右击时也触发单击的事件
-        changeCurrentTag(e.node.props.eventKey);
+        //TODO 原来的
+        // changeCurrentTag(e.node.props.eventKey);
+        changeCurrentTag(e.node.props.eventKey,this.state.tagList);
         this.setState({
             display: 'block',
             rightClickNodeTreeItem: {
@@ -348,12 +352,17 @@ class mySider extends React.Component{
 
      drop = (e)=>{
          reSetTag();
-         dropTag({
-             dropOver:e.node.props.dragOver,
-             originKey:e.dragNodesKeys,
-             targetKey:e.node.props.eventKey,
-             dropPosition:e.node.props.dragOverGapTop ? 'top':'bottom',
-         })
+         if(e.node.props.eventKey === '0' && !e.node.props.dragOver){
+             message.error('根元素只能为一个');
+         }else {
+             dropTag({
+                 dropOver:e.node.props.dragOver,
+                 originKey:e.dragNodesKeys,
+                 targetKey:e.node.props.eventKey,
+                 dropPosition:e.node.props.dragOverGapTop ? 'top':'bottom',
+             })
+         }
+
      };
 
     // 自定义右键菜单内容

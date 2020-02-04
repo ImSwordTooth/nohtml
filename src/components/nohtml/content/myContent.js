@@ -201,7 +201,11 @@ class myContent extends React.Component{
 
                 return (
                     <div>
-                        <TextArea value={this.state.selectedTag.content} style={{marginBottom:'10px'}} onChange={(e) => this.changeContent(e)}/>
+                        {
+                            this.state.selectedTag.type === 'img'
+                            ?<img src={this.state.selectedTag.props.src} />
+                                :<TextArea value={this.state.selectedTag.content} style={{marginBottom:'10px'}} onChange={(e) => this.changeContent(e)}/>
+                        }
                         <Collapse expandIconPosition={'right'} bordered={false} defaultActiveKey={['1','2','3']}>
                             <Panel key={1} header={'属性'} style={{background: '#f7f7f7',borderRadius: 4, marginBottom: 10,border: 0,overflow: 'hidden',borderTop:'solid 4px rgba(218, 218, 218, 0.34)'}}>
                                 <ul className={'drawerUl'}>
@@ -663,7 +667,6 @@ class myContent extends React.Component{
             className += node.props.className.join(' ');
             css = getComputedCss(node,'trueStyle');
             hover = getComputedCss(node,'hoverTrueStyle');
-
         }
         if (node.children!==undefined){
             return React.createElement(

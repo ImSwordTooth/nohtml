@@ -1,25 +1,71 @@
 #root{
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  .header_wp{
-    position: relative;
+  .logo_wp{             //logo容器
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: inline-block;
+    z-index: 9999;
+    transition: all 1s;
+    user-select: none;
+    //will-change: left,top;
+    .logo{              //logo
+      width: 75px;
+      filter: drop-shadow(2px 4px 2px rgba(107, 107, 107, 0.31));
+    }
+  }
+
+  .header_wp{         //页眉
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
     display: flex;
+    justify-content: flex-end;
     align-items: center;
-    justify-content: space-between;
-    background:linear-gradient(to left,rgba(0,0,0,.3),rgba(255,255,255,.8));
     height: 60px;
-    .left{
-      display: flex;
-      align-items: flex-end;
-      height: 100%;
-      margin-left: 100px;
+    padding:0 30px 0 100px;
+    z-index: 2;
+    user-select: none;
+    .right_part{
+      display: inline-flex;
+      align-items: center;
+    }
+    .functionList{
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      & > li{
+        display: inline-flex;
+        margin-left: 10px;
+        font-weight: bold;
+        font-size: 15px;
+        font-style: italic;
+        color: #5c5c5c;
+        text-shadow: 2px 0 0 rgba(160, 160, 160, 0.24);
+      }
+    }
+    .fileName_wp{
+      display: inline-flex;
+      align-items: center;
+      .fileName{
+        font-size: 18px;
+        font-weight: bold;
+        user-select: text;
+      }
+      & > i{
+        margin-left: 5px;
+        cursor: pointer;
+        &:hover{
+          color: #000;
+        }
+      }
+    }
 
       .nav{
         list-style: none;
         margin:0;
-        border-bottom: solid 2px black;
-        border-image: linear-gradient(to left,#000000,#ffffff) 10;
         &>li{
           display: inline-flex;
           align-items: center;
@@ -30,52 +76,122 @@
             color: rgba(0, 0, 0, 0.73);
             display: flex;
             align-items: center;
+            transition: transform .3s;
             &>i{
               margin-right: 5px;
             }
           }
           &.active{
-            border-top: solid 2px rgb(24,144,255);
             &>a{
               color: rgb(24,144,255);
+            }
+            .iconhtml{
+              color: rgb(255,109,72);
+            }
+            .iconcss{
+              color: #00ad6b;
             }
           }
           &:hover{
             &>a{
-              color: rgb(24,144,255);
+              transform: translateY(-5px);
             }
           }
-
         }
+      }
+
+    .icongithub{
+      font-size: 36px;
+      cursor: pointer;
+      margin: 0 5px;
+      &:hover{
+        color: #000;
       }
     }
+    .userInfo{
+      margin-left: 20px;
 
-    .right{
-      display: flex;
-      align-items: center;
-      height: 100%;
-      margin-right: 40px;
-      & i{
-        font-size: 36px;
-        cursor: pointer;
-        margin: 0 5px;
-      }
-      .userInfo{
-        margin-left: 20px;
-        .loginLink{
-          color: #3d85d2;
-          text-shadow: 1px 0 0 #0000009c;
-        }
-        & > img{
-          width: 50px;
-          border-radius: 100%;
-          border: solid 1px #ddd;
-        }
+      & > img{
+        width: 50px;
+        border-radius: 100%;
+        border: solid 1px #ddd;
       }
     }
   }
 
-  .ant-badge-count{
-    box-shadow: none!important;
+  .loginInfo{           //用户信息
+    display: flex;
+    align-items: center;
+    .loginLink{
+      margin-left: 10px;
+      color: #3d85d2;
+    }
+    .loginAvatar{
+      width: 50px;
+      height: 50px;
+      border-radius: 100%;
+      border: solid 1px #e8e8e8;
+      object-fit: contain;
+    }
+  }
+
+  .loginLogo{           //放在登录页面的logo，设置top和left值来形成动画
+    display: flex;
+    align-items: center;
+    top: calc(22% - 75px);
+    left: 50%;
+    transform: translateX(-53%);
+    //transform: translate3d(-53%,0,0);
+    transition: all ease-out 1s;
+    img{
+      width: 120px!important;
+      height: 120px;
+      margin-right: 50px;
+      transition: all 1s;
+    }
+    .logoText{
+      opacity: 0;
+      animation: show .5s .8s forwards ease-in-out;            //精髓在于forwards
+      .logoTitle{
+        color: #000;
+        font-size: 42px;
+        font-weight: lighter;
+        letter-spacing: 2px;
+      }
+      .logoSubtitle{
+        color: #000;
+        font-size: 16px;
+        font-weight: lighter;
+        & > span{
+          margin: 0 5px;
+        }
+      }
+    }
   }
 }
+
+@keyframes show {
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
+::-webkit-scrollbar{
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track{
+  background-color: #efefef;
+}
+::-webkit-scrollbar-thumb{
+  background-color: rgb(162, 162, 162);
+}
+::-webkit-scrollbar-corner{
+  background-color: #efefef;
+}
+
+

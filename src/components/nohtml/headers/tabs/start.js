@@ -146,24 +146,11 @@ class start extends React.Component{
                             value={this.getDefaultFont()}
                             optionFilterProp="children"
                             onChange={(e)=>this.changeProp('fontFamily',e)}
-                            dropdownRender={menu => (
-                                <div>
-                                    {menu}
-                                    <Divider style={{ margin: '4px 0' }} />
-                                    <div className={'uploadfont'}>
-                                        <i className={'iconfont iconuploadfont'}/>
-                                        <span>上传字体</span>
-                                    </div>
-                                </div>
-                            )}
                             filterOption={(input, option) =>
                                 option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                             }
                         >
-                            <OptGroup label={'我的字体'}>
-                                <Option value="0">0</Option>
-                            </OptGroup>
-                            <OptGroup label={'中文字体'}>
+                            <OptGroup label={'字体'}>
                                 <Option value="宋体">宋体</Option>
                                 <Option value="黑体">黑体</Option>
                                 <Option value="微软雅黑">微软雅黑</Option>
@@ -171,11 +158,12 @@ class start extends React.Component{
                                 <Option value="楷体">楷体</Option>
                                 <Option value="幼圆">幼圆</Option>
                             </OptGroup>
-                            <OptGroup label={'英文字体'}>
-                                <Option value="1">111</Option>
-                                <Option value="2">222</Option>
-                                <Option value="3">333</Option>
-                                <Option value="4">444</Option>
+                            <OptGroup label={'通常字体'}>
+                                <Option value="serif">serif</Option>
+                                <Option value="sans-serif">sans-serif</Option>
+                                <Option value="cursive">cursive</Option>
+                                <Option value="fantasy">fantasy</Option>
+                                <Option value="monospace">monospace</Option>
                             </OptGroup>
 
                         </Select>

@@ -1,0 +1,123 @@
+.user_wp{
+  display: flex;
+  justify-content: space-between;
+  padding: 40px;
+  height: 100%;
+  background: url("../../../asset/userbc.png") no-repeat;
+  background-position: top right;
+  overflow: auto;
+  .file{
+    position: relative;
+    top: 50px;
+    width: 1200px;
+    margin: 0 200px 0 100px;
+    .listTitle{
+      font-size: 28px;
+      font-weight: bold;
+    }
+    .userInfo{
+      position: absolute;
+      right: -40px;
+      top: -80px;
+      width: max-content;
+      background-color: white;
+      display: flex;
+      justify-content: space-between;
+      //border: solid 1px #b8b8b8;
+      padding: 20px;
+      //box-shadow: 1px 1px 8px 5px #e5e5e5bd;
+      border-radius: 5px;
+
+      .avatar{
+        display: flex;
+        justify-content: center;
+        margin-right: 20px;
+        & > img{
+          width: 100px;
+          height:100px;
+          border-radius: 100%;
+        }
+      }
+      .information{
+        //text-align: left;
+        //justify-content: flex-start;
+        .username{
+          text-align: left;
+          font-size: 24px;
+          font-family: 微软雅黑, serif;
+          font-weight: bolder;
+          color: #000;
+          margin: 0 0 15px;
+        }
+        .info{
+          display: flex;
+          align-items: center;
+          font-size: 14px;
+          margin: -12px 0;
+          & > i{
+            margin-right: 5px;
+          }
+        }
+      }
+
+    }
+
+    .fileList{
+      margin: 0;
+      padding:0 20px;
+      list-style: none;
+      min-height: 300px;
+      & > li{
+        margin: 20px 0;
+        border-bottom: 1px solid #e8e8e8;
+        padding: 10px;
+        border-radius: 5px;
+        cursor:pointer;
+        &.active{
+          background-color: rgba(66, 66, 66, 0.15);
+          border-bottom-color: transparent;
+          box-shadow: 0 0 10px 0 rgba(138, 138, 138, 0.08);
+        }
+        &:not(.active):hover{
+          background-color: rgba(232, 232, 232, 0.31);
+          transition:background-color .3s;
+        }
+        .title_wp{
+          display: flex;
+          justify-content: space-between;
+          .title{
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0;
+          }
+        }
+        .content{
+          margin: 10px 0;
+        }
+        .last{
+          display: flex;
+          align-items: center;
+          & > strong{
+            margin: 0 2px;
+            color: #4a6add;
+          }
+        }
+
+      }
+    }
+
+  }
+
+  .show{
+    position: fixed;
+    bottom: 5%;
+    right: 5%;
+    z-index: 99;
+    background: url("../../../asset/PC.png") center/cover;
+    width: 400px;
+    height: 300px;
+    padding: 15px 15px 80px;
+    overflow: auto;
+  }
+}
+

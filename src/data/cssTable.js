@@ -193,6 +193,7 @@ export const dataSource = {
     overflowY:['visible','hidden','scroll','auto'],
     paddingBlock:['auto'],
     paddingInline:['auto'],
+    padding:[],
     pageBreakAfter:['auto','always','left','right','recto','verso','avoid'],
     pageBreakBefore:['auto','always','left','right','recto','verso','avoid'],
     pageBreakInside:['auto','avoid'],

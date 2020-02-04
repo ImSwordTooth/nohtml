@@ -11,9 +11,7 @@ class Operation extends React.Component{
 
     constructor(props){
         super(props);
-        this.state = Object.assign({},store.getState(),{
-
-        })
+        this.state = Object.assign({},store.getState());
         store.subscribe(this.listener)
     }
 
@@ -33,8 +31,8 @@ class Operation extends React.Component{
                         <i className={'iconfont iconreload'}/>
                     </div>
                 </div>
-                <div style={{padding:'2px 10px',overflow:'auto',position:'relative'}} id={'xxx'}>
-                    <Tabs defaultActiveKey={'3'}>
+                <div style={{padding:'2px 10px',position:'relative'}} id={'xxx'}>
+                    <Tabs defaultActiveKey={'1'}>
                         <TabPane tab={<span className={'tabPane'}><i className={'iconfont iconstandard'}/><span>基础</span></span>} key="1">
                             <Standard/>
                         </TabPane>

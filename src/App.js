@@ -1,25 +1,29 @@
+// 路由主页以及共用的页眉
 import React from 'react'
-import {Badge} from "antd";
 import store from './store'
-import {BrowserRouter as Router,Switch,Route,Link}  from 'react-router-dom'
+import {BrowserRouter as Router,Switch,Route,Link,useRouteMatch,withRouter}  from 'react-router-dom'
+import { browserHistory } from 'react-router';
 import Nocss from "./nocss";
-import Logo from './components/logo/logo'
-import './css/app.less'
-import LoginModal from "./components/commonModals/loginModal";
-
-import {changeNav} from "./store/action";
-import Home from "./index/home";
+import {changeLoginStatus, changeNav, changeUser, updateSetting} from "./store/action";
+import Home from "./home";
 import Nohtml from "./nohtml";
-
+import Login from "./login";
+import UserInfo from "./components/other/userInfo";
+import http from "./common/http";
+import './css/app.less'
+import {Input, message, Tag} from "antd";
+import NohtmlIndex from "./nohtmlIndex";
 
 class App extends React.Component{
-
     constructor(props){
         super(props);
         this.state = Object.assign({},store.getState(),{
+            pathname:window.location.pathname,
             navName:'home',
             showLoginModal:false,
-            active:''
+            active:'',
+            isLogin:false,
+            isReName:false
         });
         store.subscribe(this.listen);
     }
@@ -30,88 +34,135 @@ class App extends React.Component{
     };
 
     componentWillMount () {
-        window.addEventListener('beforeunload', this.beforeunload);
-        if (sessionStorage.getItem('nav')){
-            changeNav(sessionStorage.getItem('nav'))
+        if (sessionStorage.getItem('haveLogin') === 'true'){            //用户已经登录过了，刷新的时候重新获取用户状态
+            http.get('/getUserInfo').then(res=>{
+                console.log(res)
+                changeLoginStatus(2);
+                let {avatar,userId,userName} = res.data.data;
+                changeUser({
+                    avatar,
+                    userId,
+                    userName
+                });
+            })
+
         }
     }
-    componentWillUnmount () {
-        window.removeEventListener('beforeunload', this.beforeunload);
-    }
-    beforeunload  = () =>{
-        sessionStorage.setItem('nav', this.state.nav);
+
+    //右上角登录部分显示的元素
+    loginContent = ()=>{
+        switch (this.state.loginStatus) {
+            case 0 :return(                         //用户未登录，则显示“登录”链接
+                <Link to={'/login'}>
+                    <div className={'loginInfo'}>
+                        <span className={'loginLink'}>登录</span>
+                    </div>
+
+                </Link>
+            );
+            case 2:return(                          //用户已登录，则显示用户信息和个人页面的入口，TODO 以及退出登录的按钮，退出时记得把sessionStorage里的haveLogin置为false
+                <Link to={'/userInfo'} className={'loginInfo'}>
+                    <img src={this.state.user.avatar} alt={this.state.user.userName} className={'loginAvatar'}/>
+                    <span className={'loginLink'}>{this.state.user.userName}</span>
+                </Link>
+            );
+            default:return <></>
+        }
     };
-
-
 
     render() {
         return (
-            <Router>
-                <div className={'header_wp'}>
-                    <div className={'left'}>
-                        <Logo/>
-                        <ul className={'nav'}>
-                            <li className={this.state.nav==='home'?'active':''}>
-                                <Link to={'/'} onClick={()=>changeNav('home')}>
-                                    <i className={'iconfont iconhome'}/>
-                                    home
-                                </Link>
-                            </li>
-                            <li className={this.state.nav==='nohtml'?'active':''}>
-                                <Link to={'/nohtml'} onClick={()=>changeNav('nohtml')}>
-                                    <i className={'iconfont iconhtml'}/>
-                                    nohtml
-                                </Link>
-                            </li>
-                            <li className={this.state.nav==='nocss'?'active':''}>
-                                <Link to={'/nocss'} onClick={()=>changeNav('nocss')}>
-                                    <i className={'iconfont iconcss'}/>
-                                    nocss
-                                </Link>
-                            </li>
-                            <li className={this.state.nav==='discuss'?'active':''}>
-                                <Link to={'/discuss'} onClick={()=>changeNav('discuss')}>
-                                    <i className={'iconfont icondiscuss'}/>
-                                    讨论区
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
-                    <div className={'right'}>
-                        <i className={'iconfont icongithub'} onClick={()=>window.open('https://github.com/ImSwordTooth/nohtml')}/>
-                        <Badge count={5} overflowCount={10} offset={[-5,5]}>
-                            <i className={'iconfont icondiscuss'}/>
-                        </Badge>
+                <Router>
+                    {
+                        this.state.nav === 'detail'
+                        ?<></>
+                            :<><Link to={'/'}>
+                                <div className={`logo_wp ${this.state.loginStatus === 1 ? 'loginLogo' : ''}`} id={'logo'}>
+                                    <img src={require('./asset/logo.png')} alt={'logo'} className={'logo'}/>
+                                    {
+                                        this.state.loginStatus === 1
+                                            ?<div className={'none logoText '}>
+                                                <span className={'logoTitle'}>NoHtml</span>
+                                                <div className={'logoSubtitle'}>
+                                                    <span>多人</span>
+                                                    <span>云端</span>
+                                                    <span>可视化</span>
+                                                </div>
+                                            </div>
+                                            :<></>
+                                    }
+                                </div>
+                            </Link>
+
+                                <div className={'header_wp'}>
+                                    {
+                                        this.state.nav === 'detail'
+                                            ?<>
+                                                <ul className={'functionList'}>
+                                                    <li>新建</li>
+                                                    <li>保存</li>
+                                                    <li>文件列表</li>
+                                                    <li>123456</li>
+                                                </ul>
+                                                <div className={'fileName_wp'}>
+                                                    {
+                                                        this.state.isReName
+                                                            ?<Input value={this.state.setting.fileName} style={{width:120}} autoFocus={true} onChange={(e)=>updateSetting({prop:'fileName',value:e.target.value})} onPressEnter={()=>this.setState({isReName:false})}/>
+                                                            :<><span className={'fileName'}>{this.state.setting.fileName}</span><i className={'iconfont iconrename'} onClick={()=>this.setState({isReName:true})}/></>
+                                                    }
+                                                </div>
+
+                                            </>
+                                            :<></>
+                                    }
+
+                                    <div className={'right_part'} style={this.state.nav === 'nohtml' ? {} : {justifyContent:'flex-end',width:'100%'}}>
+                                        <ul className={'nav'}>
+                                            <li className={this.state.nav==='nohtml'?'active':''}>
+                                                <Link to={`/nohtml`}>
+                                                    <i className={'iconfont iconhtml'}/>
+                                                    NoHtml
+                                                </Link>
+                                            </li>
+                                            <li className={this.state.nav==='nocss'?'active':''}>
+                                                <Link to={`/nocss`}>
+                                                    <i className={'iconfont iconcss'}/>
+                                                    NoCss
+                                                </Link>
+                                            </li>
+                                        </ul>
+                                        <i className={'iconfont icongithub'} onClick={()=>window.open('https://github.com/ImSwordTooth/nohtml')}/>
+                                        {this.loginContent()}
+                                    </div>
+
+                                </div></>
+                    }
 
 
-                        <div className={'userInfo'}>
-                            <a onClick={()=>this.setState({showLoginModal:true})} className={'loginLink'}>登录</a>
-                            {/*<img src={require('./logo.png')} alt={'剑齿'}/>*/}
-                            {/*<span>剑齿</span>*/}
-                        </div>
-                    </div>
-                    <LoginModal showLoginModal={this.state.showLoginModal} cancel={()=>this.setState({showLoginModal:false})}/>
-
-                </div>
-
-                {/*<Switch>*/}
-                <Route exact path={"/"}>
-                    <Home/>
-                </Route>
-                <Route exact path="/nohtml">
-                    <Nohtml />
-                </Route>
-                <Route exact path="/nocss">
-                    <Nocss />
-                </Route>
-
-
-                {/*</Switch>*/}
-            </Router>
+                    <Switch>
+                        <Route exact path={"/"}>
+                            <Home/>
+                        </Route>
+                        <Route exact path={"/login"}>
+                            <Login/>
+                        </Route>
+                        <Route exact path={'/userInfo'}>
+                            <UserInfo/>
+                        </Route>
+                        <Route exact path={`/nohtml`}>
+                            <NohtmlIndex/>
+                        </Route>
+                        <Route exact path={`/nohtml/detail/:id`}>
+                            <Nohtml/>
+                        </Route>
+                        <Route exact path={`/nocss`}>
+                            <Nocss/>
+                        </Route>
+                    </Switch>
+                </Router>
         )
     }
 
 }
-
 
 export default App;

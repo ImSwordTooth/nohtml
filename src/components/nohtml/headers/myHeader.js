@@ -12,17 +12,12 @@ import './css/myHeader.less'
 import {changeCode} from "../../../store/action";
 import { Tabs ,Button } from 'antd'
 const { TabPane } = Tabs;
-const operations = (
-    <div>
-        <span style={{marginRight:'100px'}}>最近保存:{Date.now()}</span>
-        <Button onClick={()=>changeCode(true)}>代码</Button>;
-    </div>
-)
+const operations = <Button onClick={()=>changeCode(true)}>代码</Button>;
 class myHeader extends React.Component{
     render() {
         return(
             <header className='header'>
-                <Tabs defaultActiveKey="4" tabBarExtraContent={operations}>
+                <Tabs defaultActiveKey="1" tabBarExtraContent={operations}>
                     <TabPane tab="开始" key="1">
                         <Start/>
                     </TabPane>

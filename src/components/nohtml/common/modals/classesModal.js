@@ -3,7 +3,7 @@ import {Modal,Select,Input,Tabs,message,Tooltip} from "antd";
 import store from '../../../../store'
 import '../css/classesModal.less'
 import {cssPropKeys} from "../../../../data/cssTable";
-import {addClassList, updateCLassList} from "../../../../store/action";
+import {addClassList, updateClassList} from "../../../../store/action";
 
 const {Option} = Select;
 const {TextArea} = Input;
@@ -132,7 +132,7 @@ class ClassesModal extends React.Component{
             }
         }
         if (this.props.classObj){
-            updateCLassList({
+            updateClassList({
                 className,
                 tag,
                 parentClass,

@@ -1,12 +1,20 @@
 export const defaultState = {
-    nav:'home',
-    showDrawer:false,
-    showCode:false,
-    setting:{
-      width:'60vw',
-      height:'60vh'
+    nav:'',             //导航栏信息
+    showDrawer:false,           //是否显示抽屉
+    showCode:false,             //是否显示代码
+    loginStatus:0,//0 未登录；1 正在登陆； 2 已登录
+    user:{              //用户信息
+      avatar:'',        //头像
+      userId:'',        //id
+      userName:''       //name
     },
-    tagList:{
+    setting:{           //关于用户制作的页面的整体设置
+        fileUrl:'',
+        fileName:'未命名Html',
+        width:'60vw',
+        height:'60vh'
+    },
+    tagList:{           //dom树
         type:'div',
         pid:null,
         key:'0',

@@ -1,14 +1,22 @@
+// Nocss的结构页，有展示区、代码区和操作区
 import React from 'react'
 import {Provider} from 'react-redux'
 import store from './store/index'
 import Code from './components/nocss/code/code'
 import Operation from './components/nocss/operation/operation'
 import Show from './components/nocss/show/show'
-
 import './css/nocss.less'
+import {changeNav} from "./store/action";
 
 
-class Nocss extends React.Component{
+export default class Nocss extends React.Component{
+    componentDidMount() {
+        changeNav('nocss');
+    }
+
+    componentWillUnmount() {
+        changeNav('');
+    }
 
     render() {
         return(
@@ -27,7 +35,4 @@ class Nocss extends React.Component{
             </Provider>
         )
     }
-
 }
-
-export default Nocss;
