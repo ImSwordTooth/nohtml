@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{PureComponent} from 'react'
 import {Select} from "antd";
 import './hover.less'
 import {addHoverList, changeHoverStyle} from "../../../../store/action";
@@ -6,9 +6,7 @@ import store from '../../../../store'
 import '../standard/standard.less'
 const {Option} = Select;
 
-
-
-class Hover extends React.Component{
+export default class Hover extends PureComponent{
 
     constructor(props){
         super(props);
@@ -24,10 +22,11 @@ class Hover extends React.Component{
     };
 
     addHover = (prop,compName)=>{
+        const {nocssStyle} = this.state;
         import(`../props/${compName}`).then(res=>{
                 changeHoverStyle({
                     prop,
-                    value:this.state.nocssStyle[prop]
+                    value:nocssStyle[prop]
                 });
                 addHoverList({
                     prop,
@@ -37,6 +36,7 @@ class Hover extends React.Component{
     };
 
     render() {
+        const {hoverList} = this.state;
 
         return (
             <div>
@@ -54,7 +54,7 @@ class Hover extends React.Component{
                 </Select>
                 <div>
                     <ul className={'operationUl'}>
-                        {Object.values(this.state.hoverList).map((Item,index)=>{
+                        {Object.values(hoverList).map((Item,index)=>{
                             return <Item key={index} stateName={'hoverStyle'}/>
                         })}
                     </ul>
@@ -63,5 +63,3 @@ class Hover extends React.Component{
         )
     }
 }
-
-export default Hover;

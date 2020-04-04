@@ -17,6 +17,7 @@ class Code extends React.Component{
     };
 
     render() {
+        const {selfClassName,nocssStyle,customerCssStyle,hoverStyle,customerHoverStyle} = this.state;
         return(
             <div className={'show_wp'}>
                 <div className={'Title'}>
@@ -29,17 +30,17 @@ class Code extends React.Component{
                     </div>
                 </div>
                 <div className={'css_wp'}>
-                    {`.${this.state.selfClassName}{`}
+                    {`.${selfClassName}{`}
                     <br/>
-                    {[...Object.entries(Object.assign({},this.state.nocssStyle,this.state.customerCssStyle))].map((item,index)=>{
+                    {[...Object.entries(Object.assign({},nocssStyle,customerCssStyle))].map((item,index)=>{
                     if (item[1]){
                         return <span style={{display:'block'}} className={'cssText'} key={index}><strong>{item[0]}:</strong><span>{item[1]};</span></span>
                     }
                 })}
 }
                     <br/>
-                    {`.${this.state.selfClassName}:hover{`}
-                    {[...Object.entries(Object.assign({},this.state.hoverStyle,this.state.customerHoverStyle))].map((item,index)=>{
+                    {`.${selfClassName}:hover{`}
+                    {[...Object.entries(Object.assign({},hoverStyle,customerHoverStyle))].map((item,index)=>{
                         if (item[1]){
                             return <span style={{display:'block'}} className={'cssText'} key={index}><strong>{item[0]}:</strong><span>{item[1]};</span></span>
                         }

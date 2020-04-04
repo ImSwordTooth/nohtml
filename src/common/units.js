@@ -267,3 +267,15 @@ export function deleteProp (stateName,prop,index){
         default:return;
     }
 }
+
+/**
+ * 寻找最大公约数
+ *
+ * */
+export function gcd(m,n){
+    if (n === 0){
+        return m;
+    } else {
+        return gcd(n,m%n);
+    }
+};

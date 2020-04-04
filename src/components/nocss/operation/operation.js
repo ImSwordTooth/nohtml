@@ -1,25 +1,12 @@
-import React from 'react'
+import React,{PureComponent} from 'react'
 import {Tabs} from "antd";
-import store from '../../../store'
 import Standard from './standard/standard'
 import Hover from "./hover/hover";
 import Customer from "./customer/customer";
 import './operation.less'
 const {TabPane} = Tabs;
 
-class Operation extends React.Component{
-
-    constructor(props){
-        super(props);
-        this.state = Object.assign({},store.getState());
-        store.subscribe(this.listener)
-    }
-
-    listener = ()=>{
-        let newState = store.getState();
-        this.setState(newState)
-    };
-
+export default class Operation extends PureComponent{
     render() {
         return (
             <div className={'show_wp'} id={'show_wp'} style={{borderLeft:'solid 1px #eeeeee',overflow:'hidden'}}>
@@ -31,7 +18,7 @@ class Operation extends React.Component{
                         <i className={'iconfont iconreload'}/>
                     </div>
                 </div>
-                <div style={{padding:'2px 10px',position:'relative'}} id={'xxx'}>
+                <div style={{padding:'2px 10px',position:'relative'}}>
                     <Tabs defaultActiveKey={'1'}>
                         <TabPane tab={<span className={'tabPane'}><i className={'iconfont iconstandard'}/><span>基础</span></span>} key="1">
                             <Standard/>
@@ -48,5 +35,3 @@ class Operation extends React.Component{
         )
     }
 }
-
-export default Operation

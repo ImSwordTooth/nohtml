@@ -11,13 +11,14 @@ import CodeModal from '../common/modals/codeModal'
 import './css/myHeader.less'
 import {changeCode} from "../../../store/action";
 import { Tabs ,Button } from 'antd'
+import Setting from "./tabs/setting";
 const { TabPane } = Tabs;
 const operations = <Button onClick={()=>changeCode(true)}>代码</Button>;
 class myHeader extends React.Component{
     render() {
         return(
             <header className='header'>
-                <Tabs defaultActiveKey="1" tabBarExtraContent={operations}>
+                <Tabs defaultActiveKey="6" tabBarExtraContent={operations}>
                     <TabPane tab="开始" key="1">
                         <Start/>
                     </TabPane>
@@ -34,7 +35,7 @@ class myHeader extends React.Component{
                         <Viewport/>
                     </TabPane>
                     <TabPane tab="设置" key="6">
-                        ico/title/meta...
+                        <Setting/>
                     </TabPane>
                 </Tabs>
                 <CodeModal/>

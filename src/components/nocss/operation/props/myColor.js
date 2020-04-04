@@ -1,10 +1,9 @@
-import React from 'react'
+import React,{PureComponent} from 'react'
 import ColorPicker from "rc-color-picker";
 import store from '../../../../store'
-
 import {changeProp} from "../../../../common/units";
 
-class MyColor extends React.Component{
+export default class MyColor extends PureComponent{
 
     constructor(props){
         super(props);
@@ -18,14 +17,17 @@ class MyColor extends React.Component{
     };
 
     render() {
+        const {stateName} = this.props;
+        const {color} = this.state[stateName];
+
         return(
                 <li className={'color'}>
                     <span className={'operateTitle'}><i className={'iconfont iconnocsscolor'}/>文字颜色</span>
                     <div className={'content'}>
-                        <ColorPicker onChange={(e)=>changeProp(this.props.stateName,'color',e)} defaultColor={this.state[this.props.stateName].color} defaultAlpha={new RegExp('(?<=\\()\\S+(?=\\))','g').exec(this.state[this.props.stateName].color)?Number(new RegExp('(?<=\\()\\S+(?=\\))','g').exec(this.state[this.props.stateName].color)[0].split(',')[3])*100:100}>
+                        <ColorPicker onChange={(e)=>changeProp(stateName,'color',e)} defaultColor={color} defaultAlpha={new RegExp('(?<=\\()\\S+(?=\\))','g').exec(color)?Number(new RegExp('(?<=\\()\\S+(?=\\))','g').exec(color)[0].split(',')[3])*100:100}>
                             <div className={'colorpicker'}>
-                                <span className={'currentColor'} style={{backgroundColor:this.state[this.props.stateName].color}}/>
-                                <span className={'currentColorText'}>{this.state[this.props.stateName].color}</span>
+                                <span className={'currentColor'} style={{backgroundColor:color}}/>
+                                <span className={'currentColorText'}>{color}</span>
                             </div>
                         </ColorPicker>
                     </div>
@@ -33,5 +35,3 @@ class MyColor extends React.Component{
         )
     }
 }
-
-export default MyColor

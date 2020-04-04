@@ -50,6 +50,7 @@ class NohtmlIndex extends React.Component{
                 <Content>
                     <Layout style={{ padding: '24px', background: '#fff',height:'100%' }}>
                         <Sider width={200} style={{ background: '#fff' }}>
+                            <button className={'new'}>新建</button>
                             <Menu defaultSelectedKeys={['1']} onClick={(e)=>this.setState({menuIndex:e.key})}>
                                 <Menu.Item key={'1'}>
                                     <span className={'menuItem'}>

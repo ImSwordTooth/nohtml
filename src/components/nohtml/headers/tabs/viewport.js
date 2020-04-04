@@ -1,76 +1,77 @@
-import React from 'react'
-import {Input,Divider,Tooltip} from "antd";
+import React,{PureComponent} from 'react'
+import {Divider,Tooltip} from "antd";
 import store from '../../../../store'
 import '../css/viewport.less'
 import {updateSetting} from "../../../../store/action";
-class Viewport extends React.Component{
+import {gcd} from '../../../../common/units'
+export default class Viewport extends PureComponent{
 
     constructor(props){
         super(props);
         this.state = Object.assign({},store.getState(),{
             isChecked:true,
             viewport:{
-                diviceType:'默认',
-                diviceDirectionL:'横向',
+                deviceType:'默认',
+                deviceDirectionL:'横向',
                 size:'60vw * 60vh （分别为设备宽度和高度的60%）',
                 ratio:'/'
             },
-            activeDiviceIndex:0,
+            activeDeviceIndex:0,
             isEditing:false,
             editWidth:'1024',
             editHeight:'768',
-            diviceList:[
+            deviceList:[
                 {
-                    diviceName: '默认',      //设备名
+                    deviceName: '默认',      //设备名
                     isHorizontal: false,     //是否水平放置
                     width:'60vw',
                     height:'60vh',
-                    icon:'icondefaultdivice'
+                    icon:'icondefaultdevice'
                 },
                 {
-                    diviceName: 'iP 5/SE',
+                    deviceName: 'iP 5/SE',
                     isHorizontal: false,
                     width:'320px',
                     height:'568px',
                     icon:'iconiphone5'
                 },
                 {
-                    diviceName: 'iP 6/7/8',
+                    deviceName: 'iP 6/7/8',
                     isHorizontal: false,
                     width:'375px',
                     height:'667px',
                     icon:'iconiphone6'
                 },
                 {
-                    diviceName: 'iP X',
+                    deviceName: 'iP X',
                     isHorizontal: false,
                     width:'375px',
                     height:'812px',
                     icon:'iconiphone7'
                 },
                 {
-                    diviceName: 'iPad',
+                    deviceName: 'iPad',
                     isHorizontal: false,
                     width:'768px',
                     height:'1024px',
                     icon:'iconipad'
                 },
                 {
-                    diviceName: 'PC-S',
+                    deviceName: 'PC-S',
                     isHorizontal: false,
                     width:'1280px',
                     height:'1024px',
                     icon:'iconpc1'
                 },
                 {
-                    diviceName: 'PC-M',
+                    deviceName: 'PC-M',
                     isHorizontal: false,
                     width:'1366px',
                     height:'768px',
                     icon:'iconpc2'
                 },
                 {
-                    diviceName: 'PC-L',
+                    deviceName: 'PC-L',
                     isHorizontal: false,
                     width:'1980px',
                     height:'1080px',
@@ -86,274 +87,220 @@ class Viewport extends React.Component{
         this.setState(newState);
     };
 
-    changeDevice = check =>{
-        this.setState({
-            isChecked:check
-        })
-    }
-
-    changeSize = (divice,index)=>{
-        if (index !== -1 && this.state.isEditing){
+    changeSize = (device,index)=>{
+        const {isEditing,activeDeviceIndex,editWidth,editHeight} = this.state;
+        if (index !== -1 && isEditing){
             this.setState({
                 isEditing:false,
-                activeDiviceIndex:index
+                activeDeviceIndex:index
             },()=>{
                 updateSetting({
                     prop:'width',
-                    value:divice.width
+                    value:device.width
                 });
                 updateSetting({
                     prop:'height',
-                    value:divice.height
+                    value:device.height
                 });
             })
         }
 
-        if (this.state.activeDiviceIndex === index && index !== 0 && index !== -1){
-
-
-            let diviceList = this.state.diviceList.slice();
-            diviceList[index].isHorizontal = !diviceList[index].isHorizontal;
-            let width = diviceList[index].width;
-            let height = diviceList[index].height;
-            diviceList[index].width = height;
-            diviceList[index].height = width;
-            this.setState({diviceList});
-            this.changeViewPort(this.state.diviceList[this.state.activeDiviceIndex]);
+        if (activeDeviceIndex === index && index !== 0 && index !== -1){
+            let deviceList = this.state.deviceList.slice();
+            deviceList[index].isHorizontal = !deviceList[index].isHorizontal;
+            let width = deviceList[index].width;
+            let height = deviceList[index].height;
+            deviceList[index].width = height;
+            deviceList[index].height = width;
+            this.setState({deviceList});
+            this.changeViewPort(this.state.deviceList[activeDeviceIndex]);
             updateSetting({
                 prop:'width',
-                value:divice.width
+                value:device.width
             });
             updateSetting({
                 prop:'height',
-                value:divice.height
+                value:device.height
             });
         } else {
             this.setState({
-                activeDiviceIndex:index
+                activeDeviceIndex:index
             });
             if (index === -1 ){
-            //     this.changeViewPort(this.state.diviceList[this.state.activeDiviceIndex]);
-            // } else {
-                const gcd = function(m,n){
-                    if (n === 0){
-                        return m;
-                    } else {
-                        return gcd(n,m%n);
-                    }
-                };
-                let max = gcd(parseInt(this.state.editWidth),parseInt(this.state.editHeight));
+                const max = gcd(parseInt(editWidth),parseInt(editHeight));
                 this.setState({
                     viewport:{
-                        diviceType:'自定义',
-                        diviceDirectionL:'自定义',
-                        size:`${this.state.editWidth} * ${this.state.editHeight}`,
-                        ratio:`${parseInt(this.state.editWidth)/max} * ${parseInt(this.state.editHeight)/max}`
+                        deviceType:'自定义',
+                        deviceDirectionL:'自定义',
+                        size:`${editWidth} * ${editHeight}`,
+                        ratio:`${parseInt(editWidth)/max} * ${parseInt(editHeight)/max}`
                     },
                 })
             }
-
             updateSetting({
                 prop:'width',
-                value:divice.width
+                value:device.width
             });
             updateSetting({
                 prop:'height',
-                value:divice.height
+                value:device.height
             });
         }
+    };
 
-    }
-
-    changeViewPort = (divice)=>{
+    changeViewPort = (device)=>{
         let size = '';
-        if (divice.diviceName === '默认'){
+        if (device.deviceName === '默认'){
             size = '60vw * 60vh （分别为设备宽度和高度的60%）'
         } else {
-            size = `${divice.width} * ${divice.height}`
+            size = `${device.width} * ${device.height}`
         }
         let ratio = '';
-        if (divice.diviceName === '默认'){
+        if (device.deviceName === '默认'){
             ratio = '/'
         } else {
-            const gcd = function(m,n){
-                if (n === 0){
-                    return m;
-                } else {
-                    return gcd(n,m%n);
-                }
-            };
-            let max = gcd(parseInt(divice.width),parseInt(divice.height));
-            ratio = `${parseInt(divice.width)/max} * ${parseInt(divice.height)/max}`
+            const max = gcd(parseInt(device.width),parseInt(device.height));
+            ratio = `${parseInt(device.width)/max} * ${parseInt(device.height)/max}`
         }
         let viewport = {
-            diviceType:divice.diviceName,
-            diviceDirectionL:divice.isHorizontal ? '横向' : '纵向',
+            deviceType:device.deviceName,
+            deviceDirectionL:device.isHorizontal ? '横向' : '纵向',
             size,
             ratio
-        }
+        };
         this.setState({viewport})
-    }
+    };
 
     getViewport = ()=>{
-        if (this.state.activeDiviceIndex>-1){
-            this.changeViewPort(this.state.diviceList[this.state.activeDiviceIndex])
+        const {activeDeviceIndex,deviceList,editWidth,editHeight} = this.state;
+        if (activeDeviceIndex>-1){
+            this.changeViewPort(deviceList[activeDeviceIndex])
         } else {
-            const gcd = function(m,n){
-                if (n === 0){
-                    return m;
-                } else {
-                    return gcd(n,m%n);
-                }
-            };
-            let max = gcd(parseInt(this.state.editWidth),parseInt(this.state.editHeight));
+            const max = gcd(parseInt(editWidth),parseInt(editHeight));
             this.setState({
                 viewport:{
-                    diviceType:'自定义',
-                    diviceDirectionL:'自定义',
-                    size:`${this.state.editWidth} * ${this.state.editHeight}`,
-                    ratio:`${parseInt(this.state.editWidth)/max} * ${parseInt(this.state.editHeight)/max}`
+                    deviceType:'自定义',
+                    deviceDirectionL:'自定义',
+                    size:`${editWidth} * ${editHeight}`,
+                    ratio:`${parseInt(editWidth)/max} * ${parseInt(editHeight)/max}`
                 },
             })
         }
+    };
 
-    }
-
+    /**
+     * 开启自定义宽高的界面
+     * */
     startCustomer = ()=>{
-        const gcd = function(m,n){
-            if (n === 0){
-                return m;
-            } else {
-                return gcd(n,m%n);
-            }
-        };
-        let max = gcd(parseInt(this.state.editWidth),parseInt(this.state.editHeight));
+        const {editWidth,editHeight} = this.state;
+        const max = gcd(parseInt(editWidth),parseInt(editHeight));
         this.setState({
             isEditing:true,
             viewport:{
-                diviceType:'自定义',
-                diviceDirectionL:'自定义',
-                size:`${this.state.editWidth} * ${this.state.editHeight}`,
-                ratio:`${parseInt(this.state.editWidth)/max} * ${parseInt(this.state.editHeight)/max}`
+                deviceType:'自定义',
+                deviceDirectionL:'自定义',
+                size:`${editWidth} * ${editHeight}`,
+                ratio:`${parseInt(editWidth)/max} * ${parseInt(editHeight)/max}`
             },
-            activeDiviceIndex:-1
+            activeDeviceIndex:-1
         })
-    }
+    };
 
+    /**
+     * 全屏
+     * */
     fullScreen = ()=>{
+        updateSetting({
+            prop:'width',
+            value:'full'
+        });
+        updateSetting({
+            prop:'height',
+            value:'full'
+        });
 
-            updateSetting({
-                prop:'width',
-                value:'full'
-            });
-            updateSetting({
-                prop:'height',
-                value:'full'
-            });
-
-            let timeout = setTimeout(()=>{
-                if (this.state.setting.width === 'full'){
-                    let element = document.getElementById('0');
-                    let requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
-                    if (requestMethod) {
-                        requestMethod.call(element);
-                    }
+        let timeout = setTimeout(()=>{
+            if (this.state.setting.width === 'full'){
+                let element = document.getElementById('0');
+                let requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
+                if (requestMethod) {
+                    requestMethod.call(element);
                 }
-                clearTimeout(timeout);
-            },0)
-
-
-
-        // new Promise(resolve => {
-        //
-        //
-        // }).then(()=>{
-        //     if (this.state.setting.width === 'full'){
-        //         let element = document.getElementById('0');
-        //         let requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
-        //         if (requestMethod) {
-        //             requestMethod.call(element);
-        //         }
-        //     }
-        // })
-
-
-
-    }
+            }
+            clearTimeout(timeout);
+        },0)
+    };
 
     render() {
+        const {deviceList,viewport,activeDeviceIndex,editWidth,editHeight,isEditing} = this.state;
+
         return (
             <div className={'viewport'}>
-                <div className={'full'} onClick={()=>this.fullScreen()}>
+                <div className={'full'} onClick={this.fullScreen}>
                     <i className={'iconfont iconfullscreen'}/>
                     <span>全屏显示</span>
                 </div>
                 <Divider type={'vertical'} style={{height:'50px',margin:'0 10px'}}/>
                 <div className='deviceChoose'>
                     {
-                        this.state.diviceList.map((item,index)=>{
+                        deviceList.map((item,index)=>{
                             return (
-                                <div className={`devices ${index === this.state.activeDiviceIndex ? 'active' : ''}`}
+                                <div className={`devices ${index === activeDeviceIndex ? 'active' : ''}`}
                                      onMouseEnter={()=>this.changeViewPort(item)}
-                                     onMouseLeave={()=>this.getViewport()}
+                                     onMouseLeave={this.getViewport}
                                      onClick={()=>this.changeSize(item,index)}
                                 >
                                     <i className={`iconfont ${item.icon}`} style={item.isHorizontal?{transform:'rotate(-90deg)'}:{}}/>
-                                    <span>{item.diviceName}</span>
+                                    <span>{item.deviceName}</span>
                                 </div>
                             )
                         })
                     }
                 </div>
-                <div className={`customize ${this.state.activeDiviceIndex===-1?'active':''}`} onClick={()=>this.setState({activeDiviceIndex:-1},()=>this.changeSize({width:this.state.editWidth,height:this.state.editHeight},-1))}>
+                <div className={`customize ${activeDeviceIndex===-1?'active':''}`} onClick={()=>this.setState({activeDeviceIndex:-1},()=>this.changeSize({width:editWidth,height:editHeight},-1))}>
                     <div className={'customizeTitle'}>
                         <span>自定义：</span>
                         {
-                            this.state.isEditing
-                                ? <i className={'iconfont iconcurrent'} title={'应用'} onClick={()=>this.setState({isEditing:false},()=>this.changeSize({width:this.state.editWidth,height:this.state.editHeight},-1))}/>
-                                : <i className={'iconfont iconrename'} title={'编辑'} onClick={()=>this.startCustomer()}/>
+                            isEditing
+                                ? <i className={'iconfont iconcurrent'} title={'应用'} onClick={()=>this.setState({isEditing:false},()=>this.changeSize({width:editWidth,height:editHeight},-1))}/>
+                                : <i className={'iconfont iconrename'} title={'编辑'} onClick={this.startCustomer}/>
                         }
                     </div>
                     {
-                        this.state.isEditing
+                        isEditing
                             ?
                             <div className={'customizeContent'}>
-                                <input type={'text'} maxLength={4} value={this.state.editWidth} onChange={(e)=>this.setState({editWidth:e.target.value},()=>this.startCustomer())}/>
+                                <input type={'text'} maxLength={4} value={editWidth} onChange={(e)=>this.setState({editWidth:e.target.value},this.startCustomer)}/>
                                 <span style={{margin:'0px 5px',fontSize:'20px'}}>*</span>
-                                <input type={'text'} maxLength={4} value={this.state.editHeight} onChange={(e)=>this.setState({editHeight:e.target.value},()=>this.startCustomer())}/>
+                                <input type={'text'} maxLength={4} value={editHeight} onChange={(e)=>this.setState({editHeight:e.target.value},this.startCustomer)}/>
                             </div>
                             :
-                            <span className={'customizeContent'}>{this.state.editWidth} * {this.state.editHeight}</span>
+                            <span className={'customizeContent'}>{editWidth} * {editHeight}</span>
                     }
                 </div>
                 <Divider type={'vertical'} style={{height:'50px',margin:'0 10px'}}/>
                 <div className={'info'}>
                     <p>
                         <span>
-                            <span>设备类型：</span><code>{this.state.viewport.diviceType}</code>
+                            <span>设备类型：</span><code>{viewport.deviceType}</code>
                         </span>
                         <span>
-                            <span>方向：</span><code>{this.state.viewport.diviceDirectionL}</code>
+                            <span>方向：</span><code>{viewport.deviceDirectionL}</code>
                         </span>
                     </p>
                     <p>
                         <span>
-                           <span>分辨率：</span><code>{this.state.viewport.size}</code>
+                           <span>分辨率：</span><code>{viewport.size}</code>
                         </span>
                         <span>
-                            <span>宽高比：</span><code>{this.state.viewport.ratio}</code>
+                            <span>宽高比：</span><code>{viewport.ratio}</code>
                         </span>
                     </p>
                     <Tooltip title={'展示区的宽度和高度是此处分辨率的60%'}>
                         <i className={'iconfont iconhelp'}/>
                     </Tooltip>
                 </div>
-
             </div>
-
-
         )
     }
 }
-
-export default Viewport

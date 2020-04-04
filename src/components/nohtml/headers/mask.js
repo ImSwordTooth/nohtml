@@ -1,10 +1,7 @@
-import React from 'react'
+import React,{PureComponent} from 'react'
 import './css/mask.less'
 
-class Mask extends React.Component{
-    constructor(props){
-        super(props);
-    }
+export default class Mask extends PureComponent{
     render() {
         return (
             <div className={'mask_wp'}>
@@ -13,5 +10,3 @@ class Mask extends React.Component{
         )
     }
 }
-
-export default Mask

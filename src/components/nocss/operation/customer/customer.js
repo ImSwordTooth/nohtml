@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{PureComponent} from 'react'
 import './customer.less'
 import store from "../../../../store";
 import {
@@ -8,7 +8,7 @@ import {
     changeNocssStyle, deleteCustomerCssStyle, deleteCustomerHoverStyle
 } from "../../../../store/action";
 
-class Customer extends React.Component{
+export default class Customer extends PureComponent{
 
     constructor(props){
         super(props);
@@ -21,7 +21,7 @@ class Customer extends React.Component{
                 }
             ],
             editingId:''                    //正在编辑的td的id，特征为key+index或者是value+index
-        })
+        });
         store.subscribe(this.listener)
     }
 
@@ -33,7 +33,7 @@ class Customer extends React.Component{
     changeEditingTarget = (type,index)=>{
         this.setState({
             editingId:type+index
-        })
+        });
         window.addEventListener('mousedown',this.clickOutside,false)
     };
 
@@ -44,15 +44,13 @@ class Customer extends React.Component{
             });
             window.removeEventListener('mousedown',this.clickOutside)
         }
-    }
+    };
 
     updateCustomerCssList = (type,index,value)=>{
-
         //TODO 检测enter和tab键
+        const {customerCssList} = this.state;
 
-        console.log(this.state.editingId)
-
-        let list = this.state.customerCssList.concat();
+        let list = customerCssList.concat();
         if (index === list.length-1 && type!=='category'){
             list.push({
                 key:'',
@@ -63,9 +61,9 @@ class Customer extends React.Component{
         list[index][type] = value;
         this.setState({
             customerCssList:list
-        })
+        });
 
-        this.state.customerCssList.forEach((item,idx)=>{
+        customerCssList.forEach((item,idx)=>{
             if (item.key !== '' && item.value !== ''){
                 if (item.category === 'standard'){
                     changeCustomerCssStyle({
@@ -85,7 +83,6 @@ class Customer extends React.Component{
                     } else {
                         deleteCustomerCssStyle(item.key)
                     }
-
                 }
             }else {
                 if (item.category === 'standard'){
@@ -93,29 +90,29 @@ class Customer extends React.Component{
                 }else {
                     deleteCustomerHoverStyle(item.key)
                 }
-
             }
         })
     };
 
     testKey = (e)=>{
+        const {editingId} = this.state;
         if (e.key === 'Enter'){
             this.setState({
                 editingId:''
             })
         }
         if (e.key === 'Tab'){
-            if (/^key/.test(this.state.editingId)) {
+            if (/^key/.test(editingId)) {
                 this.setState({
-                    editingId:this.state.editingId.replace('key','value')
+                    editingId:editingId.replace('key','value')
                 })
             }else {
                 this.setState({
-                    editingId:'key'+(parseInt(/[0-9]+/.exec(this.state.editingId)[0])+1)
+                    editingId:'key'+(parseInt(/[0-9]+/.exec(editingId)[0])+1)
                 })
             }
         }
-    }
+    };
 
     deleteCustomerCssList = (item,index,e)=>{
         e.stopPropagation();
@@ -133,6 +130,7 @@ class Customer extends React.Component{
     };
 
     render() {
+        const {customerCssList,editingId} = this.state;
         return (
             <div>
                 <table className={'customer_table'} border="1">
@@ -142,7 +140,7 @@ class Customer extends React.Component{
                         <th>value</th>
                     </tr>
                     {
-                        this.state.customerCssList.map((item,index)=>{
+                        customerCssList.map((item,index)=>{
                             return (
                                 <tr key={index} className={item.category==='hover'?'isHover':''}>
                                     <td>
@@ -150,14 +148,14 @@ class Customer extends React.Component{
                                             <i className={`iconfont icon${item.category}`} onClick={()=>this.updateCustomerCssList('category',index,item.category==='standard'?'hover':'standard')}/>
                                         </div>
                                     </td>
-                                    <td id={`key${index}`} className={this.state.editingId === `key${index}`?'editing':''} onClick={()=>this.changeEditingTarget('key',index)}>
-                                        <input value={item.key} onFocus={()=>{if (this.state.editingId!==`key${index}`){this.setState({editingId:`key${index}`})} }} onChange={(e)=>this.updateCustomerCssList('key',index,e.target.value)} onKeyDown={(e)=>this.testKey(e)}/>
+                                    <td id={`key${index}`} className={editingId === `key${index}`?'editing':''} onClick={()=>this.changeEditingTarget('key',index)}>
+                                        <input value={item.key} onFocus={()=>{if (editingId!==`key${index}`){this.setState({editingId:`key${index}`})} }} onChange={(e)=>this.updateCustomerCssList('key',index,e.target.value)} onKeyDown={(e)=>this.testKey(e)}/>
                                     </td>
-                                    <td id={`value${index}`} className={this.state.editingId === `value${index}`?'editing':''} onClick={()=>this.changeEditingTarget('value',index)}>
-                                        <input value={item.value} onFocus={()=>{if (this.state.editingId!==`value${index}`){this.setState({editingId:`value${index}`})} }} onChange={(e)=>this.updateCustomerCssList('value',index,e.target.value)} onKeyDown={(e)=>this.testKey(e)}/>
+                                    <td id={`value${index}`} className={editingId === `value${index}`?'editing':''} onClick={()=>this.changeEditingTarget('value',index)}>
+                                        <input value={item.value} onFocus={()=>{if (editingId!==`value${index}`){this.setState({editingId:`value${index}`})} }} onChange={(e)=>this.updateCustomerCssList('value',index,e.target.value)} onKeyDown={(e)=>this.testKey(e)}/>
 
                                         {
-                                            index===this.state.customerCssList.length-1
+                                            index === customerCssList.length-1
                                                 ?<></>
                                                 :<div className={'delete'} onClick={(e)=>this.deleteCustomerCssList(item,index,e)}><i className={'iconfont icondelete'}/></div>
                                         }
@@ -172,5 +170,3 @@ class Customer extends React.Component{
         )
     }
 }
-
-export default Customer;

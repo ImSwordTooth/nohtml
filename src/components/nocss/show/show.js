@@ -1,9 +1,9 @@
-import React from 'react'
+import React,{PureComponent} from 'react'
 import store from '../../../store'
 
 import './show.less'
 
-class Show extends React.Component{
+export default class Show extends PureComponent{
 
     constructor(props){
         super(props);
@@ -23,14 +23,29 @@ class Show extends React.Component{
     };
 
     computedStyle = ()=>{
-        if (this.state.isHover){
-            return Object.assign(Object.assign({},this.state.nocssStyle,this.state.customerCssStyle),Object.assign({},this.state.hoverStyle,this.state.customerHoverStyle))
+        const {isHover, nocssStyle, customerCssStyle, hoverStyle, customerHoverStyle} = this.state;
+        if (isHover){
+            return Object.assign(Object.assign({},nocssStyle,customerCssStyle),Object.assign({},hoverStyle,customerHoverStyle))
         } else {
-            return Object.assign({},this.state.nocssStyle,this.state.customerCssStyle);
+            return Object.assign({},nocssStyle,customerCssStyle);
         }
     };
 
+    changeHoverStatus = (e)=>{
+        this.setState({
+            isHover:e.type === 'mouseenter'
+        })
+    };
+
+    changeSelfText = (e)=>{
+        const text = e.target.value || '文本';
+        this.setState({
+            showText:text
+        })
+    };
+
     render() {
+        const {showText} = this.state;
         return (
             <div className={'show_wp'}>
                 <div className={'Title'}>
@@ -38,17 +53,16 @@ class Show extends React.Component{
                         <i className={'iconfont iconshow titleIcon'}/>展示区
                     </div>
                     <div>
-                        <input type='text' className={'selfText'} placeholder={'自定义文本'} onChange={(e)=>this.setState({showText:e.target.value||'文本'})}/>
+                        <input type='text' className={'selfText'} placeholder={'自定义文本'} onChange={this.changeSelfText}/>
                         <i className={'iconfont iconuploadimg'}/>
                     </div>
                 </div>
                 <article>
-                    <div style={this.computedStyle()} onMouseEnter={()=>this.setState({isHover:true})} onMouseLeave={()=>this.setState({isHover:false})}>
-                        {this.state.showText}
+                    <div style={this.computedStyle()} onMouseEnter={this.changeHoverStatus} onMouseLeave={this.changeHoverStatus}>
+                        {showText}
                     </div>
                 </article>
             </div>
         )
     }
 }
-export default Show;

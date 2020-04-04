@@ -203,7 +203,7 @@ class myContent extends React.Component{
                     <div>
                         {
                             this.state.selectedTag.type === 'img'
-                            ?<img src={this.state.selectedTag.props.src} />
+                            ?<img src={this.state.selectedTag.props.src} alt={this.state.selectedTag.dataName} className={'drawImg'}/>
                                 :<TextArea value={this.state.selectedTag.content} style={{marginBottom:'10px'}} onChange={(e) => this.changeContent(e)}/>
                         }
                         <Collapse expandIconPosition={'right'} bordered={false} defaultActiveKey={['1','2','3']}>

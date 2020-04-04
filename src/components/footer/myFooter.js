@@ -1,17 +1,13 @@
-import React from 'react'
+import React,{PureComponent} from 'react'
 
 import './myFooter.less'
-class MyFooter extends React.Component{
-
+export default class MyFooter extends PureComponent{
     render() {
         return (
             <footer className={'footer_wp'}>
                 Copyright © 2019 剑齿. All rights reserved.
-                皖ICP备19016238号
+                <a href={'http://www.beian.miit.gov.cn/'}>皖ICP备19016238号</a>
             </footer>
         )
     }
-
 }
-
-export default MyFooter

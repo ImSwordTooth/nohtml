@@ -2,7 +2,7 @@ import React from 'react'
 
 import '../css/start.less'
 import store from '../../../../store'
-import {Divider, InputNumber, Select, Tooltip} from 'antd';
+import {Divider, InputNumber, Select} from 'antd';
 import {colorRgba, getComputedCss} from "../../../../common/units";
 import {updateTag} from "../../../../store/action";
 import ColorPicker from 'rc-color-picker'
@@ -30,6 +30,7 @@ class start extends React.Component{
     //TODO 获取透明度
     getDefaultColor = (prop)=>{
         if (JSON.stringify(this.state.selectedTag)!=='{}'){
+            console.log(getComputedCss(this.state.selectedTag,'viewStyle')[prop])
             return getComputedCss(this.state.selectedTag,'viewStyle')[prop]||"#000000";
         } else {
             return "#000000";
@@ -173,7 +174,7 @@ class start extends React.Component{
                                      min={12} max={50} value={this.getDefaultFontsize()} onChange={(e)=>this.changeProp('fontSize',e)} />
                     </div>
 
-                    <Divider type={'vertical'}/>
+                    <Divider type={'vertical'} style={{height:'30px',margin:'0 10px'}}/>
 
                     <div className={'fontstyle icongroup'}>
                         <div>
@@ -186,7 +187,7 @@ class start extends React.Component{
                         </div>
                     </div>
 
-                    <Divider type={'vertical'}/>
+                    <Divider type={'vertical'} style={{height:'30px',margin:'0 10px'}}/>
 
                     <div className={'color'}>
                         <ColorPicker onChange={e=>this.changeProp('color',e)} color={this.getDefaultColor('color')}>
@@ -204,7 +205,6 @@ class start extends React.Component{
             </div>
         )
     }
-
 }
 
 export default start

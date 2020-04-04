@@ -1,10 +1,10 @@
-import React from 'react'
+import React,{PureComponent} from 'react'
 import ColorPicker from "rc-color-picker";
 import store from '../../../../store'
 
 import {changeProp} from "../../../../common/units";
 
-class MyBackgroundColor extends React.Component{
+export default class MyBackgroundColor extends PureComponent{
 
     constructor(props){
         super(props);
@@ -18,14 +18,17 @@ class MyBackgroundColor extends React.Component{
     };
 
     render() {
+        const {stateName} = this.props;
+        const {backgroundColor} = this.state[stateName];
+
         return(
             <li className={'backgroundColor'}>
                 <span className={'operateTitle'}><i className={'iconfont iconnocssbackgroundcolor'}/>背景颜色</span>
                 <div className={'content'}>
-                    <ColorPicker onChange={(e)=>changeProp(this.props.stateName,'backgroundColor',e)} defaultColor={this.state[this.props.stateName].backgroundColor} defaultAlpha={new RegExp('(?<=\\()\\S+(?=\\))','g').exec(this.state[this.props.stateName].backgroundColor)?Number(new RegExp('(?<=\\()\\S+(?=\\))','g').exec(this.state[this.props.stateName].backgroundColor)[0].split(',')[3])*100:100}>
+                    <ColorPicker onChange={(e)=>changeProp(stateName,'backgroundColor',e)} defaultColor={backgroundColor} defaultAlpha={new RegExp('(?<=\\()\\S+(?=\\))','g').exec(backgroundColor)?Number(new RegExp('(?<=\\()\\S+(?=\\))','g').exec(backgroundColor)[0].split(',')[3])*100:100}>
                         <div className={'colorpicker'}>
-                            <span className={'currentColor'} style={{backgroundColor:this.state[this.props.stateName].backgroundColor}}/>
-                            <span className={'currentColorText'}>{this.state[this.props.stateName].backgroundColor}</span>
+                            <span className={'currentColor'} style={{backgroundColor}}/>
+                            <span className={'currentColorText'}>{backgroundColor}</span>
                         </div>
                     </ColorPicker>
                 </div>
@@ -33,5 +36,3 @@ class MyBackgroundColor extends React.Component{
         )
     }
 }
-
-export default MyBackgroundColor

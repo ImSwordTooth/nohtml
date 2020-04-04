@@ -4,7 +4,7 @@ import {addProp, changeProp, deleteProp} from "../../../../common/units";
 import {Select, Slider, Tag} from "antd";
 const {Option} = Select;
 
-class MyTransform extends React.Component{
+export default class MyTransform extends React.Component{
     constructor(props){
         super(props);
         this.state = Object.assign({},store.getState(),{
@@ -30,27 +30,27 @@ class MyTransform extends React.Component{
         list.push({
             type:'',
             parameter:[]
-        })
+        });
         this.setState({
             transformList:list
-        })
+        });
         this.submit();
-    }
+    };
 
     updateTransformType = (type,index)=>{
-        let list = this.state.transformList;
-        list[index].type = type;
+        const {transformList} = this.state;
+        transformList[index].type = type;
         switch (type) {
-            case 'translate':list[index].parameter = [{name:'x',value:'0px'},{name:'y',value:'0px'}];break;
-            case 'scale':list[index].parameter = [{name:'倍率',value:'1.0'}];break;
-            case 'rotate':list[index].parameter = [{name:'角度',value:'0deg'}];break;
-            case 'skew':list[index].parameter = [{name:'x',value:'0deg'},{name:'y',value:'0deg'}]
+            case 'translate':transformList[index].parameter = [{name:'x',value:'0px'},{name:'y',value:'0px'}];break;
+            case 'scale':transformList[index].parameter = [{name:'倍率',value:'1.0'}];break;
+            case 'rotate':transformList[index].parameter = [{name:'角度',value:'0deg'}];break;
+            case 'skew':transformList[index].parameter = [{name:'x',value:'0deg'},{name:'y',value:'0deg'}]
         }
         this.setState({
-            transformList:list
-        })
+            transformList
+        });
         this.submit();
-    }
+    };
 
     updateTransformValue = (value,index,param)=>{
         let list = this.state.transformList.slice();
@@ -70,9 +70,9 @@ class MyTransform extends React.Component{
         list[index].parameter = parameter;
         this.setState({
             transformList:list
-        })
+        });
         this.submit();
-    }
+    };
 
     deleteTransform = (index)=>{
         let list = this.state.transformList;
@@ -82,11 +82,10 @@ class MyTransform extends React.Component{
         } else {
             this.setState({
                 transformList:list
-            })
+            });
             this.submit();
         }
-    }
-
+    };
 
     submit = ()=>{
         let value = '';
@@ -102,9 +101,8 @@ class MyTransform extends React.Component{
                 case 'skew':value += `skew(${list[i].parameter[0].value},${list[i].parameter[1].value})`;break;
             }
         }
-
         changeProp(this.props.stateName,'transform',value);
-    }
+    };
 
     //考虑到变形类型的不同，min、max、step都不同，因此要用函数生成
     getSlider = (type,param,index)=>{
@@ -122,30 +120,31 @@ class MyTransform extends React.Component{
             case 'rotate':return(
                 <>
                     <Slider style={{width:400}} min={-360} max={360} marks={{'0':'0','-90':'-90','90':'-90','-180':'-180','180':'180','-270':'-270','270':'270','-360':'-360','360':'360'}} value={parseInt(param.value)} onChange={(e)=>this.updateTransformValue(e,index,param)}/>
-                    <span className={'unit'}>{param.value}</span>
+                    <span className={'unit fix'}>{param.value}</span>
                 </>);
             case 'skew':return(
                 <>
                     <Slider style={{width:200}} min={0} max={180} marks={{'0':'0','90':'90','180':'180'}} value={parseInt(param.value)} onChange={(e)=>this.updateTransformValue(e,index,param)}/>
-                    <span className={'unit'}>{param.value}</span>
+                    <span className={'unit fix'}>{param.value}</span>
                 </>);
         }
-    }
+    };
 
     render() {
+        const {transformList} = this.state;
         return(
             <li className={'transform multi'}>
                 <span className={'operateTitle'}>
                     <i className={'iconfont iconnocsstransform'}/>
                     变形
                     {
-                        this.state.transformList.every(item=>item.type!=='')?<i className={'iconfont iconadd add'} onClick={()=>this.addTransformList()}/>:<></>
+                        transformList.every(item=>item.type!=='')?<i className={'iconfont iconadd add'} onClick={this.addTransformList}/>:<></>
                     }
                 </span>
 
                 <div>
                     {
-                        this.state.transformList.map((item,index)=>{
+                        transformList.map((item,index)=>{
                             return (
                                 item.type===''
                                     ?
@@ -176,10 +175,7 @@ class MyTransform extends React.Component{
                         })
                     }
                 </div>
-
             </li>
         )
     }
 }
-
-export default MyTransform
