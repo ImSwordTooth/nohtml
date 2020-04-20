@@ -1,10 +1,6 @@
-import React from 'react'
-import store from '../../../../store'
+import React,{PureComponent} from 'react'
 import 'rc-color-picker/assets/index.css';
 import './standard.less'
-import {Select} from 'antd'
-
-import {changeNocssStyle} from "../../../../store/action";
 import MyColor from "../props/myColor";
 import MyBackgroundColor from "../props/myBackgroundColor";
 import MyFontSize from "../props/myFontSize";
@@ -16,20 +12,7 @@ import MyTextShadow from "../props/myTextShadow";
 import MyTransform from "../props/myTransform";
 import MyBorderRadius from "../props/myBorderRadius";
 
-class Standard extends React.Component{
-
-    constructor(props){
-        super(props);
-        this.state = Object.assign({},store.getState(),{
-
-        });
-        store.subscribe(this.listener)
-    }
-
-    listener = ()=>{
-        let newState = store.getState();
-        this.setState(newState)
-    };
+class Standard extends PureComponent{
 
     render() {
         return (

@@ -1,15 +1,12 @@
-import React from 'react'
+import React,{PureComponent} from 'react'
 import {Input, Modal,message} from "antd";
 const {TextArea} = Input;
 
-export class ImageModal extends React.Component{
+export class ImageModal extends PureComponent{
 
-    constructor(props){
-        super(props);
-        this.state = {
-            imgName:'',
-            imgSrc:''
-        }
+    state = {
+        imgName:'',
+        imgSrc:''
     }
 
     changeImg = (e,name)=>{
@@ -21,7 +18,8 @@ export class ImageModal extends React.Component{
 
 
     cancel = ()=>{
-        this.props.cancel();
+        const {cancel} = this.props
+        cancel();
         this.setState({
             imgName:'',
             imgSrc:''
@@ -29,12 +27,12 @@ export class ImageModal extends React.Component{
     };
 
     ok = ()=>{
-        let imgName = this.state.imgName,
-            imgSrc = this.state.imgSrc;
+        let {imgName,imgSrc} = this.state;
+        const {imageModalTitle,ok} = this.props
         let src = '';
-        if (this.props.imageModalTitle === '网络图片') {
+        if (imageModalTitle === '网络图片') {
             src = '图片地址'
-        }else if (this.props.imageModalTitle === 'base64编码'){
+        }else if (imageModalTitle === 'base64编码'){
             src = 'base64编码'
         }
         if (imgName === ''){
@@ -42,7 +40,7 @@ export class ImageModal extends React.Component{
         } else if (imgSrc === ''){
             message.error(`请输入${src}`);
         } else {
-            this.props.ok(this.state.imgName,this.state.imgSrc);
+            ok(imgName,imgSrc);
             this.setState({
                 imgName:'',
                 imgSrc:''
@@ -53,19 +51,20 @@ export class ImageModal extends React.Component{
 
     //生成模态框里的内容
     getImageModal = (type)=>{
+        const {imgName,imgSrc} = this.state
         if (type === '网络图片') {
             return (
                 <>
                     <div className={'modal_item'}>
                         <span>图片名</span>
                         <div>
-                            <Input style={{width:200}} value={this.state.imgName} onChange={(e)=>this.changeImg(e,'imgName')}/>
+                            <Input style={{width:200}} value={imgName} onChange={(e)=>this.changeImg(e,'imgName')}/>
                         </div>
                     </div>
                     <div className={'modal_item'}>
                         <span>图片地址</span>
                         <div>
-                            <Input style={{width:500}} value={this.state.imgSrc} onChange={(e)=>this.changeImg(e,'imgSrc')}/>
+                            <Input style={{width:500}} value={imgSrc} onChange={(e)=>this.changeImg(e,'imgSrc')}/>
                         </div>
                     </div>
                 </>
@@ -77,13 +76,13 @@ export class ImageModal extends React.Component{
                     <div className={'modal_item'}>
                         <span>图片名</span>
                         <div>
-                            <Input style={{width:200}} value={this.state.imgName} onChange={(e)=>this.changeImg(e,'imgName')}/>
+                            <Input style={{width:200}} value={imgName} onChange={(e)=>this.changeImg(e,'imgName')}/>
                         </div>
                     </div>
                     <div className={'modal_item'}>
                         <span>base64编码</span>
                         <div>
-                            <TextArea autosize={{ minRows: 5}} style={{width:500}} value={this.state.imgSrc} onChange={(e)=>this.changeImg(e,'imgSrc')}/>
+                            <TextArea autosize={{ minRows: 5}} style={{width:500}} value={imgSrc} onChange={(e)=>this.changeImg(e,'imgSrc')}/>
                         </div>
                     </div>
                 </>
@@ -92,17 +91,18 @@ export class ImageModal extends React.Component{
     };
 
     render() {
+        const {imageModalTitle,showImageModal,type} = this.props
         return (
-            <Modal title={this.props.imageModalTitle} width={800}
+            <Modal title={imageModalTitle} width={800}
                    className={'imageModal modals'}
-                   visible={this.props.showImageModal}
+                   visible={showImageModal}
                    cancelText={'取消'}
-                   okText={this.props.type}
+                   okText={type}
                    onCancel={this.cancel}
                    onOk={this.ok}
             >
                 <div>
-                    {this.getImageModal(this.props.imageModalTitle)}
+                    {this.getImageModal(imageModalTitle)}
                 </div>
             </Modal>
         )

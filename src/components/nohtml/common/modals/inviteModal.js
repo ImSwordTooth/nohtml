@@ -1,27 +1,18 @@
-import React from 'react'
+import React,{PureComponent} from 'react'
 import {Modal,Input,message} from "antd";
 import http from '../../../../common/http'
-import store from "../../../../store";
 import '../css/inviteModal.less'
 import '../css/modals.less'
 const { Search } = Input;
 
-export class InviteModal extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            searchText:'',
-            isInvite:true,
-            userInfo:{},
-            okText:'新增'
-        }
-        store.subscribe(this.listen);
-    }
+class InviteModal extends PureComponent{
 
-    listen = ()=>{
-        let newState = store.getState();
-        this.setState(newState)
-    };
+    state = {
+        searchText:'',
+        isInvite:true,
+        userInfo:{},
+        okText:'新增'
+    }
 
     searchUser = (value)=>{
         http.get('/getUserInfoByUserName',{userName:value}).then((res)=>{
@@ -47,7 +38,8 @@ export class InviteModal extends React.Component{
     }
 
     cancel = ()=>{
-        this.props.cancel();
+        const {cancel} = this.props
+        cancel();
         this.setState({
             searchText:'',
             isInvite:true,
@@ -56,9 +48,11 @@ export class InviteModal extends React.Component{
     }
 
     ok = ()=>{
+        const {fileId} = this.props
+        const {userInfo} = this.state
         http.get('/addNohtmlProjectPartner',{
-            projectId:this.props.fileId,
-            userId:this.state.userInfo.userId
+            projectId:fileId,
+            userId:userInfo.userId
         }).then(res=>{
             if (res.data.msg === '当前用户已在项目中'){
                 message.warn('当前用户已在项目中');
@@ -72,18 +66,20 @@ export class InviteModal extends React.Component{
     }
 
     render() {
+        const {fileName,showInviteModal} = this.props
+        const {okText,searchText,userInfo} = this.state
         return (
-            <Modal title={`新增用户到${this.props.fileName}`} width={1000}
+            <Modal title={`新增用户到${fileName}`} width={1000}
                    className={'inviteModal modals'}
-                   visible={this.props.showInviteModal}
+                   visible={showInviteModal}
                    cancelText={'取消'}
-                   okText={this.state.okText}
+                   okText={okText}
                    // okButtonProps={{disabled:this.state.isInvite}}
                    onOk={this.ok}
                    onCancel={this.cancel}>
                 <Search
                     placeholder="输入用户名称"
-                    value={this.state.searchText}
+                    value={searchText}
                     onChange={e=>this.setState({searchText:e.target.value})}
                     onSearch={value => this.searchUser(value)}
                     style={{ width: 200 }}
@@ -91,13 +87,13 @@ export class InviteModal extends React.Component{
                 <hr/>
                 <div>
                     {
-                        JSON.stringify(this.state.userInfo) === '{}'
+                        JSON.stringify(userInfo) === '{}'
                             ?<div className={'empty'}>输入用户名来邀请用户到项目</div>
                             :<div className={'userInfo'}>
                                 <div>
-                                    <img src={this.state.userInfo.avatar} alt={this.state.userInfo.userId}/>
+                                    <img src={userInfo.avatar} alt={userInfo.userId}/>
                                 </div>
-                                <p>{this.state.userInfo.userName}</p>
+                                <p>{userInfo.userName}</p>
                             </div>
                     }
                 </div>
@@ -106,3 +102,5 @@ export class InviteModal extends React.Component{
     }
 
 }
+
+export default InviteModal

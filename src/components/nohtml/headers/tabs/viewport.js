@@ -1,94 +1,86 @@
 import React,{PureComponent} from 'react'
+import {connect} from 'react-redux'
 import {Divider,Tooltip} from "antd";
-import store from '../../../../store'
 import '../css/viewport.less'
 import {updateSetting} from "../../../../store/action";
 import {gcd} from '../../../../common/units'
-export default class Viewport extends PureComponent{
+class Viewport extends PureComponent{
 
-    constructor(props){
-        super(props);
-        this.state = Object.assign({},store.getState(),{
-            isChecked:true,
-            viewport:{
-                deviceType:'默认',
-                deviceDirectionL:'横向',
-                size:'60vw * 60vh （分别为设备宽度和高度的60%）',
-                ratio:'/'
+    state = {
+        isChecked:true,
+        viewport:{
+            deviceType:'默认',
+            deviceDirectionL:'横向',
+            size:'60vw * 60vh （分别为设备宽度和高度的60%）',
+            ratio:'/'
+        },
+        activeDeviceIndex:0,
+        isEditing:false,
+        editWidth:'1024',
+        editHeight:'768',
+        deviceList:[
+            {
+                deviceName: '默认',      //设备名
+                isHorizontal: false,     //是否水平放置
+                width:'60vw',
+                height:'60vh',
+                icon:'icondefaultdevice'
             },
-            activeDeviceIndex:0,
-            isEditing:false,
-            editWidth:'1024',
-            editHeight:'768',
-            deviceList:[
-                {
-                    deviceName: '默认',      //设备名
-                    isHorizontal: false,     //是否水平放置
-                    width:'60vw',
-                    height:'60vh',
-                    icon:'icondefaultdevice'
-                },
-                {
-                    deviceName: 'iP 5/SE',
-                    isHorizontal: false,
-                    width:'320px',
-                    height:'568px',
-                    icon:'iconiphone5'
-                },
-                {
-                    deviceName: 'iP 6/7/8',
-                    isHorizontal: false,
-                    width:'375px',
-                    height:'667px',
-                    icon:'iconiphone6'
-                },
-                {
-                    deviceName: 'iP X',
-                    isHorizontal: false,
-                    width:'375px',
-                    height:'812px',
-                    icon:'iconiphone7'
-                },
-                {
-                    deviceName: 'iPad',
-                    isHorizontal: false,
-                    width:'768px',
-                    height:'1024px',
-                    icon:'iconipad'
-                },
-                {
-                    deviceName: 'PC-S',
-                    isHorizontal: false,
-                    width:'1280px',
-                    height:'1024px',
-                    icon:'iconpc1'
-                },
-                {
-                    deviceName: 'PC-M',
-                    isHorizontal: false,
-                    width:'1366px',
-                    height:'768px',
-                    icon:'iconpc2'
-                },
-                {
-                    deviceName: 'PC-L',
-                    isHorizontal: false,
-                    width:'1980px',
-                    height:'1080px',
-                    icon:'iconpc3'
-                }
-            ]
-        });
-        store.subscribe(this.listener);
+            {
+                deviceName: 'iP 5/SE',
+                isHorizontal: false,
+                width:'320px',
+                height:'568px',
+                icon:'iconiphone5'
+            },
+            {
+                deviceName: 'iP 6/7/8',
+                isHorizontal: false,
+                width:'375px',
+                height:'667px',
+                icon:'iconiphone6'
+            },
+            {
+                deviceName: 'iP X',
+                isHorizontal: false,
+                width:'375px',
+                height:'812px',
+                icon:'iconiphone7'
+            },
+            {
+                deviceName: 'iPad',
+                isHorizontal: false,
+                width:'768px',
+                height:'1024px',
+                icon:'iconipad'
+            },
+            {
+                deviceName: 'PC-S',
+                isHorizontal: false,
+                width:'1280px',
+                height:'1024px',
+                icon:'iconpc1'
+            },
+            {
+                deviceName: 'PC-M',
+                isHorizontal: false,
+                width:'1366px',
+                height:'768px',
+                icon:'iconpc2'
+            },
+            {
+                deviceName: 'PC-L',
+                isHorizontal: false,
+                width:'1980px',
+                height:'1080px',
+                icon:'iconpc3'
+            }
+        ]
     }
 
-    listener = () => {
-        let newState = store.getState();
-        this.setState(newState);
-    };
-
     changeSize = (device,index)=>{
-        const {isEditing,activeDeviceIndex,editWidth,editHeight} = this.state;
+        const {isEditing,activeDeviceIndex,editWidth,editHeight,deviceList} = this.state;
+        const {updateSetting} = this.props
         if (index !== -1 && isEditing){
             this.setState({
                 isEditing:false,
@@ -106,14 +98,14 @@ export default class Viewport extends PureComponent{
         }
 
         if (activeDeviceIndex === index && index !== 0 && index !== -1){
-            let deviceList = this.state.deviceList.slice();
-            deviceList[index].isHorizontal = !deviceList[index].isHorizontal;
-            let width = deviceList[index].width;
-            let height = deviceList[index].height;
-            deviceList[index].width = height;
-            deviceList[index].height = width;
-            this.setState({deviceList});
-            this.changeViewPort(this.state.deviceList[activeDeviceIndex]);
+            let newDeviceList = deviceList.slice();
+            newDeviceList[index].isHorizontal = !newDeviceList[index].isHorizontal;
+            let width = newDeviceList[index].width;
+            let height = newDeviceList[index].height;
+            newDeviceList[index].width = height;
+            newDeviceList[index].height = width;
+            this.setState({deviceList:newDeviceList});
+            this.changeViewPort(deviceList[activeDeviceIndex]);
             updateSetting({
                 prop:'width',
                 value:device.width
@@ -210,6 +202,7 @@ export default class Viewport extends PureComponent{
      * 全屏
      * */
     fullScreen = ()=>{
+        const {updateSetting,setting} = this.props
         updateSetting({
             prop:'width',
             value:'full'
@@ -220,7 +213,7 @@ export default class Viewport extends PureComponent{
         });
 
         let timeout = setTimeout(()=>{
-            if (this.state.setting.width === 'full'){
+            if (setting.width === 'full'){
                 let element = document.getElementById('0');
                 let requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
                 if (requestMethod) {
@@ -304,3 +297,16 @@ export default class Viewport extends PureComponent{
         )
     }
 }
+
+function mapStateToProps(state) {
+    const {setting} = state;
+    return {setting}
+}
+
+function mapDispatchToProps() {
+    return {
+        updateSetting
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Viewport)

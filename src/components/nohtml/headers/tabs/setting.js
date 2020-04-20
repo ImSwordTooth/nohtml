@@ -1,8 +1,8 @@
-import React from 'react'
+import React,{PureComponent} from 'react'
 import '../css/setting.less'
 import {Divider,Tooltip} from 'antd'
 
-class Setting extends React.Component{
+class Setting extends PureComponent{
     render() {
         return (
             <div className={'setting'}>

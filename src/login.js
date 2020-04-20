@@ -4,31 +4,24 @@ import store from './store'
 import './css/login.less'
 import {Input, Button, Checkbox, message} from "antd";
 import {withRouter}  from 'react-router-dom'
+import {connect} from 'react-redux'
 import MyFooter from "./components/footer/myFooter";
-import {changeLoginStatus, changeUser} from "./store/action";
 import http from './common/http'
+import {changeLoginStatus, changeUser} from "./store/action";
 
 const {Password} = Input;
 class Login extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = Object.assign({},store.getState(),{
-            isLogin:true,               //是否为登录/注册
-            loginLoading:false,         //登录按钮loading
-            username:'',                //登录-用户名
-            password:'',                //登录-密码
-            loginWrong:false,           //是否登录失败
-            isAutoLogin:false,          //是否自动登录
-            isPhoneLogin:false,         //是否为手机号登录，用于手机登录和用户名登录之间的切换
-            phoneNum:'',                //手机号码
-        });
-        store.subscribe(this.listen);
-    }
 
-    listen = ()=>{
-        let newState = store.getState();
-        this.setState(newState)
-    };
+    state = {
+        isLogin:true,               //是否为登录/注册
+        loginLoading:false,         //登录按钮loading
+        username:'',                //登录-用户名
+        password:'',                //登录-密码
+        loginWrong:false,           //是否登录失败
+        isAutoLogin:false,          //是否自动登录
+        isPhoneLogin:false,         //是否为手机号登录，用于手机登录和用户名登录之间的切换
+        phoneNum:'',
+    }
 
     //页面加载完成后，将登录状态置为1，即“正在登录”
     componentDidMount() {
@@ -37,13 +30,15 @@ class Login extends React.Component{
 
     //页面销毁前，如果登录状态仍为“正在登录”，则置为“未登录”
     componentWillUnmount() {
-        if (this.state.loginStatus === 1){
+        const {loginStatus,changeLoginStatus} = this.props;
+        if (loginStatus === 1){
             changeLoginStatus(0)
         }
     }
 
     //登录
     login = ()=>{
+        const {changeUser,changeLoginStatus,history} = this.props;
         this.setState({
             loginLoading:true
         });
@@ -60,18 +55,20 @@ class Login extends React.Component{
                 changeLoginStatus(2);           //修改登录状态为“登录成功”
                 message.success('登录成功！');               //用户反馈
                 sessionStorage.setItem('haveLogin','true');             //sessionStorage里存储“已经登录过了”
-                this.props.history.push('/')                    //最后把页面定向到主页
+                history.push('/')                    //最后把页面定向到主页
             } else {
                 message.error('账号或密码错误');
                 this.setState({
+                    loginLoading:false,
                     loginWrong:true,
                     username:'',
                     password:''
                 });
             }
-        }).catch(err=>{
+        }).catch(()=>{
             message.error('账号或密码错误');
             this.setState({
+                loginLoading:false,
                 loginWrong:true,
                 username:'',
                 password:''
@@ -79,72 +76,91 @@ class Login extends React.Component{
         })
     };
 
+    changeText = (e)=>{
+        this.setState({[e.target.dataset.statename]:e.target.value})
+    }
+
+    cancelLoginWrong = ()=>{
+        this.setState({loginWrong:false})
+    };
+
+    toggleIsAutoLogin = ()=>{
+        const {isAutoLogin} = this.state;
+        this.setState({isAutoLogin: !isAutoLogin})
+    };
+
     render() {
+        const {history} = this.props;
+        const {isLogin,loginWrong,password,username,isAutoLogin,loginLoading,isPhoneLogin,phoneNum} = this.state;
         return (
             <div className={'login'}>
                 {/*登录*/}
-                <div className={`login_wp ${this.state.isLogin?'':'none'} ${this.state.loginWrong?'wrong':''}`}>
+                <div className={`login_wp ${isLogin?'':'none'} ${loginWrong?'wrong':''}`}>
                     {
-                        this.state.isPhoneLogin
+                        isPhoneLogin
                             ?<>
                                 <Input className={'input_wp'}
+                                       data-statename={'phoneNum'}
                                        size={'large'}
                                        placeholder="手机号"
-                                       value={this.state.phoneNum}
+                                       value={phoneNum}
                                        name={'phoneNum'}
-                                       onChange={(e)=>this.setState({phoneNum:e.target.value})}
-                                       onFocus={()=>this.setState({loginWrong:false})}
+                                       onChange={this.changeText}
+                                       onFocus={this.cancelLoginWrong}
                                        prefix={<i className={'iconfont iconiphone7 inputIcon'} style={{fontSize:'20px'}}/>}
                                 />
                                 <div className={'spaceBetween'} style={{marginTop:0}}>
                                     <Input className={'input_wp'}
-                                              size={'large'}
-                                              placeholder="验证码"
-                                              name={'password'}
-                                              value={this.state.password}
-                                              onChange={(e)=>this.setState({password:e.target.value})}
-                                              onFocus={()=>this.setState({loginWrong:false})}
-                                              prefix={<i className={'iconfont iconloginpassword inputIcon'}/>}
+                                           data-statename={'password'}
+                                           size={'large'}
+                                           placeholder="验证码"
+                                           name={'password'}
+                                           value={password}
+                                           onChange={this.changeText}
+                                           onFocus={this.cancelLoginWrong}
+                                           prefix={<i className={'iconfont iconloginpassword inputIcon'}/>}
                                     />
                                     <Button size={'large'} style={{marginLeft:20}}>获取验证码</Button>
                                 </div>
                             </>
                             :<>
                                 <Input className={'input_wp'}
+                                       data-statename={'username'}
                                        size={'large'}
                                        placeholder="用户名"
-                                       value={this.state.username}
+                                       value={username}
                                        name={'username'}
-                                       onChange={(e)=>this.setState({username:e.target.value})}
-                                       onFocus={()=>this.setState({loginWrong:false})}
+                                       onChange={this.changeText}
+                                       onFocus={this.cancelLoginWrong}
                                        onPressEnter={this.login}
                                        prefix={<i className={'iconfont iconloginusername inputIcon'}/>}
                                 />
                                 <Password className={'input_wp'}
+                                          data-statename={'password'}
                                           size={'large'}
                                           placeholder="密码"
                                           name={'password'}
-                                          value={this.state.password}
-                                          onChange={(e)=>this.setState({password:e.target.value})}
-                                          onFocus={()=>this.setState({loginWrong:false})}
+                                          value={password}
+                                          onChange={this.changeText}
+                                          onFocus={this.cancelLoginWrong}
                                           onPressEnter={this.login}
                                           prefix={<i className={'iconfont iconloginpassword inputIcon'}/>}
                                 />
                                 <div className={'spaceBetween'}>
                                     <div className={'autoLogin'}>
-                                        <Checkbox checked={this.state.isAutoLogin} onChange={()=>this.setState({isAutoLogin:!this.state.isAutoLogin})}/>
-                                        <span onClick={()=>this.setState({isAutoLogin:!this.state.isAutoLogin})}>自动登录</span>
+                                        <Checkbox checked={isAutoLogin} onChange={this.toggleIsAutoLogin}/>
+                                        <span onClick={this.toggleIsAutoLogin}>自动登录</span>
                                     </div>
-                                    <a href={'#'} onClick={()=>changeLoginStatus(2)}>忘记密码</a>
+                                    <a href={'#'}>忘记密码</a>
                                 </div>
                             </>
                     }
-                    <Button type={'primary'} size={'large'} block loading={this.state.loginLoading} onClick={this.login}>登录</Button>
+                    <Button type={'primary'} size={'large'} block loading={loginLoading} onClick={this.login}>登录</Button>
                     <div className={'spaceBetween'}>
                         <div className={'otherWay'}>
                             其他登录方式：
                             {
-                                this.state.isPhoneLogin
+                                isPhoneLogin
                                     ?
                                     <i className={'iconfont iconloginusername'} style={{fontSize:18}} onClick={()=>this.setState({isPhoneLogin:false})} title={'用户名/密码登录'}/>
 
@@ -158,7 +174,7 @@ class Login extends React.Component{
                     </div>
                 </div>
                 {/*注册*/}
-                <div className={`register_wp ${this.state.isLogin?'none':''}`}>
+                <div className={`register_wp ${isLogin?'none':''}`}>
                     <Input className={'input_wp'}
                            size={'large'}
                            placeholder={'用户名'}
@@ -175,7 +191,7 @@ class Login extends React.Component{
                            prefix={<i className={'iconfont iconloginrepeatpassword inputIcon'}/>}
                     />
                     <div className={'spaceBetween'}>
-                        <Button type={'primary'} style={{width:120}} size={'large'} onClick={()=> this.props.history.push('/')}>注册</Button>
+                        <Button type={'primary'} style={{width:120}} size={'large'} onClick={()=> history.push('/')}>注册</Button>
                         <a href={"#"} onClick={()=>this.setState({isLogin:true})}>登录</a>
                     </div>
                 </div>
@@ -185,4 +201,16 @@ class Login extends React.Component{
     }
 }
 
-export default withRouter(Login);
+function mapStateToProps(state) {
+    const {loginStatus} = state;
+    return {loginStatus}
+}
+
+function mapDispatchToProps() {
+    return{
+        changeLoginStatus,
+        changeUser
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(withRouter(Login));

@@ -1,42 +1,34 @@
-import React from 'react'
+import React,{PureComponent} from 'react'
 
 import {insertTag} from "../../../../store/action";
 import {Menu, Dropdown, message, Tooltip} from 'antd';
 import store from '../../../../store'
+import {connect} from 'react-redux'
 
-import {TableModal} from "../../common/modals/tableModal";
+
 
 import '../css/insert.less'
+import {TableModal} from "../../common/modals/tableModal";
 import {ImageModal} from "../../common/modals/imageModal";
 import Mask from "../mask";
 import {getObjByKeyFromTagList} from "../../../../common/units";
 
-class insert extends React.Component{
+class insert extends PureComponent{
 
-    constructor(props){
-        super(props);
-        this.state = Object.assign({},store.getState(),{
-            showTableModal:false,       //表格插入模态框
-            showImageModal:false,       //图片插入模态框
-            imageModalTitle:'',         //图片插入模态框标题
-            tableThs:['表头1','表头2','表头3']        //表头数组初值
-        })
-        store.subscribe(this.listener);
+    state = {
+        showTableModal:false,       //表格插入模态框
+        showImageModal:false,       //图片插入模态框
+        imageModalTitle:'',         //图片插入模态框标题
     }
-
-    listener = () => {
-        let newState = store.getState();
-        this.setState(newState);
-    };
 
     //插入标签格式化
     formatTag = (type,name)=>{
-        let selectTag = this.state.selectedTag;
-        let parent = getObjByKeyFromTagList(selectTag.pid,this.state.tagList);
+        const {selectedTag,tagList} = this.props
+        let parent = getObjByKeyFromTagList(selectedTag.pid,tagList);
         return {
             type:type,
-            pid:selectTag.pid,
-            key:`${selectTag.pid}-${parent.willCreateKey}`,
+            pid:selectedTag.pid,
+            key:`${selectedTag.pid}-${parent.willCreateKey}`,
             dataName:name,
             iconName:'icon'+type,
             content:`新建${type}`,
@@ -50,16 +42,17 @@ class insert extends React.Component{
         }
     };
 
+    //插入图片格式化
     formatImage = (name,src) =>{
-        let selectTag = this.state.selectedTag;
-        let parent = getObjByKeyFromTagList(selectTag.pid,this.state.tagList);
+        const {selectedTag,tagList} = this.props
+        let parent = getObjByKeyFromTagList(selectedTag.pid,tagList);
         this.setState({
             showImageModal:false
         })
         return {
             type:'img',
-            pid:selectTag.pid,
-            key:`${selectTag.pid}-${parent.willCreateKey}`,
+            pid:selectedTag.pid,
+            key:`${selectedTag.pid}-${parent.willCreateKey}`,
             dataName:name,
             iconName:'iconimg',
             trueStyle:{},
@@ -73,9 +66,10 @@ class insert extends React.Component{
         }
     };
 
+    //插入表格格式化
     formatTable = (arr,className)=>{
-        let selectTag = this.state.selectedTag;
-        let parent = getObjByKeyFromTagList(selectTag.pid,this.state.tagList);
+        const {selectedTag,tagList} = this.props
+        let parent = getObjByKeyFromTagList(selectedTag.pid,tagList);
         this.setState({
             showTableModal:false
         });
@@ -85,8 +79,8 @@ class insert extends React.Component{
         arr.forEach((item,index)=>{
            trs[index] = Object.assign({},{
                type:'tr',
-               pid:`${selectTag.pid}-${parent.willCreateKey}-0`,
-               key:`${selectTag.pid}-${parent.willCreateKey}-0-${index}`,
+               pid:`${selectedTag.pid}-${parent.willCreateKey}-0`,
+               key:`${selectedTag.pid}-${parent.willCreateKey}-0-${index}`,
                dataName:`新建tr${index+1}`,
                iconName:'icontr',
                trueStyle:{},
@@ -142,8 +136,8 @@ class insert extends React.Component{
 
         return {
             type:'table',
-            pid:selectTag.pid,
-            key:`${selectTag.pid}-${parent.willCreateKey}`,
+            pid:selectedTag.pid,
+            key:`${selectedTag.pid}-${parent.willCreateKey}`,
             dataName:'新建table',
             iconName:'icontable',
             trueStyle:{},
@@ -157,8 +151,8 @@ class insert extends React.Component{
             children: [
                 {
                     type:'tbody',
-                    pid:`${selectTag.pid}-${parent.willCreateKey}`,
-                    key:`${selectTag.pid}-${parent.willCreateKey}`+'-0',
+                    pid:`${selectedTag.pid}-${parent.willCreateKey}`,
+                    key:`${selectedTag.pid}-${parent.willCreateKey}`+'-0',
                     dataName:'新建tbody',
                     iconName:'icontbody',
                     trueStyle:{},
@@ -174,7 +168,7 @@ class insert extends React.Component{
     };
 
     formatInput = (type)=>{
-        let selectTag = this.state.selectedTag;
+        const {selectedTag} = this.props
         let dataName = '';
         let iconName = '';
         switch (type) {
@@ -187,8 +181,8 @@ class insert extends React.Component{
         }
         return {
             type:'input',
-            pid:selectTag.pid,
-            key:`${selectTag.pid}-${selectTag.willCreateKey}`,
+            pid:selectedTag.pid,
+            key:`${selectedTag.pid}-${selectedTag.willCreateKey}`,
             dataName,
             iconName,
             trueStyle:{},
@@ -228,6 +222,8 @@ class insert extends React.Component{
 
 
     render() {
+        const {showTableModal,showImageModal,imageModalTitle} = this.state
+        const {insertTag,selectedTag} = this.props
 
         //下拉 · 文本
         const textMenu = (
@@ -333,7 +329,7 @@ class insert extends React.Component{
             <div>
                 <div style={{position:'relative',width:'max-content'}}>
                     {
-                        JSON.stringify(this.state.selectedTag)==='{}'?<Mask title={'请先选中要插入的元素'}/>:<></>
+                        JSON.stringify(selectedTag)==='{}'?<Mask title={'请先选中要插入的元素'}/>:<></>
                     }
                     <div className={'tag_wp'}>
                         <div className={'tag'} onClick={()=>{insertTag(this.formatTag('div','新建div'))}}>
@@ -369,11 +365,11 @@ class insert extends React.Component{
                             </Dropdown>
                         </div>
                         <div className={'tag'}>
-                            <div onClick={()=>this.clickUpload()}>
+                            <div onClick={this.clickUpload}>
                                 <i className={'iconfont iconimg'}/>
                                 <p className={'tagName'}>图片</p>
                             </div>
-                            <input type="file" hidden onChange={()=>this.handleUploadImage()} id={'uploadLocalImg'} accept="image/*"/>
+                            <input type="file" hidden onChange={this.handleUploadImage} id={'uploadLocalImg'} accept="image/*"/>
                             <Dropdown overlay={imgMenu} placement="bottomLeft" trigger={['click']}>
                                 <div className={'arrow'}>
                                     <i className={'iconfont icondownarrow'}/>
@@ -427,8 +423,8 @@ class insert extends React.Component{
                         </div>
 
                     </div>
-                <TableModal type={'插入'} showTableModal={this.state.showTableModal} ok={(arr,className)=>insertTag(this.formatTable(arr,className))} cancel={()=>this.setState({showTableModal:false})}/>
-                <ImageModal type={'插入'} showImageModal={this.state.showImageModal} ok={(name,src)=>insertTag(this.formatImage(name,src))} cancel={()=>this.setState({showImageModal:false})} imageModalTitle={this.state.imageModalTitle}/>
+                <TableModal type={'插入'} showTableModal={showTableModal} ok={(arr,className)=>insertTag(this.formatTable(arr,className))} cancel={()=>this.setState({showTableModal:false})}/>
+                <ImageModal type={'插入'} showImageModal={showImageModal} ok={(name,src)=>insertTag(this.formatImage(name,src))} cancel={()=>this.setState({showImageModal:false})} imageModalTitle={imageModalTitle}/>
             </div>
             </div>
         )
@@ -436,4 +432,15 @@ class insert extends React.Component{
 
 }
 
-export default insert
+function mapStateToProps(state) {
+    const {selectedTag,tagList} = state;
+    return {selectedTag,tagList}
+}
+
+function mapDispatchToProps() {
+    return {
+        insertTag
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(insert)

@@ -1,40 +1,32 @@
 import React,{PureComponent} from 'react'
 import './customer.less'
-import store from "../../../../store";
 import {
     changeCustomerCssStyle,
-    changeCustomerHoverStyle,
-    changeHoverStyle,
-    changeNocssStyle, deleteCustomerCssStyle, deleteCustomerHoverStyle
+    changeCustomerHoverStyle, deleteAllCustomerCssStyle, deleteAllCustomerHoverStyle,
+    deleteCustomerCssStyle,
+    deleteCustomerHoverStyle
 } from "../../../../store/action";
+import {connect} from 'react-redux'
 
-export default class Customer extends PureComponent{
+class Customer extends PureComponent{
 
-    constructor(props){
-        super(props);
-        this.state = Object.assign({},store.getState(),{
-            customerCssList:[
-                {
-                    key:'',
-                    value:'',
-                    category:'standard'
-                }
-            ],
-            editingId:''                    //正在编辑的td的id，特征为key+index或者是value+index
-        });
-        store.subscribe(this.listener)
-    }
-
-    listener = ()=>{
-        let newState = store.getState();
-        this.setState(newState)
+    state = {
+        customerCssList:[
+            {
+                key:'',
+                value:'',
+                category:'standard'
+            }
+        ],
+        editingId:'',                    //正在编辑的td的id，特征为key+index或者是value+index
+        isShowShadow:true
     };
 
     changeEditingTarget = (type,index)=>{
         this.setState({
             editingId:type+index
         });
-        window.addEventListener('mousedown',this.clickOutside,false)
+        document.addEventListener('mousedown',this.clickOutside,false)
     };
 
     clickOutside = (e)=>{
@@ -42,12 +34,12 @@ export default class Customer extends PureComponent{
             this.setState({
                 editingId:''
             });
-            window.removeEventListener('mousedown',this.clickOutside)
+            document.removeEventListener('mousedown',this.clickOutside,false)
         }
     };
 
     updateCustomerCssList = (type,index,value)=>{
-        //TODO 检测enter和tab键
+        const {changeCustomerCssStyle,changeCustomerHoverStyle,deleteCustomerHoverStyle,deleteCustomerCssStyle,deleteAllCustomerCssStyle,deleteAllCustomerHoverStyle} = this.props;
         const {customerCssList} = this.state;
 
         let list = customerCssList.concat();
@@ -63,7 +55,10 @@ export default class Customer extends PureComponent{
             customerCssList:list
         });
 
-        customerCssList.forEach((item,idx)=>{
+        deleteAllCustomerCssStyle();
+        deleteAllCustomerHoverStyle();
+
+        list.forEach((item,idx)=>{
             if (item.key !== '' && item.value !== ''){
                 if (item.category === 'standard'){
                     changeCustomerCssStyle({
@@ -98,16 +93,18 @@ export default class Customer extends PureComponent{
         const {editingId} = this.state;
         if (e.key === 'Enter'){
             this.setState({
-                editingId:''
+                isShowShadow:false
             })
         }
         if (e.key === 'Tab'){
             if (/^key/.test(editingId)) {
                 this.setState({
+                    isShowShadow:true,
                     editingId:editingId.replace('key','value')
                 })
             }else {
                 this.setState({
+                    isShowShadow:true,
                     editingId:'key'+(parseInt(/[0-9]+/.exec(editingId)[0])+1)
                 })
             }
@@ -115,8 +112,10 @@ export default class Customer extends PureComponent{
     };
 
     deleteCustomerCssList = (item,index,e)=>{
+        const {deleteCustomerCssStyle,deleteCustomerHoverStyle} = this.props;
+        const {customerCssList} = this.state;
         e.stopPropagation();
-        let list = this.state.customerCssList.concat();
+        let list = customerCssList.concat();
         list.splice(index,1);
         this.setState({
             customerCssList:list
@@ -129,8 +128,22 @@ export default class Customer extends PureComponent{
 
     };
 
+    handleFocus = (e)=>{
+        const {editingId} = this.state;
+        const {index,inputtype} = e.target.dataset;
+        if (editingId !== inputtype+index+''){
+            this.setState({editingId: inputtype+index+''})
+        }
+    };
+
+    handleChange = (e)=>{
+        const {dataset:{index,inputtype},value} = e.target;
+        this.updateCustomerCssList(inputtype,+index,value)
+    };
+
+    //TODO 有bug，enter后tab
     render() {
-        const {customerCssList,editingId} = this.state;
+        const {customerCssList,editingId,isShowShadow} = this.state;
         return (
             <div>
                 <table className={'customer_table'} border="1">
@@ -148,11 +161,11 @@ export default class Customer extends PureComponent{
                                             <i className={`iconfont icon${item.category}`} onClick={()=>this.updateCustomerCssList('category',index,item.category==='standard'?'hover':'standard')}/>
                                         </div>
                                     </td>
-                                    <td id={`key${index}`} className={editingId === `key${index}`?'editing':''} onClick={()=>this.changeEditingTarget('key',index)}>
-                                        <input value={item.key} onFocus={()=>{if (editingId!==`key${index}`){this.setState({editingId:`key${index}`})} }} onChange={(e)=>this.updateCustomerCssList('key',index,e.target.value)} onKeyDown={(e)=>this.testKey(e)}/>
+                                    <td id={`key${index}`} className={editingId === `key${index}` && isShowShadow?'editing':''} onClick={()=>this.changeEditingTarget('key',index)}>
+                                        <input value={item.key} data-index={index} data-inputtype={'key'} onFocus={this.handleFocus} onChange={this.handleChange} onKeyDown={this.testKey}/>
                                     </td>
-                                    <td id={`value${index}`} className={editingId === `value${index}`?'editing':''} onClick={()=>this.changeEditingTarget('value',index)}>
-                                        <input value={item.value} onFocus={()=>{if (editingId!==`value${index}`){this.setState({editingId:`value${index}`})} }} onChange={(e)=>this.updateCustomerCssList('value',index,e.target.value)} onKeyDown={(e)=>this.testKey(e)}/>
+                                    <td id={`value${index}`} className={editingId === `value${index}` && isShowShadow?'editing':''} onClick={()=>this.changeEditingTarget('value',index)}>
+                                        <input value={item.value} data-index={index} data-inputtype={'value'} onFocus={this.handleFocus} onChange={this.handleChange} onKeyDown={this.testKey}/>
 
                                         {
                                             index === customerCssList.length-1
@@ -170,3 +183,16 @@ export default class Customer extends PureComponent{
         )
     }
 }
+
+function mapDispatchToProps() {
+    return{
+        changeCustomerCssStyle,
+        changeCustomerHoverStyle,
+        deleteCustomerHoverStyle,
+        deleteCustomerCssStyle,
+        deleteAllCustomerCssStyle,
+        deleteAllCustomerHoverStyle
+    }
+}
+
+export default connect(null,mapDispatchToProps)(Customer)

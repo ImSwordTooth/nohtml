@@ -5,7 +5,7 @@ import {withRouter}  from 'react-router-dom'
 import store from "../../store";
 import http from '../../common/http'
 import {getComputedCss} from "../../common/units";
-import {InviteModal} from "../nohtml/common/modals/inviteModal";
+import InviteModal from "../nohtml/common/modals/inviteModal";
 import {changeTagList, updateSetting} from "../../store/action";
 class UserInfo extends React.Component{
 

@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ff1a0ef3-317e-4184-bdf8-7f396ae86e22" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/nohtml/headers/css/setting.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/nohtml/headers/tabs/setting.js" afterDir="false" />
+    <list default="true" id="ff1a0ef3-317e-4184-bdf8-7f396ae86e22" name="Default Changelist" comment="整体更新。新增文件列表，解决了若干课设遗留问题">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/common/units.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/units.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/footer/myFooter.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/footer/myFooter.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/nocss/code/code.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nocss/code/code.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/nocss/operation/customer/customer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nocss/operation/customer/customer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/nocss/operation/hover/hover.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nocss/operation/hover/hover.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/nocss/operation/operation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nocss/operation/operation.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/nocss/operation/props/myBackgroundColor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nocss/operation/props/myBackgroundColor.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/nocss/operation/props/myBorder.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nocss/operation/props/myBorder.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/nocss/operation/props/myBorderRadius.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nocss/operation/props/myBorderRadius.js" afterDir="false" />
@@ -21,19 +18,36 @@
       <change beforePath="$PROJECT_DIR$/src/components/nocss/operation/props/myPadding.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nocss/operation/props/myPadding.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/nocss/operation/props/myTextShadow.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nocss/operation/props/myTextShadow.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/nocss/operation/props/myTransform.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nocss/operation/props/myTransform.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/nocss/operation/standard/standard.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nocss/operation/standard/standard.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nocss/operation/standard/standard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nocss/operation/standard/standard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/nocss/show/show.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nocss/show/show.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nohtml/common/modals/animationModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/common/modals/animationModal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nohtml/common/modals/classesModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/common/modals/classesModal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nohtml/common/modals/codeModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/common/modals/codeModal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nohtml/common/modals/imageModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/common/modals/imageModal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nohtml/common/modals/inviteModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/common/modals/inviteModal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nohtml/common/modals/recentFileModal.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nohtml/common/modals/tableModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/common/modals/tableModal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nohtml/common/spinner.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/nohtml/content/myContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/content/myContent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/nohtml/content/myContent.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/content/myContent.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/nohtml/headers/mask.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/headers/mask.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/nohtml/headers/myHeader.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/headers/myHeader.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nohtml/footer/myFooter.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/footer/myFooter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nohtml/headers/tabs/animation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/headers/tabs/animation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nohtml/headers/tabs/classes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/headers/tabs/classes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nohtml/headers/tabs/insert.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/headers/tabs/insert.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nohtml/headers/tabs/setting.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/headers/tabs/setting.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/nohtml/headers/tabs/start.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/headers/tabs/start.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/nohtml/headers/tabs/viewport.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/headers/tabs/viewport.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/iconfont.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/iconfont.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/nocss.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/nocss.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/nohtml.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/nohtml.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/nohtmlIndex.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/nohtmlIndex.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nohtml/sider/mySider.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/sider/MySider.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/nohtml/sider/mySider.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nohtml/sider/MySider.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/other/userInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/other/userInfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nohtml.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/nohtml.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/nohtmlIndex.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/nohtmlIndex.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/serviceWorker.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/action.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/reducer.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,10 +58,10 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="CSS File" />
-        <option value="HTML File" />
         <option value="TypeScript File" />
         <option value="JavaScript File" />
         <option value="Less File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -350,7 +364,23 @@
       <workItem from="1584705378766" duration="7494000" />
       <workItem from="1584846418152" duration="5569000" />
       <workItem from="1584928099615" duration="60000" />
-      <workItem from="1585979763062" duration="819000" />
+      <workItem from="1585979763062" duration="5427000" />
+      <workItem from="1586003747444" duration="962000" />
+      <workItem from="1586004838815" duration="1242000" />
+      <workItem from="1586223934667" duration="158000" />
+      <workItem from="1586483848300" duration="737000" />
+      <workItem from="1586493178610" duration="83000" />
+      <workItem from="1586494451528" duration="1195000" />
+      <workItem from="1586690783743" duration="3703000" />
+      <workItem from="1586742131757" duration="19000" />
+      <workItem from="1586746344152" duration="3774000" />
+      <workItem from="1586934534278" duration="4661000" />
+      <workItem from="1586944260505" duration="3267000" />
+      <workItem from="1587198670594" duration="9289000" />
+      <workItem from="1587265341626" duration="2135000" />
+      <workItem from="1587267837214" duration="1511000" />
+      <workItem from="1587347922312" duration="77000" />
+      <workItem from="1587374093157" duration="8498000" />
     </task>
     <task id="LOCAL-00001" summary="左侧树形控件可以正常地层层嵌套了">
       <created>1569331389721</created>
@@ -576,29 +606,46 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="181" key="#Notifications/0.0.1920.1040@0.0.1920.1040" timestamp="1584854041039" />
+    <state x="572" y="117" key="CommitChangelistDialog2" timestamp="1585980905705">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="572" y="117" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1585980905705" />
     <state x="740" y="278" key="FileChooserDialogImpl" timestamp="1584711921006">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="278" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1584711921006" />
-    <state width="1899" height="116" key="GridCell.Tab.0.bottom" timestamp="1584856413791">
+    <state width="2539" height="320" key="GridCell.Tab.0.bottom" timestamp="1587376323178">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2539" height="320" key="GridCell.Tab.0.bottom/-1920.0.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1587376323178" />
+    <state width="1899" height="225" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586947532397" />
+    <state width="2539" height="320" key="GridCell.Tab.0.center" timestamp="1587376323176">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2539" height="320" key="GridCell.Tab.0.center/-1920.0.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1587376323176" />
+    <state width="1899" height="225" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586947532397" />
+    <state width="2539" height="320" key="GridCell.Tab.0.left" timestamp="1587376323173">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2539" height="320" key="GridCell.Tab.0.left/-1920.0.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1587376323173" />
+    <state width="1899" height="225" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586947532397" />
+    <state width="2539" height="320" key="GridCell.Tab.0.right" timestamp="1587376323177">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2539" height="320" key="GridCell.Tab.0.right/-1920.0.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1587376323177" />
+    <state width="1899" height="225" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586947532397" />
+    <state x="754" y="438" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1586944261617">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="116" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1584856413791" />
-    <state width="1899" height="116" key="GridCell.Tab.0.center" timestamp="1584856413790">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="754" y="438" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1586944261617" />
+    <state x="863" y="370" width="835" height="660" key="find.popup" timestamp="1587201882674">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1899" height="116" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1584856413790" />
-    <state width="1899" height="116" key="GridCell.Tab.0.left" timestamp="1584856413790">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="863" y="370" width="835" height="660" key="find.popup/-1920.0.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1587201882674" />
+    <state x="647" y="275" width="626" height="490" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1586484210576" />
+    <state x="943" y="315" width="672" height="678" key="search.everywhere.popup" timestamp="1587380146169">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1899" height="116" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1584856413790" />
-    <state width="1899" height="116" key="GridCell.Tab.0.right" timestamp="1584856413791">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1899" height="116" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1584856413791" />
-    <state x="647" y="275" width="626" height="490" key="find.popup" timestamp="1584848381841">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="647" y="275" width="626" height="490" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1584848381841" />
+    <state x="943" y="315" width="672" height="678" key="search.everywhere.popup/-1920.0.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1587380146169" />
   </component>
 </project>

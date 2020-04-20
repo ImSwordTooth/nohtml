@@ -1,73 +1,67 @@
-import React from 'react'
+import React,{PureComponent} from 'react'
 import {Collapse, Drawer, Input, Tag,Tooltip,AutoComplete} from 'antd'
 
 import './myContent.less'
 import store from '../../../store'
-import {changeDrawer, updateTag} from "../../../store/action";
+import { changeDrawer, updateTag} from "../../../store/action";
 import {dataSource,defaultCssProp,dataSourceKeys} from "../../../data/cssTable";
 import {getComputedCss} from "../../../common/units";
+import {connect} from 'react-redux'
 
 const {TextArea} = Input;
 const { Panel } = Collapse;
 
 
-class myContent extends React.Component{
+class myContent extends PureComponent{
 
-    constructor(props){
-        super(props);
-        this.state = Object.assign({},store.getState(),{
-            isReName:false,
-            editingStyleName:'',        //当前正在编辑的样式的名字，同一时间只能编辑一个,hover的是'hover'+属性名
-            editingStyleValue:'',        //当前正在编辑的样式的值
-            newStyleName:'',            //新建样式属性名
-            newStyleValue:'',            //新建样式属性值
-            newHoverStyleName:'',       //新建hover样式属性值
-            newHoverStyleValue:'',      //新建hover样式属性值
-            newPanelList:[':hover',':link',':active',':visited',':first-child',':'],
-            hoverId:'',                 //展示区hover的元素的id
-        });
-        store.subscribe(this.listener)
+    state = {
+        isReName:false,
+        editingStyleName:'',        //当前正在编辑的样式的名字，同一时间只能编辑一个,hover的是'hover'+属性名
+        editingStyleValue:'',        //当前正在编辑的样式的值
+        newStyleName:'',            //新建样式属性名
+        newStyleValue:'',            //新建样式属性值
+        newHoverStyleName:'',       //新建hover样式属性值
+        newHoverStyleValue:'',      //新建hover样式属性值
+        newPanelList:[':hover',':link',':active',':visited',':first-child',':'],
+        hoverId:'',                 //展示区hover的元素的id
     }
 
-    listener = () => {
-        let newState = store.getState();
-        this.setState(newState);
-    };
-
     componentDidMount() {
-        document.getElementById('content').addEventListener('scroll',this.debounce(this.getDrawerTop,100))
+        document.getElementById('content').addEventListener('scroll',this.debounce)
     }
     componentWillUnmount() {
         document.getElementById('content').removeEventListener('scroll',this.debounce);
-        document.removeEventListener('mousedown', this.handleClickOutside,);
+        document.removeEventListener('mousedown', this.handleClickOutside);
     }
 
     //防抖函数
-    debounce = (fn,wait)=>{
+    debounce = ()=>{
         let timeout = null;
+        const fn = this.getDrawerTop;
         return function(){
             if(timeout !== null){       //如果用户在wait时间内再次触发，就会清除定时器
                 clearTimeout(timeout);
             }
-            timeout = setTimeout(fn,wait);      //然后再重新设置定时器
+            timeout = setTimeout(fn,100);      //然后再重新设置定时器
         }
     };
 
     //动态设置抽屉的位置
     getDrawerTop = ()=>{
-        let top = document.getElementById('content').scrollTop;
-        if(document.getElementById('Drawer')){
-            document.getElementById('Drawer').style.transform = `translateY(${top}px)`;         //使用transform的好处是可以添加动画，十分平滑不突兀
+        const top = document.getElementById('content').scrollTop;
+        const Drawer = document.getElementById('Drawer');
+        if(Drawer){
+            Drawer.style.transform = `translateY(${top}px)`;         //使用transform的好处是可以添加动画，十分平滑不突兀
         }
     };
 
-
-
-
+    //关闭抽屉
     closeDrawer = ()=>{
+        const {changeDrawer} = this.props
         changeDrawer(false)
     };
 
+    //改变元素中的文本
     changeContent = (e)=>{
         updateTag({
             prop:'content',
@@ -84,9 +78,10 @@ class myContent extends React.Component{
     };
 
     drawerTitle = ()=>{
-        let selectedTag = this.state.selectedTag;
+        const {isReName} = this.state;
+        const {selectedTag} = this.props
         let title = null;
-        if (this.state.isReName){
+        if (isReName){
             title = <Input value={selectedTag.dataName} style={{width:120}} onChange={this.reName} onPressEnter={()=>this.setState({isReName:false})}/>;
         }else{
             title = (
@@ -117,12 +112,9 @@ class myContent extends React.Component{
         })
     };
 
-    addNewPanel = (e)=>{
-        console.log(e)
-    };
-
     deleteClassName = (name)=>{
-        let classList = this.state.selectedTag.props.className.concat();
+        const {selectedTag} = this.props
+        let classList = selectedTag.props.className.concat();
         classList.splice(classList.indexOf(name),1);
         updateTag({
             prop:'props',
@@ -148,17 +140,16 @@ class myContent extends React.Component{
     };
 
     drawerContent = ()=>{
-        let selectedTag = this.state.selectedTag;
-
-
+        const {selectedTag,classList,updateTag} = this.props
+        const {editingStyleName,newStyleName,newStyleValue,newHoverStyleName,newHoverStyleValue} = this.state
         if (JSON.stringify(selectedTag)!=='{}') {
             //类中的样式
             let classStyle = {};
-            let list = this.state.classList.map(item=>item.className);
+            let list = classList.map(item=>item.className);
             if (selectedTag.props.className){
                 selectedTag.props.className.forEach((item)=>{
                     if (list.includes(item)){
-                        classStyle = Object.assign({},classStyle,this.state.classList[list.indexOf(item)].viewStyle);
+                        classStyle = Object.assign({},classStyle,classList[list.indexOf(item)].viewStyle);
                     }
                 });
             }
@@ -169,47 +160,42 @@ class myContent extends React.Component{
 
             let defaultCssArr = defaultCssProp[selectedTag.type]||defaultCssProp.div;
 
+            defaultCssArr.map(item=>{
 
-            // console.log(this.state.selectedTag.style)
-            // console.log(getComputedStyle(document.getElementById(selectedTag.key), null))
+                if (!css[item]){
+                    /**
+                     * Elt.style只能获取行内样式，要想使用计算过的样式，要用getComputedStyle(Ele,pseudoElt)。
+                     * 此处把非行内样式做了一个标记，在后面添加了一个“#”，不影响排序的情况下判断该属性是否是行内属性，输出的时候把“#”替换成“”即可
+                     * */
+                    if (document.getElementById(selectedTag.key)!==null){
+                        css[item+'#'] = getComputedStyle(document.getElementById(selectedTag.key), null)[item];
+                    }
 
-
-                    defaultCssArr.map(item=>{
-
-                        if (!css[item]){
-                            /**
-                             * Elt.style只能获取行内样式，要想使用计算过的样式，要用getComputedStyle(Ele,pseudoElt)。
-                             * 此处把非行内样式做了一个标记，在后面添加了一个“#”，不影响排序的情况下判断该属性是否是行内属性，输出的时候把“#”替换成“”即可
-                             * */
-                            if (document.getElementById(selectedTag.key)!==null){
-                                css[item+'#'] = getComputedStyle(document.getElementById(selectedTag.key), null)[item];
-                            }
-
-                        }
-                        /**
-                         * 此处是想把不合规则的属性标记为红色，但是判断起来并不简单。暂时搁置，以后再写或者直接砍掉。
-                         * 下方关于&的正则判断暂未删除
-                         * */
-                        /*else if (this.state.selectedTag.style[item]&&getComputedStyle(document.getElementById(selectedTag.key), null)[item]=='') {
-                            css[item+'&'] = css[item];
-                            delete css[item];
-                        }
-                        console.log(getComputedStyle(document.getElementById(selectedTag.key), null).display)
-                        console.log(this.state.selectedTag.style.display)*/
-                    });
+                }
+                /**
+                 * 此处是想把不合规则的属性标记为红色，但是判断起来并不简单。暂时搁置，以后再写或者直接砍掉。
+                 * 下方关于&的正则判断暂未删除
+                 * */
+                /*else if (this.state.selectedTag.style[item]&&getComputedStyle(document.getElementById(selectedTag.key), null)[item]=='') {
+                    css[item+'&'] = css[item];
+                    delete css[item];
+                }
+                console.log(getComputedStyle(document.getElementById(selectedTag.key), null).display)
+                console.log(this.state.selectedTag.style.display)*/
+            });
 
 
                 return (
                     <div>
                         {
-                            this.state.selectedTag.type === 'img'
-                            ?<img src={this.state.selectedTag.props.src} alt={this.state.selectedTag.dataName} className={'drawImg'}/>
-                                :<TextArea value={this.state.selectedTag.content} style={{marginBottom:'10px'}} onChange={(e) => this.changeContent(e)}/>
+                            selectedTag.type === 'img'
+                            ?<img src={selectedTag.props.src} alt={selectedTag.dataName} className={'drawImg'}/>
+                                :<TextArea value={selectedTag.content} style={{marginBottom:'10px'}} onChange={this.changeContent}/>
                         }
                         <Collapse expandIconPosition={'right'} bordered={false} defaultActiveKey={['1','2','3']}>
                             <Panel key={1} header={'属性'} style={{background: '#f7f7f7',borderRadius: 4, marginBottom: 10,border: 0,overflow: 'hidden',borderTop:'solid 4px rgba(218, 218, 218, 0.34)'}}>
                                 <ul className={'drawerUl'}>
-                                    {[...Object.entries(selectedTag.props)].map((item,index) => {
+                                    {Object.entries(selectedTag.props).map((item,index) => {
                                         return (
                                             item[0] === 'className'
                                             ?
@@ -222,8 +208,8 @@ class myContent extends React.Component{
                                                                 {item[1].map((i)=>{
                                                                     return (
                                                                         <Tooltip title={
-                                                                            this.state.classList.findIndex((item)=>item.className===i)>-1
-                                                                                ?Object.entries(this.state.classList[this.state.classList.findIndex((item)=>item.className===i)].viewStyle).map((i)=>{
+                                                                            classList.findIndex((item)=>item.className===i)>-1
+                                                                                ?Object.entries(classList[classList.findIndex((item)=>item.className===i)].viewStyle).map((i)=>{
                                                                                 return `${i[0].replace(/[A-Z]/g,w=>'-'+w.toLowerCase())}: ${i[1]};\n`
                                                                             })
                                                                                 :'预设样式'
@@ -287,7 +273,7 @@ class myContent extends React.Component{
                                        </div>}>
                                 <ul className={'drawerUl'}>
                                     {/*<li>*/}
-                                    {[...Object.entries(css)].sort().map((item,index) => {
+                                    {Object.entries(css).sort().map((item,index) => {
                                         let borderLeft = '';
                                         if (classStyle[item[0]] && classStyle[item[0]] === item[1]){
                                             borderLeft = 'solid 3px #1493d3';
@@ -303,7 +289,7 @@ class myContent extends React.Component{
                                                 <li style={{borderLeft}} key={index}>
                                                     <div className={'key'}>{item[0].replace(/[#&]/g,'')}</div>
                                                     <div className={'value'} onClick={()=>this.changeEditing(item[0].replace(/[#&]/g,''),item[1])}>
-                                                        {this.state.editingStyleName===item[0].replace(/[#&]/g,'')
+                                                        {editingStyleName===item[0].replace(/[#&]/g,'')
                                                             ?<Tooltip trigger={['focus']} title={item[1]} placement="topLeft">
                                                                 <AutoComplete
                                                                     autoFocus={true}
@@ -358,7 +344,7 @@ class myContent extends React.Component{
                                     {/*</li>*/}
                                     <li>
                                         <div className={'key'}>
-                                            <Tooltip trigger={['focus']} title={this.state.newStyleName} placement="topLeft">
+                                            <Tooltip trigger={['focus']} title={newStyleName} placement="topLeft">
                                                 <AutoComplete
                                                     // autoFocus={true}
                                                     dataSource={dataSourceKeys.sort()}
@@ -367,28 +353,28 @@ class myContent extends React.Component{
                                                     }
                                                     children={<input className={'autoCompleteInput'} id={'newStyleName'} style={{width:120}} placeholder={'新建属性'} onFocus={(e)=>{e.target.select()}}/>}
                                                     backfill={true}
-                                                    value={this.state.newStyleName}
+                                                    value={newStyleName}
                                                     onChange={(e)=>{this.setState({newStyleName:e})}}
                                                     onBlur={()=>{
-                                                        if (this.state.newStyleName !=='' && this.state.newStyleValue !== ''){
-                                                            if (!/\d+px/.test(this.state.newStyleValue)){
+                                                        if (newStyleName !=='' && newStyleValue !== ''){
+                                                            if (!/\d+px/.test(newStyleValue)){
                                                                 updateTag({
                                                                     prop:'style',
-                                                                    innerProp:this.state.newStyleName,
-                                                                    value:this.state.newStyleValue
+                                                                    innerProp:newStyleName,
+                                                                    value:newStyleValue
                                                                 })
                                                             }else {
                                                                 updateTag({
                                                                     prop:'trueStyle',
-                                                                    innerProp:this.state.newStyleName,
-                                                                    value:this.state.newStyleValue.replace(/\d+px/g,function (i) {
+                                                                    innerProp:newStyleName,
+                                                                    value:newStyleValue.replace(/\d+px/g,function (i) {
                                                                         return parseInt(i)/14*0.6+'rem'
                                                                     })
                                                                 });
                                                                 updateTag({
                                                                     prop:'viewStyle',
-                                                                    innerProp:this.state.newStyleName,
-                                                                    value:this.state.newStyleValue
+                                                                    innerProp:newStyleName,
+                                                                    value:newStyleValue
                                                                 })
                                                             }
                                                             this.setState({
@@ -401,10 +387,10 @@ class myContent extends React.Component{
                                             </Tooltip>
                                         </div>
                                         <div className={'value'}>
-                                            <Tooltip trigger={['focus']} title={this.state.newStyleValue===''?'':this.state.newStyleValue} placement="topLeft">
+                                            <Tooltip trigger={['focus']} title={newStyleValue===''?'':newStyleValue} placement="topLeft">
                                                 <AutoComplete
                                                     // autoFocus={true}
-                                                    dataSource={dataSource[this.state.newStyleName]===undefined?[]:dataSource[this.state.newStyleName].sort()}
+                                                    dataSource={dataSource[newStyleName]===undefined?[]:dataSource[newStyleName].sort()}
                                                     filterOption={(inputValue, option) =>
                                                         option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
                                                     }
@@ -414,24 +400,24 @@ class myContent extends React.Component{
                                                                 onKeyDown={(e)=>{
                                                                     if (e.key === 'Tab'){
                                                                         e.preventDefault();
-                                                                        if (!/\d+px/.test(this.state.newStyleValue)){
+                                                                        if (!/\d+px/.test(newStyleValue)){
                                                                             updateTag({
                                                                                 prop:'style',
-                                                                                innerProp:this.state.newStyleName,
-                                                                                value:this.state.newStyleValue
+                                                                                innerProp:newStyleName,
+                                                                                value:newStyleValue
                                                                             })
                                                                         }else {
                                                                             updateTag({
                                                                                 prop:'trueStyle',
-                                                                                innerProp:this.state.newStyleName,
-                                                                                value:this.state.newStyleValue.replace(/\d+px/g,function (i) {
+                                                                                innerProp:newStyleName,
+                                                                                value:newStyleValue.replace(/\d+px/g,function (i) {
                                                                                     return parseInt(i)/14*0.6+'rem'
                                                                                 })
                                                                             });
                                                                             updateTag({
                                                                                 prop:'viewStyle',
-                                                                                innerProp:this.state.newStyleName,
-                                                                                value:this.state.newStyleValue
+                                                                                innerProp:newStyleName,
+                                                                                value:newStyleValue
                                                                             })
                                                                         }
                                                                         this.setState({
@@ -443,30 +429,30 @@ class myContent extends React.Component{
                                                                 }}
                                                         />}
                                                     backfill={true}
-                                                    value={this.state.newStyleValue}
+                                                    value={newStyleValue}
                                                     onChange={(e)=>{
                                                         this.setState({newStyleValue:e})
                                                     }}
                                                     onBlur={()=>{
-                                                        if (this.state.newStyleName !=='' && this.state.newStyleValue !== ''){
-                                                            if (!/\d+px/.test(this.state.newStyleValue)){
+                                                        if (newStyleName !=='' && newStyleValue !== ''){
+                                                            if (!/\d+px/.test(newStyleValue)){
                                                                 updateTag({
                                                                     prop:'style',
-                                                                    innerProp:this.state.newStyleName,
-                                                                    value:this.state.newStyleValue
+                                                                    innerProp:newStyleName,
+                                                                    value:newStyleValue
                                                                 })
                                                             }else {
                                                                 updateTag({
                                                                     prop:'trueStyle',
-                                                                    innerProp:this.state.newStyleName,
-                                                                    value:this.state.newStyleValue.replace(/\d+px/g,function (i) {
+                                                                    innerProp:newStyleName,
+                                                                    value:newStyleValue.replace(/\d+px/g,function (i) {
                                                                         return parseInt(i)/14*0.6+'rem'
                                                                     })
                                                                 });
                                                                 updateTag({
                                                                     prop:'viewStyle',
-                                                                    innerProp:this.state.newStyleName,
-                                                                    value:this.state.newStyleValue
+                                                                    innerProp:newStyleName,
+                                                                    value:newStyleValue
                                                                 })
                                                             }
                                                             this.setState({
@@ -484,13 +470,13 @@ class myContent extends React.Component{
                             <Panel key={3} header={'hover'}
                                    style={{background: '#f7f7f7',borderRadius: 4, marginBottom: 10,border: 0,overflow: 'hidden',borderTop:'solid 4px rgba(218, 218, 218, 0.34)'}}>
                                 <ul className={'drawerUl'}>
-                                {[...Object.entries(hover)].sort().map((item,index) => {
+                                {Object.entries(hover).sort().map((item,index) => {
                                     if (item[1]!==''){
                                         return (
                                             <li key={index}>
                                                 <div className={'key'}>{item[0]}</div>
                                                 <div className={'value'} onClick={()=>this.changeEditing('hover'+item[0],item[1])}>
-                                                    {this.state.editingStyleName==='hover'+item[0]
+                                                    {editingStyleName==='hover'+item[0]
                                                         ?<Tooltip trigger={['focus']} title={item[1]} placement="topLeft">
                                                             <AutoComplete
                                                                 autoFocus={true}
@@ -544,7 +530,7 @@ class myContent extends React.Component{
                                 })}
                                     <li>
                                         <div className={'key'}>
-                                            <Tooltip trigger={['focus']} title={this.state.newHoverStyleName} placement="topLeft">
+                                            <Tooltip trigger={['focus']} title={newHoverStyleName} placement="topLeft">
                                                 <AutoComplete
                                                     // autoFocus={true}
                                                     dataSource={dataSourceKeys.sort()}
@@ -553,14 +539,14 @@ class myContent extends React.Component{
                                                     }
                                                     children={<input className={'autoCompleteInput'} id={'newHoverStyleName'} style={{width:120}} placeholder={'新建属性'} onFocus={(e)=>{e.target.select()}}/>}
                                                     backfill={true}
-                                                    value={this.state.newHoverStyleName}
+                                                    value={newHoverStyleName}
                                                     onChange={(e)=>{this.setState({newHoverStyleName:e})}}
                                                     onBlur={()=>{
-                                                        if (this.state.newHoverStyleName !=='' && this.state.newHoverStyleValue !== ''){
+                                                        if (newHoverStyleName !=='' && newHoverStyleValue !== ''){
                                                             updateTag({
                                                                 prop:'style',
-                                                                innerProp:this.state.newHoverStyleName,
-                                                                value:this.state.newHoverStyleValue
+                                                                innerProp:newHoverStyleName,
+                                                                value:newHoverStyleValue
                                                             });
                                                             this.setState({
                                                                 newHoverStyleName:'',
@@ -572,10 +558,10 @@ class myContent extends React.Component{
                                             </Tooltip>
                                         </div>
                                         <div className={'value'}>
-                                            <Tooltip trigger={['focus']} title={this.state.newHoverStyleValue===''?'':this.state.newHoverStyleValue} placement="topLeft">
+                                            <Tooltip trigger={['focus']} title={newHoverStyleValue===''?'':newHoverStyleValue} placement="topLeft">
                                                 <AutoComplete
                                                     // autoFocus={true}
-                                                    dataSource={dataSource[this.state.newHoverStyleName]===undefined?[]:dataSource[this.state.newHoverStyleName].sort()}
+                                                    dataSource={dataSource[newHoverStyleName]===undefined?[]:dataSource[newHoverStyleName].sort()}
                                                     filterOption={(inputValue, option) =>
                                                         option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
                                                     }
@@ -585,24 +571,24 @@ class myContent extends React.Component{
                                                                onKeyDown={(e)=>{
                                                                    if (e.key === 'Tab'){
                                                                        e.preventDefault();
-                                                                       if (!/\d+px/.test(this.state.newHoverStyleValue)){
+                                                                       if (!/\d+px/.test(newHoverStyleValue)){
                                                                            updateTag({
                                                                                prop:'hover',
-                                                                               innerProp:this.state.newHoverStyleName,
-                                                                               value:this.state.newHoverStyleValue
+                                                                               innerProp:newHoverStyleName,
+                                                                               value:newHoverStyleValue
                                                                            })
                                                                        }else {
                                                                            updateTag({
                                                                                prop:'hoverTrueStyle',
-                                                                               innerProp:this.state.newHoverStyleName,
-                                                                               value:this.state.newHoverStyleValue.replace(/\d+px/g,function (i) {
+                                                                               innerProp:newHoverStyleName,
+                                                                               value:newHoverStyleValue.replace(/\d+px/g,function (i) {
                                                                                    return parseInt(i)/14*0.6+'rem'
                                                                                })
                                                                            });
                                                                            updateTag({
                                                                                prop:'hoverViewStyle',
-                                                                               innerProp:this.state.newHoverStyleName,
-                                                                               value:this.state.newHoverStyleValue
+                                                                               innerProp:newHoverStyleName,
+                                                                               value:newHoverStyleValue
                                                                            })
                                                                        }
                                                                        this.setState({
@@ -614,30 +600,30 @@ class myContent extends React.Component{
                                                                }}
                                                         />}
                                                     backfill={true}
-                                                    value={this.state.newHoverStyleValue}
+                                                    value={newHoverStyleValue}
                                                     onChange={(e)=>{
                                                         this.setState({newHoverStyleValue:e})
                                                     }}
                                                     onBlur={()=>{
-                                                        if (this.state.newHoverStyleName !=='' && this.state.newHoverStyleValue !== ''){
-                                                            if (!/\d+px/.test(this.state.newHoverStyleValue)){
+                                                        if (newHoverStyleName !=='' && newHoverStyleValue !== ''){
+                                                            if (!/\d+px/.test(newHoverStyleValue)){
                                                                 updateTag({
                                                                     prop:'hover',
-                                                                    innerProp:this.state.newHoverStyleName,
-                                                                    value:this.state.newHoverStyleValue
+                                                                    innerProp:newHoverStyleName,
+                                                                    value:newHoverStyleValue
                                                                 })
                                                             }else {
                                                                 updateTag({
                                                                     prop:'hoverTrueStyle',
-                                                                    innerProp:this.state.newHoverStyleName,
-                                                                    value:this.state.newHoverStyleValue.replace(/\d+px/g,function (i) {
+                                                                    innerProp:newHoverStyleName,
+                                                                    value:newHoverStyleValue.replace(/\d+px/g,function (i) {
                                                                         return parseInt(i)/14*0.6+'rem'
                                                                     })
                                                                 });
                                                                 updateTag({
                                                                     prop:'hoverViewStyle',
-                                                                    innerProp:this.state.newHoverStyleName,
-                                                                    value:this.state.newHoverStyleValue
+                                                                    innerProp:newHoverStyleName,
+                                                                    value:newHoverStyleValue
                                                                 })
                                                             }
                                                             this.setState({
@@ -660,6 +646,7 @@ class myContent extends React.Component{
     };
 
     createNodes = (node) => {
+        const {hoverId} = this.state
         let className = '';
         let css = Object.assign({},node.trueStyle),
             hover = Object.assign({},node.hoverTrueStyle);
@@ -674,7 +661,7 @@ class myContent extends React.Component{
                 {
                     id:node.key,
                     key:node.key,
-                    style:node.key===this.state.hoverId?{...Object.assign({},css,hover)}:{...css},
+                    style:node.key===hoverId?{...Object.assign({},css,hover)}:{...css},
                     src:node.props.src?node.props.src:null,
                     className
                 },
@@ -686,7 +673,7 @@ class myContent extends React.Component{
                 {
                     id:node.key,
                     key:node.key,
-                    style:node.key===this.state.hoverId?{...Object.assign({},css,hover)}:{...css},
+                    style:node.key===hoverId?{...Object.assign({},css,hover)}:{...css},
                     src:node.props.src?node.props.src:null,
                     type:node.props.type?node.props.type:null,
                     className
@@ -697,7 +684,9 @@ class myContent extends React.Component{
     };
 
     containerStyle = ()=>{
-        let node = this.state.tagList;
+        const {hoverId} = this.state
+        const {tagList} = this.props
+        let node = tagList;
         let className = '';
         let css = Object.assign({},node.trueStyle),
             hover = Object.assign({},node.hoverTrueStyle);
@@ -707,12 +696,13 @@ class myContent extends React.Component{
             hover = getComputedCss(node,'hoverTrueStyle');
 
         }
-        return node.key===this.state.hoverId?{...Object.assign({},css,hover)}:{...css}
+        return node.key===hoverId?{...Object.assign({},css,hover)}:{...css}
     }
 
     mask = ()=>{
-        if (this.state.hoveredTagKey!==''){
-            let ele = document.getElementById(this.state.hoveredTagKey);
+        const {hoveredTagKey} = this.props
+        if (hoveredTagKey!==''){
+            let ele = document.getElementById(hoveredTagKey);
             if(ele){
                 let style = {
                     width:ele.clientWidth,
@@ -735,14 +725,15 @@ class myContent extends React.Component{
     }
 
     render() {
+        const {showDrawer,setting,tagList} = this.props
         return (
             <div className={'container_wp'} id={'container_wp'}>
-                <div className={`container ${this.state.showDrawer?'operation_open':''}`} id={'0'}
-                     style={!this.state.setting.width.match(/vw$/g)
-                         ?Object.assign({},this.containerStyle(),{width:parseInt(this.state.setting.width)*.6+'px',height:parseInt(this.state.setting.height)*.6+'px'})
+                <div className={`container ${showDrawer?'operation_open':''}`} id={'0'}
+                     style={!setting.width.match(/vw$/g)
+                         ?Object.assign({},this.containerStyle(),{width:parseInt(setting.width)*.6+'px',height:parseInt(setting.height)*.6+'px'})
                          :Object.assign({},this.containerStyle(),{width:'60vw',height:'60vh'})}
                      onMouseMove={(e)=>this.setHover(e)}>
-                    {this.state.tagList.children.map(val => this.createNodes(val))}
+                    {tagList.children.map(val => this.createNodes(val))}
                     {this.mask()}
                 </div>
                 <Drawer
@@ -752,7 +743,7 @@ class myContent extends React.Component{
                     placement="right"
                     closable={true}
                     onClose={this.closeDrawer}
-                    visible={this.state.showDrawer}
+                    visible={showDrawer}
                     mask={false}
                     getContainer={()=>document.getElementById('container_wp')}
                     width={400}
@@ -764,4 +755,16 @@ class myContent extends React.Component{
     }
 }
 
-export default myContent
+function mapStateToProps(state) {
+    const {selectedTag,classList,hoveredTagKey,showDrawer,setting,tagList} = state;
+    return {selectedTag,classList,hoveredTagKey,showDrawer,setting,tagList}
+}
+
+function mapDispatchToProps() {
+    return {
+        changeDrawer,
+        updateTag
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(myContent)

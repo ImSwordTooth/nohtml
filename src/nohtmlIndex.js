@@ -13,24 +13,14 @@ withRouter
 } from "react-router-dom";
 import './css/nohtmlIndex.less'
 import {changeNav} from "./store/action";
-import Nohtml from "./nohtml";
 const { Content, Sider } = Layout;
 const { Option } = Select;
 
 
 class NohtmlIndex extends React.Component{
 
-    constructor(props){
-        super(props);
-        this.state = Object.assign({},store.getState(),{
-            menuIndex:'1'
-        });
-        store.subscribe(this.listen);
-    }
-
-    listen = ()=>{
-        let newState = store.getState();
-        this.setState(newState)
+    state = {
+        menuIndex:'1'
     };
 
     componentDidMount() {
@@ -41,9 +31,14 @@ class NohtmlIndex extends React.Component{
         changeNav('');
     }
 
+    changeMenuIndex = (e)=>{
+        this.setState({menuIndex:e.key})
+    }
+
 
     render() {
-
+        const {history} = this.props
+        const {menuIndex} = this.state;
 
         return (
             <Layout className={'App'}>
@@ -51,7 +46,7 @@ class NohtmlIndex extends React.Component{
                     <Layout style={{ padding: '24px', background: '#fff',height:'100%' }}>
                         <Sider width={200} style={{ background: '#fff' }}>
                             <button className={'new'}>新建</button>
-                            <Menu defaultSelectedKeys={['1']} onClick={(e)=>this.setState({menuIndex:e.key})}>
+                            <Menu defaultSelectedKeys={['1']} onClick={this.changeMenuIndex}>
                                 <Menu.Item key={'1'}>
                                     <span className={'menuItem'}>
                                         <i className={'iconfont iconall'}/>
@@ -77,9 +72,9 @@ class NohtmlIndex extends React.Component{
                                 <div className={'toolbar'}>
                                     <span className={'orderBy'}>
                                         {
-                                            this.state.menuIndex !== '1' && this.state.menuIndex !== '2'
+                                            menuIndex !== '1' && menuIndex !== '2'
                                                 ? <><i className={'iconfont icongarbage'}/><span><strong>回收站</strong>：删除过的项目，最多保存xx天</span></>
-                                                : (this.state.menuIndex === '1'
+                                                : (menuIndex === '1'
                                                     ? <><i className={'iconfont iconall'}/><span><strong>全部项目</strong>：我参与的所有项目</span></>
                                                     : <><i className={'iconfont iconfavorite'}/><span><strong>收藏项目</strong>：我收藏的项目</span></>)
                                         }
@@ -107,7 +102,7 @@ class NohtmlIndex extends React.Component{
                                         <th>操作</th>
                                     </tr>
                                     <tr>
-                                        <td className={'fileName'} onClick={()=>this.props.history.push('/nohtml/detail/789789')}>我的第一个项目</td>
+                                        <td className={'fileName'} onClick={()=>history.push('/nohtml/detail/789789')}>我的第一个项目</td>
                                         <td>
                                             <div>
                                                 <img src={require('./asset/avatar.jpg')}/>
@@ -127,7 +122,7 @@ class NohtmlIndex extends React.Component{
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td className={'fileName'} onClick={()=>this.props.history.push('/nohtml/detail/123456')}>我的第二个很长很长很长长很长长很长很长的项目</td>
+                                        <td className={'fileName'} onClick={()=>history.push('/nohtml/detail/123456')}>我的第二个很长很长很长长很长长很长很长的项目</td>
                                         <td>
                                             <div>
                                                 <img src={require('./asset/avatar.jpg')}/>
@@ -150,11 +145,6 @@ class NohtmlIndex extends React.Component{
                         </Content>
                     </Layout>
                 </Content>
-                {/*<Switch>*/}
-                    {/*<Route path={`/nohtml/xx`}>*/}
-                        {/*<Nohtml />*/}
-                    {/*</Route>*/}
-                {/*</Switch>*/}
             </Layout>
         )
     }

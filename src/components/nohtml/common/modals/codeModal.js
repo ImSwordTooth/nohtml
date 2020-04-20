@@ -1,32 +1,21 @@
-import React from 'react'
-import store from '../../../../store'
+import React,{PureComponent} from 'react'
 import {changeCode} from "../../../../store/action";
 import hljs from 'highlight.js/lib/highlight'
 import javascript from 'highlight.js/lib/languages/javascript';
 import '../css/codeModal.less'
 import 'highlight.js/styles/androidstudio.css';
 import {Modal, Tabs, Switch, Icon} from "antd";
-import Spinner from "../../common/spinner";
+import {connect} from 'react-redux'
 const { TabPane } = Tabs;
 
 hljs.registerLanguage('javascript', javascript);
 
 
-class CodeModal extends React.Component{
+class CodeModal extends PureComponent{
 
-    constructor(props){
-        super(props);
-        this.state = Object.assign({},store.getState(),{
-            cssSpinner:true
-        })
-        store.subscribe(this.listener)
+    state = {
+        cssSpinner:true
     }
-
-    listener = ()=>{
-        let newState = store.getState();
-        this.setState(newState)
-    }
-
 
     getHTMLContent = (val,n)=>{
         let {key, pid, children, type,viewStyle,content,props} = val;
@@ -90,23 +79,14 @@ ${space}</${type}>`
         // })
     }
 
-    xx = ()=>{
-        {new Promise(()=>{
-            return this.state.classList.map(val=>this.getCssContent(val,0))
-        }).then(()=>{
-            this.setState({
-                cssSpinner:false
-            })
-        })}
-    }
-
 
 
     render() {
+         const {showCode,changeCode,tagList,classList} = this.props
         return (
             <Modal title={'生成代码'} width={1200}
                    className={'code_wp modals'}
-                   visible={this.state.showCode}
+                   visible={showCode}
                    cancelText={'关闭'}
                    okText={'下载'}
                    onOk={this.ok}
@@ -124,13 +104,13 @@ ${space}</${type}>`
                     </div>}>
                     <TabPane tab="html" key="1">
                         <div className={'html'}>
-                            {this.state.tagList.children.map(val=>this.getHTMLContent(val,0))}
+                            {tagList.children.map(val=>this.getHTMLContent(val,0))}
                         </div>
                     </TabPane>
                     <TabPane tab="css" key="2">
                         <div className={'css'}>
                             {/*<Spinner show={this.state.cssSpinner}/>*/}
-                            {this.state.classList.map(val=>this.getCssContent(val,0))}
+                            {classList.map(val=>this.getCssContent(val,0))}
                         </div>
                     </TabPane>
                 </Tabs>
@@ -146,4 +126,15 @@ ${space}</${type}>`
     }
 }
 
-export default CodeModal
+function mapStateToProps(state) {
+    const {showCode,tagList,classList} = state;
+    return {showCode,tagList,classList}
+}
+
+function mapDispatchToProps() {
+    return {
+        changeCode
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(CodeModal)

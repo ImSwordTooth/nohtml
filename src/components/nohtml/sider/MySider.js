@@ -1,7 +1,7 @@
-import React from 'react'
-import store from '../../../store'
+import React,{PureComponent} from 'react'
+import {connect} from 'react-redux'
 import {Tree, Popover, Input, message,Popconfirm} from 'antd';
-import './mySider.less'
+import './MySider.less'
 import {
     addTag,
     changeCurrentTag,
@@ -18,28 +18,19 @@ import {UploadFile} from "../../../common/api";
 
 const { TreeNode } = Tree;
 
-class mySider extends React.Component{
+class MySider extends PureComponent{
 
-    constructor(props){
-        super(props);
-        this.state = Object.assign({},store.getState(),{
-            display:'none',         //右键菜单的display属性，none隐藏，block显示
-            rightClickNodeTreeItem: {         //右键菜单位置
-                pageX: '',
-                pageY: ''
-            },
-            reNameVisible:false,        //重命名气泡菜单
-            showTableModal:false,
-            showImageModal:false,       //图片插入模态框
-            imageModalTitle:'',         //图片插入模态框标题
-        });
-        store.subscribe(this.listener);
+    state = {
+        display:'none',         //右键菜单的display属性，none隐藏，block显示
+        rightClickNodeTreeItem: {         //右键菜单位置
+            pageX: '',
+            pageY: ''
+        },
+        reNameVisible:false,        //重命名气泡菜单
+        showTableModal:false,
+        showImageModal:false,       //图片插入模态框
+        imageModalTitle:'',         //图片插入模态框标题
     }
-
-    listener = () => {
-        let newState = store.getState();
-        this.setState(newState);
-    };
 
     //禁止冒泡和默认事件
     stopDefault = (e)=>{
@@ -49,14 +40,14 @@ class mySider extends React.Component{
 
     // 新建标签格式化
     formatTag = (type,name)=>{
-        let selectTag = this.state.selectedTag;
+        const {selectedTag} = this.props
 
         //TODO 考虑到多人协作时的冲突问题，willCreateKey由后端确定，此处发送一个异步请求，然后再新建，下同
 
         return {
             type:type,
-            pid:selectTag.key,
-            key:`${selectTag.key}-${selectTag.willCreateKey}`,
+            pid:selectedTag.key,
+            key:`${selectedTag.key}-${selectedTag.willCreateKey}`,
             dataName:name,
             iconName:'icon'+type,
             content:`新建${type}`,
@@ -71,14 +62,14 @@ class mySider extends React.Component{
     };
 
     formatImage = (name,src) =>{
-        let selectTag = this.state.selectedTag;
+        const {selectedTag} = this.props
         this.setState({
             showImageModal:false
         });
         return {
             type:'img',
-            pid:selectTag.key,
-            key:`${selectTag.key}-${selectTag.willCreateKey}`,
+            pid:selectedTag.key,
+            key:`${selectedTag.key}-${selectedTag.willCreateKey}`,
             dataName:name,
             iconName:'iconimg',
             trueStyle:{},
@@ -93,7 +84,7 @@ class mySider extends React.Component{
     };
 
     formatTable = (arr,className)=>{
-        let selectTag = this.state.selectedTag;
+        const {selectedTag} = this.props
         this.setState({
             showTableModal:false
         });
@@ -105,8 +96,8 @@ class mySider extends React.Component{
         arr.forEach((item,index)=>{
             trs[index] = Object.assign({},{
                 type:'tr',
-                pid:`${selectTag.key}-${selectTag.willCreateKey}-0`,
-                key:`${selectTag.key}-${selectTag.willCreateKey}-0-${index}`,
+                pid:`${selectedTag.key}-${selectedTag.willCreateKey}-0`,
+                key:`${selectedTag.key}-${selectedTag.willCreateKey}-0-${index}`,
                 dataName:`新建tr${index+1}`,
                 iconName:'icontr',
                 trueStyle:{},
@@ -162,8 +153,8 @@ class mySider extends React.Component{
 
         return {
             type:'table',
-            pid:selectTag.key,
-            key:`${selectTag.key}-${selectTag.willCreateKey}`,
+            pid:selectedTag.key,
+            key:`${selectedTag.key}-${selectedTag.willCreateKey}`,
             dataName:'新建table',
             iconName:'icontable',
             trueStyle:{},
@@ -177,8 +168,8 @@ class mySider extends React.Component{
             children: [
                 {
                     type:'tbody',
-                    pid:`${selectTag.key}-${selectTag.willCreateKey}`,
-                    key:`${selectTag.key}-${selectTag.willCreateKey}-0`,
+                    pid:`${selectedTag.key}-${selectedTag.willCreateKey}`,
+                    key:`${selectedTag.key}-${selectedTag.willCreateKey}-0`,
                     dataName:'新建tbody',
                     iconName:'icontbody',
                     trueStyle:{},
@@ -194,7 +185,7 @@ class mySider extends React.Component{
     };
 
     formatInput = (type)=>{
-        let selectTag = this.state.selectedTag;
+        const {selectedTag} = this.props
         let dataName = '';
         let iconName = '';
         switch (type) {
@@ -207,8 +198,8 @@ class mySider extends React.Component{
         }
         return {
             type:'input',
-            pid:selectTag.key,
-            key:`${selectTag.key}-${selectTag.willCreateKey}`,
+            pid:selectedTag.key,
+            key:`${selectedTag.key}-${selectedTag.willCreateKey}`,
             dataName,
             iconName,
             trueStyle:{},
@@ -224,12 +215,13 @@ class mySider extends React.Component{
 
     //tree列表上单击事件
     treeNodeonClick = e =>{
+        const {tagList,showDrawer,changeCurrentTag,changeHoveredTag,changeDrawer} = this.props
         if(e.toString()){
             //TODO 原来的
             // changeCurrentTag(e.toString());
-            changeCurrentTag(e.toString(),this.state.tagList);
+            changeCurrentTag(e.toString(),tagList);
         }
-        if (!this.state.showDrawer){
+        if (!showDrawer){
             //此处先把hoverTag变成空
             changeHoveredTag('');
             changeDrawer(true);
@@ -241,10 +233,11 @@ class mySider extends React.Component{
 
     // tree列表上右键事件
     treeNodeonRightClick = e => {
+        const {tagList,changeCurrentTag} = this.props
         e.node.onSelect(e.event);       //右击时也触发单击的事件
         //TODO 原来的
         // changeCurrentTag(e.node.props.eventKey);
-        changeCurrentTag(e.node.props.eventKey,this.state.tagList);
+        changeCurrentTag(e.node.props.eventKey,tagList);
         this.setState({
             display: 'block',
             rightClickNodeTreeItem: {
@@ -263,6 +256,7 @@ class mySider extends React.Component{
 
     //根据json字符串动态生成树节点
     createNodes = (val) => {
+        const {selectedTag} = this.props
         // if (val.type==='img'){
         //     console.log(val)
         // }
@@ -270,7 +264,7 @@ class mySider extends React.Component{
         if (val.children){
             son = [...val.children.map(val => this.createNodes(val))];
         }
-        return <TreeNode className={`${this.state.selectedTag.key===val.key}?'ant-tree-node-selected':''`} icon={<i className={`iconfont ${val.iconName}`} onClick={(e)=>this.treeNodeonClick(e)}/>} title={val.dataName} key={val.key}>{son}</TreeNode>
+        return <TreeNode className={`${selectedTag.key===val.key}?'ant-tree-node-selected':''`} icon={<i className={`iconfont ${val.iconName}`} onClick={(e)=>this.treeNodeonClick(e)}/>} title={val.dataName} key={val.key}>{son}</TreeNode>
         // return <TreeNode className={`${this.state.selectedTag.key===val.key}?'ant-tree-node-selected':''`} icon={<i className={`iconfont ${val.iconName}`} onClick={(e)=>this.treeNodeonClick(e)}/>} title={val.key} key={val.key}>{son}</TreeNode>
     };
 
@@ -324,6 +318,7 @@ class mySider extends React.Component{
 
     //重命名
     reName = (e)=>{
+        const {updateTag} = this.props
         updateTag({
             prop:'dataName',
             value:e.target.value
@@ -331,10 +326,10 @@ class mySider extends React.Component{
     };
 
     reNameTitle = ()=>{
-        let selectTag = this.state.selectedTag.dataName;
+        const {selectedTag} = this.props
         return (
             <div className={'reNameTitle'}>
-                <span className={'title'}>{selectTag}</span>
+                <span className={'title'}>{selectedTag.dataName}</span>
                 <span className={'cancel'} onClick={()=>{this.setState({reNameVisible:false})}}>取消</span>
             </div>
         )
@@ -342,15 +337,16 @@ class mySider extends React.Component{
 
     //重命名弹出框内容
      reNameContent = ()=>{
-         let selectTag = this.state.selectedTag;
+         const {selectedTag} = this.props
          return (
              <div>
-                 <Input value={selectTag.dataName} onChange={this.reName} onClick={(e)=>this.stopDefault(e)}/>
+                 <Input value={selectedTag.dataName} onChange={this.reName} onClick={(e)=>this.stopDefault(e)}/>
              </div>
          );
      };
 
      drop = (e)=>{
+         const {reSetTag} = this.props
          reSetTag();
          if(e.node.props.eventKey === '0' && !e.node.props.dragOver){
              message.error('根元素只能为一个');
@@ -367,19 +363,19 @@ class mySider extends React.Component{
 
     // 自定义右键菜单内容
     getNodeTreeRightClickMenu = () => {
-        const { pageX, pageY } = { ...this.state.rightClickNodeTreeItem };
-        const wp_style = {
-            display: this.state.display
-        };
+        const {rightClickNodeTreeItem,display,reNameVisible} = this.state
+        const {selectedTag,addTag,deleteTag} = this.props
+        const { pageX, pageY } = { ...rightClickNodeTreeItem };
+        const wp_style = {display};
         const menu_Style = {
             left: `${pageX }px`,
             top: `${pageY}px`,
-            display: this.state.display,
+            display: display,
         };
         const menu = (
             <div className={'contextMenu_wp'} style={wp_style} onClick={()=>this.hideRight()}>
                 <ul className={'contextMenu'} style={menu_Style}>
-                    <li className={`${this.state.selectedTag.children?'':'disable'}`}>
+                    <li className={`${selectedTag.children?'':'disable'}`}>
                         <i className={'iconfont iconnew'}/>
                         <p>新建</p>
                         <i className={'iconfont iconrightarrow'}/>
@@ -553,7 +549,7 @@ class mySider extends React.Component{
                     </li>
                     <li onClick={(e)=>this.stopDefault(e)}>
                         <Popover title={this.reNameTitle()} content={this.reNameContent()}
-                                 visible={this.state.reNameVisible}
+                                 visible={reNameVisible}
                                  trigger={'click'}
                                  placement="rightTop"
                                  onVisibleChange={this.handleVisibleChange}
@@ -568,10 +564,12 @@ class mySider extends React.Component{
                 </ul>
             </div>
         );
-        return this.state.rightClickNodeTreeItem == null ? '' : menu;
+        return rightClickNodeTreeItem == null ? '' : menu;
     };
 
     render() {
+        const {changeHoveredTag,changeDrawer,tagList,addTag} = this.props
+        const {showTableModal,showImageModal,imageModalTitle} = this.state
         return(
             <div style={{position:'relative'}}>
                 <Tree showIcon defaultExpandAll draggable
@@ -585,15 +583,33 @@ class mySider extends React.Component{
                       onMouseLeave={()=>{changeHoveredTag('')}}
                       onRightClick={(e)=>this.treeNodeonRightClick(e)}>
                     <TreeNode icon={<i className={'iconfont icondiv'}/>} title='总容器' key="0">
-                        {this.state.tagList.children.map(val=>this.createNodes(val))}
+                        {tagList.children.map(val=>this.createNodes(val))}
                     </TreeNode>
                 </Tree>
                 {this.getNodeTreeRightClickMenu()}
-                <TableModal type={'新建'} showTableModal={this.state.showTableModal} ok={(arr,className)=>addTag(this.formatTable(arr,className))} cancel={()=>this.setState({showTableModal:false})}/>
-                <ImageModal type={'新建'} showImageModal={this.state.showImageModal} ok={(name,src)=>addTag(this.formatImage(name,src))} cancel={()=>this.setState({showImageModal:false})} imageModalTitle={this.state.imageModalTitle}/>
+                <TableModal type={'新建'} showTableModal={showTableModal} ok={(arr,className)=>addTag(this.formatTable(arr,className))} cancel={()=>this.setState({showTableModal:false})}/>
+                <ImageModal type={'新建'} showImageModal={showImageModal} ok={(name,src)=>addTag(this.formatImage(name,src))} cancel={()=>this.setState({showImageModal:false})} imageModalTitle={imageModalTitle}/>
             </div>
         )
     }
 }
 
-export default mySider;
+function mapStateToProps(state) {
+    const {selectedTag,tagList,showDrawer} = state;
+    return {selectedTag,tagList,showDrawer}
+}
+
+function mapDispatchToProps() {
+    return {
+        addTag,
+        changeCurrentTag,
+        updateTag,
+        changeDrawer,
+        changeHoveredTag,
+        deleteTag,
+        dropTag,
+        reSetTag
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(MySider);

@@ -1,29 +1,21 @@
 import React from 'react'
-import store from '../../../../store'
-import {addProp, changeProp, deleteProp} from "../../../../common/units";
+import {changeProp} from "../../../../common/units";
 import {Select, Slider, Tag} from "antd";
+import {connect} from "react-redux";
 const {Option} = Select;
 
-export default class MyTransform extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = Object.assign({},store.getState(),{
-            isSelecting:true,
-            selectedTransformProp:'',
-            transformList:[
-                {
-                    type:'',
-                    parameter:[]
-                }
-            ]
-        });
-        store.subscribe(this.listener)
-    }
+class MyTransform extends React.Component{
 
-    listener = ()=>{
-        let newState = store.getState();
-        this.setState(newState);
-    };
+    state = {
+        isSelecting:true,
+        selectedTransformProp:'',
+        transformList:[
+            {
+                type:'',
+                parameter:[]
+            }
+        ]
+    }
 
     addTransformList = ()=>{
         let list = this.state.transformList;
@@ -179,3 +171,5 @@ export default class MyTransform extends React.Component{
         )
     }
 }
+
+export default connect()(MyTransform)

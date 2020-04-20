@@ -133,11 +133,20 @@ export function deleteCustomerCssStyle(prop) {
     store.dispatch({type:'delete_customerCssStyle',prop})
 }
 
+export function deleteAllCustomerCssStyle() {
+    store.dispatch({type:'delete_allCustomerCssStyle'})
+}
+
 export function deleteCustomerHoverStyle(prop) {
     store.dispatch({type:'delete_customerHoverStyle',prop})
 }
 
+export function deleteAllCustomerHoverStyle() {
+    store.dispatch({type:'delete_allCustomerHoverStyle'})
+}
+
 export function addHoverList(comp) {
+    console.log('拉诶')
     store.dispatch({type:'add_hoverList',comp})
 }
 

@@ -1,19 +1,14 @@
 import React from 'react'
-import {BrowserRouter as Router,Route,Link} from "react-router-dom";
-import Nohtml from "./nohtml";
 
 import './css/home.less'
 import MyFooter from "./components/footer/myFooter";
-
 import Swiper from 'swiper/js/swiper'
 import 'swiper/css/swiper.css'
 
 class Home extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            mySwiper:null
-        }
+
+    state = {
+        mySwiper:null
     }
 
     componentDidMount() {
@@ -42,8 +37,9 @@ class Home extends React.Component{
     }
 
     componentWillUnmount() {
-        if (this.state.mySwiper !== null) { // 销毁swiper
-            this.state.mySwiper.destroy()
+        const {mySwiper} = this.state;
+        if (mySwiper !== null) { // 销毁swiper
+            mySwiper.destroy()
         }
     }
 

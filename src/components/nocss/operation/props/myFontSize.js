@@ -1,24 +1,13 @@
 import React,{PureComponent} from 'react'
-import store from '../../../../store'
 import {changeProp} from "../../../../common/units";
 import {Slider} from "antd";
+import {connect} from "react-redux";
 
-export default class MyFontSize extends PureComponent{
-
-    constructor(props){
-        super(props);
-        this.state = Object.assign({},store.getState());
-        store.subscribe(this.listener)
-    }
-
-    listener = ()=>{
-        let newState = store.getState();
-        this.setState(newState)
-    };
+class MyFontSize extends PureComponent{
 
     render() {
-        const {stateName} = this.props;
-        const {fontSize} = this.state[stateName];
+        const {stateName,nocssStyle,hoverStyle} = this.props;
+        const {fontSize} = stateName==='nocssStyle' ? nocssStyle : hoverStyle;
 
         return(
             <li className={'fontSize'}>
@@ -30,3 +19,10 @@ export default class MyFontSize extends PureComponent{
         )
     }
 }
+
+function mapStateToProps(state) {
+    const {nocssStyle,hoverStyle} = state;
+    return {nocssStyle,hoverStyle}
+}
+
+export default connect(mapStateToProps)(MyFontSize)

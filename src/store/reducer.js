@@ -179,6 +179,9 @@ function customerCssStyle(state = defaultState.customerCssStyle,action) {
             delete obj[action.prop];
             return obj;
         }
+        case 'delete_allCustomerCssStyle':{
+            return {}
+        }
         default:{
             return state;
         }
@@ -196,6 +199,9 @@ function customerHoverStyle(state = defaultState.customerHoverStyle,action) {
             let obj = Object.assign({}, state);
             delete obj[action.prop];
             return obj;
+        }
+        case 'delete_allCustomerHoverStyle':{
+            return {}
         }
         default:{
             return state;

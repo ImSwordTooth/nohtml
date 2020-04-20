@@ -1,23 +1,12 @@
 import React,{PureComponent} from 'react'
-import store from '../../../../store'
 import {changeProp} from "../../../../common/units";
+import {connect} from "react-redux";
 
-export default class MyFontStyle extends PureComponent{
-
-    constructor(props){
-        super(props);
-        this.state = Object.assign({},store.getState());
-        store.subscribe(this.listener)
-    }
-
-    listener = ()=>{
-        let newState = store.getState();
-        this.setState(newState)
-    };
+class MyFontStyle extends PureComponent{
 
     render() {
-        const {stateName} = this.props;
-        const {fontWeight,fontStyle,textDecoration} = this.state[stateName];
+        const {stateName,nocssStyle,hoverStyle} = this.props;
+        const {fontWeight,fontStyle,textDecoration} = stateName==='nocssStyle' ? nocssStyle : hoverStyle;
 
         return(
             <li className={'fontStyle'}>
@@ -36,3 +25,11 @@ export default class MyFontStyle extends PureComponent{
         )
     }
 }
+
+function mapStateToProps(state) {
+    const {nocssStyle,hoverStyle} = state;
+    return {nocssStyle,hoverStyle}
+}
+
+export default connect(mapStateToProps)(MyFontStyle)
+

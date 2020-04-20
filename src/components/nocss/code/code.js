@@ -1,23 +1,21 @@
 import React from 'react'
-import store from '../../../store'
+import {connect} from 'react-redux'
 import './code.less'
 class Code extends React.Component{
 
-    constructor(props){
-        super(props);
-        this.state = Object.assign({},store.getState(),{
-            selfClassName:'nocss'
-        });
-        store.subscribe(this.listener)
-    }
-
-    listener = ()=>{
-        let newState = store.getState();
-        this.setState(newState)
+    state = {
+        selfClassName:'nocss'
     };
 
+    changeSelfClassName = (e)=>{
+        this.setState({selfClassName:e.target.value||'nocss'})
+    }
+
+
+
     render() {
-        const {selfClassName,nocssStyle,customerCssStyle,hoverStyle,customerHoverStyle} = this.state;
+        const {nocssStyle,customerCssStyle,hoverStyle,customerHoverStyle} = this.props
+        const {selfClassName} = this.state;
         return(
             <div className={'show_wp'}>
                 <div className={'Title'}>
@@ -25,7 +23,7 @@ class Code extends React.Component{
                         <i className={'iconfont iconcodebox titleIcon'}/>代码区
                     </div>
                     <div>
-                        <input type='text' className={'selfText'} style={{width:80}} placeholder={'类名'} onChange={(e)=>this.setState({selfClassName:e.target.value||'nocss'})}/>
+                        <input type='text' className={'selfText'} style={{width:80}} placeholder={'类名'} onChange={this.changeSelfClassName}/>
                         <i className={'iconfont iconcopy'}/>
                     </div>
                 </div>
@@ -48,11 +46,14 @@ class Code extends React.Component{
 }
 
                 </div>
-
             </div>
         )
     }
-
 }
 
-export default Code;
+function mapStateToProps(state) {
+    const {nocssStyle,customerCssStyle,hoverStyle,customerHoverStyle} = state;
+    return {nocssStyle,customerCssStyle,hoverStyle,customerHoverStyle}
+}
+
+export default connect(mapStateToProps)(Code);

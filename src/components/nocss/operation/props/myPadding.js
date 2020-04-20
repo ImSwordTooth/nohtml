@@ -1,21 +1,12 @@
 import React,{PureComponent} from 'react'
-import store from '../../../../store'
 import {changeProp} from "../../../../common/units";
 import {Slider, Switch} from "antd";
+import {connect} from "react-redux";
 
-export default class MyPadding extends PureComponent{
+class MyPadding extends PureComponent{
 
-    constructor(props){
-        super(props);
-        this.state = Object.assign({},store.getState(),{
-            doubleMode:false
-        });
-        store.subscribe(this.listener)
-    }
-
-    listener = ()=>{
-        let newState = store.getState();
-        this.setState(newState)
+    state = {
+        doubleMode:false
     };
 
     changeMode = (e)=>{
@@ -41,8 +32,8 @@ export default class MyPadding extends PureComponent{
     };
 
     render() {
-        const {stateName} = this.props;
-        const {padding} = this.state[stateName];
+        const {stateName,nocssStyle,hoverStyle} = this.props;
+        const {padding} = stateName==='nocssStyle' ? nocssStyle : hoverStyle;
 
         return(
             <li className={'padding'}>
@@ -74,3 +65,10 @@ export default class MyPadding extends PureComponent{
         )
     }
 }
+
+function mapStateToProps(state) {
+    const {nocssStyle,hoverStyle} = state;
+    return {nocssStyle,hoverStyle}
+}
+
+export default connect(mapStateToProps)(MyPadding)

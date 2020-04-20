@@ -192,6 +192,12 @@ export function colorRgba(color,opacity) {
     }
 }
 
+const dec2twoDigitHex = dec => Number(dec).toString(16).replace(/(^.$)/, '0$1')
+
+export const rgb2hex = ({ r, g, b }) => {
+    return `#${dec2twoDigitHex(r)}${dec2twoDigitHex(g)}${dec2twoDigitHex(b)}`
+}
+
 /**
  *  多个值合并的css属性的增加，如boxShadow、textShadow等
  *
@@ -279,3 +285,7 @@ export function gcd(m,n){
         return gcd(n,m%n);
     }
 };
+
+export function autoSelectAll(e){
+    e.target.select()
+}

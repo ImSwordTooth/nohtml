@@ -1,32 +1,23 @@
-import React from 'react'
+import React, {PureComponent} from 'react'
 import '../css/classes.less'
-import store from '../../../../store'
 import ClassesModal from "../../common/modals/classesModal";
 import {Popover,Divider} from "antd";
 import {updateTag} from "../../../../store/action";
 import Mask from "../mask";
+import {connect} from 'react-redux'
 
-class Classes extends React.Component{
+class Classes extends PureComponent{
 
-    constructor(props){
-        super(props);
-        this.state = Object.assign({},store.getState(),{
-            display:'none',         //右键菜单的display属性，none隐藏，block显示
-            rightClickItem: {         //右键菜单位置
-                pageX: '',
-                pageY: ''
-            },
-            selectedClassIndex:-1,
-            rightClassIndex:-1,
-            showClassesModal:false
-        });
-        store.subscribe(this.listener)
+    state = {
+        display:'none',         //右键菜单的display属性，none隐藏，block显示
+        rightClickItem: {         //右键菜单位置
+            pageX: '',
+            pageY: ''
+        },
+        selectedClassIndex:-1,
+        rightClassIndex:-1,
+        showClassesModal:false
     }
-
-    listener = ()=>{
-        let newState = store.getState();
-        this.setState(newState)
-    };
 
     ignore = (css)=>{
         let cssObj = Object.assign({},css);
@@ -41,14 +32,15 @@ class Classes extends React.Component{
 
     // 自定义右键菜单内容
     getRightClickMenu = (e) => {
-        const { pageX, pageY } = this.state.rightClickItem ;
+        const {rightClickItem,display} = this.state
+        const { pageX, pageY } =rightClickItem ;
         const wp_style = {
-            display: this.state.display
+            display
         };
         const menu_Style = {
             left: `${pageX }px`,
             top: `${pageY}px`,
-            display: this.state.display,
+            display: display,
         };
         const menu = (
             <div className={'contextMenu_wp'} style={wp_style} onClick={()=>this.setState({display:'none'})}>
@@ -60,7 +52,7 @@ class Classes extends React.Component{
                 </ul>
             </div>
         );
-        return this.state.rightClickItem == null ? '' : menu;
+        return rightClickItem == null ? '' : menu;
     };
 
     rightClick = (e,index) => {
@@ -76,18 +68,21 @@ class Classes extends React.Component{
     };
 
     chooseClass = (index)=>{
+        const {selectedTag,classList,updateTag} = this.props
         this.setState({
             selectedClassIndex:index
         });
-        let classList = this.state.selectedTag.props.className || [];
+        let classesList = selectedTag.props.className || [];
         updateTag({
             prop:'props',
             innerProp:'className',
-            value:classList.concat(this.state.classList[index].className)
+            value:classesList.concat(classList[index].className)
         })
     }
 
     render() {
+        const {selectedTag,classList} = this.props
+        const {selectedClassIndex,rightClassIndex,showClassesModal} = this.state
         return (
             <div className={'classes'}>
                 <div className={'addClass'} onClick={()=>this.setState({showClassesModal:true,rightClassIndex:-1})}>
@@ -97,12 +92,12 @@ class Classes extends React.Component{
                 <Divider type={'vertical'} style={{height:'80px',margin:'0 20px'}}/>
                 <div style={{position:'relative',display:'inline-block'}}>
                     {
-                        JSON.stringify(this.state.selectedTag)==='{}'?<Mask title={'请先选中要添加类的元素'}/>:<></>
+                        JSON.stringify(selectedTag)==='{}'?<Mask title={'请先选中要添加类的元素'}/>:<></>
                     }
                     <ul className={'class_list'}>
-                        {this.state.classList.map((item,index)=>{
+                        {classList.map((item,index)=>{
                             return (<Popover content={<div style={item.trueStyle}>示例文字</div>} placement={'bottomLeft'}>
-                                        <li key={index} className={this.state.selectedClassIndex===index?'active':''}
+                                        <li key={index} className={selectedClassIndex===index?'active':''}
                                             onClick={()=>this.chooseClass(index)}
                                             onContextMenu={(e)=>this.rightClick(e,index)}
                                         >
@@ -114,7 +109,7 @@ class Classes extends React.Component{
                     </ul>
                 </div>
 
-                <ClassesModal showClassesModal={this.state.showClassesModal} cancel={()=>this.setState({showClassesModal:false})} rightClassIndex={this.state.rightClassIndex} classObj={this.state.classList[this.state.rightClassIndex]}/>
+                <ClassesModal showClassesModal={showClassesModal} cancel={()=>this.setState({showClassesModal:false})} rightClassIndex={rightClassIndex} classObj={classList[rightClassIndex]}/>
                 {this.getRightClickMenu()}
             </div>
         )
@@ -122,4 +117,15 @@ class Classes extends React.Component{
 
 }
 
-export default Classes
+function mapStateToProps(state) {
+    const {selectedTag,classList} = state;
+    return {selectedTag,classList}
+}
+
+function mapDispatchToProps() {
+    return {
+        updateTag
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Classes)

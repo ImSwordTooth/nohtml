@@ -1,9 +1,9 @@
 import React from 'react'
 
 import '../css/start.less'
-import store from '../../../../store'
+import {connect} from 'react-redux'
 import {Divider, InputNumber, Select} from 'antd';
-import {colorRgba, getComputedCss} from "../../../../common/units";
+import {colorRgba, getComputedCss, rgb2hex} from "../../../../common/units";
 import {updateTag} from "../../../../store/action";
 import ColorPicker from 'rc-color-picker'
 import 'rc-color-picker/assets/index.css';
@@ -13,52 +13,73 @@ const { Option,OptGroup } = Select;
 
 class start extends React.Component{
 
-    constructor(props){
-        super(props);
-        this.state = Object.assign({},store.getState(),{
 
-        });
-        store.subscribe(this.listener);
+    shouldComponentUpdate(nextProps) {
+        return JSON.stringify(nextProps.selectedTag) !== JSON.stringify(this.props.selectedTag);
     }
 
-    listener = () => {
-        let newState = store.getState();
-        this.setState(newState);
-    };
-
     //获取颜色值
-    //TODO 获取透明度
     getDefaultColor = (prop)=>{
-        if (JSON.stringify(this.state.selectedTag)!=='{}'){
-            console.log(getComputedCss(this.state.selectedTag,'viewStyle')[prop])
-            return getComputedCss(this.state.selectedTag,'viewStyle')[prop]||"#000000";
+        const {selectedTag} = this.props
+        if (JSON.stringify(selectedTag)!=='{}'){
+            let color = getComputedCss(selectedTag,'viewStyle')[prop];
+            let r,g,b,a = 100;
+            let pat = new RegExp('(?<=\\()\\S+(?=\\))','g');
+            if (color){
+                if (pat.exec(color)){
+                    let arr= new RegExp('(?<=\\()\\S+(?=\\))','g').exec(color)[0].split(',');
+                    r = +arr[0];
+                    g = +arr[1];
+                    b = +arr[2];
+                    a = +arr[3]*100;
+                    color = rgb2hex({r, g, b})
+                }
+            }
+            return {color,a}
         } else {
-            return "#000000";
+            return {
+                color:"#000000",
+                a:100
+            };
         }
     };
 
     //获取字型
-    getDefaultFontStyle = (prop,value)=>{
-        if (this.state.selectedTag!==undefined){
-            if (JSON.stringify(this.state.selectedTag)!=='{}'){
-                let css = getComputedCss(this.state.selectedTag,'viewStyle');
-                if (this.state.selectedTag.viewStyle[prop]){
-                    return css[prop]===value?'active':''
-                } else {
-                    return '';
-                }
-            } else {
-                return ''
+    getDefaultFontStyle = ()=>{
+        const {selectedTag} = this.props
+        let bold,lighter,italic,underline,lineThrough,overline
+        if (JSON.stringify(selectedTag)!=='{}'){
+            let css = getComputedCss(selectedTag,'viewStyle');
+            const {fontWeight,fontStyle,textDecoration} = selectedTag.viewStyle
+            if (fontWeight){
+                bold = css.fontWeight==='bold'?'active':''
+                lighter = css.fontWeight==='lighter'?'active':''
+            }else {
+                bold = lighter = ''
             }
-        }else {
-            return ''
+            if (fontStyle){
+                italic = css.fontStyle==='italic'?'active':''
+            }else {
+                italic = ''
+            }
+            if (textDecoration){
+                underline = css.textDecoration==='underline'?'active':''
+                lineThrough = css.textDecoration==='line-through'?'active':''
+                overline = css.textDecoration==='overline'?'active':''
+            }else {
+                underline = lineThrough = overline = ''
+            }
+            return {bold,lighter,italic,underline,lineThrough,overline}
+        } else {
+            return {}
         }
     };
 
     //获取字体大小
     getDefaultFontsize = ()=>{
-        if (JSON.stringify(this.state.selectedTag)!=='{}'){
-            let css = getComputedCss(this.state.selectedTag,'viewStyle');
+        const {selectedTag} = this.props
+        if (JSON.stringify(selectedTag)!=='{}'){
+            let css = getComputedCss(selectedTag,'viewStyle');
             if (css.fontSize){
                 return css.fontSize.replace('px','')
             } else {
@@ -71,8 +92,9 @@ class start extends React.Component{
 
     //获取字体
     getDefaultFont = ()=>{
-        if (JSON.stringify(this.state.selectedTag)!=='{}'){
-            let css = getComputedCss(this.state.selectedTag,'viewStyle');
+        const {selectedTag} = this.props
+        if (JSON.stringify(selectedTag)!=='{}'){
+            let css = getComputedCss(selectedTag,'viewStyle');
             return css.fontFamily||'选择字体';
         } else {
             return '选择字体';
@@ -81,6 +103,7 @@ class start extends React.Component{
 
     //修改样式
     changeProp = (prop,value)=>{
+        const {selectedTag,updateTag} = this.props
         switch (prop) {
             case 'fontSize':{
                 updateTag({
@@ -98,7 +121,7 @@ class start extends React.Component{
             case 'fontStyle':
             case 'fontWeight':
             case 'textDecoration':{
-                let css = getComputedCss(this.state.selectedTag,'viewStyle');
+                let css = getComputedCss(selectedTag,'viewStyle');
                 if (css[prop]===value){
                     updateTag({
                         prop:'style',
@@ -133,12 +156,17 @@ class start extends React.Component{
         }
     };
 
+
     render() {
+        const {color,a} = this.getDefaultColor('color')
+        const {backgroundColor,backgroundA} = this.getDefaultColor('backgroundColor')
+        const {bold,lighter,italic,underline,lineThrough,overline} = this.getDefaultFontStyle()
+        const {selectedTag} = this.props
         return (
             <div className='start'>
                 <div style={{position:'relative',width:'max-content'}}>
                     {
-                        JSON.stringify(this.state.selectedTag)==='{}'?<Mask title={'请先选中要操作的元素'}/>:<></>
+                        JSON.stringify(selectedTag)==='{}'?<Mask title={'请先选中要操作的元素'}/>:<></>
                     }
                     <div>
                         <Select
@@ -178,26 +206,26 @@ class start extends React.Component{
 
                     <div className={'fontstyle icongroup'}>
                         <div>
-                            <i className={`iconfont iconbold ${this.getDefaultFontStyle('fontWeight','bold')}` } onClick={()=>this.changeProp('fontWeight','bold')} />
-                            <i className={`iconfont iconlighter ${this.getDefaultFontStyle('fontWeight','lighter')}`} onClick={()=>this.changeProp('fontWeight','lighter')} />
-                            <i className={`iconfont iconitalic ${this.getDefaultFontStyle('fontStyle','italic')}`} onClick={()=>this.changeProp('fontStyle','italic')} />
-                            <i className={`iconfont iconunderline ${this.getDefaultFontStyle('textDecoration','underline')}`} onClick={()=>this.changeProp('textDecoration','underline')} />
-                            <i className={`iconfont iconlinethrough ${this.getDefaultFontStyle('textDecoration','line-through')}`} onClick={()=>this.changeProp('textDecoration','line-through')} />
-                            <i className={`iconfont iconoverline ${this.getDefaultFontStyle('textDecoration','overline')}`} onClick={()=>this.changeProp('textDecoration','overline')} />
+                            <i className={`iconfont iconbold ${bold}` } onClick={()=>this.changeProp('fontWeight','bold')} />
+                            <i className={`iconfont iconlighter ${lighter}`} onClick={()=>this.changeProp('fontWeight','lighter')} />
+                            <i className={`iconfont iconitalic ${italic}`} onClick={()=>this.changeProp('fontStyle','italic')} />
+                            <i className={`iconfont iconunderline ${underline}`} onClick={()=>this.changeProp('textDecoration','underline')} />
+                            <i className={`iconfont iconlinethrough ${lineThrough}`} onClick={()=>this.changeProp('textDecoration','line-through')} />
+                            <i className={`iconfont iconoverline ${overline}`} onClick={()=>this.changeProp('textDecoration','overline')} />
                         </div>
                     </div>
 
                     <Divider type={'vertical'} style={{height:'30px',margin:'0 10px'}}/>
 
                     <div className={'color'}>
-                        <ColorPicker onChange={e=>this.changeProp('color',e)} color={this.getDefaultColor('color')}>
+                        <ColorPicker onChange={e=>this.changeProp('color',e)} color={color} alpha={a}>
                             <div className={'colorpicker'}>
-                                <i className={'iconfont iconcolor '} style={{borderBottom:`solid 3px ${this.getDefaultColor('color')}`}}/>
+                                <i className={'iconfont iconcolor '} style={{borderBottom:`solid 3px ${color}`}}/>
                             </div>
                         </ColorPicker>
-                        <ColorPicker onChange={e=>this.changeProp('backgroundColor',e)} color={this.getDefaultColor('backgroundColor')}>
+                        <ColorPicker onChange={e=>this.changeProp('backgroundColor',e)} color={backgroundColor} alpha={backgroundA}>
                             <div className={'colorpicker'}>
-                                <i className={'iconfont iconbackgroundcolor '} style={{borderBottom:`solid 3px ${this.getDefaultColor('backgroundColor')}`}}/>
+                                <i className={'iconfont iconbackgroundcolor '} style={{borderBottom:`solid 3px ${backgroundColor}`}}/>
                             </div>
                         </ColorPicker>
                     </div>
@@ -206,5 +234,15 @@ class start extends React.Component{
         )
     }
 }
+function mapStateToProps(state) {
+    const {selectedTag} = state;
+    return {selectedTag}
+}
 
-export default start
+function mapDispatchToProps() {
+    return {
+        updateTag
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(start)

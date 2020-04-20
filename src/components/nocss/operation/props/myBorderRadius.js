@@ -1,21 +1,12 @@
 import React,{PureComponent} from 'react'
 import {Slider, Switch} from "antd";
 import {changeProp} from "../../../../common/units";
-import store from '../../../../store'
+import {connect} from 'react-redux'
 
-export default class MyBorderRadius extends PureComponent{
+class MyBorderRadius extends PureComponent{
 
-    constructor(props){
-        super(props);
-        this.state = Object.assign({},store.getState(),{
-            oneMode:false
-        });
-        store.subscribe(this.listener)
-    }
-
-    listener = ()=>{
-        let newState = store.getState();
-        this.setState(newState);
+    state = {
+        oneMode:false
     };
 
     changeMode = (e)=>{
@@ -38,8 +29,9 @@ export default class MyBorderRadius extends PureComponent{
     };
 
     render() {
-        const {stateName} = this.props;
-        const {borderRadius} = this.state[stateName];
+
+        const {stateName,nocssStyle,hoverStyle} = this.props;
+        const {borderRadius} = stateName==='nocssStyle' ? nocssStyle : hoverStyle;
 
         return(
             <li className={'borderradius'}>
@@ -47,19 +39,19 @@ export default class MyBorderRadius extends PureComponent{
                 <div className={'content'}>
                     <div className={'items'}>
                         <div className={'info'}>左上：</div>
-                        <Slider style={{width:100}} min={0} max={50} onChange={(e)=>this.changeBorderRadius(e,0)} value={parseInt(borderRadius.split(' ')[0])}/><span className={'unit'}>{borderRadius.split(' ')[0]}</span>
+                        <Slider style={{width:100}} data-index={0} min={0} max={50} onChange={(e)=>this.changeBorderRadius(e,0)} value={parseInt(borderRadius.split(' ')[0])}/><span className={'unit'}>{borderRadius.split(' ')[0]}</span>
                     </div>
                     <div className={'items'}>
                         <div className={'info'}>右上：</div>
-                        <Slider style={{width:100}} min={0} max={50} onChange={(e)=>this.changeBorderRadius(e,1)} value={parseInt(borderRadius.split(' ')[1])}/><span className={'unit'}>{borderRadius.split(' ')[1]}</span>
+                        <Slider style={{width:100}} data-index={1} min={0} max={50} onChange={(e)=>this.changeBorderRadius(e,1)} value={parseInt(borderRadius.split(' ')[1])}/><span className={'unit'}>{borderRadius.split(' ')[1]}</span>
                     </div>
                     <div className={'items'}>
                         <div className={'info'}>右下：</div>
-                        <Slider style={{width:100}} min={0} max={50} onChange={(e)=>this.changeBorderRadius(e,2)} value={parseInt(borderRadius.split(' ')[2])}/><span className={'unit'}>{borderRadius.split(' ')[2]}</span>
+                        <Slider style={{width:100}} data-index={2} min={0} max={50} onChange={(e)=>this.changeBorderRadius(e,2)} value={parseInt(borderRadius.split(' ')[2])}/><span className={'unit'}>{borderRadius.split(' ')[2]}</span>
                     </div>
                     <div className={'items'}>
                         <div className={'info'}>左下：</div>
-                        <Slider style={{width:100}} min={0} max={50} onChange={(e)=>this.changeBorderRadius(e,3)} value={parseInt(borderRadius.split(' ')[3])}/><span className={'unit'}>{borderRadius.split(' ')[3]}</span>
+                        <Slider style={{width:100}} data-index={3} min={0} max={50} onChange={(e)=>this.changeBorderRadius(e,3)} value={parseInt(borderRadius.split(' ')[3])}/><span className={'unit'}>{borderRadius.split(' ')[3]}</span>
                     </div>
 
                     <Switch checkedChildren={'单值'}
@@ -72,3 +64,10 @@ export default class MyBorderRadius extends PureComponent{
         )
     }
 }
+
+function mapStateToProps(state) {
+    const {nocssStyle,hoverStyle} = state;
+    return {nocssStyle,hoverStyle}
+}
+
+export default connect(mapStateToProps)(MyBorderRadius)

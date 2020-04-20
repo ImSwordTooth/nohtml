@@ -1,33 +1,25 @@
-import React from 'react'
+import React,{PureComponent} from 'react'
 import './myFooter.less'
-import store from '../../../store'
-import {Breadcrumb, Tree} from 'antd'
+import {Breadcrumb} from 'antd'
 import {changeHoveredTag} from "../../../store/action";
+import {connect} from 'react-redux'
+import {getObjByKeyFromTagList} from "../../../common/units";
 
-class MyFooter extends React.Component{
+class MyFooter extends PureComponent{
 
-    constructor(props){
-        super(props);
-        this.state = Object.assign({},store.getState(),{
-            path:[
-                {
-                    icon:'icondiv',
-                    name:'总容器'
-                }
-            ]
-        })
-        store.subscribe(this.listener)
+    state = {
+        path:[
+            {
+                icon:'icondiv',
+                name:'总容器'
+            }
+        ]
     }
 
-    listener = ()=>{
-        let newState = store.getState();
-        this.setState(newState)
-    };
-
     getPath = ()=>{
+        const {selectedTag,changeHoveredTag} = this.props
         let path = [];
-        if (JSON.stringify(this.state.selectedTag)!=='{}'){
-            let selectedTag = this.state.selectedTag;
+        if (JSON.stringify(selectedTag)!=='{}'){
             let selectedKeyArr = selectedTag.key.split('-');
             selectedKeyArr.shift();
             for (let i=0; i<selectedKeyArr.length; i++){
@@ -57,21 +49,8 @@ class MyFooter extends React.Component{
 
 
      getTagInfo = (key)=>{
-        let getTagArr = Object.assign([],store.getState().tagList);
-        //对每一层递归，根据key值找到目标对象
-        const getTargetObj = function (obj) {
-            if (obj.key === key){
-                return obj;
-            } else {
-                for (let i=0;i<obj.children.length;i++){
-                    if (key.indexOf(obj.children[i].key)===0){
-                        return getTargetObj(obj.children[i]);
-                    }
-                }
-            }
-        };
-
-        return getTargetObj(getTagArr);
+        const {tagList} = this.props
+        return getObjByKeyFromTagList(key,tagList)
     }
 
     render() {
@@ -95,4 +74,15 @@ class MyFooter extends React.Component{
     }
 }
 
-export default MyFooter
+function mapStateToProps(state) {
+    const {selectedTag,tagList} = state;
+    return {selectedTag,tagList}
+}
+
+function mapDispatchToProps() {
+    return {
+        changeHoveredTag
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(MyFooter)

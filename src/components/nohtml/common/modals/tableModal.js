@@ -1,20 +1,18 @@
-import React from 'react'
+import React,{PureComponent} from 'react'
 import {Button, Input, message, Modal} from "antd";
 import '../css/tableModal.less'
 
-export class TableModal extends React.Component{
+export class TableModal extends PureComponent{
 
-    constructor(props){
-        super(props);
-        this.state = {
-            tableThs:['表头1','表头2','表头3'],        //表头数组初值
-            currentClass:''                   //选中的预设的表的类名
-        }
+    state = {
+        tableThs:['表头1','表头2','表头3'],        //表头数组初值
+        currentClass:''                   //选中的预设的表的类名
     }
 
     //获取表头，复用到下面的预设中
     getTableThs = ()=>{
-        return this.state.tableThs.map((item,key)=>{
+        const {tableThs} = this.state
+        return tableThs.map((item,key)=>{
             return (
                 <div className={'input_wp'} key={key}>
                     <Input value={item} id={`th-${key}`} onChange={this.changeTableThsValue}/>
@@ -45,29 +43,31 @@ export class TableModal extends React.Component{
 
     //添加表头
     addTableThs = ()=>{
-        let size = this.state.tableThs.length;
+        const {tableThs} = this.state
+        let size = tableThs.length;
         if (size>=10){
             message.warn('最多10个表头')
         }else {
             this.setState({
-                tableThs:this.state.tableThs.concat(`表头${size+1}`)
+                tableThs:tableThs.concat(`表头${size+1}`)
             })
         }
     };
 
     //创建一个个列表，用于预设样式中的展示
     getTablePreviews = (border)=>{
+        const {tableThs} = this.state
         return (
             <table border={border}>
                 <tbody>
                 <tr>
-                    {this.state.tableThs.map((item,index)=><th key={index}>{item}</th>)}
+                    {tableThs.map((item,index)=><th key={index}>{item}</th>)}
                 </tr>
                 <tr>
-                    {this.state.tableThs.map((item,index)=><td key={index}>{`数据${index+1}`}</td>)}
+                    {tableThs.map((item,index)=><td key={index}>{`数据${index+1}`}</td>)}
                 </tr>
                 <tr>
-                    {this.state.tableThs.map((item,index)=><td key={index}>{`数据${index+this.state.tableThs.length+1}`}</td>)}
+                    {tableThs.map((item,index)=><td key={index}>{`数据${index+tableThs.length+1}`}</td>)}
                 </tr>
                 </tbody>
             </table>
@@ -89,15 +89,18 @@ export class TableModal extends React.Component{
     }
 
      cancel = ()=>{
-        this.props.cancel();
-        this.setState({
-            tableThs:['表头1','表头2','表头3'],
-            currentClass:''
-        })
+         const {cancel} = this.props
+         cancel();
+         this.setState({
+             tableThs:['表头1','表头2','表头3'],
+             currentClass:''
+         })
      }
 
      ok = ()=>{
-        this.props.ok(this.state.tableThs,this.state.currentClass);
+         const {ok} = this.props
+         const {tableThs,currentClass} = this.state
+         ok(tableThs,currentClass);
          this.setState({
              tableThs:['表头1','表头2','表头3'],
              currentClass:''
@@ -105,12 +108,14 @@ export class TableModal extends React.Component{
      }
 
     render() {
+        const {type,showTableModal} = this.props
+        const {currentClass} = this.state
         return (
-            <Modal title={`${this.props.type}表格`} width={1000}
+            <Modal title={`${type}表格`} width={1000}
                    className={'tableModal modals'}
-                   visible={this.props.showTableModal}
+                   visible={showTableModal}
                    cancelText={'取消'}
-                   okText={this.props.type}
+                   okText={type}
                    onOk={this.ok}
                    onCancel={this.cancel}>
                 <div>
@@ -125,9 +130,9 @@ export class TableModal extends React.Component{
                         <span>预设样式</span>
                         <div>
                             <ul className={'previewList'}>
-                                <li className={`standard ${this.state.currentClass==='standard'?'currentTable':''}`} data-class={'standard'} onClick={(e)=>this.toggleCurrent(e)}>{this.getTablePreviews()}</li>
-                                <li className={`business ${this.state.currentClass==='business'?'currentTable':''}`} data-class={'business'} onClick={(e)=>this.toggleCurrent(e)}>{this.getTablePreviews()}</li>
-                                <li className={`line ${this.state.currentClass==='line'?'currentTable':''}`} data-class={'line'} onClick={(e)=>this.toggleCurrent(e)}>{this.getTablePreviews('1')}</li>
+                                <li className={`standard ${currentClass==='standard'?'currentTable':''}`} data-class={'standard'} onClick={(e)=>this.toggleCurrent(e)}>{this.getTablePreviews()}</li>
+                                <li className={`business ${currentClass==='business'?'currentTable':''}`} data-class={'business'} onClick={(e)=>this.toggleCurrent(e)}>{this.getTablePreviews()}</li>
+                                <li className={`line ${currentClass==='line'?'currentTable':''}`} data-class={'line'} onClick={(e)=>this.toggleCurrent(e)}>{this.getTablePreviews('1')}</li>
                             </ul>
                         </div>
                     </div>

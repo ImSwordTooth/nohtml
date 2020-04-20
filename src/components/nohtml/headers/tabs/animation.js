@@ -1,26 +1,18 @@
-import React from 'react'
+import React,{PureComponent} from 'react'
 import '../css/animation.less'
 import {Divider} from "antd";
 import AnimationModal from '../../common/modals/animationModal'
-import store from '../../../../store'
 import {updateTag} from "../../../../store/action";
 import Mask from "../mask";
+import {connect} from 'react-redux'
 
-class Animation extends React.Component{
+class Animation extends PureComponent{
 
-    constructor(props){
-        super(props);
-        this.state = Object.assign({},store.getState(),{
-            selectAnimation:'',
-            showAnimationModal:false
-        })
-        store.subscribe(this.listener)
+    state = {
+        selectAnimation:'',
+        showAnimationModal:false
     }
 
-    listener = () => {
-        let newState = store.getState();
-        this.setState(newState);
-    };
     componentDidMount() {
         // let str = '';
         // if (value === undefined){
@@ -43,7 +35,8 @@ class Animation extends React.Component{
     }
 
     changeSelectAnimation=(value)=>{
-        if (this.state.selectAnimation === value){
+        const {selectAnimation} = this.state
+        if (selectAnimation === value){
             this.setState({
                 selectAnimation:''
             });
@@ -91,27 +84,29 @@ class Animation extends React.Component{
     };
 
     render() {
+        const {selectedTag,keyframesList} = this.props
+        const {selectAnimation,showAnimationModal} = this.state
         return (
             <div>
                 <div className={'animationTimingFunction'}>
                     <div style={{position:'relative'}}>
                         {
-                            JSON.stringify(this.state.selectedTag)==='{}'?<Mask title={'请先选中要添加动画的元素'}/>:<></>
+                            JSON.stringify(selectedTag)==='{}'?<Mask title={'请先选中要添加动画的元素'}/>:<></>
                         }
                         <ul className={'timingFunctionList'}>
-                            <li className={`${this.state.selectAnimation==='translate'?'active':''}`} onClick={()=>this.changeSelectAnimation('translate')}><span>弹跳</span><div className={'translate'}/></li>
-                            <li className={`${this.state.selectAnimation==='rotate'?'active':''}`} onClick={()=>this.changeSelectAnimation('rotate')}><span>旋转</span><div className={'rotate'}/></li>
-                            <li className={`${this.state.selectAnimation==='scale'?'active':''}`} onClick={()=>this.changeSelectAnimation('scale')}><span>放大</span><div className={'scale'}/></li>
-                            <li className={`${this.state.selectAnimation==='skew'?'active':''}`} onClick={()=>this.changeSelectAnimation('skew')}><span>拉扯</span><div className={'skew'}/></li>
-                            <li className={`${this.state.selectAnimation==='hang'?'active':''}`} onClick={()=>this.changeSelectAnimation('hang')}><span>悬挂</span><div className={'hang'}/></li>
-                            <li className={`${this.state.selectAnimation==='bounce'?'active':''}`} onClick={()=>this.changeSelectAnimation('bounce')}><span>抖动</span><div className={'bounce'}/></li>
+                            <li className={`${selectAnimation==='translate'?'active':''}`} onClick={()=>this.changeSelectAnimation('translate')}><span>弹跳</span><div className={'translate'}/></li>
+                            <li className={`${selectAnimation==='rotate'?'active':''}`} onClick={()=>this.changeSelectAnimation('rotate')}><span>旋转</span><div className={'rotate'}/></li>
+                            <li className={`${selectAnimation==='scale'?'active':''}`} onClick={()=>this.changeSelectAnimation('scale')}><span>放大</span><div className={'scale'}/></li>
+                            <li className={`${selectAnimation==='skew'?'active':''}`} onClick={()=>this.changeSelectAnimation('skew')}><span>拉扯</span><div className={'skew'}/></li>
+                            <li className={`${selectAnimation==='hang'?'active':''}`} onClick={()=>this.changeSelectAnimation('hang')}><span>悬挂</span><div className={'hang'}/></li>
+                            <li className={`${selectAnimation==='bounce'?'active':''}`} onClick={()=>this.changeSelectAnimation('bounce')}><span>抖动</span><div className={'bounce'}/></li>
                         </ul>
                         <Divider type={'vertical'} style={{height:'50px',margin:'0 10px'}}/>
                         <ul className={'timingFunctionList'}>
                             {
-                                this.state.keyframesList.map((item,index)=>{
+                                keyframesList.map((item,index)=>{
                                     return (<li key={index}
-                                                className={`${this.state.selectAnimation === item.name ? 'active' : ''}`}
+                                                className={`${selectAnimation === item.name ? 'active' : ''}`}
                                                 onClick={()=>this.changeSelectAnimation(item.name)}>
                                                     <span>{item.name}</span>
                                                     <div/>
@@ -123,7 +118,7 @@ class Animation extends React.Component{
                 </div>
                 <i className={'iconfont iconanimation'} onClick={()=>this.openAnimationModal()}/>
 
-                <AnimationModal showAnimationModal={this.state.showAnimationModal} cancel={()=>this.setState({showAnimationModal:false})}/>
+                <AnimationModal showAnimationModal={showAnimationModal} cancel={()=>this.setState({showAnimationModal:false})}/>
 
                 {/*<button onClick={()=>this.getCssRule()}>获取cssRule</button>*/}
             </div>
@@ -132,4 +127,15 @@ class Animation extends React.Component{
 
 }
 
-export default Animation;
+function mapStateToProps(state) {
+    const {selectedTag,keyframesList} = state;
+    return {selectedTag,keyframesList}
+}
+
+function mapDispatchToProps() {
+    return {
+        updateTag
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Animation);

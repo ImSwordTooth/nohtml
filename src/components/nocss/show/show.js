@@ -2,8 +2,9 @@ import React,{PureComponent} from 'react'
 import store from '../../../store'
 
 import './show.less'
+import {connect} from "react-redux";
 
-export default class Show extends PureComponent{
+class Show extends PureComponent{
 
     constructor(props){
         super(props);
@@ -23,7 +24,8 @@ export default class Show extends PureComponent{
     };
 
     computedStyle = ()=>{
-        const {isHover, nocssStyle, customerCssStyle, hoverStyle, customerHoverStyle} = this.state;
+        const {nocssStyle, customerCssStyle, hoverStyle, customerHoverStyle} = this.props
+        const {isHover} = this.state;
         if (isHover){
             return Object.assign(Object.assign({},nocssStyle,customerCssStyle),Object.assign({},hoverStyle,customerHoverStyle))
         } else {
@@ -66,3 +68,10 @@ export default class Show extends PureComponent{
         )
     }
 }
+
+function mapStateToProps(state) {
+    const {nocssStyle, customerCssStyle, hoverStyle, customerHoverStyle} = state;
+    return {nocssStyle, customerCssStyle, hoverStyle, customerHoverStyle}
+}
+
+export default connect(mapStateToProps)(Show)

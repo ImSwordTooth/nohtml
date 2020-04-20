@@ -1,28 +1,74 @@
 import React,{PureComponent} from 'react'
 import {Select} from "antd";
 import './hover.less'
+import {connect} from 'react-redux'
 import {addHoverList, changeHoverStyle} from "../../../../store/action";
-import store from '../../../../store'
 import '../standard/standard.less'
 const {Option} = Select;
 
-export default class Hover extends PureComponent{
+class Hover extends PureComponent{
 
-    constructor(props){
-        super(props);
-        this.state = Object.assign({},store.getState(),{
-            hoverList:[]
-        });
-        store.subscribe(this.listener)
-    }
-
-    listener = ()=>{
-        let newState = store.getState();
-        this.setState(newState)
+    state = {
+        optionList:[
+            {
+                value:'color',
+                icon:'iconnocsscolor',
+                text:'字体颜色',
+                EnText:'color'
+            },
+            {
+                value:'backgroundColor',
+                icon:'iconnocssbackgroundcolor',
+                text:'背景颜色',
+                EnText:'backgroundColor'
+            },
+            {
+                value:'fontSize',
+                icon:'iconnocssfontsize',
+                text:'字体大小',
+                EnText:'fontSize'
+            },
+            {
+                value:'fontStyle',
+                icon:'iconnocssfontstyle',
+                text:'字型',
+                EnText:'fontStyle'
+            },
+            {
+                value:'border',
+                icon:'iconnocssborder',
+                text:'边框',
+                EnText:'border'
+            },
+            {
+                value:'padding',
+                icon:'iconnocsspadding',
+                text:'内边距',
+                EnText:'padding'
+            },
+            {
+                value:'boxShadow',
+                icon:'iconnocssboxshadow',
+                text:'盒子阴影',
+                EnText:'boxShadow'
+            },
+            {
+                value:'textShadow',
+                icon:'iconnocsstextshadow',
+                text:'字体阴影',
+                EnText:'textShadow'
+            },
+            {
+                value:'transform',
+                icon:'iconnocsstransform',
+                text:'变形',
+                EnText:'transform'
+            },
+        ]
     };
 
     addHover = (prop,compName)=>{
-        const {nocssStyle} = this.state;
+        const {nocssStyle,changeHoverStyle,addHoverList} = this.props;
         import(`../props/${compName}`).then(res=>{
                 changeHoverStyle({
                     prop,
@@ -35,22 +81,24 @@ export default class Hover extends PureComponent{
         })
     };
 
+    handleClick = (e)=>{
+        let value = e.key;
+        this.addHover(value,value.replace(/^[a-zA-Z]{1}/g,($1)=>'my'+$1.toUpperCase()));
+    };
+
     render() {
-        const {hoverList} = this.state;
+        const {hoverList} = this.props;
+        const {optionList} = this.state;
 
         return (
             <div>
                 <span>添加：</span>
                 <Select defaultValue={'color'} style={{width:220}}>
-                    <Option className={'hoverProps'} value={'color'} onClick={()=>this.addHover('color','myColor')}><i className={'iconfont iconnocsscolor'}/>字体颜色<span>color</span></Option>
-                    <Option className={'hoverProps'} value={'backgroundColor'} onClick={()=>this.addHover('backgroundColor','myBackgroundColor')}><i className={'iconfont iconnocssbackgroundcolor'}/>背景颜色<span>backgroundColor</span></Option>
-                    <Option className={'hoverProps'} value={'fontSize'} onClick={()=>this.addHover('fontSize','myFontSize')}><i className={'iconfont iconnocssfontsize'}/>字体大小<span>fontSize</span></Option>
-                    <Option className={'hoverProps'} value={'fontStyle'} onClick={()=>this.addHover('fontStyle','myFontStyle')}><i className={'iconfont iconnocssfontstyle'}/>字型<span>fontStyle</span></Option>
-                    <Option className={'hoverProps'} value={'border'} onClick={()=>this.addHover('border','myBorder')}><i className={'iconfont iconnocssborder'}/>边框<span>border</span></Option>
-                    <Option className={'hoverProps'} value={'padding'} onClick={()=>this.addHover('padding','myPadding')}><i className={'iconfont iconnocsspadding'}/>内边距<span>padding</span></Option>
-                    <Option className={'hoverProps'} value={'boxShadow'} onClick={()=>this.addHover('boxShadow','myBoxShadow')}><i className={'iconfont iconnocssboxshadow'}/>盒子阴影<span>boxShadow</span></Option>
-                    <Option className={'hoverProps'} value={'textShadow'} onClick={()=>this.addHover('textShadow','myTextShadow')}><i className={'iconfont iconnocsstextshadow'}/>字体阴影<span>textShadow</span></Option>
-                    <Option className={'hoverProps'} value={'transform'} onClick={()=>this.addHover('transform','myTransform')}><i className={'iconfont iconnocsstransform'}/>变形<span>transform</span></Option>
+                    {
+                        optionList.map((item,index)=>{
+                            return <Option key={index} className={'hoverProps'} value={item.value} onClick={this.handleClick}><i className={`iconfont ${item.icon}`}/>{item.text}<span>{item.EnText}</span></Option>
+                        })
+                    }
                 </Select>
                 <div>
                     <ul className={'operationUl'}>
@@ -63,3 +111,17 @@ export default class Hover extends PureComponent{
         )
     }
 }
+
+function mapStateToProps(state) {
+    const {nocssStyle,hoverList} = state;
+    return {nocssStyle,hoverList}
+}
+
+function mapDispatchToProps() {
+    return{
+        addHoverList,
+        changeHoverStyle
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Hover);

@@ -1,24 +1,14 @@
 import React,{PureComponent} from 'react'
 import ColorPicker from "rc-color-picker";
-import store from '../../../../store'
 import {changeProp} from "../../../../common/units";
+import {connect} from "react-redux";
 
-export default class MyColor extends PureComponent{
+class MyColor extends PureComponent{
 
-    constructor(props){
-        super(props);
-        this.state = Object.assign({},store.getState());
-        store.subscribe(this.listener)
-    }
-
-    listener = ()=>{
-        let newState = store.getState();
-        this.setState(newState)
-    };
 
     render() {
-        const {stateName} = this.props;
-        const {color} = this.state[stateName];
+        const {stateName,nocssStyle,hoverStyle} = this.props;
+        const {color} = stateName==='nocssStyle' ? nocssStyle : hoverStyle;
 
         return(
                 <li className={'color'}>
@@ -35,3 +25,10 @@ export default class MyColor extends PureComponent{
         )
     }
 }
+
+function mapStateToProps(state) {
+    const {nocssStyle,hoverStyle} = state;
+    return {nocssStyle,hoverStyle}
+}
+
+export default connect(mapStateToProps)(MyColor)

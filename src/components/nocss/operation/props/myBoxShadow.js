@@ -1,26 +1,15 @@
 import React,{PureComponent} from 'react'
 import ColorPicker from "rc-color-picker";
-import store from '../../../../store'
 
 import {changeProp,colorRgba,addProp,deleteProp} from "../../../../common/units";
 import {Slider} from "antd";
+import {connect} from "react-redux";
 
-export default class MyBoxShadow extends PureComponent{
-
-    constructor(props){
-        super(props);
-        this.state = Object.assign({},store.getState());
-        store.subscribe(this.listener)
-    }
-
-    listener = ()=>{
-        let newState = store.getState();
-        this.setState(newState)
-    };
+class MyBoxShadow extends PureComponent{
 
     render() {
-        const {stateName} = this.props;
-        const {boxShadow} = this.state[stateName];
+        const {stateName,nocssStyle,hoverStyle} = this.props;
+        const {boxShadow} = stateName==='nocssStyle' ? nocssStyle : hoverStyle;
 
         return(
             <li className={'boxShadow multi'}>
@@ -64,3 +53,11 @@ export default class MyBoxShadow extends PureComponent{
         )
     }
 }
+
+function mapStateToProps(state) {
+    const {nocssStyle,hoverStyle} = state;
+    return {nocssStyle,hoverStyle}
+}
+
+export default connect(mapStateToProps)(MyBoxShadow)
+

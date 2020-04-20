@@ -1,6 +1,6 @@
-import React from 'react'
+import React,{PureComponent} from 'react'
 import {Modal,Select,Input,Tabs,message,Tooltip} from "antd";
-import store from '../../../../store'
+import {connect} from 'react-redux'
 import '../css/classesModal.less'
 import {cssPropKeys} from "../../../../data/cssTable";
 import {addClassList, updateClassList} from "../../../../store/action";
@@ -9,40 +9,24 @@ const {Option} = Select;
 const {TextArea} = Input;
 const { TabPane } = Tabs;
 
-class ClassesModal extends React.Component{
+class ClassesModal extends PureComponent{
 
-    constructor(props){
-        super(props);
-
-            this.state = Object.assign({},store.getState(),{
-                isClassNameError:false,
-                tag:'none',
-                className:'',
-                parentClass:'none',
-                relation:' ',
-                css:'',
-                hover:'',
-                isHover:false
-            });
-
-
-        store.subscribe(this.listener)
+    state = {
+        isClassNameError:false,
+        tag:'none',
+        className:'',
+        parentClass:'none',
+        relation:' ',
+        css:'',
+        hover:'',
+        isHover:false
     }
-
-
-    listener = () => {
-        let newState = store.getState();
-        this.setState(newState);
-    };
-
 
     componentWillReceiveProps(nextProps){
 
         // if (this.props.rightClassIndex !== nextProps.rightClassIndex){
             if (nextProps.rightClassIndex!==-1){
-                console.log(nextProps.classObj)
                 let obj = Object.assign({},nextProps.classObj);
-                console.log(obj)
                 let {tag,className,parentClass,relation} = obj;
                 this.setState({
                     tag,
@@ -51,8 +35,6 @@ class ClassesModal extends React.Component{
                     relation,
                     css:this.getCssContent(nextProps.classObj.viewStyle,false),
                     hover:this.getCssContent(nextProps.classObj.hoverViewStyle,false)
-                },()=>{
-                    console.log(this.state)
                 });
             } else {
                 this.setState({
@@ -81,32 +63,34 @@ class ClassesModal extends React.Component{
     }
 
     computedStyle = ()=>{
-            let css = this.state.css.split(/[:;]/g),
-                hover = this.state.hover.split(/[:;]/g);
-            let cssObj = {},
-                hoverObj = {};
-            for (let i=0;i<css.length;i+=2){
-                if (/^[0-9]/.test(css[i])){
-                    continue;
-                }
-                cssObj[css[i].trim()] = css[i+1]
+        const {css,hover,isHover} = this.state
+        let cssList = css.split(/[:;]/g);
+        let hoverList = hover.split(/[:;]/g);
+        let cssObj = {},
+            hoverObj = {};
+        for (let i=0;i<cssList.length;i+=2){
+            if (/^[0-9]/.test(cssList[i])){
+                continue;
             }
-            for (let i=0;i<hover.length;i+=2){
-                if (/^[0-9]/.test(hover[i])){
-                    continue;
-                }
-                hoverObj[hover[i].trim()] = hover[i+1]
+            cssObj[cssList[i].trim()] = cssList[i+1]
+        }
+        for (let i=0;i<hoverList.length;i+=2){
+            if (/^[0-9]/.test(hoverList[i])){
+                continue;
             }
-            if (this.state.isHover){
-                return Object.assign(cssObj,hoverObj);
-            } else {
-                return cssObj;
-            }
+            hoverObj[hoverList[i].trim()] = hoverList[i+1]
+        }
+        if (isHover){
+            return Object.assign(cssObj,hoverObj);
+        } else {
+            return cssObj;
+        }
 
     };
 
     ok = ()=>{
         let {className,tag,parentClass,relation,css,hover} = this.state;
+        const {classObj,updateClassList,addClassList,cancel} = this.props;
         let cssArr = css.split(/[:;]/g),
             hoverArr = hover.split(/[:;]/g);
         let viewStyle = {},
@@ -131,7 +115,7 @@ class ClassesModal extends React.Component{
                 hoverTrueStyle[hoverArr[i]] = hoverArr[i+1].replace(/\d+px/g,i=>parseInt(i)/14*0.6+'rem');
             }
         }
-        if (this.props.classObj){
+        if (classObj){
             updateClassList({
                 className,
                 tag,
@@ -155,7 +139,7 @@ class ClassesModal extends React.Component{
             });
         }
 
-        this.props.cancel();
+        cancel();
 
         this.setState({
             isClassNameError:false,
@@ -171,6 +155,7 @@ class ClassesModal extends React.Component{
     };
 
     cancel = ()=>{
+        const {cancel} = this.props;
         this.setState({
             isClassNameError:false,
             tag:'none',
@@ -181,7 +166,7 @@ class ClassesModal extends React.Component{
             hover:'',
             isHover:false
         });
-        this.props.cancel()
+        cancel()
     };
 
     getCssContent = (val,isTab)=>{
@@ -193,12 +178,14 @@ class ClassesModal extends React.Component{
     };
 
     render() {
+        const {classObj,showClassesModal,classList} = this.props;
+        const {isClassNameError,tag,className,parentClass,relation,css,hover} = this.state;
         return (
-            <Modal title={this.props.classObj?this.props.classObj.className:'新建样式类'} width={1200}
+            <Modal title={classObj?classObj.className:'新建样式类'} width={1200}
                    className={'classesModal modals'}
-                   visible={this.props.showClassesModal}
+                   visible={showClassesModal}
                    cancelText={'关闭'}
-                   okText={this.props.classObj?'确认':'添加'}
+                   okText={classObj?'确认':'添加'}
                    onOk={this.ok}
                    onCancel={this.cancel}
             >
@@ -209,14 +196,14 @@ class ClassesModal extends React.Component{
                             <span>标签与类名</span>
                             <div>
                                 <Input placeholder={'类名'}
-                                       className={this.state.isClassNameError?'error':''}
+                                       className={isClassNameError?'error':''}
                                        addonBefore={
-                                           <Select value={this.state.tag} style={{width:100}} onChange={e=>this.setState({tag:e})}>
+                                           <Select value={tag} style={{width:100}} onChange={e=>this.setState({tag:e})}>
                                                <Option value="none">不指定</Option>
                                                {cssPropKeys.map((item)=><Option value={item}>{item}</Option>)}
                                            </Select>
                                        }
-                                       value={this.state.className}
+                                       value={className}
                                        onChange={(e)=>this.setState({className:e.target.value})}
                                        onFocus={()=>this.setState({isClassNameError:false})}
                                        onBlur={(e)=>this.checkClassName(e)}
@@ -227,30 +214,30 @@ class ClassesModal extends React.Component{
                             <span>所属范围</span>
                             <div>
                                 <Tooltip title={
-                                    this.state.parentClass !== 'none' ? Object.entries( this.state.classList[this.state.classList.findIndex((item)=>item.className===this.state.parentClass)].viewStyle).map((i)=>{
+                                    parentClass !== 'none' ? Object.entries( classList[classList.findIndex((item)=>item.className===parentClass)].viewStyle).map((i)=>{
                                         return `${i[0].replace(/[A-Z]/g,w=>'-'+w.toLowerCase())}: ${i[1]};\n`
                                     }):''
                                 }
                                          overlayStyle={{whiteSpace:'pre-wrap',fontFamily:'codeSaver, monospace',fontSize:'13px'}}
                                          placement={'rightTop'}
                                 >
-                                    <Select value={this.state.parentClass} style={{width:150}} onChange={(e)=>this.setState({parentClass:e})}>
+                                    <Select value={parentClass} style={{width:150}} onChange={(e)=>this.setState({parentClass:e})}>
                                         <Option value="none">全局</Option>
                                         {
-                                            this.state.classList.map(item=><Option value={item.className}>{item.className}</Option>)
+                                            classList.map(item=><Option value={item.className}>{item.className}</Option>)
                                         }
                                     </Select>
                                 </Tooltip>
                             </div>
                         </div>
-                        {this.state.parentClass === 'none'
+                        {parentClass === 'none'
                             ?
                             null
                             :
                             <div className={'modal_item'}>
                                 <span>从属关系</span>
                                 <div>
-                                    <Select value={this.state.relation} style={{width:150}} onChange={(e)=>this.setState({relation:e})}>
+                                    <Select value={relation} style={{width:150}} onChange={(e)=>this.setState({relation:e})}>
                                         <Option value=" ">后代<span style={{marginLeft:'10px'}}> (空格)</span></Option>
                                         <Option value=">">子元素<span style={{marginLeft:'10px'}}>></span></Option>
                                         <Option value="+">相邻兄弟<span style={{marginLeft:'10px'}}>+</span></Option>
@@ -266,13 +253,13 @@ class ClassesModal extends React.Component{
                                 <Tabs tabPosition={'left'} type={'card'}>
                                     <TabPane tab={'css'} key={'standard'}>
                                         <textarea className={'code_wp'}
-                                                  value={this.state.css.replace(/;(?<!;$)/g,';\n')}
+                                                  value={css.replace(/;(?<!;$)/g,';\n')}
                                                   onChange={e=>this.setState({css:e.target.value.replace(/[\n\t]/g,'')})}>
                                         </textarea>
                                     </TabPane>
                                     <TabPane tab={'hover'} key={'hover'}>
                                         <textarea className={'code_wp'}
-                                                  value={this.state.hover.replace(/;(?<!;$)/g,';')}
+                                                  value={hover.replace(/;(?<!;$)/g,';')}
                                                   onChange={e=>this.setState({hover:e.target.value.replace(/[\n\t]/g,'')})}>
                                         </textarea>
                                     </TabPane>
@@ -286,10 +273,10 @@ class ClassesModal extends React.Component{
                         </div>
                         <div className={'codebox'}>
                             {
-                                `${this.state.parentClass === 'none' ? '' : '.' + this.state.parentClass + ' ' + this.state.relation + ' '}${this.state.tag === 'none' ? '' : this.state.tag}${this.state.className === '' ? '' : '.'}${this.state.className}{\n\t${this.state.css.replace(/;(?<!;$)/g, ';\n\t')}\n}\n` +
-                                `${this.state.hover === ''
+                                `${parentClass === 'none' ? '' : '.' + parentClass + ' ' + relation + ' '}${tag === 'none' ? '' : tag}${className === '' ? '' : '.'}${className}{\n\t${css.replace(/;(?<!;$)/g, ';\n\t')}\n}\n` +
+                                `${hover === ''
                                     ? ''
-                                    : `${this.state.parentClass === 'none' ? '' : '.' + this.state.parentClass + ' ' + this.state.relation + ' '}${this.state.tag === 'none' ? '' : this.state.tag}${this.state.className === '' ? '' : '.'}${this.state.className}:hover{\n\t${this.state.hover.replace(/;(?<!;$)/g, ';\n\t')}\n}`}`
+                                    : `${parentClass === 'none' ? '' : '.' + parentClass + ' ' + relation + ' '}${tag === 'none' ? '' : tag}${className === '' ? '' : '.'}${className}:hover{\n\t${hover.replace(/;(?<!;$)/g, ';\n\t')}\n}`}`
                             }
                         </div>
                     </div>
@@ -300,4 +287,16 @@ class ClassesModal extends React.Component{
 
 }
 
-export default ClassesModal
+function mapStateToProps(state) {
+    const {classList} = state;
+    return {classList}
+}
+
+function mapDispatchToProps() {
+    return {
+        addClassList,
+        updateClassList
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(ClassesModal)

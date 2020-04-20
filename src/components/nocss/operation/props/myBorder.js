@@ -1,36 +1,40 @@
 import React,{PureComponent} from 'react'
 import ColorPicker from "rc-color-picker";
-import store from '../../../../store'
+import {connect} from 'react-redux'
 import {changeProp,colorRgba} from "../../../../common/units";
 import {Select, Slider} from "antd";
 const {Option} = Select;
 
-export default class MyBorder extends PureComponent{
+class MyBorder extends PureComponent{
 
-    constructor(props){
-        super(props);
-        this.state = Object.assign({},store.getState());
-        store.subscribe(this.listener)
-    }
+    changeBorderWidth = (e)=>{
+        const {stateName} = this.props;
+        changeProp(stateName,'border',e+'px',0);
+    };
 
-    listener = ()=>{
-        let newState = store.getState();
-        this.setState(newState)
+    changeBorderStyle = (e)=>{
+        const {stateName} = this.props;
+        changeProp(stateName,'border',e,1);
+    };
+
+    changeBorderColor = (color)=>{
+        const {stateName} = this.props;
+        changeProp(stateName,'border',colorRgba(color.color,color.alpha),2);
     };
 
     render() {
-        const {stateName} = this.props;
-        const {border} = this.state[stateName];
+        const {stateName,nocssStyle,hoverStyle} = this.props;
+        const {border} = stateName==='nocssStyle' ? nocssStyle : hoverStyle;
 
         return(
             <li className={'border'}>
                 <span className={'operateTitle'}><i className={'iconfont iconnocssborder'}/>边框</span>
                 <div className={'content'}>
                     <div className={'items'}>
-                        <Slider style={{width:100}} min={0} max={20} onChange={(e)=>changeProp(stateName,'border',e+'px',0)} value={parseInt(border.split(' ')[0])}/><span className={'unit'}>{border.split(' ')[0]}</span>
+                        <Slider style={{width:100}} min={0} max={20} onChange={this.changeBorderWidth} value={parseInt(border.split(' ')[0])}/><span className={'unit'}>{border.split(' ')[0]}</span>
                     </div>
                     <div className={'items flexStart'}>
-                        <Select style={{width:150}} defaultValue={border.split(' ')[1]} onChange={(e)=>changeProp(stateName,'border',e,1)}>
+                        <Select style={{width:150}} defaultValue={border.split(' ')[1]} onChange={this.changeBorderStyle}>
                             <Option className={'OptionItem'} value={'solid'}><i className={'iconfont iconsolid'}/>实线<span>solid</span></Option>
                             <Option className={'OptionItem'} value={'dashed'}><i className={'iconfont icondashed'}/>虚线<span>dashed</span></Option>
                             <Option className={'OptionItem'} value={'dotted'}><i className={'iconfont icondotted'}/>点状<span>dotted</span></Option>
@@ -42,7 +46,7 @@ export default class MyBorder extends PureComponent{
                         </Select>
                     </div>
                     <div className={'items'}>
-                        <ColorPicker onChange={(e)=>{changeProp(stateName,'border',colorRgba(e.color,e.alpha),2)}} defaultColor={border.split(' ')[2]} defaultAlpha={new RegExp('(?<=\\()\\S+(?=\\))','g').exec(border.split(' ')[2])?Number(new RegExp('(?<=\\()\\S+(?=\\))','g').exec(border.split(' ')[2])[0].split(',')[3])*100:100}>
+                        <ColorPicker onChange={this.changeBorderColor} defaultColor={border.split(' ')[2]} defaultAlpha={new RegExp('(?<=\\()\\S+(?=\\))','g').exec(border.split(' ')[2])?Number(new RegExp('(?<=\\()\\S+(?=\\))','g').exec(border.split(' ')[2])[0].split(',')[3])*100:100}>
                             <div className={'colorpicker'}>
                                 <span className={'currentColor'} style={{backgroundColor:border.split(' ')[2]}}/>
                                 <span className={'currentColorText'}>{border.split(' ')[2]}</span>
@@ -54,3 +58,10 @@ export default class MyBorder extends PureComponent{
         )
     }
 }
+
+function mapStateToProps(state) {
+    const {nocssStyle,hoverStyle} = state;
+    return {nocssStyle,hoverStyle}
+}
+
+export default connect(mapStateToProps)(MyBorder)
