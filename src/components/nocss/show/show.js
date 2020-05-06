@@ -1,5 +1,4 @@
 import React,{PureComponent} from 'react'
-import store from '../../../store'
 
 import './show.less'
 import {connect} from "react-redux";
@@ -8,20 +7,14 @@ class Show extends PureComponent{
 
     constructor(props){
         super(props);
-        this.state = Object.assign({},store.getState(),{
-            showText:'文本',
+        this.state = Object.assign({},{
+            showText:'欢迎就这样吧有缘再见8莅临观赏',
             isHover:false,
-            computedHoverStyle:Object.entries(Object.assign({},store.getState().hoverStyle)).map(item=>{
+            computedHoverStyle:Object.entries(Object.assign({},props.hoverStyle)).map(item=>{
                 item[1] = item[1].value
             })
         });
-        store.subscribe(this.listener);
     }
-
-    listener = ()=>{
-        let newState = store.getState();
-        this.setState(newState)
-    };
 
     computedStyle = ()=>{
         const {nocssStyle, customerCssStyle, hoverStyle, customerHoverStyle} = this.props

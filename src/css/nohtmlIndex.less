@@ -1,3 +1,7 @@
+.porjectContent{
+  padding: 0 24px;
+  height: 100%;
+}
 .new{
   width: 100%;
   font-size: 16px;
@@ -98,7 +102,12 @@
         }
         &.iconadd{
           &:hover{
-            color: #3adb71;
+            color: #3f94ff;
+          }
+        }
+        &.iconreload{
+          &:hover{
+            color: #07eb2c;
           }
         }
       }
@@ -107,6 +116,8 @@
 
     & img{
       width: 40px;
+      height:40px;
+      object-fit: cover;
       border: solid 1px #e8e8e8;
       border-radius: 100%;
       margin-left: -8px;
@@ -115,4 +126,29 @@
 
 
 }
+
+.blank{
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &>div{
+    text-align: center;
+  }
+  &>img{
+    width: 120px;
+    user-select: none;
+  }
+  .iconoffline{
+    font-size: 60px;
+  }
+  .warn{
+    margin-top: 15px;
+    font-size: 16px;
+    &>div{
+      margin: 5px;
+    }
+  }
+}
+
 

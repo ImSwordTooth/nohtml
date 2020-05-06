@@ -120,8 +120,15 @@
   }
 
   .loginInfo{           //用户信息
+    position: relative;
     display: flex;
     align-items: center;
+    &:hover{
+      .logout{
+        display: block;
+
+      }
+    }
     .loginLink{
       margin-left: 10px;
       color: #3d85d2;
@@ -132,6 +139,29 @@
       border-radius: 100%;
       border: solid 1px #e8e8e8;
       object-fit: contain;
+    }
+    .logout{
+      position: absolute;
+      left: 100%;
+      top: 0;
+      width: 15px;
+      height: 15px;
+      text-align: center;
+      line-height: 15px;
+      color: #d45555;
+      background-color: transparent;
+      border-radius: 100%;
+      font-size: 12px;
+      display: none;
+      transition:color .3s,background-color .5s;
+      cursor: pointer;
+      &:hover{
+        background-color: red;
+        color: #fff;
+      }
+      .delete{
+        font-size: 14px;
+      }
     }
   }
 

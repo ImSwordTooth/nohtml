@@ -20,9 +20,11 @@ class App extends React.Component{
 
     componentWillMount () {
         if (sessionStorage.getItem('haveLogin') === 'true'){            //用户已经登录过了，刷新的时候重新获取用户状态
+
             const {changeLoginStatus,changeUser} = this.props
+            changeLoginStatus(2);
             http.get('/getUserInfo').then(res=>{
-                changeLoginStatus(2);
+                console.log(res)
                 let {avatar,userId,userName} = res.data.data;
                 changeUser({
                     avatar,
@@ -46,10 +48,13 @@ class App extends React.Component{
                 </Link>
             );
             case 2:return(                          //用户已登录，则显示用户信息和个人页面的入口，TODO 以及退出登录的按钮，退出时记得把sessionStorage里的haveLogin置为false
-                <Link to={'/userInfo'} className={'loginInfo'}>
+                <div className={'loginInfo'}>
                     <img src={user.avatar} alt={user.userName} className={'loginAvatar'}/>
                     <span className={'loginLink'}>{user.userName}</span>
-                </Link>
+                    <div className={'logout'} onClick={this.logout}>
+                        <i className={'iconfont icondelete delete'}/>
+                    </div>
+                </div>
             );
             default:return <></>
         }
@@ -57,6 +62,13 @@ class App extends React.Component{
 
     goToGithub = ()=>{
         window.open('https://github.com/ImSwordTooth/nohtml')
+    }
+
+    logout = ()=>{
+        const {loginStatus,changeLoginStatus} = this.props
+        http.get('logout').then(res=>{
+            changeLoginStatus(0)
+        })
     }
 
 

@@ -53,6 +53,48 @@
         color: #a8a6ac;
       }
     }
+    .avatar_wp{
+      position: absolute;
+      right: -43px;
+      top: -50px;
+      border: 1px solid rgb(207, 207, 207);
+      border-radius: 100%;
+      width: 100px;
+      height: 100px;
+      background: #ffffff;
+      z-index: 2;
+      box-shadow: 0 0 13px 4px #e4e4e459;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      &:hover{
+        border: dashed 2px #ccc;
+        background-color: #efefef;
+        transition: background-color 1s;
+        &>img{
+          border: none;
+        }
+      }
+      &>i{
+        font-size: 50px;
+      }
+      &>img{
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 100%;
+        border: 1px solid #cfcfcf
+      }
+    }
+    .tips{
+      font-size: 14px;
+      color: #969696;
+      .iconwarn{
+        font-size: 18px;
+        color: #3e3e3e;
+      }
+    }
     .ant-input-affix-wrapper .ant-input:not(:first-child) {
       padding-left: 40px;
     }
