@@ -33,7 +33,7 @@ class Show extends PureComponent{
     };
 
     changeSelfText = (e)=>{
-        const text = e.target.value || '文本';
+        const text = e.target.value || '欢迎就这样吧有缘再见8莅临观赏';
         this.setState({
             showText:text
         })
