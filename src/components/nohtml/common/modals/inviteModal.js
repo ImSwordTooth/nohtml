@@ -69,7 +69,7 @@ class InviteModal extends PureComponent{
         const {fileName,showInviteModal} = this.props
         const {okText,searchText,userInfo} = this.state
         return (
-            <Modal title={`新增用户到${fileName}`} width={1000}
+            <Modal title={'加入项目'} width={1000}
                    className={'inviteModal modals'}
                    visible={showInviteModal}
                    cancelText={'取消'}
@@ -77,25 +77,19 @@ class InviteModal extends PureComponent{
                    // okButtonProps={{disabled:this.state.isInvite}}
                    onOk={this.ok}
                    onCancel={this.cancel}>
-                <Search
-                    placeholder="输入用户名称"
-                    value={searchText}
-                    onChange={e=>this.setState({searchText:e.target.value})}
-                    onSearch={value => this.searchUser(value)}
-                    style={{ width: 200 }}
-                />
-                <hr/>
                 <div>
-                    {
-                        JSON.stringify(userInfo) === '{}'
-                            ?<div className={'empty'}>输入用户名来邀请用户到项目</div>
-                            :<div className={'userInfo'}>
-                                <div>
-                                    <img src={userInfo.avatar} alt={userInfo.userId}/>
-                                </div>
-                                <p>{userInfo.userName}</p>
-                            </div>
-                    }
+                    <div className={'empty'}>输入邀请码来加入到项目</div>
+                    <input type="text"/>
+                    {/*{*/}
+                    {/*    JSON.stringify(userInfo) === '{}'*/}
+                    {/*        ?<div className={'empty'}>输入邀请码来加入到项目</div>*/}
+                    {/*        :<div className={'userInfo'}>*/}
+                    {/*            <div>*/}
+                    {/*                <img src={userInfo.avatar} alt={userInfo.userId}/>*/}
+                    {/*            </div>*/}
+                    {/*            <p>{userInfo.userName}</p>*/}
+                    {/*        </div>*/}
+                    {/*}*/}
                 </div>
             </Modal>
         )

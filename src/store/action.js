@@ -12,6 +12,7 @@ export function changeTagList(tagList) {
 //添加元素
 export function addTag(dom,type=1) {
     store.dispatch({type:'add_tag',dom});
+    console.log(type)
     if (store.getState().loginStatus === 2 && type === 1){
         webSocketLinkServe({
             type:0,         //0 客户端， 1 服务器端
@@ -146,12 +147,15 @@ export function deleteAllCustomerHoverStyle() {
 }
 
 export function addHoverList(comp) {
-    console.log('拉诶')
     store.dispatch({type:'add_hoverList',comp})
 }
 
 export function deleteHoverList(propName) {
     store.dispatch({type:'delete_hoverList',propName})
+}
+
+export function changeClassList(classList) {
+    store.dispatch({type:'change_classlist',classList})
 }
 
 export function addClassList(classInfo,type=1){
@@ -194,8 +198,16 @@ export function updateSetting(setting,type=1) {
     }
 }
 
+export function changeAllSetting(setting) {
+    store.dispatch({type:'change_allSetting',setting});
+}
+
 export function addKeyFrames(keyframe) {
     store.dispatch({type:'add_keyFrames',keyframe})
+}
+
+export function changeAllKeyFrames(keyframesList) {
+    store.dispatch({type:'change_allKeyFrames',keyframesList})
 }
 
 export function changeLoginStatus(status) {

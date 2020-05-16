@@ -12,7 +12,7 @@
   color: #ffffff;
   letter-spacing: 10px;
   cursor: pointer;
-  outline: 1px solid;
+  outline: 1px solid !important;
   &:hover{
     animation: new ease-in .3s;
     box-shadow: 0 0 1px 2px #f2f2f2;
@@ -49,6 +49,12 @@
     align-items: center;
     i{
       margin: 3px 5px 0 0;
+    }
+  }
+  .searchInput{
+    input{
+      border-color: #007fe4 !important;
+      box-shadow: 0 0 0 2px rgba(0, 127, 228, 0.22);
     }
   }
 }
@@ -95,7 +101,8 @@
             color: #ffc83c;
           }
         }
-        &.icongarbage{
+        &.icongarbage,
+        &.iconexit{
           &:hover{
             color: red;
           }

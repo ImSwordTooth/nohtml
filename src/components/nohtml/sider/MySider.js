@@ -583,7 +583,7 @@ class MySider extends PureComponent{
                       onMouseLeave={()=>{changeHoveredTag('')}}
                       onRightClick={(e)=>this.treeNodeonRightClick(e)}>
                     <TreeNode icon={<i className={'iconfont icondiv'}/>} title='总容器' key="0">
-                        {tagList.children.map(val=>this.createNodes(val))}
+                        {tagList.children ? tagList.children.map(val=>this.createNodes(val)) : null}
                     </TreeNode>
                 </Tree>
                 {this.getNodeTreeRightClickMenu()}

@@ -65,9 +65,11 @@ class App extends React.Component{
     }
 
     logout = ()=>{
-        const {loginStatus,changeLoginStatus} = this.props
+        const {loginStatus,changeLoginStatus,changeUser} = this.props
         http.get('logout').then(res=>{
             changeLoginStatus(0)
+            sessionStorage.setItem('haveLogin','false')
+            changeUser({})
         })
     }
 
@@ -133,7 +135,7 @@ class App extends React.Component{
                         <Route exact path={`/nohtml`}>
                             <NohtmlIndex/>
                         </Route>
-                        <Route exact path={`/nohtml/detail/:id`}>
+                        <Route exact path={`/nohtml/detail`}>
                             <Nohtml/>
                         </Route>
                         <Route exact path={`/nocss`}>

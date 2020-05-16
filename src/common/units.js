@@ -1,4 +1,10 @@
-import {changeHoverStyle, changeNocssStyle} from "../store/action";
+import {
+    changeAllKeyFrames,
+    changeAllSetting,
+    changeClassList,
+    changeHoverStyle,
+    changeNocssStyle, changeTagList
+} from "../store/action";
 import store from '../store'
 
 /**
@@ -8,6 +14,8 @@ import store from '../store'
  * @param {Object} obj 寻找的目标范围，初始值通常是state中的tagList的浅拷贝
  * */
 export function getObjByKeyFromTagList(key,obj) {
+    console.log(key)
+    console.log(obj)
     if (obj.key === key){
         return obj;
     } else {
@@ -17,6 +25,21 @@ export function getObjByKeyFromTagList(key,obj) {
             }
         }
     }
+}
+
+export function loadFile(list) {
+    Object.entries(list).forEach(item=>{
+        switch (item[0]) {
+            case 'classList':changeClassList(item[1]);break;
+            case 'keyframesList':changeAllKeyFrames(item[1]);break;
+            case 'setting':changeAllSetting(item[1]);break;
+            case 'tagList':{
+                console.log(item)
+                changeTagList(item[1]);
+            }break;
+            default:break;
+        }
+    })
 }
 
 /**

@@ -104,7 +104,7 @@ ${space}</${type}>`
                     </div>}>
                     <TabPane tab="html" key="1">
                         <div className={'html'}>
-                            {tagList.children.map(val=>this.getHTMLContent(val,0))}
+                            {tagList.children ? tagList.children.map(val=>this.getHTMLContent(val,0)) : null}
                         </div>
                     </TabPane>
                     <TabPane tab="css" key="2">

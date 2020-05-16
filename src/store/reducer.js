@@ -229,6 +229,9 @@ function hoverList(state = defaultState.hoverList,action) {
 
 function classList(state = defaultState.classList,action) {
     switch (action.type) {
+        case 'change_classlist':{
+            return action.classList
+        }
         case 'add_classlist':{
             let list = state.slice();
             list.push(action.classInfo);
@@ -247,6 +250,9 @@ function classList(state = defaultState.classList,action) {
 
 function keyframesList(state = defaultState.keyframesList,action) {
     switch (action.type) {
+        case 'change_allKeyFrames':{
+            return action.keyframesList
+        }
         case 'add_keyFrames':{
             let list = state.slice();
             list.push(action.keyframe);
@@ -260,6 +266,9 @@ function keyframesList(state = defaultState.keyframesList,action) {
 
 function setting(state = defaultState.setting,action) {
     switch (action.type) {
+        case 'change_allSetting':{
+            return action.setting
+        }
         case 'update_setting':{
             let obj = Object.assign({},state);
             obj[action.setting.prop] = action.setting.value;

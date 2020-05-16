@@ -6,7 +6,8 @@ const http = {
     get:null
 };
 
-axios.defaults.headers['Content-Type']='multipart/form-data'
+axios.defaults.headers['Content-Type'] = 'multipart/form-data'
+axios.defaults.withCredentials = true
 
 http.get = function (url,data) {
     return new Promise((resolve,reject) => {

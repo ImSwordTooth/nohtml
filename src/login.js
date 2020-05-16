@@ -24,6 +24,8 @@ class Login extends React.Component{
         imgSrc:'',                  //头像
         loginWrong:false,           //是否登录失败
         isAutoLogin:false,          //是否自动登录
+        phoneCodeLoading:false,     //获取验证码的loading
+        codeText:'获取验证码'         //获取验证码的按钮文本
 
     }
 
@@ -114,21 +116,25 @@ class Login extends React.Component{
 
     register = ()=>{
         //QQ或者邮箱
-        const {username,password} = this.state
+        const {username,password,phoneNum,phoneCode,imgSrc} = this.state
         const {history} = this.props
-        http.authenticatePost('logon',{
+        http.authenticateGet('logon',{
             userName:username,
             password,
+            phoneNum,
+            mail:'',
+            role:1,
+            code:phoneCode,
+            avatar:imgSrc
         }).then(res=>{
             console.log(res)
             if (res.data.status === 200){
+                message.success('注册成功！')
                 this.login()
             }else {
                 this.setState({
                     loginLoading:false,
                     loginWrong:true,
-                    username:'',
-                    password:''
                 })
             }
         })
@@ -136,7 +142,44 @@ class Login extends React.Component{
     }
 
     phoneLogin = ()=>{
-
+        const {phoneNum,phoneCode} = this.state
+        const {history} = this.props
+        http.authenticateGet('loginByPhoneNum',{
+            phoneNum,
+            code:phoneCode
+        }).then(res=>{
+            if (res.data.status === 200){
+                http.get('login',{
+                    ticket:res.data.data
+                }).then(loginRes=>{
+                    this.setState({
+                        loginLoading:false
+                    });
+                    let {avatar,userId,userName} = loginRes.data.data;
+                    changeUser({avatar,userId,userName});            //记录用户信息
+                    changeLoginStatus(2);           //修改登录状态为“登录成功”
+                    message.success('登录成功！');               //用户反馈
+                    sessionStorage.setItem('haveLogin','true');             //sessionStorage里存储“已经登录过了”
+                    history.push('/')        //最后把页面定向到主页
+                })
+            } else {
+                message.error(res.data.msg);
+                this.setState({
+                    loginLoading:false,
+                    loginWrong:true,
+                    username:'',
+                    password:''
+                });
+            }
+        }).catch(()=>{
+            message.error('验证码错误');
+            this.setState({
+                loginLoading:false,
+                loginWrong:true,
+                username:'',
+                password:''
+            });
+        })
     }
 
     changeText = (e)=>{
@@ -198,9 +241,48 @@ class Login extends React.Component{
         }
     }
 
+    sendCode = ()=>{
+        const {formType,phoneNum,phoneCodeLoading} = this.state;
+        this.setState({
+            phoneCodeLoading:true
+        })
+        let type = '';
+        switch (formType) {
+            case 1:type = 'logon';break;
+            case 2:type = 'login';break;
+            case 3:type = 'changePassword';break;
+            default:break
+        }
+        if (phoneNum[0] === '1' && phoneNum.length === 11){
+            http.authenticateGet('getPhoneCode',{
+                phoneNum,
+                type
+            }).then(()=>{
+                let time = 60
+                this.setState({
+                    phoneCodeLoading:false
+                })
+                let a = setInterval(()=>{
+                    if (time > 0 ){
+                        this.setState({
+                            codeText:time-- +'秒后再试'
+                        })
+                    }else {
+                        clearInterval(a)
+                        this.setState({
+                            codeText:'获取验证码'
+                        })
+                    }
+                },1000)
+            })
+        }else {
+            message.warn('手机号格式不正确')
+        }
+    }
+
 
     formContent = ()=>{
-        const {formType,isLogin,loginWrong,password,username,phoneNum,phoneCode,isAutoLogin,loginLoading,imgSrc} = this.state;
+        const {formType,isLogin,loginWrong,password,username,phoneNum,phoneCode,isAutoLogin,loginLoading,imgSrc,codeText,phoneCodeLoading} = this.state;
         const Username = <Input className={'input_wp'}
                                 data-statename={'username'}
                                 size={'large'}
@@ -240,7 +322,7 @@ class Login extends React.Component{
                                        onChange={this.changeText}
                                        onFocus={this.cancelLoginWrong}
                                        onPressEnter={this.handlePressEnter}/>
-                                <Button size={'large'} style={{marginLeft:20}}>获取验证码</Button>
+                                <Button size={'large'} style={{marginLeft:20}} loading={phoneCodeLoading} onClick={this.sendCode} disabled={codeText !== '获取验证码'}>{codeText}</Button>
                           </div>;
 
 
@@ -299,7 +381,7 @@ class Login extends React.Component{
                     <>
                         {PhoneNum}
                         {PhoneCode}
-                        <Button type={'primary'} size={'large'} block loading={loginLoading} style={{marginTop:'10px'}} onClick={this.login}>登录</Button>
+                        <Button type={'primary'} size={'large'} block loading={loginLoading} style={{marginTop:'10px'}} onClick={this.phoneLogin}>登录</Button>
                         <div className={'spaceBetween'}>
                             <div className={'otherWay'}>
                                 其他登录方式：

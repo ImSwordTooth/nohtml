@@ -690,7 +690,7 @@ class myContent extends PureComponent{
         let className = '';
         let css = Object.assign({},node.trueStyle),
             hover = Object.assign({},node.hoverTrueStyle);
-        if (node.props.className){
+        if (node.props && node.props.className){
             className += node.props.className.join(' ');
             css = getComputedCss(node,'trueStyle');
             hover = getComputedCss(node,'hoverTrueStyle');
@@ -729,11 +729,13 @@ class myContent extends PureComponent{
         return (
             <div className={'container_wp'} id={'container_wp'}>
                 <div className={`container ${showDrawer?'operation_open':''}`} id={'0'}
-                     style={!setting.width.match(/vw$/g)
-                         ?Object.assign({},this.containerStyle(),{width:parseInt(setting.width)*.6+'px',height:parseInt(setting.height)*.6+'px'})
-                         :Object.assign({},this.containerStyle(),{width:'60vw',height:'60vh'})}
+                     style={setting.width
+                                ? !setting.width.match(/vw$/g)
+                                    ?Object.assign({},this.containerStyle(),{width:parseInt(setting.width)*.6+'px',height:parseInt(setting.height)*.6+'px'})
+                                    :Object.assign({},this.containerStyle(),{width:'60vw',height:'60vh'})
+                                :Object.assign({},this.containerStyle(),{width:'60vw',height:'60vh'})}
                      onMouseMove={(e)=>this.setHover(e)}>
-                    {tagList.children.map(val => this.createNodes(val))}
+                    {tagList.children ? tagList.children.map(val => this.createNodes(val)) : null}
                     {this.mask()}
                 </div>
                 <Drawer

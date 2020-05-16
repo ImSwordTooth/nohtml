@@ -8,7 +8,7 @@ class Show extends PureComponent{
     constructor(props){
         super(props);
         this.state = Object.assign({},{
-            showText:'欢迎就这样吧有缘再见8莅临观赏',
+            showText:'文本',
             isHover:false,
             computedHoverStyle:Object.entries(Object.assign({},props.hoverStyle)).map(item=>{
                 item[1] = item[1].value
@@ -33,7 +33,7 @@ class Show extends PureComponent{
     };
 
     changeSelfText = (e)=>{
-        const text = e.target.value || '欢迎就这样吧有缘再见8莅临观赏';
+        const text = e.target.value || '文本';
         this.setState({
             showText:text
         })

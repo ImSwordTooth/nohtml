@@ -9,10 +9,10 @@ export const defaultState = {
       userName:''       //name
     },
     setting:{           //关于用户制作的页面的整体设置
-        fileUrl:'',
-        fileName:'未命名Html',
-        width:'60vw',
-        height:'60vh'
+        // fileUrl:'',
+        // fileName:'未命名Html',
+        // width:'60vw',
+        // height:'60vh'
     },
     tagList:{           //dom树
         type:'div',
@@ -24,7 +24,7 @@ export const defaultState = {
         viewStyle:{},       //用于数据展示的样式
         hoverTrueStyle:{},      //hover时放在标签内的样式
         hoverViewStyle:{},      //hover时用于数据展示的样式
-        willCreateKey:3,
+        willCreateKey:0,
         props:{
             name:'test',
             className:['class1','class2']
@@ -247,6 +247,7 @@ export const defaultState = {
         }
     ],
     nocssStyle:{
+        //有初始值
         color:'#1082c9',
         backgroundColor:'rgba(219,219,219,0.3)',
         fontSize:'32px',
@@ -258,6 +259,19 @@ export const defaultState = {
         boxShadow:'0px 0px 4px 0px rgba(0,0,0,0.32)',
         textShadow:'0px 3px 3px rgba(70,117,214,0.5)',
         borderRadius:'0 0 0 0'
+
+        //无初始值
+        // color:'#000000',
+        // backgroundColor:'#ffffff',
+        // fontSize:'18px',
+        // fontWeight:'normal',
+        // fontStyle:'normal',
+        // textDecoration:'none',
+        // border:'0px solid #000000',
+        // padding:'0px 0px 0px 0px',
+        // boxShadow:'0px 0px 0px 0px rgba(0,0,0,1)',
+        // textShadow:'0px 0px 0px rgba(0,0,0,1)',
+        // borderRadius:'0 0 0 0'
     },
     hoverStyle:{
 

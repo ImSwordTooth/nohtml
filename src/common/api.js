@@ -14,10 +14,10 @@ export function UploadFile(file) {
 }
 
 function createWebSocket(url) {
-    window.ws = new WebSocket(`ws://www.swordtooth.cn/in/echo`);
+    window.ws = new WebSocket(`ws://in.swordtooth.cn/echo`);
     window.ws.onopen = function (evnt) {
+        console.log('连接成功')
         let value = {
-            userName:'',
             functionName:'addUser',
             filePath:store.getState().setting.fileUrl
         };
@@ -25,15 +25,21 @@ function createWebSocket(url) {
     };
 
     window.ws.onmessage = function (event) {
-        let {functionName,userName,args} = JSON.parse(event.data);
-        if (userName !== store.getState().user.userName){
-            import('../store/action').then(def=>{
-                let fn = def[functionName];
-                fn.apply(null,args);
-            })
-        }
-    };
+        console.log(event)
+        let data = JSON.parse(event.data)
+        if (data.data !== 'null'){
+            console.log('进来了')
+            let {functionName,userName,args} = data.data;
+            if (userName !== store.getState().user.userName){
+                import('../store/action').then(def=>{
 
+                    let fn = def[functionName];
+                    fn.apply(null,args);
+                })
+            }
+        }
+
+    };
     window.ws.onerror = function (evnt) {
     };
     window.ws.onclose = function (evnt) {
@@ -42,12 +48,14 @@ function createWebSocket(url) {
 
 
 export function webSocketLinkServe(functionInfo) {
+    console.log(window.ws)
     if (window.ws){
         window.ws.send(JSON.stringify(functionInfo));
+        console.log('发送')
     } else {
         new Promise(resolve=>{
             createWebSocket();
-            resolve();
+            // resolve();
         }).then(()=>{
             webSocketLinkServe(functionInfo);
         })
